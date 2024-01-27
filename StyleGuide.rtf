@@ -1,0 +1,584 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Medium;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 .AppleSystemUIFontMonospaced-Regular;
+}
+{\colortbl;\red255\green255\blue255;\red224\green232\blue240;\red12\green14\blue18;}
+{\*\expandedcolortbl;;\cssrgb\c90196\c92941\c95294;\cssrgb\c5098\c6667\c9020;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b\fs36 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Programming and C# Style Guide\
+Inspiration\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 This style guide is based on C# and Unity conventions.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs36 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Nomenclature\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 On the whole, naming should follow C# standards.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs30 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Namespaces\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Namespaces are all\'a0
+\f0\b PascalCase
+\f1\b0 , multiple words concatenated together, without hyphens ( - ) or underscores ( _ ). The exception to this rule are acronyms like GUI or HUD, which can be uppercase:\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID
+\f1\b0 :\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 whiskerpresident.puzzlegame.hud.completion\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER
+\f1\b0 :\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 WhiskerPresident.PuzzleGame.HUD.Completion\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs30 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Classes & Interfaces\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Classes and interfaces are written in\'a0
+\f0\b PascalCase
+\f1\b0 . For example\'a0
+\f2\fs27\fsmilli13600 RadialSlider
+\f1\fs32 .\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs30 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Methods\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Methods are written in\'a0
+\f0\b PascalCase
+\f1\b0 . For example\'a0
+\f2\fs27\fsmilli13600 DoSomething()
+\f1\fs32 .\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs30 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Fields\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 All non-static fields are written\'a0
+\f0\b camelCase
+\f1\b0 . Per Unity convention, this includes\'a0
+\f0\b public fields
+\f1\b0 \'a0as well.\
+For example:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 public class MyClass \
+\{\
+    public int publicField;\
+    int packagePrivate;\
+    private int myPrivate;\
+    protected int myProtected;\
+\}\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 private int _myPrivateVariable\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 private int myPrivateVariable\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\fs32 \cf2 \cb3 Static fields are the exception and should be written in\'a0
+\f0\b PascalCase
+\f1\b0 :\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 public static int TheAnswer = 42;\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs30 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Properties\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 All properties are written in\'a0
+\f0\b PascalCase
+\f1\b0 . For example:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 public int PageNumber \
+\{\
+    get \{ return pageNumber; \}\
+    set \{ pageNumber = value; \}\
+\}\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs30 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Parameters\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Parameters are written in\'a0
+\f0\b camelCase
+\f1\b0 .\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 void DoSomething(Vector3 Location)\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 void DoSomething(Vector3 location)\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\fs32 \cf2 \cb3 Single character values are to be avoided except for temporary looping variables.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs30 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Actions\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Actions are written in\'a0
+\f0\b PascalCase
+\f1\b0 . For example:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 public event Action<int> ValueChanged;\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs30 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Misc\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 In code, acronyms should be treated as words. For example:\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 XMLHTTPRequest\
+String URL\
+findPostByID\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 XmlHttpRequest\
+String url\
+findPostById\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs36 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Declarations\
+\pard\pardeftab720\partightenfactor0
+
+\fs30 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Access Level Modifiers\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Access level modifiers should be explicitly defined for classes, methods and member variables.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs30 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Fields & Variables\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Prefer single declaration per line.\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 string username, twitterHandle;\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 string username;\
+string twitterHandle;\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs30 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Classes\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Exactly one class per source file, although inner classes are encouraged where scoping appropriate.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs30 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Interfaces\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 All interfaces should be prefaced with the letter\'a0
+\f0\b I
+\f1\b0 .\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 RadialSlider\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 IRadialSlider\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs36 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Spacing\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Spacing is especially important in kodeco.com code, as code needs to be easily readable as part of the tutorial.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs30 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Indentation\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Indentation should be done using\'a0
+\f0\b spaces
+\f1\b0 \'a0\'97 never tabs.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Blocks\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0 \cf2 Indentation for blocks uses\'a0
+\f0\b 4 spaces
+\f1\b0 \'a0for optimal readability:\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 for (int i = 0; i < 10; i++) \
+\{\
+  Debug.Log("index=" + i);\
+\}\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 for (int i = 0; i < 10; i++) \
+\{\
+    Debug.Log("index=" + i);\
+\}\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs32 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Line Wraps\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0 \cf2 Indentation for line wraps should use\'a0
+\f0\b 4 spaces
+\f1\b0 \'a0(not the default 8):\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 CoolUiWidget widget =\
+        someIncrediblyLongExpression(that, reallyWouldNotFit, on, aSingle, line);\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 CoolUiWidget widget =\
+    someIncrediblyLongExpression(that, reallyWouldNotFit, on, aSingle, line);\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs30 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Line Length\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Lines should be no longer than\'a0
+\f0\b 100
+\f1\b0 \'a0characters long.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs30 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Vertical Spacing\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 There should be exactly one blank line between methods to aid in visual clarity and organization. Whitespace within methods should separate functionality, but having too many sections in a method often means you should refactor into several methods.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs36 \cf2 \cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Brace Style\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 All braces get their own line as it is a C# convention:\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 class MyClass \{\
+    void DoSomething() \{\
+        if (someTest) \{\
+          // ...\
+        \} else \{\
+          // ...\
+        \}\
+    \}\
+\}\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 class MyClass\
+\{\
+    void DoSomething()\
+    \{\
+        if (someTest)\
+        \{\
+          // ...\
+        \}\
+        else\
+        \{\
+          // ...\
+        \}\
+    \}\
+\}\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\fs32 \cf2 \cb3 Conditional statements are always required to be enclosed with braces, irrespective of the number of lines required.\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 if (someTest)\
+    doSomething();  \
+\
+if (someTest) doSomethingElse();\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 if (someTest) \
+\{\
+    DoSomething();\
+\}  \
+\
+if (someTest)\
+\{\
+    DoSomethingElse();\
+\}\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs36 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Switch Statements\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Switch-statements come with\'a0
+\f2\fs27\fsmilli13600 default
+\f1\fs32 \'a0case by default (heh). If the\'a0
+\f2\fs27\fsmilli13600 default
+\f1\fs32 \'a0case is never reached, be sure to remove it.\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 switch (variable) \
+\{\
+    case 1:\
+        break;\
+    case 2:\
+        break;\
+    default:\
+        break;\
+\}\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 switch (variable) \
+\{\
+    case 1:\
+        break;\
+    case 2:\
+        break;\
+\}\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\b\fs36 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 \cb3 Language\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b0\fs32 \cf2 Use US English spelling.\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f0\b \cf2 AVOID:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 string colour = "red";\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\b\fs32 \cf2 \cb3 PREFER:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs27\fsmilli13600 \cf2 \cb1 string color = "red";\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\fs32 \cf2 \cb3 The exception here is\'a0
+\f2\fs27\fsmilli13600 MonoBehaviour
+\f1\fs32 \'a0as that's what the class is actually called.\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs36 \cf2 \cb1 \
+}
