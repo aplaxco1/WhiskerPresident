@@ -24,3 +24,11 @@ jobs:
           path: "./Builds"
       - id: deployment
         uses: actions/deploy-pages@v1
+      # Upload to Itch
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: html5
+          ITCH_GAME: whisker-president-3c
+          ITCH_USER: scrubers
+          PACKAGE: ./Builds
