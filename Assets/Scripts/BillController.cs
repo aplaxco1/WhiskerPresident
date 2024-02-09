@@ -9,18 +9,26 @@ using Random = UnityEngine.Random;
 public class BillController : MonoBehaviour
 {
 
+    public GameObject foodSymbolPrefab;
+    public GameObject moneySymbolPrefab;
+    public GameObject boneSymbolPrefab;
+    public GameObject negatorSymbolPrefab;
+    public GameObject doublerSymbolPrefab;
+
     public enum SymbolType
     {
         Food,
         Money,
         Bone,
+        Negator,
+        Doubler,
     }
 
     public class StatVector
     {
         public int MoneyStat;
-        public int ReputationStat;
-        public int StealthStat;
+        public int FoodStat;
+        public int BoneStat;
     }
     
     public SymbolType[] symbols;
@@ -47,8 +55,24 @@ public class BillController : MonoBehaviour
     void Update()
     {
         
+        // ! Temporary pass/veto controls
+        if (Input.GetKeyDown("Y"))
+        {
+            PassBill();
+        }
+        if (Input.GetKeyDown("N"))
+        {
+            VetoBill();
+        }
     }
 
+    public void InitializeBill()
+    {
+        GenerateSymbolList();
+        GenerateSymbolPrefabs();
+    }
+
+    // Use partial random system to generate symbol list
     private void GenerateSymbolList()
     {
         int symbolsToGen = numSymbols;
@@ -63,36 +87,79 @@ public class BillController : MonoBehaviour
         }
     }
 
+    // Generate symbol prefabs onto the bill
     private void GenerateSymbolPrefabs()
     {
         foreach (SymbolType symbol in symbols)
         {
-            
+            switch (symbol)
+            {
+                case SymbolType.Bone:
+                    break;
+                case SymbolType.Food:
+                    break;
+                case SymbolType.Money:
+                    break;
+                case SymbolType.Negator:
+                    break;
+                case SymbolType.Doubler:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
+    // Will return the effects of the bill on stat bars
     private StatVector CalculateOutcome()
     {
         StatVector returnVector = new StatVector();
+        int multiplier = 1;
+        int scoreInterval = 5;
         foreach (SymbolType symbol in symbols)
         {
-            
+            switch (symbol)
+            {
+                case SymbolType.Bone:
+                    returnVector.BoneStat += scoreInterval * multiplier;
+                    multiplier = 1;
+                    break;
+                case SymbolType.Food:
+                    returnVector.FoodStat += scoreInterval * multiplier;
+                    multiplier = 1;
+                    break;
+                case SymbolType.Money:
+                    returnVector.MoneyStat += scoreInterval * multiplier;
+                    multiplier = 1;
+                    break;
+                case SymbolType.Negator:
+                    multiplier *= -1;
+                    break;
+                case SymbolType.Doubler:
+                    multiplier *= 2;
+                    break;
+                default:
+                    break;
+            }
         }
 
         return returnVector;
     }
 
+    // Bill approved, add stat vector to total stats
     public void PassBill()
     {
         StatVector returnedStatVector = CalculateOutcome();
         Unitialize();
     }
 
+    // Bill is denied, does not effect stats
     public void VetoBill()
     {
         Unitialize();
     }
 
+    // Remove the bill from the game
     private void Unitialize()
     {
         
