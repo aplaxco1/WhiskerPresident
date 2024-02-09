@@ -38,23 +38,28 @@ public class BillController : MonoBehaviour
     
     //Random factor, numSymbols +/- rand(symbolDistribution) will be generated
     public int numSymbolDistribution;
+
+    public int symbolsPerLine;
+    public float symbolHorizontalDist;
+    public float symbolVerticalDist;
+
+    private Transform symbolParent;
     
     
     void Awake()
     {
-        
+        symbolParent = transform.Find("SymbolParent");
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        InitializeBill();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         // ! Temporary pass/veto controls
         if (Input.GetKeyDown("Y"))
         {
@@ -90,23 +95,48 @@ public class BillController : MonoBehaviour
     // Generate symbol prefabs onto the bill
     private void GenerateSymbolPrefabs()
     {
+        int symbolCount = 0;
+        float xCoord = 0;
+        float yCoord = 0;
+        float zCoord = -1;
         foreach (SymbolType symbol in symbols)
         {
+            GameObject symbolToInstantiate;
             switch (symbol)
             {
                 case SymbolType.Bone:
+                    symbolToInstantiate = boneSymbolPrefab;
                     break;
                 case SymbolType.Food:
+                    symbolToInstantiate = foodSymbolPrefab;
                     break;
                 case SymbolType.Money:
+                    symbolToInstantiate = moneySymbolPrefab;
                     break;
                 case SymbolType.Negator:
+                    symbolToInstantiate = negatorSymbolPrefab;
                     break;
                 case SymbolType.Doubler:
+                    symbolToInstantiate = doublerSymbolPrefab;
                     break;
                 default:
+                    symbolToInstantiate = new GameObject();
                     break;
             }
+            symbolCount++;
+            
+            // Start instantiating from the left again and move to new line
+            if (symbolCount >= symbolsPerLine)
+            {
+                symbolCount = 0;
+                yCoord -= symbolVerticalDist;
+                xCoord = 0;
+            }
+            xCoord += symbolHorizontalDist;
+            Vector3 pos = new Vector3(xCoord, yCoord, zCoord);
+            Quaternion rot = Quaternion.Euler(Vector3.zero);
+            
+            Instantiate(symbolToInstantiate, pos, rot, symbolParent);
         }
     }
 
@@ -151,12 +181,14 @@ public class BillController : MonoBehaviour
     {
         StatVector returnedStatVector = CalculateOutcome();
         Unitialize();
+        print("BILL PASSED WITH STATS: " + returnedStatVector);
     }
 
     // Bill is denied, does not effect stats
     public void VetoBill()
     {
         Unitialize();
+        print("BILL VETOED");
     }
 
     // Remove the bill from the game
