@@ -653,6 +653,9 @@ MonoBehaviour:
     Upon
     pressing Y/N, the result will be printed.
 
+    Adjust various serialized parameters
+    in BillPrefab -> BillController
+
 
 '
   m_isRightToLeft: 0
