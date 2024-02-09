@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23386733504859837}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
@@ -97,17 +97,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46496acf2f14aa94eaa81d3aa98ae23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodSymbolPrefab: {fileID: 0}
-  moneySymbolPrefab: {fileID: 0}
-  boneSymbolPrefab: {fileID: 0}
-  negatorSymbolPrefab: {fileID: 0}
-  doublerSymbolPrefab: {fileID: 0}
+  foodSymbolPrefab: {fileID: 4690025481383032801, guid: 32d75a471738dda46b3b31679d02d1d6, type: 3}
+  moneySymbolPrefab: {fileID: 3045581801333019849, guid: 0c2d0ed2eb621324bba91c40b0a4e29d, type: 3}
+  boneSymbolPrefab: {fileID: 6458324167307400363, guid: b3403a7c513a32f41b7ef94932168641, type: 3}
+  negatorSymbolPrefab: {fileID: 1410196989226856403, guid: 58f314df67f0997428bbebf1bac31c80, type: 3}
+  doublerSymbolPrefab: {fileID: 6667765636587843044, guid: 9eecd8e147e462f4995510a884eba642, type: 3}
   symbols: 
-  numSymbols: 0
-  numSymbolDistribution: 0
-  symbolsPerLine: 0
-  symbolHorizontalDist: 0
-  symbolVerticalDist: 0
+  numSymbols: 6
+  numSymbolDistribution: 1
+  symbolsPerLine: 3
+  symbolHorizontalDist: 2
+  symbolVerticalDist: 2
 --- !u!1 &8979582132783361020
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -26,12 +27,21 @@ public class BillController : MonoBehaviour
 
     public class StatVector
     {
-        public int MoneyStat;
         public int FoodStat;
+        public int MoneyStat;
         public int BoneStat;
+
+        public string StringConversion()
+        {
+            string ret = "";
+            ret += "Red Stat (Food): " + FoodStat + "\n";
+            ret += "Green Stat (Money): " + MoneyStat + "\n";
+            ret += "Blue Stat (Bone): " + BoneStat + "\n";
+            return ret;
+        }
     }
     
-    public SymbolType[] symbols;
+    private List<SymbolType> symbols;
     
     //How many symbols should be generated
     public int numSymbols;
@@ -42,6 +52,11 @@ public class BillController : MonoBehaviour
     public int symbolsPerLine;
     public float symbolHorizontalDist;
     public float symbolVerticalDist;
+
+    private const float initialSymbolXCoord = -3;
+    private const float initialSymbolYCoord = 2;
+    private const float initialSymbolZCoord = 0;
+    
 
     private Transform symbolParent;
     
@@ -55,24 +70,30 @@ public class BillController : MonoBehaviour
     void Start()
     {
         InitializeBill();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         // ! Temporary pass/veto controls
-        if (Input.GetKeyDown("Y"))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             PassBill();
         }
-        if (Input.GetKeyDown("N"))
+        if (Input.GetKeyDown(KeyCode.N))
         {
             VetoBill();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reinitialize();
         }
     }
 
     public void InitializeBill()
     {
+        symbols = new List<SymbolType>();
         GenerateSymbolList();
         GenerateSymbolPrefabs();
     }
@@ -81,24 +102,27 @@ public class BillController : MonoBehaviour
     private void GenerateSymbolList()
     {
         int symbolsToGen = numSymbols;
-        symbolsToGen += Random.Range(-numSymbolDistribution, numSymbolDistribution + 1);
+        symbolsToGen += Random.Range(-(numSymbolDistribution + 1), numSymbolDistribution);
+        //print("symbolsToGen: " + symbolsToGen);
         
         //All symbol types as array
         SymbolType[] symbolTypes = Enum.GetValues(typeof(SymbolType)).Cast<SymbolType>().ToArray();
         for (int i = 0; i <= symbolsToGen; i++)
         {
             SymbolType randomSymbol = symbolTypes[Random.Range(0, symbolTypes.Length)];
-            symbols.Append(randomSymbol);
+            //print("randomSymbol: " + randomSymbol);
+            symbols.Add(randomSymbol);
         }
     }
 
     // Generate symbol prefabs onto the bill
     private void GenerateSymbolPrefabs()
     {
+        print("Symbols: " + symbols);
         int symbolCount = 0;
-        float xCoord = 0;
-        float yCoord = 0;
-        float zCoord = -1;
+        float xCoord = initialSymbolXCoord;
+        float yCoord = initialSymbolYCoord;
+        float zCoord = initialSymbolZCoord;
         foreach (SymbolType symbol in symbols)
         {
             GameObject symbolToInstantiate;
@@ -123,6 +147,7 @@ public class BillController : MonoBehaviour
                     symbolToInstantiate = new GameObject();
                     break;
             }
+            print("symbolToInstantiate: " + symbolToInstantiate.name);
             symbolCount++;
             
             // Start instantiating from the left again and move to new line
@@ -130,7 +155,7 @@ public class BillController : MonoBehaviour
             {
                 symbolCount = 0;
                 yCoord -= symbolVerticalDist;
-                xCoord = 0;
+                xCoord = initialSymbolXCoord;
             }
             xCoord += symbolHorizontalDist;
             Vector3 pos = new Vector3(xCoord, yCoord, zCoord);
@@ -180,20 +205,23 @@ public class BillController : MonoBehaviour
     public void PassBill()
     {
         StatVector returnedStatVector = CalculateOutcome();
-        Unitialize();
-        print("BILL PASSED WITH STATS: " + returnedStatVector);
+        string statOutput = returnedStatVector.StringConversion();
+        print("BILL PASSED WITH STATS: " + statOutput);
+        GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = statOutput;
     }
 
     // Bill is denied, does not effect stats
     public void VetoBill()
     {
-        Unitialize();
-        print("BILL VETOED");
+        GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = "BILL VETOED";
     }
 
-    // Remove the bill from the game
-    private void Unitialize()
+    // Reset the bill
+    private void Reinitialize()
     {
-        
+        foreach (Transform child in symbolParent) {
+            Destroy(child.gameObject);
+        }
+        InitializeBill();
     }
 }
