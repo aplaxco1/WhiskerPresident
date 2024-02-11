@@ -41,7 +41,7 @@ public class DragandDrop : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider != null && (hit.collider.gameObject.CompareTag("Draggable") || hit.collider.
-                gameObject.layer == LayerMask.NameToLayer("Draggable")));
+                gameObject.layer == LayerMask.NameToLayer("Draggable")))
             {
                 StartCoroutine(DragUpdate(hit.collider.gameObject));
             }
