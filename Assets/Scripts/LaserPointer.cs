@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// NOTE: For now, the point on the desk can be gathered by finding the "LaserPointerLine" GameObject
+// in the scene, and getting the position at index 1 of its LineRenderer component.
+
 public class LaserPointer : MonoBehaviour
 {
 
-    private bool isOn = false;
+    [SerializeField]
+    public float laserWidth = 0.01f;
 
+    [SerializeField]
+    public Vector3 LaserOffset = new Vector3(0.0f, -0.45f, 0.0f);
+
+    private bool isOn = false;
     private GameObject lineObj;
     private LineRenderer lineRender;
 
@@ -14,10 +22,10 @@ public class LaserPointer : MonoBehaviour
     void Start()
     {
         // initialize laser pointer line
-        lineObj = new GameObject();
+        lineObj = new GameObject("LaserPointerLine");
         lineRender = lineObj.AddComponent<LineRenderer>();
         lineRender.material = new Material(Shader.Find("Sprites/Default"));
-        lineRender.widthMultiplier = 0.05f;
+        lineRender.widthMultiplier = laserWidth;
         lineRender.positionCount = 2;
         lineRender.startColor = Color.red;
         lineRender.endColor = Color.red;
@@ -38,8 +46,10 @@ public class LaserPointer : MonoBehaviour
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            Vector3 laserStartPos = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - 0.5f, Camera.main.transform.position.z);
+            // calculate position of visual laser
+            Vector3 laserStartPos = new Vector3(Camera.main.transform.position.x + LaserOffset.x, Camera.main.transform.position.y + LaserOffset.y, Camera.main.transform.position.z + LaserOffset.z);
 
+            // determine raycast collision
             RaycastHit mouseHit;
             if (Physics.Raycast(ray, out mouseHit)) {
                 drawLine(laserStartPos, mouseHit.point);
@@ -50,10 +60,10 @@ public class LaserPointer : MonoBehaviour
                     drawLine(laserStartPos, laserHit.point);
                 }
             }
-            // else {
-            //     float distance = 100f; // temp
-            //     drawLine(startPos, ray.direction * distance);
-            // }
+            else {
+                float distance = 100f;
+                drawLine(laserStartPos, ray.direction * distance);
+            }
         }
     }
 
