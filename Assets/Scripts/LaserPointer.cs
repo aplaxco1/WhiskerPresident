@@ -3,15 +3,17 @@ using System.Collections.Generic;
 //using System.Diagnostics;
 using UnityEngine;
 
-// NOTE: For now, the point on the desk can be gathered by finding the "LaserPointerLine" GameObject
-// in the scene, and getting the position at index 1 of its LineRenderer component.
-
 public class LaserPointer : MonoBehaviour
 {
 
     [SerializeField]
     public float laserWidth = 0.01f;
-    public RaycastHit laserHit;
+
+    // variable to store location on desk, only if it is on the desk
+    [SerializeField]
+    public bool isOnDesk = false;
+    [SerializeField]
+    public Vector3 laserDeskLocation = new Vector3(0f, 0f, 0f);
 
     [SerializeField]
     public Vector3 LaserOffset = new Vector3(0.0f, -0.45f, 0.0f);
@@ -63,11 +65,23 @@ public class LaserPointer : MonoBehaviour
                 if (Physics.Raycast(laserStartPos, direction, out laserHit, Mathf.Infinity)) {
                     drawLine(laserStartPos, laserHit.point);
                 }
+                // check if on desk
+                if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk")) {
+                    isOnDesk = true;
+                    laserDeskLocation = mouseHit.point;
+                }
+                else {
+                    isOnDesk = false;
+                }
             }
             else {
                 float distance = 100f;
                 drawLine(laserStartPos, ray.direction * distance);
+                isOnDesk = false;
             }
+        }
+        else {
+            isOnDesk = false;
         }
     }
 
