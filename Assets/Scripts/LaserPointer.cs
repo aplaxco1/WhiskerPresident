@@ -9,7 +9,7 @@ public class LaserPointer : MonoBehaviour
     [SerializeField]
     public float laserWidth = 0.01f;
 
-    // variable to store location on desk, only if it is on the desk
+    // variables to capture location on desk for cats attention
     [SerializeField]
     public bool isOnDesk = false;
     [SerializeField]

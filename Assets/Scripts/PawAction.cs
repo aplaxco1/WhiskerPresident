@@ -11,6 +11,9 @@ public class PawAction : MonoBehaviour
 {
     private Coroutine moveCoroutine;
 
+    // reference to laser pointer script
+    public LaserPointer laserPointer;
+
     // Reference to the GameObject to move
     public GameObject objectToMove;
 
@@ -47,7 +50,7 @@ public class PawAction : MonoBehaviour
         }
 
         // Check if the player has clicked the mouse
-        if (Input.GetMouseButtonDown(1))
+        if (laserPointer.isOnDesk)
         {
             // Cast a ray from the camera to the mouse position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

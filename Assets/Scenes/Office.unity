@@ -510,6 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfef3a7f858d7044ad30c3437bfa91e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserPointer: {fileID: 628032206}
   objectToMove: {fileID: 1678977051}
   moveSpeed: 5
   interval: 5
