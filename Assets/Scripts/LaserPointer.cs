@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+//using System.Diagnostics;
 using UnityEngine;
 
 // NOTE: For now, the point on the desk can be gathered by finding the "LaserPointerLine" GameObject
@@ -10,6 +11,7 @@ public class LaserPointer : MonoBehaviour
 
     [SerializeField]
     public float laserWidth = 0.01f;
+    public RaycastHit laserHit;
 
     [SerializeField]
     public Vector3 LaserOffset = new Vector3(0.0f, -0.45f, 0.0f);
@@ -51,7 +53,9 @@ public class LaserPointer : MonoBehaviour
 
             // determine raycast collision
             RaycastHit mouseHit;
+            //hitInfo = mouseHit;
             if (Physics.Raycast(ray, out mouseHit)) {
+                //Debug.Log("hit");
                 drawLine(laserStartPos, mouseHit.point);
                 Vector3 direction = mouseHit.point - laserStartPos;
                 RaycastHit laserHit;
