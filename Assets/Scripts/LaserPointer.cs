@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+//using System.Diagnostics;
 using UnityEngine;
-
-// NOTE: For now, the point on the desk can be gathered by finding the "LaserPointerLine" GameObject
-// in the scene, and getting the position at index 1 of its LineRenderer component.
 
 public class LaserPointer : MonoBehaviour
 {
-
+    [Header("Adjustable Laser Variables")]
     [SerializeField]
     public float laserWidth = 0.01f;
-
     [SerializeField]
-    public Vector3 LaserOffset = new Vector3(0.0f, -0.45f, 0.0f);
+    public Vector3 laserOffset = new Vector3(0.0f, -0.45f, 0.0f);
+    [SerializeField]
+    public GameObject laserDot;
+
+    [Header("Global Laser Variables")]
+    // variables to capture location on desk for cats attention
+    [SerializeField]
+    public bool isOnDesk = false;
+    [SerializeField]
+    public Vector3 laserDeskLocation = new Vector3(0f, 0f, 0f);
 
     private bool isOn = false;
     private GameObject lineObj;
@@ -30,6 +36,9 @@ public class LaserPointer : MonoBehaviour
         lineRender.startColor = Color.red;
         lineRender.endColor = Color.red;
         lineObj.SetActive(isOn);
+        // initialize laser pointer dot
+        laserDot = Instantiate(laserDot, new Vector3(0,0,0), Quaternion.identity);
+        laserDot.SetActive(isOnDesk);
     }
 
     // Update is called once per frame
@@ -41,17 +50,22 @@ public class LaserPointer : MonoBehaviour
             lineObj.SetActive(isOn);
         }
 
+        // set laser dot active if laser is on desk
+        laserDot.SetActive(isOnDesk);
+
         // move laser if on
         if (isOn) {
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             // calculate position of visual laser
-            Vector3 laserStartPos = new Vector3(Camera.main.transform.position.x + LaserOffset.x, Camera.main.transform.position.y + LaserOffset.y, Camera.main.transform.position.z + LaserOffset.z);
+            Vector3 laserStartPos = new Vector3(Camera.main.transform.position.x + laserOffset.x, Camera.main.transform.position.y + laserOffset.y, Camera.main.transform.position.z + laserOffset.z);
 
             // determine raycast collision
             RaycastHit mouseHit;
+            //hitInfo = mouseHit;
             if (Physics.Raycast(ray, out mouseHit)) {
+                //Debug.Log("hit");
                 drawLine(laserStartPos, mouseHit.point);
                 Vector3 direction = mouseHit.point - laserStartPos;
                 RaycastHit laserHit;
@@ -59,11 +73,25 @@ public class LaserPointer : MonoBehaviour
                 if (Physics.Raycast(laserStartPos, direction, out laserHit, Mathf.Infinity)) {
                     drawLine(laserStartPos, laserHit.point);
                 }
+                // check if on desk
+                if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk")) {
+                    isOnDesk = true;
+                    laserDeskLocation = mouseHit.point;
+                    laserDot.transform.position = mouseHit.point;
+                    laserDot.transform.rotation = Quaternion.FromToRotation(laserDot.transform.up, mouseHit.normal) * laserDot.transform.rotation;
+                }
+                else {
+                    isOnDesk = false;
+                }
             }
             else {
                 float distance = 100f;
                 drawLine(laserStartPos, ray.direction * distance);
+                isOnDesk = false;
             }
+        }
+        else {
+            isOnDesk = false;
         }
     }
 
