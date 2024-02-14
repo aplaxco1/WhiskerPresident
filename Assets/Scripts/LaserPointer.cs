@@ -104,7 +104,7 @@ public class LaserPointer : ToolClass
     public void removeLaser() {
         isOn = false;
         isOnDesk = false;
-        laserDot.SetActive(false);
-        lineObj.SetActive(false);
+        if (laserDot) { laserDot.SetActive(false); }
+        if (lineObj) { lineObj.SetActive(false); }
     }
 }
