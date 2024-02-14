@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 //used this video tutorial for code: https://www.youtube.com/watch?v=HfqRKy5oFDQ
-public class DragandDrop : MonoBehaviour
+public class DragandDrop : ToolClass
 {
     [SerializeField]
     private InputAction mouseClick;

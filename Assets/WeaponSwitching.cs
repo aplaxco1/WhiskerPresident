@@ -43,10 +43,16 @@ public class WeaponSwitching : MonoBehaviour
         int i = 0;
         foreach (Transform weapon in transform) 
         {
-            if(i == selectedWeapon)
+            if(i == selectedWeapon) {
                 weapon.gameObject.SetActive(true);
-            else
+            }
+            else {
+                // really dumb way to make sure laser is removed when not selected
+                if (weapon.gameObject.GetComponent<ToolClass>() is LaserPointer) {
+                    weapon.gameObject.GetComponent<LaserPointer>().removeLaser();
+                }
                 weapon.gameObject.SetActive(false);
+            }
             i++;
         }
     }

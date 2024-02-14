@@ -3,7 +3,7 @@ using System.Collections.Generic;
 //using System.Diagnostics;
 using UnityEngine;
 
-public class LaserPointer : MonoBehaviour
+public class LaserPointer : ToolClass
 {
     [Header("Adjustable Laser Variables")]
     [SerializeField]
@@ -98,5 +98,13 @@ public class LaserPointer : MonoBehaviour
     void drawLine(Vector3 start, Vector3 end) {
         lineRender.SetPosition(0, start);
         lineRender.SetPosition(1, end);
+    }
+
+    // remove laser when its not the currently selected tool
+    public void removeLaser() {
+        isOn = false;
+        isOnDesk = false;
+        laserDot.SetActive(false);
+        lineObj.SetActive(false);
     }
 }
