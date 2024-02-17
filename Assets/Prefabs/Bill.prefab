@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9123895530047303297}
   m_Layer: 0
   m_Name: Paper
-  m_TagString: Draggable
+  m_TagString: Bill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 8636221673187782464}
   m_Layer: 0
   m_Name: Bill
-  m_TagString: Organizer
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
