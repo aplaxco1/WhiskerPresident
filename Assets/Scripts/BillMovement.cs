@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BillMovement : MonoBehaviour
+public class BillMovement : ToolClass
 {
 
+    [Header("BillVariables")]
     [SerializeField]
     public GameObject billPrefab;
     [SerializeField]
     public float speed = 0.01f;
     
-    [Header("BillPositions")]
+    [Header("AdjustableBillPositions")]
     public Vector3 billPosition = new Vector3(0f, 0.83f, 0.08f);
     public Vector3 stackPosition = new Vector3(-0.57f, 0.91f, -0.16f);
     public Vector3 organizerPosition = new Vector3(0.57f, 0.87f, -0.16f);

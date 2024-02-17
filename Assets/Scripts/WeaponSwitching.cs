@@ -45,6 +45,7 @@ public class WeaponSwitching : MonoBehaviour
         {
             if(i == selectedWeapon) {
                 weapon.gameObject.SetActive(true);
+                Cursor.SetCursor(weapon.gameObject.GetComponent<ToolClass>().cursorTexture, Vector2.zero, CursorMode.Auto);
             }
             else {
                 // really dumb way to make sure laser is removed when not selected
