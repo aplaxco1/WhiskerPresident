@@ -225,9 +225,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8153824663447861160, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1016268514}
-    - targetCorrespondingSourceObject: {fileID: 8153824663447861160, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1016268515}
     - targetCorrespondingSourceObject: {fileID: 907228947598193562, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       insertIndex: -1
@@ -739,12 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab67c47128d719844b5d74e70dad96f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolName: New Item
-  toolDescription: New Description
-  type: 0
-  tool: {fileID: 0}
-  currentTool: {fileID: 0}
-  toolNumber: 0
+  cursorTexture: {fileID: 0}
   laserWidth: 0.01
   laserOffset: {x: 0, y: -0.45, z: 0}
   laserDot: {fileID: 6395703295835056610, guid: b0800bbbde6c95c42b1daa8130969c40, type: 3}
@@ -1032,19 +1024,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8153824663447861160, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
   m_PrefabInstance: {fileID: 93602766}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1016268514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1016268510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b701ee5b9cfad46b480f849b08810f71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
 --- !u!64 &1016268515
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1903,12 +1882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bb6a6805cc264452a4b1082272a53bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolName: New Item
-  toolDescription: New Description
-  type: 0
-  tool: {fileID: 0}
-  currentTool: {fileID: 0}
-  toolNumber: 0
+  cursorTexture: {fileID: 0}
   mouseClick:
     m_Name: Mouse Click
     m_Type: 0
