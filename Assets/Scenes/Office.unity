@@ -729,6 +729,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 118722551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &522983105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4670150447348348861, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+  m_PrefabInstance: {fileID: 1157026140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &558344075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,6 +1529,7 @@ MonoBehaviour:
   AttentionPoint: {fileID: 1678977051}
   ArmPivot: {fileID: 1157026142}
   ArmMesh: {fileID: 1157026141}
+  HeadPivot: {fileID: 522983105}
 --- !u!114 &1414787481
 MonoBehaviour:
   m_ObjectHideFlags: 0
