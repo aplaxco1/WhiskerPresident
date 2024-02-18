@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -223,9 +223,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8153824663447861160, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1016268514}
     - targetCorrespondingSourceObject: {fileID: 8153824663447861160, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1016268515}
@@ -720,6 +717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 515096774}
   - component: {fileID: 515096773}
+  - component: {fileID: 515096775}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -739,12 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab67c47128d719844b5d74e70dad96f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolName: New Item
-  toolDescription: New Description
-  type: 0
-  tool: {fileID: 0}
-  currentTool: {fileID: 0}
-  toolNumber: 0
+  cursorTexture: {fileID: 0}
   laserWidth: 0.01
   laserOffset: {x: 0, y: -0.45, z: 0}
   laserDot: {fileID: 6395703295835056610, guid: b0800bbbde6c95c42b1daa8130969c40, type: 3}
@@ -765,6 +758,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 118722551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &515096775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515096772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bfef3a7f858d7044ad30c3437bfa91e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserPointer: {fileID: 515096773}
+  objectToMove: {fileID: 1678977051}
+  moveSpeed: 5
+  interval: 5
+  varianceRange: 2
+  lastPoint: {x: 0, y: 0, z: 0}
+  randomPoint: {x: 0, y: 0, z: 0}
+  minRange: {x: -0.6, y: 0.85, z: -0.4}
+  maxRange: {x: 0.6, y: 0.85, z: 0.6}
 --- !u!1 &558344075
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,7 +864,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 628032205}
-  - component: {fileID: 628032207}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -872,29 +885,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 118722551}
+  - {fileID: 1414787479}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &628032207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 628032203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bfef3a7f858d7044ad30c3437bfa91e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  laserPointer: {fileID: 515096773}
-  objectToMove: {fileID: 1678977051}
-  moveSpeed: 5
-  interval: 5
-  varianceRange: 2
-  lastPoint: {x: 0, y: 0, z: 0}
-  randomPoint: {x: 0, y: 0, z: 0}
-  minRange: {x: -0.6, y: 0.85, z: -0.4}
-  maxRange: {x: 0.6, y: 0.85, z: 0.6}
 --- !u!1 &892499622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,19 +1025,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8153824663447861160, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
   m_PrefabInstance: {fileID: 93602766}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1016268514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1016268510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b701ee5b9cfad46b480f849b08810f71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
 --- !u!64 &1016268515
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1169,6 +1149,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1632509511367321123, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1916341309171252093, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1217,6 +1201,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: -876546973899608171, guid: 098a670d36a2a43a8afc61b737a6094d, type: 3}
+    - target: {fileID: 8715332955487990837, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9396927
+      objectReference: {fileID: 0}
+    - target: {fileID: 8715332955487990837, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8715332955487990837, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.3420201
+      objectReference: {fileID: 0}
+    - target: {fileID: 8715332955487990837, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8715332955487990837, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8750762747327796606, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
       propertyPath: m_Name
       value: President
@@ -1230,6 +1234,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+--- !u!1 &1157026141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6806598446047065454, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+  m_PrefabInstance: {fileID: 1157026140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1157026142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4917030964976592492, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+  m_PrefabInstance: {fileID: 1157026140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1345142058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1505,6 +1519,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395705621}
   m_CullTransparentMesh: 1
+--- !u!1 &1414787478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1414787479}
+  - component: {fileID: 1414787480}
+  m_Layer: 0
+  m_Name: CatMovementManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1414787479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414787478}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 628032205}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1414787480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414787478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8796c8adbca3914d847e98327c6c735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttentionPoint: {fileID: 1678977051}
+  ArmPivot: {fileID: 1157026142}
+  ArmMesh: {fileID: 1157026141}
 --- !u!1 &1465237682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,12 +1964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bb6a6805cc264452a4b1082272a53bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolName: New Item
-  toolDescription: New Description
-  type: 0
-  tool: {fileID: 0}
-  currentTool: {fileID: 0}
-  toolNumber: 0
+  cursorTexture: {fileID: 0}
   mouseClick:
     m_Name: Mouse Click
     m_Type: 0
