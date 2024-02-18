@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
         -   should probably rename timer and timeCount variables to better distinguish their uses
             (countdown till smack and time since smack, respectively)
         -   should clamp head rotation so it doesnt clip with the body
+        -   should probably make the arm float higher so it doesnt clip with the paper stack
 */
 public class CatMovement : MonoBehaviour
 {
@@ -74,6 +75,6 @@ public class CatMovement : MonoBehaviour
     }
     void Smack() {
         timeCount = 0.0f;
-        target_rotation = Quaternion.Euler(-5, target_rotation.eulerAngles.y, 0); // slam into the table
+        target_rotation = Quaternion.Euler(-2 - (-0.8f/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
     }
 }
