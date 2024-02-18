@@ -62,7 +62,7 @@ public class PawAction : MonoBehaviour
                 Debug.Log("hit");
                 lastPoint = hit.point;
                 // Move the referenced object towards the click position
-                MoveObjectTo(lastPoint);
+                MoveObjectTo(laserPointer.laserDeskLocation);
             }
         }
     }
