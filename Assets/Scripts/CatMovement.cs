@@ -52,7 +52,7 @@ public class CatMovement : MonoBehaviour
             if (timer <= SmackWarningTime) { // when smacking is imminent, raise arm up as a warning (x_rotate)
                 x_rotate = 20f;
             } else {
-                x_rotate = 0;
+                x_rotate = 5f;
             }
         }
         if (timer > SmackLockTime) { // dont adjust look_target right before smacking, that way it lingers a little bit behind
