@@ -44,7 +44,7 @@ public class WeaponSwitching : MonoBehaviour
         foreach (Transform weapon in transform) 
         {
             if(i == selectedWeapon) {
-                weapon.gameObject.SetActive(true);
+                weapon.gameObject.GetComponent<ToolClass>().isActive = true;
                 Cursor.SetCursor(weapon.gameObject.GetComponent<ToolClass>().cursorTexture, Vector2.zero, CursorMode.Auto);
             }
             else {
@@ -52,7 +52,7 @@ public class WeaponSwitching : MonoBehaviour
                 if (weapon.gameObject.GetComponent<ToolClass>() is LaserPointer) {
                     weapon.gameObject.GetComponent<LaserPointer>().removeLaser();
                 }
-                weapon.gameObject.SetActive(false);
+                weapon.gameObject.GetComponent<ToolClass>().isActive = false;
             }
             i++;
         }

@@ -45,7 +45,7 @@ public class LaserPointer : ToolClass
     void Update()
     {
         // check right click
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButtonDown(1) && isActive) {
             isOn = !isOn;
             lineObj.SetActive(isOn);
         }

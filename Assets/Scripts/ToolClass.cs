@@ -7,6 +7,7 @@ public class ToolClass : MonoBehaviour
 {
     [Header("Tool Class Properties")]
     public Texture2D cursorTexture;
+    public bool isActive = true;
 
     // COMMENTING OUT SOME STUFF SINCE WE ARENT USING IT RIGHT NOW
 
