@@ -10,6 +10,8 @@ using Random = UnityEngine.Random;
             (countdown till smack and time since smack, respectively)
         -   should clamp head rotation so it doesnt clip with the body
         -   should probably make the arm float higher so it doesnt clip with the paper stack
+        -   should probably limit the arm extension more cuz you can kind of tell that it isnt connected to the body when stretched
+            (alternatively could make arm longer)
 */
 public class CatMovement : MonoBehaviour
 {
@@ -64,14 +66,14 @@ public class CatMovement : MonoBehaviour
 
         if (timeCount > SmackRecoveryTime) {
 		    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
-            ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, 0.005f);
-            ArmMesh.transform.localPosition = new Vector3(0, 0, Mathf.Lerp(ArmMesh.transform.localPosition.z, armExtension, 0.01f)); // extend/retract arm
+            ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
+            ArmMesh.transform.localPosition = new Vector3(0, 0, Mathf.Lerp(ArmMesh.transform.localPosition.z, armExtension, Time.deltaTime*10f)); // extend/retract arm
         } else { // during smack!
-            ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, 0.05f);
+            ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*50f);
         }
         timeCount += Time.deltaTime;
 
-        HeadPivot.transform.rotation = Quaternion.Slerp(HeadPivot.transform.rotation, Quaternion.LookRotation((HeadPivot.transform.position - lookTarget).normalized), 0.005f); // look at the attention target
+        HeadPivot.transform.rotation = Quaternion.Slerp(HeadPivot.transform.rotation, Quaternion.LookRotation((HeadPivot.transform.position - lookTarget).normalized), Time.deltaTime*5f); // look at the attention target
     }
     void Smack() {
         timeCount = 0.0f;
