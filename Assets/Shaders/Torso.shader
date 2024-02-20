@@ -70,8 +70,9 @@ Shader "Unlit/Torso"
                 // calculate directional lighting
                 float NdotL = dot(_WorldSpaceLightPos0, normal);
                 float shadow = SHADOW_ATTENUATION(i);
-                float lightIntensity = smoothstep(0, 0.03, NdotL * shadow);
-                float4 light = lightIntensity * _LightColor0;
+                float lightIntensity = smoothstep(0, 0.01, NdotL * shadow);
+                float lightIntensity2 = smoothstep(0, 0.01, (NdotL * shadow)-0.2f); // adds 2-step gradient to shadow
+                float4 light = (lightIntensity + lightIntensity2)/2 * _LightColor0;
 
                 // calculate rim
                 float4 rimDot = 1-dot(viewDir, normal);
