@@ -72,7 +72,8 @@ Shader "Unlit/Torso"
                 float shadow = SHADOW_ATTENUATION(i);
                 float lightIntensity = smoothstep(0, 0.01, NdotL * shadow);
                 float lightIntensity2 = smoothstep(0, 0.01, (NdotL * shadow)-0.2f); // adds 2-step gradient to shadow
-                float4 light = (lightIntensity + lightIntensity2)/2 * _LightColor0;
+                //float lightIntensity3 = smoothstep(0, 0.01, (NdotL * shadow)-0.8f); // adds highlight (looks ugly on president rn but will look great on things with normal maps)
+                float4 light = ((lightIntensity + lightIntensity2)/2 /*+ lightIntensity3*/) * _LightColor0;
 
                 // calculate rim
                 float4 rimDot = 1-dot(viewDir, normal);
