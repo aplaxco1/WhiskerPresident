@@ -3,7 +3,8 @@ on:
   push:
     branches: ["main"]
     paths: 
-    - "./Builds/**"
+    - 'Builds/**'
+    - '.github/workflows/**'
   workflow_dispatch:
 permissions:
   contents: read
