@@ -53,9 +53,9 @@ public class BillController : MonoBehaviour
     public float symbolHorizontalDist;
     public float symbolVerticalDist;
 
-    private const float initialSymbolXCoord = -3;
-    private const float initialSymbolYCoord = 2;
-    private const float initialSymbolZCoord = 0;
+    public float initialSymbolXCoord;
+    public float initialSymbolYCoord;
+    public float initialSymbolZCoord;
     
 
     private Transform symbolParent;
@@ -64,6 +64,7 @@ public class BillController : MonoBehaviour
     void Awake()
     {
         symbolParent = transform.Find("SymbolParent");
+        
     }
     
     // Start is called before the first frame update
@@ -119,7 +120,7 @@ public class BillController : MonoBehaviour
     private void GenerateSymbolPrefabs()
     {
         print("Symbols: " + symbols);
-        int symbolCount = 0;
+        int symbolCount = -1;
         float xCoord = initialSymbolXCoord;
         float yCoord = initialSymbolYCoord;
         float zCoord = initialSymbolZCoord;
@@ -158,10 +159,13 @@ public class BillController : MonoBehaviour
                 xCoord = initialSymbolXCoord;
             }
             xCoord += symbolHorizontalDist;
-            Vector3 pos = new Vector3(xCoord, yCoord, zCoord);
+            Vector3 pos = new Vector3(xCoord, zCoord, yCoord);
             Quaternion rot = Quaternion.Euler(Vector3.zero);
+            print(pos);
             
-            Instantiate(symbolToInstantiate, pos, rot, symbolParent);
+            GameObject instantiatedSymbol = Instantiate(symbolToInstantiate, symbolParent, false);
+            instantiatedSymbol.transform.position += pos;
+
         }
     }
 
