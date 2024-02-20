@@ -119,7 +119,7 @@ public class BillController : MonoBehaviour
     // Generate symbol prefabs onto the bill
     private void GenerateSymbolPrefabs()
     {
-        print("Symbols: " + symbols);
+        //print("Symbols: " + symbols);
         int symbolCount = -1;
         float xCoord = initialSymbolXCoord;
         float yCoord = initialSymbolYCoord;
@@ -148,7 +148,7 @@ public class BillController : MonoBehaviour
                     symbolToInstantiate = new GameObject();
                     break;
             }
-            print("symbolToInstantiate: " + symbolToInstantiate.name);
+            //print("symbolToInstantiate: " + symbolToInstantiate.name);
             symbolCount++;
             
             // Start instantiating from the left again and move to new line
@@ -161,7 +161,7 @@ public class BillController : MonoBehaviour
             xCoord += symbolHorizontalDist;
             Vector3 pos = new Vector3(xCoord, zCoord, yCoord);
             Quaternion rot = Quaternion.Euler(Vector3.zero);
-            print(pos);
+            //print(pos);
             
             GameObject instantiatedSymbol = Instantiate(symbolToInstantiate, symbolParent, false);
             instantiatedSymbol.transform.position += pos;
