@@ -2,6 +2,7 @@ name: Deploy static content to Pages
 on:
   push:
     branches: ["main"]
+    path: "./Builds/**"
   workflow_dispatch:
 permissions:
   contents: read
