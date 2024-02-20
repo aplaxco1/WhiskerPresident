@@ -9,7 +9,7 @@ public class BillMovement : ToolClass
     [SerializeField]
     public GameObject billPrefab;
     [SerializeField]
-    public float speed = 0.01f;
+    public float speed = 5f;
     
     [Header("AdjustableBillPositions")]
     public Vector3 billPosition = new Vector3(0f, 0.83f, 0.08f);
@@ -18,6 +18,7 @@ public class BillMovement : ToolClass
 
     private bool billOut = false;
     private GameObject currBill;
+    private bool billMoving = false;
     
     void Start()
     {
@@ -26,20 +27,17 @@ public class BillMovement : ToolClass
     void Update()
     {
         // if the player right clicks, check where they clicked
-        if (Input.GetMouseButtonDown(1) && isActive) {
+        if (Input.GetMouseButtonDown(1) && !billMoving && isActive) {
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
-                if (hit.collider.gameObject.CompareTag("Stack") && !billOut) {
-                    billOut = true;
+                if (hit.collider.gameObject.CompareTag("Stack") && !billOut && !currBill) {
                     currBill = Instantiate(billPrefab, stackPosition, Quaternion.identity);
                     StartCoroutine(moveBill(billPosition, false));
                 }
                 else if (hit.collider.gameObject.CompareTag("Organizer") && billOut) {
-                    // remove bill (CHANGE THIS TO MOVE BILL TO ORGANIZER)
-                    billOut = false;
                     StartCoroutine(moveBill(organizerPosition, true));
                 }
                 else if (hit.collider.gameObject.CompareTag("Bill")) {
@@ -54,13 +52,21 @@ public class BillMovement : ToolClass
 
     IEnumerator moveBill(Vector3 target, bool destroy) 
     {
-        while (currBill.transform.position != target) {
-            currBill.transform.position = Vector3.MoveTowards(currBill.transform.position, target, speed);
+        billMoving = true;
+
+        while (Vector3.Distance(currBill.transform.position, target) > 0f) {
+            currBill.transform.position = Vector3.MoveTowards(currBill.transform.position, target, Time.deltaTime * speed);
             yield return null;
         }
 
         if (destroy) {
             Destroy(currBill);
+            billOut = false;
         }
+        else {
+            billOut = true;
+        }
+
+        billMoving = false;
     }
 }
