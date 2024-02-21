@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 //using System.Diagnostics;
 using UnityEngine;
 
-public class PawAction : MonoBehaviour
+public class FocusController : MonoBehaviour
 {
     private Coroutine moveCoroutine;
 
