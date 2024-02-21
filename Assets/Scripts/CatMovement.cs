@@ -22,12 +22,6 @@ public class CatMovement : MonoBehaviour
     public GameObject HeadPivot; // reference to where the "Head" component of president
     public FocusController focusController;
 
-    // CONSTANTS
-    private const float WaitInterval = 0.2f; // base time to wait between swings
-    private const float SmackRecoveryTime = 0.05f; // time for paw to linger on table
-    private const float SmackWarningTime = 0.05f; // warning time to raise paw
-    private const float SmackLockTime = 0.005f; // time before smack when attention no longer moves
-
     // VARIABLES
     public float timer = 0; // timer to keep track of how long till next swing
     private Quaternion target_rotation; // arm rotation to move to
@@ -36,8 +30,49 @@ public class CatMovement : MonoBehaviour
     private float timeCount = 1.0f; // counting time during smack
     private float armExtension = -0.8f; // how far the arm is stretched out
     private Vector3 lookTarget;
+/*
+    // CONSTANTS
+    public float WaitInterval = 1.75f; // base time to wait between swings
+    public float SmackRecoveryTime = 0.3f; // time for paw to linger on table
+    public float SmackWarningTime = 0.5f; // warning time to raise paw
+    public float SmackLockTime = 0.25f; // time before smack when attention no longer moves
 
     // FUNCTIONS
+        
+    // Start is called before the first frame update
+    void Start()
+    {
+        timer = WaitInterval;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (timer <= 0) {
+            timer = WaitInterval + (int) (Random.value * WaitInterval);
+            Smack(); // initiate the smacking
+        } else {
+            timer -= Time.deltaTime; // increment countdown to smacking
+            if (timer <= SmackWarningTime) { // when smacking is imminent, raise arm up as a warning (x_rotate)
+                x_rotate = 20f;
+            } else {
+                x_rotate = 5f;
+            }
+        }
+        if (timer > SmackLockTime) { // dont adjust look_target right before smacking, that way it lingers a little bit behind
+            lookTarget = AttentionPoint.transform.position;
+        }
+        y_rotate = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized).eulerAngles.y;
+
+        armExtension = -0.8f - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.5f, 0.2f); // calculate arm extension
+
+        if (timeCount > SmackRecoveryTime) {
+    */
+    
+    private const float WaitInterval = 0.2f; // base time to wait between swings
+    private const float SmackRecoveryTime = 0.05f; // time for paw to linger on table
+    private const float SmackWarningTime = 0.05f; // warning time to raise paw
+    private const float SmackLockTime = 0.005f; // time before smack when attention no longer moves
 
     // Update is called once per frame
     void Update()
@@ -61,6 +96,7 @@ public class CatMovement : MonoBehaviour
         armExtension = -0.8f - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.5f, 0.2f); // calculate arm extension
 
         if (timeCount > SmackRecoveryTime/focusController.focusLevel) {
+            //*/
 		    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
             ArmMesh.transform.localPosition = new Vector3(0, 0, Mathf.Lerp(ArmMesh.transform.localPosition.z, armExtension, Time.deltaTime*10f)); // extend/retract arm
