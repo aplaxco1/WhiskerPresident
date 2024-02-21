@@ -26,7 +26,7 @@ public class CatMovement : MonoBehaviour
     private const float WaitInterval = 0.2f; // base time to wait between swings
     private const float SmackRecoveryTime = 0.05f; // time for paw to linger on table
     private const float SmackWarningTime = 0.05f; // warning time to raise paw
-    private const float SmackLockTime = 0.025f; // time before smack when attention no longer moves
+    private const float SmackLockTime = 0.005f; // time before smack when attention no longer moves
 
     // VARIABLES
     public float timer = 0; // timer to keep track of how long till next swing
