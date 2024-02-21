@@ -37,16 +37,16 @@ public class PawAction : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
+        timer -= Time.deltaTime;
 
-        if (timer >= interval + Random.Range(-varianceRange, varianceRange))
+        if (timer <= 0f)
         {
             // Call your helper function or perform any desired task
             randomPoint = GenerateRandomVector();
             MoveObjectTo(randomPoint);
 
             // Reset the timer
-            timer = 0f;
+            timer = interval + Random.Range(-varianceRange, varianceRange);
         }
 
         // Check if the player has clicked the mouse
@@ -59,7 +59,7 @@ public class PawAction : MonoBehaviour
             // Check if the ray hits any colliders
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("hit");
+                // Debug.Log("hit");
                 lastPoint = hit.point;
                 // Move the referenced object towards the click position
                 MoveObjectTo(laserPointer.laserDeskLocation);
