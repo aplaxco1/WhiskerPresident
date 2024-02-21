@@ -86,7 +86,7 @@ public class FocusController : MonoBehaviour
         } else {
             pointerSpeed = 0;
         }
-        focusLevel = Mathf.Lerp(focusLevel, Mathf.Clamp(pointerSpeed/16.0f + 0.1f, 0.1f, 1.0f),Time.deltaTime);
+        focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(pointerSpeed/16.0f + 0.1f, 0.1f, 1.0f),Time.deltaTime), 0.1f, 0.25f);
     }
 
     void MoveObjectTo(Vector3 targetPosition)
