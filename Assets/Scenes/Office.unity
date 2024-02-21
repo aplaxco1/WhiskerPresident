@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2011,10 +2011,12 @@ MonoBehaviour:
   ArmPivot: {fileID: 1157026142}
   ArmMesh: {fileID: 1157026141}
   HeadPivot: {fileID: 522983105}
-  WaitInterval: 1.75
+  focusController: {fileID: 1414787481}
+  WaitInterval: 0.2
   SmackRecoveryTime: 0.3
   SmackWarningTime: 0.5
   SmackLockTime: 0.25
+  timer: 0
 --- !u!114 &1414787481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2036,6 +2038,8 @@ MonoBehaviour:
   randomPoint: {x: 0, y: 0, z: 0}
   minRange: {x: -0.6, y: 0.85, z: -0.4}
   maxRange: {x: 0.6, y: 0.85, z: 0.6}
+  pointerSpeed: 0
+  focusLevel: 0.1
 --- !u!1 &1465237682
 GameObject:
   m_ObjectHideFlags: 0

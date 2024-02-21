@@ -20,15 +20,16 @@ public class CatMovement : MonoBehaviour
     public GameObject ArmPivot; // reference to where the "Arm" component of president
     public GameObject ArmMesh; // reference to the "Mesh" child of "Arm"
     public GameObject HeadPivot; // reference to where the "Head" component of president
+    public FocusController focusController;
 
     // CONSTANTS
-    public float WaitInterval = 1.75f; // base time to wait between swings
+    public float WaitInterval = 0.1f; // base time to wait between swings
     public float SmackRecoveryTime = 0.3f; // time for paw to linger on table
     public float SmackWarningTime = 0.5f; // warning time to raise paw
     public float SmackLockTime = 0.25f; // time before smack when attention no longer moves
 
     // VARIABLES
-    private float timer; // timer to keep track of how long till next swing
+    public float timer; // timer to keep track of how long till next swing
     private Quaternion target_rotation; // arm rotation to move to
     private float x_rotate = 0; // target x value of arm rotation
     private float y_rotate = 0; // target y value of arm rotation
@@ -47,7 +48,7 @@ public class CatMovement : MonoBehaviour
     void Update()
     {
         if (timer <= 0) {
-            timer = WaitInterval + (int) (Random.value * WaitInterval);
+            timer = (WaitInterval + (Random.value * WaitInterval))/focusController.focusLevel;
             Smack(); // initiate the smacking
         } else {
             timer -= Time.deltaTime; // increment countdown to smacking

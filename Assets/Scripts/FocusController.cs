@@ -35,6 +35,12 @@ public class FocusController : MonoBehaviour
     public Vector3 maxRange = new Vector3(0.80f, 0.80f, 0.80f);
 
 
+    // for keeping track of laser pointer movement
+    private Vector3 previousPointerLocation = new Vector3(0, 0, 0);
+    private bool wasOnTable = false;
+    public float pointerSpeed = 0;
+    public float focusLevel = 0.1f;
+
     void Update()
     {
         timer -= Time.deltaTime;
@@ -63,8 +69,24 @@ public class FocusController : MonoBehaviour
                 lastPoint = hit.point;
                 // Move the referenced object towards the click position
                 MoveObjectTo(laserPointer.laserDeskLocation);
+                if (wasOnTable)
+                {
+                    pointerSpeed = Mathf.Clamp((laserPointer.laserDeskLocation - previousPointerLocation).magnitude/Time.deltaTime, 0.0f, 16.0f);
+                } else 
+                {
+                    pointerSpeed = 1;
+                }
+                wasOnTable = true;
+                previousPointerLocation = laserPointer.laserDeskLocation;
+            } else
+            {
+                wasOnTable = false;
+                pointerSpeed = 0;
             }
+        } else {
+            pointerSpeed = 0;
         }
+        focusLevel = Mathf.Lerp(focusLevel, Mathf.Clamp(pointerSpeed/16.0f + 0.1f, 0.1f, 1.0f),Time.deltaTime);
     }
 
     void MoveObjectTo(Vector3 targetPosition)
