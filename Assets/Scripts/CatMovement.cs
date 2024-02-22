@@ -32,6 +32,7 @@ public class CatMovement : MonoBehaviour
     private Vector3 lookTarget;             // position of the attentionpoint, but sometimes lags behind for flavor
     private bool smacking;                  // bool to ensure only one pawprint is left
     private BoxCollider pawCollider;        // reference to the paw's box collider
+    private Color printColor;
 
     // CONSTANTS    
     private const float WaitInterval = 1.75f;       // base time to wait between swings
@@ -46,6 +47,7 @@ public class CatMovement : MonoBehaviour
         // instantiate pawprint objects
         smacking = false;
         pawCollider = ArmMesh.GetComponentInChildren<BoxCollider>();
+        printColor = new Color(0,0,0,0);
     }
     // Update is called once per frame
     void Update()
@@ -116,6 +118,11 @@ public class CatMovement : MonoBehaviour
     {
         smacking = false;
         if (pawCollisionDetection.surface == null) { Debug.Log("gone :("); return; }
+        if (pawCollisionDetection.surface.CompareTag("Inkpad")) {
+            printColor = new Color(1.0f, 0f, 0f, 1.0f);
+            return;
+        }
+        if (printColor.a == 0) {return;}
         GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.02f, pos.z), Quaternion.Euler(0,yRotation,0));
         newPrint.transform.SetParent(pawCollisionDetection.surface.transform, true);
         PawPrint script = newPrint.GetComponent<PawPrint>();
@@ -124,6 +131,7 @@ public class CatMovement : MonoBehaviour
             //Debug.Log("bill");
             script.DisappearanceRate = 0.0f;
         }
-        script.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+        script.color = printColor;
+        printColor = new Color(printColor.r,printColor.g,printColor.b,printColor.a-0.25f);
     }
 }

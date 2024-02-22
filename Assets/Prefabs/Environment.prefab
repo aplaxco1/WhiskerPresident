@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 6452576220328509340}
   m_Layer: 7
   m_Name: CollisionBox_Ink
-  m_TagString: Untagged
+  m_TagString: Inkpad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1349,7 +1349,7 @@ GameObject:
   - component: {fileID: 7884510956498623650}
   m_Layer: 7
   m_Name: Whisker President Inkpad
-  m_TagString: Untagged
+  m_TagString: Inkpad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

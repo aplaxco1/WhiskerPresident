@@ -11,6 +11,7 @@ public class PawPrint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (color.a == 0) {Destroy(gameObject);}
         renderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
         foreach(MeshRenderer renderer in renderers) {
             renderer.material.color = color;
