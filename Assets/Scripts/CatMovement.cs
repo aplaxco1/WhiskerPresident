@@ -127,10 +127,10 @@ public class CatMovement : MonoBehaviour
         newPrint.transform.SetParent(pawCollisionDetection.surface.transform, true);
         PawPrint script = newPrint.GetComponent<PawPrint>();
         script.StencilID = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.GetFloat("_StencilID");
-        if (pawCollisionDetection.surface.CompareTag("Bill")) {
+        //if (pawCollisionDetection.surface.CompareTag("Bill")) {
             //Debug.Log("bill");
             script.DisappearanceRate = 0.0f;
-        }
+        //}
         script.color = printColor;
         printColor = new Color(printColor.r,printColor.g,printColor.b,printColor.a-0.25f);
     }
