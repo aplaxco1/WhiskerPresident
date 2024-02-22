@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class FocusController : MonoBehaviour
 {
-    private Coroutine moveCoroutine;
+    //private Coroutine moveCoroutine;
 
     // reference to laser pointer script
     public LaserPointer laserPointer;
@@ -18,14 +18,14 @@ public class FocusController : MonoBehaviour
     public GameObject objectToMove;
 
     // Speed of the movement
-    public float moveSpeed = 5f;
+    //public float moveSpeed = 5f;
 
     public float interval = 5f;       // Desired interval between calls
     public float varianceRange = 2f;  // Variance range
 
     private float timer = 0f;
 
-    private float hackSolution = 0.8f;
+    //private float hackSolution = 0.8f;
 
     //public Vector3 ballOffset = new Vector3(2f, 2f, 2f);
 
@@ -69,48 +69,29 @@ public class FocusController : MonoBehaviour
                 lastPoint = hit.point;
                 // Move the referenced object towards the click position
                 MoveObjectTo(laserPointer.laserDeskLocation);
-                if (wasOnTable)
-                {
-                    pointerSpeed = Mathf.Clamp((laserPointer.laserDeskLocation - previousPointerLocation).magnitude/Time.deltaTime, 0.0f, 16.0f);
-                } else 
-                {
-                    pointerSpeed = 1;
-                }
+
+                pointerSpeed = wasOnTable ? Mathf.Clamp((laserPointer.laserDeskLocation - previousPointerLocation).magnitude/Time.deltaTime, 0.0f, 16.0f) : 1;
                 wasOnTable = true;
+                
                 previousPointerLocation = laserPointer.laserDeskLocation;
-            } else
-            {
-                wasOnTable = false;
-                pointerSpeed = 0;
             }
-        } else {
-            pointerSpeed = 0;
+            else { wasOnTable = false; pointerSpeed = 0; }
         }
-        focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(pointerSpeed/16.0f + 0.1f, 0.1f, 1.0f),Time.deltaTime*1.2f), 0.1f, 0.25f);
+        else { wasOnTable = false; pointerSpeed = 0; }
+        focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(pointerSpeed/16.0f * 5f, 1f, 20f),Time.deltaTime*1.2f), 1f, 5f);
     }
 
     void MoveObjectTo(Vector3 targetPosition)
     {
-        float distance = Vector3.Distance(objectToMove.transform.position, targetPosition);
-
         // Check if the referenced object is assigned
         if (objectToMove != null)
         {
-            // Stop any existing movement coroutines on the referenced object
-            //objectToMove.GetComponent<MoveToPosition>().StopMovement();
-            //objectToMove.transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-            //distance = Vector3.Distance(transform.position, targetPosition);
-
             objectToMove.transform.position = targetPosition;
-
-            // Start a new coroutine to smoothly move the referenced object towards the target position
-            //objectToMove.GetComponent<MoveToPosition>().MoveTo(targetPosition, moveSpeed);
         }
-        else
+        /*else
         {
-            //Debug.LogWarning("Object to move not assigned. Please assign an object in the Inspector.");
-        }
+            Debug.LogWarning("Object to move not assigned. Please assign an object in the Inspector.");
+        }*/
     }
 
     Vector3 GenerateRandomVector()
