@@ -45,7 +45,7 @@ public class VolumeSlider : MonoBehaviour
     }
 
     //Called when Slider is moved
-    void changeVolume(float sliderValue)
+    public void changeVolume(float sliderValue)
     {
         audioSource.volume = sliderValue;
     }
