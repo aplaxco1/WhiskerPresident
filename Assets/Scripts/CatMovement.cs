@@ -20,7 +20,7 @@ public class CatMovement : MonoBehaviour
     public GameObject HeadPivot;            // reference to where the "Head" component of president
     public FocusController focusController; // reference to the script that manages the cat's focus
     public PawCollision pawCollisionDetection;
-    public GameObject PawPrint;             // reference to pawprint prefab
+    public GameObject PawPrintPrefab;             // reference to pawprint prefab
 
     // VARIABLES
     public float timer = 0;                 // timer to keep track of how long since last smack
@@ -114,7 +114,9 @@ public class CatMovement : MonoBehaviour
     }
     void LeavePrint(Vector3 pos, float yRotation)
     {
-        Instantiate(PawPrint, new Vector3(pos.x, pos.y + 0.02f, pos.z), Quaternion.Euler(0,yRotation,0));
+        GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.02f, pos.z), Quaternion.Euler(0,yRotation,0));
+        PawPrint script = newPrint.GetComponent<PawPrint>();
+        script.StencilID = pawCollisionDetection.StencilID;
         smacking = false;
     }
 }

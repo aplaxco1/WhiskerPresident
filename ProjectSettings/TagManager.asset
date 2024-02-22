@@ -8,6 +8,7 @@ TagManager:
   - Stack
   - Organizer
   - Bill
+  - Desk
   layers:
   - Default
   - TransparentFX
