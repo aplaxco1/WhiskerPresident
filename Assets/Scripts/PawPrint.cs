@@ -6,6 +6,7 @@ public class PawPrint : MonoBehaviour
 {
     public float DisappearanceRate = 0.2f;
     public Color color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+    public float StencilID = 1;
     private MeshRenderer[] renderers;
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class PawPrint : MonoBehaviour
         foreach(MeshRenderer renderer in renderers) {
             Color oldColor = renderer.material.color;
             renderer.material.color = new Color(oldColor.r, oldColor.g, oldColor.b, oldColor.a - DisappearanceRate*Time.deltaTime);
+            renderer.material.SetFloat("_StencilID", StencilID);
         }
         if (renderers[0].material.color.a < 0.03) {
             /*

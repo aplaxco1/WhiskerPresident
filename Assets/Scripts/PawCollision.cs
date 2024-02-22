@@ -6,6 +6,7 @@ public class PawCollision : MonoBehaviour
 {
     public bool colliding = false;
     public Vector3 collisionPos;
+    public float StencilID;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class PawCollision : MonoBehaviour
             colliding = true;
             collisionPos = new Vector3(gameObject.transform.position.x, other.bounds.center.y + other.bounds.extents.y + 0.02f, gameObject.transform.position.z);
             Debug.Log(collisionPos);
+            StencilID = other.gameObject.GetComponentInParent<MeshRenderer>().material.GetFloat("_StencilID");
         }
     }
     void OnTriggerExit(Collider other) {
