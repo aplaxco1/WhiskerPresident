@@ -21,6 +21,7 @@ public class CatMovement : MonoBehaviour
     public GameObject ArmMesh; // reference to the "Mesh" child of "Arm"
     public GameObject HeadPivot; // reference to where the "Head" component of president
     public FocusController focusController;
+    public GameObject PawPrint;
 
     // VARIABLES
     public float timer = 0; // timer to keep track of how long till next swing
@@ -30,6 +31,11 @@ public class CatMovement : MonoBehaviour
     private float timeCount = 1.0f; // counting time during smack
     private float armExtension = -0.8f; // how far the arm is stretched out
     private Vector3 lookTarget;
+    private GameObject[] prints;
+    private int numPrint;
+    private const int MaxPrints = 12;
+    private bool smacking;
+    private BoxCollider pawCollider;
 /*
     // CONSTANTS
     public float WaitInterval = 1.75f; // base time to wait between swings
@@ -38,12 +44,6 @@ public class CatMovement : MonoBehaviour
     public float SmackLockTime = 0.25f; // time before smack when attention no longer moves
 
     // FUNCTIONS
-        
-    // Start is called before the first frame update
-    void Start()
-    {
-        timer = WaitInterval;
-    }
 
     // Update is called once per frame
     void Update()
@@ -74,6 +74,18 @@ public class CatMovement : MonoBehaviour
     private const float SmackWarningTime = 0.05f; // warning time to raise paw
     private const float SmackLockTime = 0.005f; // time before smack when attention no longer moves
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        //timer = WaitInterval;
+        prints = new GameObject[MaxPrints];
+        for (int i = 0; i < MaxPrints; i++) {
+            prints[i] = Instantiate(PawPrint, new Vector3(0,0,0), Quaternion.identity);
+        }
+        numPrint = 0;
+        smacking = false;
+        pawCollider = ArmMesh.GetComponentInChildren<BoxCollider>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -97,6 +109,12 @@ public class CatMovement : MonoBehaviour
 
         if (timeCount > SmackRecoveryTime/focusController.focusLevel) {
             //*/
+            if (smacking) {
+                smacking = false;
+                //Vector3 pawLocation = ArmPivot.transform.position + (target_rotation * armExtension);
+                leavePrint(pawCollider.transform.position);
+            }
+
 		    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
             ArmMesh.transform.localPosition = new Vector3(0, 0, Mathf.Lerp(ArmMesh.transform.localPosition.z, armExtension, Time.deltaTime*10f)); // extend/retract arm
@@ -110,5 +128,12 @@ public class CatMovement : MonoBehaviour
     void Smack() {
         timeCount = 0.0f;
         target_rotation = Quaternion.Euler(-2 - (-0.8f/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
+        smacking = true;
+    }
+    void leavePrint(Vector3 pos/*,float yRotation*/){
+        prints[numPrint].transform.position = pos;
+        prints[numPrint].transform.rotation = Quaternion.Euler(0,y_rotate,0);
+        prints[numPrint].SetActive(true);
+        numPrint = (numPrint + 1) % MaxPrints;
     }
 }
