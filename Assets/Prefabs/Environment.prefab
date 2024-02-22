@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3913589007713997578}
   - component: {fileID: 1273158866086553536}
   - component: {fileID: 4916749776058042378}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Whisker President Paper Organizer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8436984453025914001}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tabletop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +638,7 @@ GameObject:
   - component: {fileID: 2721882293275192388}
   - component: {fileID: 1326813748410246113}
   - component: {fileID: 3858807916358801195}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Whisker President Stack of Papers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,9 +753,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1627653789627086322}
   - component: {fileID: 6452576220328509340}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CollisionBox_Ink
-  m_TagString: Untagged
+  m_TagString: Inkpad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -872,7 +872,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3075898894474270547}
   - component: {fileID: 1918213189549896041}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CollisionBox_Lid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -925,9 +925,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3155140168054036794}
   - component: {fileID: 2367639930970037399}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CollisionBox
-  m_TagString: Untagged
+  m_TagString: Organizer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -978,9 +978,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2587517622595872661}
   - component: {fileID: 3612729926969053828}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CollisionBox
-  m_TagString: Untagged
+  m_TagString: Stack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1180,7 +1180,7 @@ GameObject:
   - component: {fileID: 8819144250115534098}
   - component: {fileID: 5605925375652635319}
   - component: {fileID: 7649584026567530109}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Whisker President Desk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1347,9 +1347,9 @@ GameObject:
   - component: {fileID: 9016281411003967437}
   - component: {fileID: 5372688497659766888}
   - component: {fileID: 7884510956498623650}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Whisker President Inkpad
-  m_TagString: Untagged
+  m_TagString: Inkpad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1431,7 +1431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5291098937332792125}
   - component: {fileID: 3727907462695052476}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CollisionBox
   m_TagString: Desk
   m_Icon: {fileID: 0}
