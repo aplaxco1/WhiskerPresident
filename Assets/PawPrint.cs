@@ -24,10 +24,13 @@ public class PawPrint : MonoBehaviour
             renderer.material.color = new Color(oldColor.r, oldColor.g, oldColor.b, oldColor.a - DisappearanceRate*Time.deltaTime);
         }
         if (renderers[0].material.color.a < 0.03) {
+            /*
             foreach(MeshRenderer renderer in renderers) {
                 renderer.material.color = color;
             }
             gameObject.SetActive(false);
+            */
+            Destroy(gameObject);
         }
     }
 }
