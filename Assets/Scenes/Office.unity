@@ -2012,10 +2012,7 @@ MonoBehaviour:
   ArmMesh: {fileID: 1157026141}
   HeadPivot: {fileID: 522983105}
   focusController: {fileID: 1414787481}
-  WaitInterval: 0.2
-  SmackRecoveryTime: 0.3
-  SmackWarningTime: 0.5
-  SmackLockTime: 0.25
+  PawPrint: {fileID: 7127054691324280760, guid: 46fadd2293d508c4eb8174d100e89c8e, type: 3}
   timer: 0
 --- !u!114 &1414787481
 MonoBehaviour:
