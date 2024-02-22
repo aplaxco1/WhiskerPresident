@@ -19,6 +19,7 @@ public class CatMovement : MonoBehaviour
     public GameObject ArmMesh;              // reference to the "Mesh" child of "Arm"
     public GameObject HeadPivot;            // reference to where the "Head" component of president
     public FocusController focusController; // reference to the script that manages the cat's focus
+    public PawCollision pawCollisionDetection;
     public GameObject PawPrint;             // reference to pawprint prefab
 
     // VARIABLES
@@ -26,6 +27,7 @@ public class CatMovement : MonoBehaviour
     private Quaternion target_rotation;     // arm rotation to move to
     private float x_rotate = 0;             // target x value of arm rotation
     private float y_rotate = 0;             // target y value of arm rotation
+    private float x2_rotate = 0;             // target x value of arm rotation when smacked
     private float armExtension = -0.8f;     // how far the arm is stretched out
     private Vector3 lookTarget;             // position of the attentionpoint, but sometimes lags behind for flavor
     private bool smacking;                  // bool to ensure only one pawprint is left
@@ -66,7 +68,7 @@ public class CatMovement : MonoBehaviour
     }
     void Smack()
     {
-        target_rotation = Quaternion.Euler(-2 - (-0.8f/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
+        target_rotation = Quaternion.Euler(-3 - (-0.8f/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
         smacking = true;
         timer = 0;
     }
@@ -87,7 +89,9 @@ public class CatMovement : MonoBehaviour
             if (smacking) { LeavePrint(pawCollider.transform.position, y_rotate); }
 
             // calculate and rotate arm pivot
-            y_rotate = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized).eulerAngles.y;
+            Quaternion tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
+            y_rotate = tempAngle.eulerAngles.y;
+            x2_rotate = tempAngle.eulerAngles.x;
 		    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
 
@@ -95,6 +99,12 @@ public class CatMovement : MonoBehaviour
             armExtension = -0.8f - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.5f, 0.2f);
             ArmMesh.transform.localPosition = new Vector3(0, 0, Mathf.Lerp(ArmMesh.transform.localPosition.z, armExtension, Time.deltaTime*10f));
         } else { // during smack!
+            if (pawCollisionDetection.colliding)
+            {
+                x_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
+                target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
+            }
+            //target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*50f);
         }
     }
@@ -104,7 +114,7 @@ public class CatMovement : MonoBehaviour
     }
     void LeavePrint(Vector3 pos, float yRotation)
     {
-        Instantiate(PawPrint, pos, Quaternion.Euler(0,yRotation,0));
+        Instantiate(PawPrint, new Vector3(pos.x, pos.y + 0.02f, pos.z), Quaternion.Euler(0,yRotation,0));
         smacking = false;
     }
 }
