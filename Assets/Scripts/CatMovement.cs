@@ -81,6 +81,7 @@ public class CatMovement : MonoBehaviour
         prints = new GameObject[MaxPrints];
         for (int i = 0; i < MaxPrints; i++) {
             prints[i] = Instantiate(PawPrint, new Vector3(0,0,0), Quaternion.identity);
+            prints[i].SetActive(false);
         }
         numPrint = 0;
         smacking = false;
@@ -103,7 +104,7 @@ public class CatMovement : MonoBehaviour
         if (timer < WaitInterval/focusController.focusLevel - SmackLockTime/focusController.focusLevel) { // dont adjust look_target right before smacking, that way it lingers a little bit behind
             lookTarget = AttentionPoint.transform.position;
         }
-        y_rotate = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized).eulerAngles.y;
+        
 
         armExtension = -0.8f - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.5f, 0.2f); // calculate arm extension
 
@@ -114,7 +115,7 @@ public class CatMovement : MonoBehaviour
                 //Vector3 pawLocation = ArmPivot.transform.position + (target_rotation * armExtension);
                 leavePrint(pawCollider.transform.position);
             }
-
+            y_rotate = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized).eulerAngles.y;
 		    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
             ArmMesh.transform.localPosition = new Vector3(0, 0, Mathf.Lerp(ArmMesh.transform.localPosition.z, armExtension, Time.deltaTime*10f)); // extend/retract arm
