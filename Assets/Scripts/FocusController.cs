@@ -86,12 +86,12 @@ public class FocusController : MonoBehaviour
         } else {
             pointerSpeed = 0;
         }
-        focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(pointerSpeed/16.0f + 0.1f, 0.1f, 1.0f),Time.deltaTime*1.2f), 0.1f, 0.25f);
+        focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(pointerSpeed/16.0f * 5f, 1f, 20f),Time.deltaTime*1.2f), 1f, 5f);
     }
 
     void MoveObjectTo(Vector3 targetPosition)
     {
-        float distance = Vector3.Distance(objectToMove.transform.position, targetPosition);
+        //float distance = Vector3.Distance(objectToMove.transform.position, targetPosition);
 
         // Check if the referenced object is assigned
         if (objectToMove != null)
