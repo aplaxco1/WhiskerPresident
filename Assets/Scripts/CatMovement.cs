@@ -114,9 +114,16 @@ public class CatMovement : MonoBehaviour
     }
     void LeavePrint(Vector3 pos, float yRotation)
     {
-        GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.02f, pos.z), Quaternion.Euler(0,yRotation,0));
-        PawPrint script = newPrint.GetComponent<PawPrint>();
-        script.StencilID = pawCollisionDetection.StencilID;
         smacking = false;
+        if (pawCollisionDetection.surface == null) { Debug.Log("gone :("); return; }
+        GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.02f, pos.z), Quaternion.Euler(0,yRotation,0));
+        newPrint.transform.SetParent(pawCollisionDetection.surface.transform, true);
+        PawPrint script = newPrint.GetComponent<PawPrint>();
+        script.StencilID = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.GetFloat("_StencilID");
+        if (pawCollisionDetection.surface.CompareTag("Bill")) {
+            //Debug.Log("bill");
+            script.DisappearanceRate = 0.0f;
+        }
+        script.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
     }
 }

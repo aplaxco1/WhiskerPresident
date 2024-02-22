@@ -10,13 +10,13 @@ Material:
   m_Name: Bill Stack
   m_Shader: {fileID: 4800000, guid: 06eb270866b9c7c4d846150d32317cdf, type: 3}
   m_Parent: {fileID: 2100000, guid: 0bfdc7b6337a02c4a92710677f475d08, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 16
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2001
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 

@@ -22,7 +22,7 @@ Shader "Unlit/Torso"
             ColorMask 0
 			ZWrite Off
 
-			Stencil
+			Stencil // find a way to make this only run if normals are pointing up
 			{
 				Ref [_StencilID]
 				Comp notEqual
