@@ -903,6 +903,7 @@ MonoBehaviour:
   laserWidth: 0.01
   laserOffset: {x: 0, y: -0.45, z: 0}
   laserDot: {fileID: 6395703295835056610, guid: b0800bbbde6c95c42b1daa8130969c40, type: 3}
+  laserMaterial: {fileID: 2100000, guid: 4e685fb47c9e21c4fb4a5c656d1791a8, type: 2}
   isOnDesk: 0
   laserDeskLocation: {x: 0, y: 0, z: 0}
 --- !u!4 &515096774
@@ -2835,7 +2836,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 233317100453661966, guid: f5123e42d1b32e1468be7c86d2668fb3, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5333957592933563609, guid: f5123e42d1b32e1468be7c86d2668fb3, type: 3}
       propertyPath: m_Enabled

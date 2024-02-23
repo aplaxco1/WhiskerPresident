@@ -228,4 +228,15 @@ public class BillController : MonoBehaviour
         }
         InitializeBill();
     }
+
+    // Calculates whether bill evaluates to a pass or a veto (pass = return > 0, fail = return < 0, 0 = tie)
+    public float evaluatePassVeto()
+    {
+        PawPrint[] prints = gameObject.GetComponentsInChildren<PawPrint>();
+        float score = 0;
+        foreach (PawPrint print in prints) {
+            score += (print.color.g - print.color.r)*print.color.a;
+        }
+        return score;
+    }
 }
