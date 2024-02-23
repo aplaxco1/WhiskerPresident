@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667558, g: 0.48427194, b: 0.5645243, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2028,7 +2028,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laserPointer: {fileID: 515096773}
   objectToMove: {fileID: 1678977051}
-  moveSpeed: 5
   interval: 2
   varianceRange: 1
   lastPoint: {x: 0, y: 0, z: 0}
@@ -2455,28 +2454,33 @@ MonoBehaviour:
   m_text: 'In the Office
 
 
-    Scroll the mousewheel up or down to switch between
-    red and blue cursors
+    To switch between tools: Scroll the mousewheel (or
+    two fingers on trackpad) up or down to switch between red and blue cursors
+
+    -
+    Blue: empty hand
+
+    - Red: laser pointer
 
 
     When cursor is blue:
 
-    - right click on stack of
-    papers to set a bill on the desk
+    -
+    right click on stack of papers to set a bill on the desk
 
-    - right click the paper organizer to move
-    bill to completion
+    - right click the
+    paper organizer to move bill to completion
 
 
     When cursor is red:
 
-    - right click on desk to activate
-    a laser pointer
+    - right
+    click on desk to activate a laser pointer
 
-    - right click again to deactivate laser pointer
+    - right click again to deactivate
+    laser pointer
 
-    - move
-    mouse to guide the cat'
+    - move mouse to guide the cat'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
