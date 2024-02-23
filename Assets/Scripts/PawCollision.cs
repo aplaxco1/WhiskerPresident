@@ -20,11 +20,22 @@ public class PawCollision : MonoBehaviour
         
     }
     void OnTriggerEnter(Collider other) {
-        if (!colliding || !other.gameObject.CompareTag("Desk")) {
+        bool registerCollision = !colliding;
+        if (colliding) {
+            if (other.gameObject.CompareTag("Desk") && surface.CompareTag("Bill")) {
+                Bounds otherCollider = surface.GetComponent<BoxCollider>().bounds;
+                Bounds newBounds = new Bounds(otherCollider.center, new Vector3(otherCollider.size.x, 20, otherCollider.size.z)); 
+                if(!newBounds.Contains(gameObject.transform.position)){ registerCollision = true; }
+            } else if (other.gameObject.CompareTag("Bill")) {
+                Bounds newBounds = new Bounds(other.bounds.center, new Vector3(other.bounds.size.x, 20, other.bounds.size.z));
+                if(newBounds.Contains(gameObject.transform.position)){ registerCollision = true; }
+            } else if (!other.gameObject.CompareTag("Desk")) { registerCollision = true; }
+        }
+        if (registerCollision) {
             colliding = true;
             collisionPos = new Vector3(gameObject.transform.position.x, other.bounds.center.y + other.bounds.extents.y + 0.02f, gameObject.transform.position.z);
             surface = other.gameObject;
-            Debug.Log(collisionPos);
+            Debug.Log(other.tag);
             //StencilID = other.gameObject.GetComponentInParent<MeshRenderer>().material.GetFloat("_StencilID");
         }
     }
