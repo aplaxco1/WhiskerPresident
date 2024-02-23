@@ -24,10 +24,10 @@ public class PawCollision : MonoBehaviour
         if (colliding) {
             if (other.gameObject.CompareTag("Desk") && surface.CompareTag("Bill")) {
                 Bounds otherCollider = surface.GetComponent<BoxCollider>().bounds;
-                Bounds newBounds = new Bounds(otherCollider.center, new Vector3(otherCollider.size.x, 20, otherCollider.size.z)); 
+                Bounds newBounds = new Bounds(otherCollider.center, new Vector3(otherCollider.size.x*1.1f, 20, otherCollider.size.z*1.1f)); 
                 if(!newBounds.Contains(gameObject.transform.position)){ registerCollision = true; }
             } else if (other.gameObject.CompareTag("Bill")) {
-                Bounds newBounds = new Bounds(other.bounds.center, new Vector3(other.bounds.size.x, 20, other.bounds.size.z));
+                Bounds newBounds = new Bounds(other.bounds.center, new Vector3(other.bounds.size.x*1.1f, 20, other.bounds.size.z*1.1f));
                 if(newBounds.Contains(gameObject.transform.position)){ registerCollision = true; }
             } else if (!other.gameObject.CompareTag("Desk")) { registerCollision = true; }
         }
