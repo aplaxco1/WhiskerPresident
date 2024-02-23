@@ -119,7 +119,7 @@ public class CatMovement : MonoBehaviour
         smacking = false;
         if (pawCollisionDetection.surface == null) { Debug.Log("gone :("); return; }
         if (pawCollisionDetection.surface.CompareTag("Inkpad")) {
-            printColor = new Color(1.0f, 0f, 0f, 1.0f);
+            printColor = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.color;
             return;
         }
         if (printColor.a == 0) {return;}
