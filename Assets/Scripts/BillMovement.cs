@@ -60,6 +60,7 @@ public class BillMovement : ToolClass
         }
 
         if (destroy) {
+            Debug.Log(currBill.GetComponentInChildren<BillController>().evaluatePassVeto());
             Destroy(currBill);
             billOut = false;
         }
