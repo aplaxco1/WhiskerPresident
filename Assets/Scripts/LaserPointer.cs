@@ -12,6 +12,7 @@ public class LaserPointer : ToolClass
     public Vector3 laserOffset = new Vector3(0.0f, -0.45f, 0.0f);
     [SerializeField]
     public GameObject laserDot;
+    public Material laserMaterial;
 
     [Header("Global Laser Variables")]
     // variables to capture location on desk for cats attention
@@ -30,7 +31,7 @@ public class LaserPointer : ToolClass
         // initialize laser pointer line
         lineObj = new GameObject("LaserPointerLine");
         lineRender = lineObj.AddComponent<LineRenderer>();
-        lineRender.material = new Material(Shader.Find("Sprites/Default"));
+        lineRender.material = laserMaterial ? laserMaterial : new Material(Shader.Find("Sprites/Default"));
         lineRender.widthMultiplier = laserWidth;
         lineRender.positionCount = 2;
         lineRender.startColor = Color.red;
