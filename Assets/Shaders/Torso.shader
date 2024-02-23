@@ -2,8 +2,8 @@ Shader "Unlit/Torso"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "gray" {}
-        
+        _MainTex ("Texture", 2D) = "white" {}
+        _Color ("Color", Color) = (0.5,0.5,0.5,1)
 		[HDR]
 		_AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
         [IntRange] _StencilID ("Stencil ID", Range(0, 255)) = 1
@@ -61,6 +61,7 @@ Shader "Unlit/Torso"
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float4 _AmbientColor;
+            float4 _Color;
 
             v2f vert (appdata v) // vertex shader
             {
@@ -103,7 +104,7 @@ Shader "Unlit/Torso"
                 */
 
                 // sample the texture
-                float4 col = tex2D(_MainTex, i.uv);
+                float4 col = tex2D(_MainTex, i.uv) * _Color;
                 return (light + _AmbientColor + rimIntensity /*+ specular*/) * col;
             }
             ENDCG
