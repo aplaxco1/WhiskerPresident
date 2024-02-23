@@ -40,6 +40,8 @@ public class CatMovement : MonoBehaviour
     private const float SmackRecoveryTime = 0.3f;   // time for paw to linger on table
     private const float SmackWarningTime = 0.5f;    // warning time to raise paw
     private const float SmackLockTime = 0.25f;      // time before smack when attention no longer moves
+    
+	private Material _smearMat = null;
 
     // FUNCTIONS
     // Start is called before the first frame update
@@ -50,6 +52,7 @@ public class CatMovement : MonoBehaviour
         pawCollider = ArmMesh.GetComponentInChildren<BoxCollider>();
         printColor = new Color(0,0,0,0);
         numPrints = 0;
+        _smearMat = ArmMesh.GetComponent<Renderer>().material;
     }
     // Update is called once per frame
     void Update()
@@ -75,6 +78,8 @@ public class CatMovement : MonoBehaviour
         target_rotation = Quaternion.Euler(-3 - (-0.8f/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
         smacking = true;
         timer = 0;
+        //Debug.Log(_smearMat.GetFloat("_Smearing"));
+        _smearMat.SetFloat("_Smearing",1);
     }
     void TrackFocus(float focusLevel)
     {
@@ -90,7 +95,10 @@ public class CatMovement : MonoBehaviour
     {
         if (timer > SmackRecoveryTime/focusLevel) {
             // leave a pawprint behind at the end of the smack
-            if (smacking) { LeavePrint(pawCollider.transform.position, y_rotate); }
+            if (smacking) { 
+                LeavePrint(pawCollider.transform.position, y_rotate);
+                _smearMat.SetFloat("_Smearing",0);
+            }
 
             // calculate and rotate arm pivot
             Quaternion tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
