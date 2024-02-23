@@ -422,6 +422,7 @@ GameObject:
   - component: {fileID: 5670216270896849928}
   - component: {fileID: 1396806299670066845}
   - component: {fileID: 7014260590058014304}
+  - component: {fileID: 5476194437295401879}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -473,7 +474,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0bfdc7b6337a02c4a92710677f475d08, type: 2}
+  - {fileID: 2100000, guid: 8cc5f54c1fd2b13449aca1d32c31a918, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -495,6 +496,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5476194437295401879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6806598446047065454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49927c463205653468d152a4295c57b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frameLag: 60
 --- !u!1 &8750762747327796606
 GameObject:
   m_ObjectHideFlags: 0
