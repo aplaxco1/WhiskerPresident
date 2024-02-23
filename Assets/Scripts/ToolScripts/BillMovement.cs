@@ -27,7 +27,7 @@ public class BillMovement : ToolClass
     void Update()
     {
         // if the player right clicks, check where they clicked
-        if (Input.GetMouseButtonDown(1) && !billMoving && isActive) {
+        if (Input.GetMouseButtonDown(0) && !billMoving && isActive) {
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 

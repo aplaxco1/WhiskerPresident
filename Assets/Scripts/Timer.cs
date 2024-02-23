@@ -8,6 +8,8 @@ public class Timer : MonoBehaviour
 {
     static public float timeValue = 120;
     public TMP_Text timerText;
+    //private float gameTimer;
+    //private bool gamePaused = false;
 
    
     void Update()
@@ -20,7 +22,17 @@ public class Timer : MonoBehaviour
         {
             timeValue = 0;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            ResetTimer();
         }
+
+        /* if(!gamePaused)
+        {
+            gameTimer += Time.deltaTime;
+        }
+        else if (Time.timeScale == 0)
+        {
+            gamePaused = true;
+        } */
 
         DisplayTime(timeValue);
     }
@@ -41,4 +53,9 @@ public class Timer : MonoBehaviour
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+
+    public static void ResetTimer()
+    {
+        timeValue = 120;
+    } 
 }
