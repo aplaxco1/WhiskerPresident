@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
-    public float timeValue = 120;
+    static public float timeValue = 120;
     public TMP_Text timerText;
 
    

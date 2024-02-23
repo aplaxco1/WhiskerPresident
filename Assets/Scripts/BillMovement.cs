@@ -61,6 +61,7 @@ public class BillMovement : ToolClass
 
         if (destroy) {
             Debug.Log(currBill.GetComponentInChildren<BillController>().evaluatePassVeto());
+            Timer.timeValue -= 10;
             Destroy(currBill);
             billOut = false;
         }
