@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667558, g: 0.48427194, b: 0.5645243, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -429,7 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa3ba56cde1f42fab0ca52e9089bbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeValue: 120
   timerText: {fileID: 121101609}
 --- !u!114 &121101609
 MonoBehaviour:
@@ -2576,18 +2575,18 @@ MonoBehaviour:
     When cursor is blue:
 
     -
-    right click on stack of papers to set a bill on the desk
+    left click on stack of papers to set a bill on the desk
 
-    - right click the
+    - left click the
     paper organizer to move bill to completion
 
 
     When cursor is red:
 
-    - right
+    - left
     click on desk to activate a laser pointer
 
-    - right click again to deactivate
+    - left click again to deactivate
     laser pointer
 
     - move mouse to guide the cat'
