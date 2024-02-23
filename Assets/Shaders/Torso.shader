@@ -7,6 +7,7 @@ Shader "Unlit/Torso"
 		[HDR]
 		_AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
         [IntRange] _StencilID ("Stencil ID", Range(0, 255)) = 1
+        [IntRange] _Highlighted("Highlighted", Range(0,1)) = 1
     }
     SubShader
     {
@@ -36,6 +37,47 @@ Shader "Unlit/Torso"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+
+            #include "UnityCG.cginc"
+
+            struct appdata // vertex shader inputs
+            {
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            struct v2f // vertex shader outputs to fragment shader
+            {
+                float2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
+            };
+
+            sampler2D _MainTex;
+            //float4 _MainTex_ST;
+
+            v2f vert (appdata v) // vertex shader
+            {
+                v2f o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                //o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = v.uv;
+                return o;
+            }
+
+            fixed4 frag (v2f i) : SV_Target // fragment shader
+            {
+                // sample the texture
+                fixed4 col = tex2D(_MainTex, i.uv);
+                return col;
+            }
+            ENDCG
+        }
+
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
             #pragma multi_compile_fwdbase
 
             #include "UnityCG.cginc"
@@ -55,6 +97,8 @@ Shader "Unlit/Torso"
                 float4 pos : SV_POSITION;
                 float3 worldNormal: NORMAL;
                 float3 viewDir : TEXCOORD1;
+                float2 depth : TEXCOORD3;
+                float4 screenSpace : TEXCOORD4;
                 SHADOW_COORDS(2)
             };
 
@@ -62,6 +106,9 @@ Shader "Unlit/Torso"
             float4 _MainTex_ST;
             float4 _AmbientColor;
             float4 _Color;
+            float _Highlighted;
+            sampler2D _CameraDepthTexture;
+            sampler2D _CameraNormalsTexture;
 
             v2f vert (appdata v) // vertex shader
             {
@@ -72,6 +119,9 @@ Shader "Unlit/Torso"
 
                 o.worldNormal = UnityObjectToWorldNormal(v.normal);
                 o.viewDir = WorldSpaceViewDir(v.pos);
+                o.screenSpace = ComputeScreenPos(o.pos);
+
+                UNITY_TRANSFER_DEPTH(o.depth);
 
                 TRANSFER_SHADOW(o)
                 return o;
@@ -95,6 +145,47 @@ Shader "Unlit/Torso"
                 float4 rimDot = 1-dot(viewDir, normal);
                 float rimIntensity = smoothstep(0.79, 0.80, rimDot * pow(NdotL, 0.1));
 
+
+
+                float2 screenSpaceUV = i.screenSpace.xy / i.screenSpace.w;
+                //float depth = Linear01Depth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, screenSpaceUV));
+
+				float2 bottomLeftUV = screenSpaceUV-0.001;
+				float2 topRightUV = screenSpaceUV+0.001;  
+				float2 bottomRightUV = screenSpaceUV + float2(0.001, -0.001);
+				float2 topLeftUV = screenSpaceUV + float2(-0.001, 0.001);
+
+                float depth0 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, bottomLeftUV).r;
+                float depth1 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, topRightUV).r;
+                float depth2 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, bottomRightUV).r;
+                float depth3 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, topLeftUV).r;
+                
+                
+                float depthFiniteDifference0 = depth1 - depth0;
+                float depthFiniteDifference1 = depth3 - depth2;
+                float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 50;
+                float DepthThreshold = 1.5 * depth0;
+                edgeDepth = edgeDepth > DepthThreshold ? 1 : 0;
+
+                float4 normal0 = tex2D(_CameraNormalsTexture, bottomLeftUV);
+                float4 normal1 = tex2D(_CameraNormalsTexture, topRightUV);
+                float4 normal2 = tex2D(_CameraNormalsTexture, bottomRightUV);
+                float4 normal3 = tex2D(_CameraNormalsTexture, topLeftUV);
+                float4 normalFiniteDifference0 = normal1 - normal0;
+                float4 normalFiniteDifference1 = normal3 - normal2;
+                float NormalThreshold = 0.4;
+                float edgeNormal = sqrt(dot(normalFiniteDifference0, normalFiniteDifference0) + dot(normalFiniteDifference1, normalFiniteDifference1));
+                edgeNormal = edgeNormal > NormalThreshold ? 1 : 0;
+                
+                //return edgeNormal;
+                //return normalFiniteDifference1;
+                //UNITY_OUTPUT_DEPTH(i.depth);
+                if (_Highlighted) {
+                    rimIntensity = smoothstep(DepthThreshold-0.01, DepthThreshold, edgeDepth);
+                    rimIntensity += edgeNormal;
+                    rimIntensity += smoothstep(0.79, 0.80, rimDot);
+                }
+
                 // calculate specular
                 /*
                 float3 halfVector = normalize(_WorldSpaceLightPos0 + viewDir);
@@ -109,6 +200,9 @@ Shader "Unlit/Torso"
             }
             ENDCG
         }
+
+        
         UsePass "Legacy Shaders/VertexLit/SHADOWCASTER"
+        
     }
 }
