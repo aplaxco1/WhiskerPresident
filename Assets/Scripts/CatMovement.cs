@@ -33,6 +33,7 @@ public class CatMovement : MonoBehaviour
     private bool smacking;                  // bool to ensure only one pawprint is left
     private BoxCollider pawCollider;        // reference to the paw's box collider
     private Color printColor;
+    private int numPrints;
 
     // CONSTANTS    
     private const float WaitInterval = 1.75f;       // base time to wait between swings
@@ -48,6 +49,7 @@ public class CatMovement : MonoBehaviour
         smacking = false;
         pawCollider = ArmMesh.GetComponentInChildren<BoxCollider>();
         printColor = new Color(0,0,0,0);
+        numPrints = 0;
     }
     // Update is called once per frame
     void Update()
@@ -122,8 +124,9 @@ public class CatMovement : MonoBehaviour
             printColor = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.color;
             return;
         }
+        if (pawCollisionDetection.surface.CompareTag("Organizer")) { return; }
         if (printColor.a == 0) {return;}
-        GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.02f, pos.z), Quaternion.Euler(0,yRotation,0));
+        GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.018f, pos.z), Quaternion.Euler(0,yRotation,0));
         newPrint.transform.SetParent(pawCollisionDetection.surface.transform, true);
         PawPrint script = newPrint.GetComponent<PawPrint>();
         script.StencilID = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.GetFloat("_StencilID");
@@ -133,5 +136,7 @@ public class CatMovement : MonoBehaviour
         //}
         script.color = printColor;
         printColor = new Color(printColor.r,printColor.g,printColor.b,printColor.a-0.25f);
+        script.renderQueue = numPrints;
+        numPrints++;
     }
 }
