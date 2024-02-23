@@ -8,6 +8,8 @@ TagManager:
   - Stack
   - Organizer
   - Bill
+  - Desk
+  - Inkpad
   layers:
   - Default
   - TransparentFX

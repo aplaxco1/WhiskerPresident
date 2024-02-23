@@ -6,6 +6,7 @@ Shader "Unlit/Torso"
         
 		[HDR]
 		_AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
+        [IntRange] _StencilID ("Stencil ID", Range(0, 255)) = 1
     }
     SubShader
     {
@@ -13,8 +14,22 @@ Shader "Unlit/Torso"
             "RenderType"="Opaque"
             "LightMode" = "ForwardBase"
             "PassFlags" = "OnlyDirectional"
+            "Queue" = "Geometry-1"
         }
         LOD 100
+        Pass
+        {
+            ColorMask 0
+			ZWrite Off
+
+			Stencil // find a way to make this only run if normals are pointing up
+			{
+				Ref [_StencilID]
+				Comp notEqual
+				Pass Replace
+			}
+            
+        }
 
         Pass
         {
