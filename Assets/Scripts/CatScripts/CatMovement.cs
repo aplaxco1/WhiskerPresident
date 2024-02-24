@@ -34,6 +34,7 @@ public class CatMovement : MonoBehaviour
     private BoxCollider pawCollider;        // reference to the paw's box collider
     private Color printColor;
     private int numPrints;
+    private ParticleSystem dust;
 
     // CONSTANTS    
     private const float WaitInterval = 1.75f;       // base time to wait between swings
@@ -53,6 +54,7 @@ public class CatMovement : MonoBehaviour
         printColor = new Color(0,0,0,0);
         numPrints = 0;
         _smearMat = ArmMesh.GetComponent<Renderer>().material;
+        dust = ArmMesh.GetComponentInChildren<ParticleSystem>(true);
     }
     // Update is called once per frame
     void Update()
@@ -98,6 +100,7 @@ public class CatMovement : MonoBehaviour
             if (smacking) { 
                 LeavePrint(pawCollider.transform.position, y_rotate);
                 _smearMat.SetFloat("_Smearing",0);
+                //dust.gameObject.SetActive(false);
             }
 
             // calculate and rotate arm pivot
@@ -115,6 +118,7 @@ public class CatMovement : MonoBehaviour
             {
                 x_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
                 target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
+                dust.gameObject.SetActive(true);
             }
             //target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*50f);
