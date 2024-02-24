@@ -7,6 +7,7 @@ public class MainMenuScreen : MonoBehaviour
 {
     public void PlayGame()
     {
+        Timer.timeValue = 120;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
