@@ -133,10 +133,10 @@ Shader "Unlit/Torso"
         
                 fixed3 worldOffset = _Position.xyz - _PrevPosition.xyz; // -5
                 fixed3 localOffset = worldPos.xyz - _Position.xyz; // -5
-                localOffset = mul(localOffset, _Rotation);
+                localOffset = mul(localOffset, _Rotation.x);
         
                 // World offset should only be behind swing
-                float dirDot = dot(normalize(worldOffset), normalize(localOffset));
+                float dirDot = dot(normalize(worldOffset), localOffset);
                 fixed3 unitVec = fixed3(1, 1, 1) * _NoiseHeight;
                 worldOffset = clamp(worldOffset, unitVec * -1, unitVec);
                 worldOffset *= -clamp(dirDot, -1, 0) * lerp(1, 0, step(length(worldOffset), 0));
