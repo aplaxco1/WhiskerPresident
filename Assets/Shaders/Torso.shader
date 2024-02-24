@@ -167,6 +167,12 @@ Shader "Unlit/Torso"
                 float4 rimDot = 1-dot(viewDir, normal);
                 float rimIntensity = smoothstep(0.79, 0.80, rimDot * pow(NdotL, 0.1));
 
+                // sample the texture
+                float4 col = tex2D(_MainTex, i.uv) * _Color;
+                if (!_Highlighted) {
+                    return (light + _AmbientColor + rimIntensity /*+ specular*/) * col;
+                }
+
 
 
                 float2 screenSpaceUV = i.screenSpace.xy / i.screenSpace.w;
@@ -202,11 +208,10 @@ Shader "Unlit/Torso"
                 //return edgeNormal;
                 //return normalFiniteDifference1;
                 //UNITY_OUTPUT_DEPTH(i.depth);
-                if (_Highlighted) {
-                    rimIntensity = smoothstep(DepthThreshold-0.01, DepthThreshold, edgeDepth);
-                    rimIntensity += edgeNormal;
-                    rimIntensity += smoothstep(0.79, 0.80, rimDot);
-                }
+                rimIntensity = smoothstep(DepthThreshold-0.01, DepthThreshold, edgeDepth);
+                rimIntensity += edgeNormal;
+                rimIntensity += smoothstep(0.79, 0.80, rimDot);
+                rimIntensity = smoothstep(0.79, 0.80, rimIntensity);
 
                 // calculate specular
                 /*
@@ -216,9 +221,7 @@ Shader "Unlit/Torso"
                 float4 specular = smoothstep(0.005, 0.01, specularIntensity);
                 */
 
-                // sample the texture
-                float4 col = tex2D(_MainTex, i.uv) * _Color;
-                return (light + _AmbientColor + rimIntensity /*+ specular*/) * col;
+                return (light + _AmbientColor + rimIntensity /*+ specular*/) * col + (0.1,0.1,0.1);
             }
             ENDCG
         }
