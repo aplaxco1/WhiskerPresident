@@ -151,10 +151,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 3858807916358801195, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c297e7064916df7408b56d8c65b28b75, type: 2}
     - target: {fileID: 4302667638643576727, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Name
       value: Environment
@@ -1591,6 +1587,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5476194437295401879, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: _frameLag
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 6119685285788535563, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -2247,6 +2247,7 @@ GameObject:
   - component: {fileID: 1773983170}
   - component: {fileID: 1773983169}
   - component: {fileID: 1773983172}
+  - component: {fileID: 1773983173}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2347,6 +2348,21 @@ MonoBehaviour:
   cameraClearFlags: 2
   background: {r: 0, g: 0, b: 0, a: 1}
   targetTexture: _CameraNormalsTexture
+--- !u!111 &1773983173
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773983168}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!64 &1776976244
 MeshCollider:
   m_ObjectHideFlags: 0
