@@ -30,6 +30,8 @@ public class SmearEffect : MonoBehaviour
 			smearMat.SetVector("_PrevPosition", _recentPositions.Dequeue());
 
 		smearMat.SetVector("_Position", transform.position);
+		
+		smearMat.SetVector("_Rotation", transform.eulerAngles);
 		_recentPositions.Enqueue(transform.position);
 	}
 }
