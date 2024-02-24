@@ -35,7 +35,7 @@ public class PawCollision : MonoBehaviour
             colliding = true;
             collisionPos = new Vector3(gameObject.transform.position.x, other.bounds.center.y + other.bounds.extents.y + 0.02f, gameObject.transform.position.z);
             surface = other.gameObject;
-            Debug.Log(other.tag);
+            //Debug.Log(other.tag);
             //StencilID = other.gameObject.GetComponentInParent<MeshRenderer>().material.GetFloat("_StencilID");
         }
     }

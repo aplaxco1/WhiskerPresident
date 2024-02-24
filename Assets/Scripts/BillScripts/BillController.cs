@@ -234,8 +234,13 @@ public class BillController : MonoBehaviour
     {
         PawPrint[] prints = gameObject.GetComponentsInChildren<PawPrint>();
         float score = 0;
+        float mostRecent = 0;
         foreach (PawPrint print in prints) {
-            score += (print.color.g - print.color.r)*print.color.a;
+            //score += (print.color.g - print.color.r)*print.color.a;
+            if (print.renderQueue > mostRecent) {
+                mostRecent = print.renderQueue;
+                score = (print.color.g - print.color.r);
+            }
         }
         return score;
     }
