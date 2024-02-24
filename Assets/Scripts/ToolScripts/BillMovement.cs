@@ -35,6 +35,7 @@ public class BillMovement : ToolClass
             if (Physics.Raycast(ray, out hit)) {
                 if (hit.collider.gameObject.CompareTag("Stack") && !billOut && !currBill) {
                     currBill = Instantiate(billPrefab, stackPosition, Quaternion.identity);
+                    // add outline to currBill HERE
                     StartCoroutine(moveBill(billPosition, false));
                 }
                 else if (hit.collider.gameObject.CompareTag("Organizer") && billOut) {
@@ -70,5 +71,25 @@ public class BillMovement : ToolClass
         }
 
         billMoving = false;
+    }
+
+    public void addObjectHighlighting() {
+        GameObject stack = GameObject.FindGameObjectWithTag("Stack");
+        // add outline to stack.transform.parent.gameObject HERE
+        if (billOut) {
+            // add outline to currBill HERE
+        }
+        GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
+        // add outline to organizer.transform.parent.gameObject HERE
+    }
+
+    public void removeObjectHighlighting() {
+        GameObject stack = GameObject.FindGameObjectWithTag("Stack");
+        // remove outline from stack.transform.parent.gameObject HERE
+        if (billOut) {
+            // remove outline from currBill HERE
+        }
+        GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
+        // remove outline from organizer.transform.parent.gameObject HERE
     }
 }

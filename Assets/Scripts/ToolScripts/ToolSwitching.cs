@@ -44,10 +44,16 @@ public class WeaponSwitching : MonoBehaviour
         foreach (Transform weapon in transform) 
         {
             if(i == selectedWeapon) {
+                if (weapon.gameObject.GetComponent<ToolClass>() is BillMovement) {
+                    weapon.gameObject.GetComponent<BillMovement>().addObjectHighlighting();
+                }
                 weapon.gameObject.GetComponent<ToolClass>().isActive = true;
                 Cursor.SetCursor(weapon.gameObject.GetComponent<ToolClass>().cursorTexture, Vector2.zero, CursorMode.Auto);
             }
             else {
+                if (weapon.gameObject.GetComponent<ToolClass>() is BillMovement) {
+                    weapon.gameObject.GetComponent<BillMovement>().removeObjectHighlighting();
+                }
                 // really dumb way to make sure laser is removed when not selected
                 if (weapon.gameObject.GetComponent<ToolClass>() is LaserPointer) {
                     weapon.gameObject.GetComponent<LaserPointer>().removeLaser();
