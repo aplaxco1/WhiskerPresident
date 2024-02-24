@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667558, g: 0.48427194, b: 0.5645243, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 3858807916358801195, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c297e7064916df7408b56d8c65b28b75, type: 2}
     - target: {fileID: 4302667638643576727, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Name
       value: Environment
@@ -425,7 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa3ba56cde1f42fab0ca52e9089bbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeValue: 120
   timerText: {fileID: 121101609}
 --- !u!114 &121101609
 MonoBehaviour:
@@ -2243,6 +2246,7 @@ GameObject:
   - component: {fileID: 1773983171}
   - component: {fileID: 1773983170}
   - component: {fileID: 1773983169}
+  - component: {fileID: 1773983172}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2290,7 +2294,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -2324,6 +2328,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+--- !u!114 &1773983172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773983168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfab2fc57bbc9f40a962b8af762dbcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacementShader: {fileID: 4800000, guid: a87eaaea68bd14a4680b58a5914f277d, type: 3}
+  renderTextureFormat: 0
+  filterMode: 0
+  renderTextureDepth: 24
+  cameraClearFlags: 2
+  background: {r: 0, g: 0, b: 0, a: 1}
+  targetTexture: _CameraNormalsTexture
 --- !u!64 &1776976244
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2552,18 +2575,18 @@ MonoBehaviour:
     When cursor is blue:
 
     -
-    right click on stack of papers to set a bill on the desk
+    left click on stack of papers to set a bill on the desk
 
-    - right click the
+    - left click the
     paper organizer to move bill to completion
 
 
     When cursor is red:
 
-    - right
+    - left
     click on desk to activate a laser pointer
 
-    - right click again to deactivate
+    - left click again to deactivate
     laser pointer
 
     - move mouse to guide the cat'
