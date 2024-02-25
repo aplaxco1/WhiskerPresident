@@ -28,7 +28,7 @@ public class SmearEffect : MonoBehaviour
 	void LateUpdate()
 	{
 		_frameLag = (int) Mathf.Floor(1/(Time.deltaTime*12));
-		Debug.Log(1/Time.deltaTime);
+		//Debug.Log(1/Time.deltaTime);
 		if(_recentPositions.Count > _frameLag)
 			smearMat.SetVector("_PrevPosition", _recentPositions.Dequeue());
 		if(_recentRotations.Count > _frameLag)

@@ -86,7 +86,7 @@ public class CatMovement : MonoBehaviour
         timer = 0;
         //Debug.Log(target_rotation.eulerAngles.x);
         //Debug.Log((BaseArmExtension/armExtension));
-        _smearMat.SetFloat("_Smearing",1);
+        //_smearMat.SetFloat("_Smearing",1);
     }
     void TrackFocus(float focusLevel)
     {
@@ -96,6 +96,8 @@ public class CatMovement : MonoBehaviour
         // dont adjust look_target right before smacking, that way it lingers a little bit behind
         if (timer < WaitInterval/focusLevel - SmackLockTime/focusLevel) {
             lookTarget = AttentionPoint.transform.position;
+        } else {
+            _smearMat.SetFloat("_Smearing",1);
         }
     }
     void MoveArm(float focusLevel)
@@ -146,7 +148,9 @@ public class CatMovement : MonoBehaviour
         GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.018f, pos.z), Quaternion.Euler(0,yRotation,0));
         newPrint.transform.SetParent(pawCollisionDetection.surface.transform, true);
         PawPrint script = newPrint.GetComponent<PawPrint>();
-        script.StencilID = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.GetFloat("_StencilID");
+        foreach (Material stencil in pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().materials) {
+            script.StencilID = stencil.GetFloat("_StencilID");
+        }
         //if (pawCollisionDetection.surface.CompareTag("Bill")) {
             //Debug.Log("bill");
             script.DisappearanceRate = 0.0f;
