@@ -126,8 +126,11 @@ public class CatMovement : MonoBehaviour
             {
                 x2_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
                 target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
-                dust.transform.position = pawCollisionDetection.gameObject.transform.position;
-                dust.gameObject.SetActive(true);
+                if (!dust.gameObject.activeSelf) {
+                    Vector3 pos = pawCollider.transform.position;
+                    dust.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
+                    dust.gameObject.SetActive(true);
+                }
             }
             target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*50f);
