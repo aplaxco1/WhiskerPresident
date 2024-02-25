@@ -25,7 +25,7 @@ public class BillMovement : ToolClass
     private bool billOut;
     private GameObject currBill;
     private bool billMoving;
-    private bool inspectingBill;
+    public bool inspectingBill;
     private bool billRotating;
     
     void Start()
@@ -50,11 +50,9 @@ public class BillMovement : ToolClass
                 else if (hit.collider.gameObject.CompareTag("Bill") && !inspectingBill) {
                     // display bill on screen
                     inspectBill();
-                    Debug.Log("DISPLAYING BILL DETAILS");
                 } 
                 else if (hit.collider.gameObject.CompareTag("Bill") && inspectingBill) {
                     uninspectBill();
-                    Debug.Log("UNDISPLAYING BILL DETAILS");
                 }
             }
         }

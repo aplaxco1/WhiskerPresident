@@ -20,6 +20,7 @@ public class LaserPointer : ToolClass
     public bool isOnDesk = false;
     [SerializeField]
     public Vector3 laserDeskLocation = new Vector3(0f, 0f, 0f);
+    public BillMovement billScript;
 
     private bool isOn = false;
     private GameObject lineObj;
@@ -76,7 +77,13 @@ public class LaserPointer : ToolClass
                 }
                 // check if on desk
                 if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk")) {
-                    isOnDesk = true;
+                    if (mouseHit.collider.gameObject.CompareTag("Bill") && billScript.inspectingBill) {
+                        isOnDesk = false;
+                        laserDot.SetActive(true);
+                    }
+                    else {
+                        isOnDesk = true;
+                    }
                     laserDeskLocation = mouseHit.point;
                     laserDot.transform.position = mouseHit.point;
                     laserDot.transform.rotation = Quaternion.FromToRotation(laserDot.transform.up, mouseHit.normal) * laserDot.transform.rotation;
