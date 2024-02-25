@@ -155,7 +155,7 @@ public class BillController : MonoBehaviour
             if (symbolCount >= symbolsPerLine)
             {
                 symbolCount = 0;
-                yCoord -= symbolVerticalDist;
+                yCoord += symbolVerticalDist; // CHANGE THIS BACK TO -= IF AUTUMN WAS STUPID
                 xCoord = initialSymbolXCoord;
             }
             xCoord += symbolHorizontalDist;

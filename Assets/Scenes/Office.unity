@@ -3494,13 +3494,13 @@ MonoBehaviour:
   isActive: 1
   billPrefab: {fileID: 7222744191218044594, guid: 5557a0c335527c44aa5d5336fd291d91, type: 3}
   speed: 5
-  rotateSpeed: 360
+  rotateSpeed: 660
   billPosition: {x: 0, y: 0.83, z: 0.08}
   stackPosition: {x: -0.57, y: 0.91, z: -0.16}
   organizerPosition: {x: 0.57, y: 0.87, z: -0.16}
   inspectingPosition: {x: 0, y: 1.4, z: -1}
-  flatRotation: 0
-  inspectRotation: 280
+  flatRotation: {x: 0, y: 0, z: 0}
+  inspectRotation: {x: 80, y: 180, z: 0}
   inspectingBill: 0
 --- !u!1 &2023060997
 GameObject:

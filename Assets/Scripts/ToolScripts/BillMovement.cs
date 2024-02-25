@@ -19,8 +19,8 @@ public class BillMovement : ToolClass
     public Vector3 organizerPosition;
     public Vector3 inspectingPosition;
 
-    public int flatRotation;
-    public int inspectRotation;
+    public Vector3 flatRotation = new Vector3(0, 0, 0); // THIS USED TO BE A FLOAT (0) - Autumn
+    public Vector3 inspectRotation = new Vector3(80, 180, 0); // THIS USED TO BE A FLOAT (280) - Autumn
         
     private bool billOut;
     private GameObject currBill;
@@ -95,13 +95,18 @@ public class BillMovement : ToolClass
         billRotating = true;
         while (true)
         {
-            currBill.transform.Rotate(Vector3.left, rotateSpeed * Time.deltaTime);
-            //print(currBill.transform.eulerAngles.x );
-            if (Mathf.Abs((currBill.transform.eulerAngles.x - inspectRotation)) < 2f)
-            {
-                currBill.transform.eulerAngles = new Vector3(inspectRotation, 0, 0);
+            currBill.transform.rotation = Quaternion.RotateTowards(currBill.transform.rotation, Quaternion.Euler(inspectRotation), rotateSpeed * Time.deltaTime);
+            if (currBill.transform.rotation == Quaternion.Euler(inspectRotation)) {
                 yield break;
             }
+            // IDK WHAT ALL THIS IS IM TOO STUPID SORRY - Autumn
+            // currBill.transform.Rotate(Vector3.left, rotateSpeed * Time.deltaTime);
+            // //print(currBill.transform.eulerAngles.x );
+            // if (Mathf.Abs((currBill.transform.eulerAngles.x + inspectRotation)) < 2f)
+            // {
+            //     currBill.transform.eulerAngles = new Vector3(inspectRotation, 0, 0);
+            //     yield break;
+            // }
             yield return null;
             billRotating = false;
         }
@@ -113,13 +118,18 @@ public class BillMovement : ToolClass
         billRotating = true;
         while (true)
         {
-            currBill.transform.Rotate(Vector3.right, rotateSpeed * Time.deltaTime);
-            //print(currBill.transform.eulerAngles.x);
-            if (Mathf.Abs((currBill.transform.eulerAngles.x - flatRotation)) < 2f)
-            {
-                currBill.transform.eulerAngles = new Vector3(flatRotation, 0, 0);
+            currBill.transform.rotation = Quaternion.RotateTowards(currBill.transform.rotation, Quaternion.Euler(0, 0, 0), rotateSpeed * Time.deltaTime);
+            if (currBill.transform.rotation == Quaternion.Euler(0, 0, 0)) {
                 yield break;
             }
+            // IDK WHAT ALL THIS IS IM TOO STUPID - Autumn
+            // currBill.transform.Rotate(Vector3.right, rotateSpeed * Time.deltaTime);
+            // //print(currBill.transform.eulerAngles.x);
+            // if (Mathf.Abs((currBill.transform.eulerAngles.x - flatRotation)) < 2f)
+            // {
+            //     currBill.transform.eulerAngles = new Vector3(flatRotation, 0, 0);
+            //     yield break;
+            // }
             yield return null;
             billRotating = false;
         }
