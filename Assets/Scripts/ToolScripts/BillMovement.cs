@@ -98,10 +98,10 @@ public class BillMovement : ToolClass
         while (true)
         {
             currBill.transform.Rotate(Vector3.left, rotateSpeed * Time.deltaTime);
-            print(currBill.transform.eulerAngles.x );
+            //print(currBill.transform.eulerAngles.x );
             if (Mathf.Abs((currBill.transform.eulerAngles.x - inspectRotation)) < 2f)
             {
-                currBill.transform.eulerAngles = new Vector3(270, 0, 0);
+                currBill.transform.eulerAngles = new Vector3(inspectRotation, 0, 0);
                 yield break;
             }
             yield return null;
@@ -119,7 +119,7 @@ public class BillMovement : ToolClass
             //print(currBill.transform.eulerAngles.x);
             if (Mathf.Abs((currBill.transform.eulerAngles.x - flatRotation)) < 2f)
             {
-                currBill.transform.eulerAngles = new Vector3(0, 0, 0);
+                currBill.transform.eulerAngles = new Vector3(flatRotation, 0, 0);
                 yield break;
             }
             yield return null;

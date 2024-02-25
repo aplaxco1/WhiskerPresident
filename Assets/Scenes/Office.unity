@@ -3499,7 +3499,7 @@ MonoBehaviour:
   organizerPosition: {x: 0.57, y: 0.87, z: -0.16}
   inspectingPosition: {x: 0, y: 1.4, z: -1}
   flatRotation: 0
-  inspectRotation: 270
+  inspectRotation: 280
 --- !u!1001 &768686457249912241
 PrefabInstance:
   m_ObjectHideFlags: 0
