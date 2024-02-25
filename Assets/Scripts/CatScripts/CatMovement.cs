@@ -56,7 +56,8 @@ public class CatMovement : MonoBehaviour
         printColor = new Color(0,0,0,0);
         numPrints = 0;
         _smearMat = ArmMesh.GetComponent<Renderer>().material;
-        dust = ArmMesh.GetComponentInChildren<ParticleSystem>(true);
+        dust = ArmPivot.transform.parent.GetComponentInChildren<ParticleSystem>(true);
+        //Debug.Log(dust);
         armExtension = BaseArmExtension;
         _smearMat.SetFloat("_Smearing",0);
     }
@@ -125,6 +126,7 @@ public class CatMovement : MonoBehaviour
             {
                 x2_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
                 target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
+                dust.transform.position = pawCollisionDetection.gameObject.transform.position;
                 dust.gameObject.SetActive(true);
             }
             target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
