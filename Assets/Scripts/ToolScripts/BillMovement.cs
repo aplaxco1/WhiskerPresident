@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BillMovement : ToolClass
@@ -9,17 +10,23 @@ public class BillMovement : ToolClass
     [SerializeField]
     public GameObject billPrefab;
     [SerializeField]
-    public float speed = 5f;
-    
-    [Header("AdjustableBillPositions")]
-    public Vector3 billPosition = new Vector3(0f, 0.83f, 0.08f);
-    public Vector3 stackPosition = new Vector3(-0.57f, 0.91f, -0.16f);
-    public Vector3 organizerPosition = new Vector3(0.57f, 0.87f, -0.16f);
+    public float speed;
+    public float rotateSpeed;
 
+    [Header("AdjustableBillPositions")] 
+    public Vector3 billPosition;
+    public Vector3 stackPosition;
+    public Vector3 organizerPosition;
+    public Vector3 inspectingPosition;
+
+    public int flatRotation;
+    public int inspectRotation;
+        
     private bool billOut;
     private GameObject currBill;
     private bool billMoving;
     private bool inspectingBill;
+    private bool billRotating;
     
     void Start()
     {
@@ -28,7 +35,7 @@ public class BillMovement : ToolClass
     void Update()
     {
         // if the player right clicks, check where they clicked
-        if (Input.GetMouseButtonDown(0) && !billMoving && isActive) {
+        if (Input.GetMouseButtonDown(0) && !billMoving && !billRotating && isActive) {
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -40,10 +47,14 @@ public class BillMovement : ToolClass
                 else if (hit.collider.gameObject.CompareTag("Organizer") && billOut && !inspectingBill) {
                     moveBillToFinished(hit);
                 }
-                else if (hit.collider.gameObject.CompareTag("Bill")) {
+                else if (hit.collider.gameObject.CompareTag("Bill") && !inspectingBill) {
                     // display bill on screen
                     inspectBill();
                     Debug.Log("DISPLAYING BILL DETAILS");
+                } 
+                else if (hit.collider.gameObject.CompareTag("Bill") && inspectingBill) {
+                    uninspectBill();
+                    Debug.Log("UNDISPLAYING BILL DETAILS");
                 }
             }
         }
@@ -70,7 +81,50 @@ public class BillMovement : ToolClass
 
     private void inspectBill()
     {
-        
+        inspectingBill = true;
+        StartCoroutine(inspectBillMovememt());
+    }
+    
+    private void uninspectBill()
+    {
+        inspectingBill = false;
+        StartCoroutine(uninspectBillMovement());
+    }
+
+    private IEnumerator inspectBillMovememt()
+    {
+        StartCoroutine(moveBill(inspectingPosition, false));
+        billRotating = true;
+        while (true)
+        {
+            currBill.transform.Rotate(Vector3.left, rotateSpeed * Time.deltaTime);
+            print(currBill.transform.eulerAngles.x );
+            if (Mathf.Abs((currBill.transform.eulerAngles.x - inspectRotation)) < 2f)
+            {
+                currBill.transform.eulerAngles = new Vector3(270, 0, 0);
+                yield break;
+            }
+            yield return null;
+            billRotating = false;
+        }
+    }
+    
+    private IEnumerator uninspectBillMovement()
+    {
+        StartCoroutine(moveBill(billPosition, false));
+        billRotating = true;
+        while (true)
+        {
+            currBill.transform.Rotate(Vector3.right, rotateSpeed * Time.deltaTime);
+            //print(currBill.transform.eulerAngles.x);
+            if (Mathf.Abs((currBill.transform.eulerAngles.x - flatRotation)) < 2f)
+            {
+                currBill.transform.eulerAngles = new Vector3(0, 0, 0);
+                yield break;
+            }
+            yield return null;
+            billRotating = false;
+        }
     }
 
     IEnumerator moveBill(Vector3 target, bool destroy) 
