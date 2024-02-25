@@ -16,9 +16,10 @@ public class BillMovement : ToolClass
     public Vector3 stackPosition = new Vector3(-0.57f, 0.91f, -0.16f);
     public Vector3 organizerPosition = new Vector3(0.57f, 0.87f, -0.16f);
 
-    private bool billOut = false;
+    private bool billOut;
     private GameObject currBill;
-    private bool billMoving = false;
+    private bool billMoving;
+    private bool inspectingBill;
     
     void Start()
     {
@@ -33,28 +34,42 @@ public class BillMovement : ToolClass
 
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
-                if (hit.collider.gameObject.CompareTag("Stack") && !billOut && !currBill) {
-                    currBill = Instantiate(billPrefab, stackPosition, Quaternion.identity);
-                    toggleHighlights(currBill.GetComponentInChildren<Renderer>(), 1);
-                    toggleHighlights(hit.collider.gameObject.GetComponentInParent<Renderer>(), 0);
-                    GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
-                    toggleHighlights(organizer.GetComponentInParent<Renderer>(), 1);
-                    StartCoroutine(moveBill(billPosition, false));
+                if (hit.collider.gameObject.CompareTag("Stack") && !billOut && !currBill && !inspectingBill) {
+                    moveBillToTable(hit);
                 }
-                else if (hit.collider.gameObject.CompareTag("Organizer") && billOut) {
-                    toggleHighlights(currBill.GetComponentInChildren<Renderer>(), 0);
-                    toggleHighlights(hit.collider.gameObject.GetComponentInParent<Renderer>(), 0);
-                    GameObject stack = GameObject.FindGameObjectWithTag("Stack");
-                    toggleHighlights(stack.GetComponentInParent<Renderer>(), 1);
-                    StartCoroutine(moveBill(organizerPosition, true));
+                else if (hit.collider.gameObject.CompareTag("Organizer") && billOut && !inspectingBill) {
+                    moveBillToFinished(hit);
                 }
                 else if (hit.collider.gameObject.CompareTag("Bill")) {
                     // display bill on screen
+                    inspectBill();
                     Debug.Log("DISPLAYING BILL DETAILS");
                 }
             }
-
         }
+    }
+
+    private void moveBillToTable(RaycastHit hit)
+    {
+        currBill = Instantiate(billPrefab, stackPosition, Quaternion.identity);
+        toggleHighlights(currBill.GetComponentInChildren<Renderer>(), 1);
+        toggleHighlights(hit.collider.gameObject.GetComponentInParent<Renderer>(), 0);
+        GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
+        toggleHighlights(organizer.GetComponentInParent<Renderer>(), 1);
+        StartCoroutine(moveBill(billPosition, false));
+    }
+
+    private void moveBillToFinished(RaycastHit hit)
+    {
+        toggleHighlights(currBill.GetComponentInChildren<Renderer>(), 0);
+        toggleHighlights(hit.collider.gameObject.GetComponentInParent<Renderer>(), 0);
+        GameObject stack = GameObject.FindGameObjectWithTag("Stack");
+        toggleHighlights(stack.GetComponentInParent<Renderer>(), 1);
+        StartCoroutine(moveBill(organizerPosition, true));
+    }
+
+    private void inspectBill()
+    {
         
     }
 
