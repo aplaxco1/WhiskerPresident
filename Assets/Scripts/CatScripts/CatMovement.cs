@@ -84,6 +84,7 @@ public class CatMovement : MonoBehaviour
     {
         //target_rotation = Quaternion.Euler(-3 - Mathf.Abs(BaseArmExtension/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
         smacking = true;
+        _smearMat.SetFloat("_Smearing",1);
         timer = 0;
         //Debug.Log(target_rotation.eulerAngles.x);
         //Debug.Log((BaseArmExtension/armExtension));
@@ -98,7 +99,7 @@ public class CatMovement : MonoBehaviour
         if (timer < WaitInterval/focusLevel - SmackLockTime/focusLevel) {
             lookTarget = AttentionPoint.transform.position;
         } else {
-            _smearMat.SetFloat("_Smearing",1);
+            //_smearMat.SetFloat("_Smearing",1);
         }
     }
     void MoveArm(float focusLevel)
