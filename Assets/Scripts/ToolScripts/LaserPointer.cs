@@ -71,7 +71,7 @@ public class LaserPointer : ToolClass
                 Vector3 direction = mouseHit.point - laserStartPos;
                 RaycastHit laserHit;
                 // make sure actual visual laser doesnt go through any objects
-                if (Physics.Raycast(laserStartPos, direction, out laserHit, Mathf.Infinity)) {
+                if (Physics.Raycast(laserStartPos, direction, out laserHit, Mathf.Infinity) && !isOnDesk) {
                     drawLine(laserStartPos, laserHit.point);
                 }
                 // check if on desk
