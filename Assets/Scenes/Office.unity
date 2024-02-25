@@ -2247,7 +2247,6 @@ GameObject:
   - component: {fileID: 1773983170}
   - component: {fileID: 1773983169}
   - component: {fileID: 1773983172}
-  - component: {fileID: 1773983173}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2348,21 +2347,6 @@ MonoBehaviour:
   cameraClearFlags: 2
   background: {r: 0, g: 0, b: 0, a: 1}
   targetTexture: _CameraNormalsTexture
---- !u!111 &1773983173
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773983168}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!64 &1776976244
 MeshCollider:
   m_ObjectHideFlags: 0
