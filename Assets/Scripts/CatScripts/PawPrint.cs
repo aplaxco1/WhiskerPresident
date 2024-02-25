@@ -17,6 +17,7 @@ public class PawPrint : MonoBehaviour
         foreach(MeshRenderer renderer in renderers) {
             renderer.material.color = color;
             renderer.material.SetFloat("_StencilID", StencilID);
+            Debug.Log(StencilID);
             renderer.material.renderQueue = renderer.material.renderQueue + renderQueue;
         }
     }

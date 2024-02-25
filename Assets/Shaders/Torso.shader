@@ -138,19 +138,21 @@ Shader "Unlit/Torso"
                 float angle = length(rotationOffset);
                 fixed3 localOffset = worldPos.xyz - _Position.xyz; // -5
                 float radius = length(localOffset);
-                //localOffset = mul(localOffset, magRotation);
                 float n = 2 * radius * sin(angle/2*3.14159/180);
-                fixed3 repairAngle = fixed3(-rotationOffset.y, rotationOffset.x, -rotationOffset.z);
-                fixed3 angularVector = normalize(repairAngle)*n;
+                fixed3 angularVector = normalize(rotationOffset)*n;
         
                 // World offset should only be behind swing
-                //float dirDot = dot(normalize(worldOffset), localOffset);
+                float dirDot = dot(normalize(worldOffset), localOffset);
                 fixed3 unitVec = fixed3(1, 1, 1) * _NoiseHeight;
                 worldOffset = clamp(worldOffset, unitVec * -1, unitVec);
-                //worldOffset *= -clamp(dirDot, -1, 0) * lerp(1, 0, step(length(worldOffset), 0));
+                worldOffset *= -clamp(dirDot, -1, 0) * lerp(1, 0, step(length(worldOffset), 0));
+                
+                // angular offset should be behind swing as well. but how?
+                float dirDot2 = dot(normalize(angularVector), localOffset);
                 angularVector = clamp(angularVector, unitVec * -1, unitVec);
+                angularVector *= -(clamp(dirDot2, -1, 0)) * lerp(1, 0, step(length(angularVector), 0)) * 7;
         
-                fixed3 smearOffset = -angularVector -worldOffset.xyz;//-mul(_Rotation, worldOffset.xyz);
+                fixed3 smearOffset = -angularVector-worldOffset;
                 smearOffset *= lerp(1, noise(worldPos * _NoiseScale), step(0, _NoiseScale));
                 
                 worldPos.xyz += smearOffset;

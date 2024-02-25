@@ -27,6 +27,8 @@ public class SmearEffect : MonoBehaviour
 
 	void LateUpdate()
 	{
+		_frameLag = (int) Mathf.Floor(1/(Time.deltaTime*12));
+		//Debug.Log(1/Time.deltaTime);
 		if(_recentPositions.Count > _frameLag)
 			smearMat.SetVector("_PrevPosition", _recentPositions.Dequeue());
 		if(_recentRotations.Count > _frameLag)
@@ -34,9 +36,9 @@ public class SmearEffect : MonoBehaviour
 		_recentPositions.Enqueue(transform.position);
 		smearMat.SetVector("_Position", transform.position);
 		Vector3 rot = transform.parent.eulerAngles;
-		rot = new Vector3(fix(rot.x),fix(rot.y),fix(rot.z));
+		rot = new Vector3(-fix(rot.y),fix(rot.x),-fix(rot.z));
 		smearMat.SetVector("_Rotation", rot);
-		Debug.Log(rot);
+		//Debug.Log(rot);
 		_recentRotations.Enqueue(rot);
 	}
 	float fix(float n) {

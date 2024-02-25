@@ -35,17 +35,17 @@ public class BillMovement : ToolClass
             if (Physics.Raycast(ray, out hit)) {
                 if (hit.collider.gameObject.CompareTag("Stack") && !billOut && !currBill) {
                     currBill = Instantiate(billPrefab, stackPosition, Quaternion.identity);
-                    currBill.GetComponentInChildren<Renderer>().material.SetFloat("_Highlighted", 1);
-                    hit.collider.gameObject.GetComponentInParent<Renderer>().material.SetFloat("_Highlighted", 0);
+                    toggleHighlights(currBill.GetComponentInChildren<Renderer>(), 1);
+                    toggleHighlights(hit.collider.gameObject.GetComponentInParent<Renderer>(), 0);
                     GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
-                    organizer.GetComponentInParent<Renderer>().material.SetFloat("_Highlighted", 1);
+                    toggleHighlights(organizer.GetComponentInParent<Renderer>(), 1);
                     StartCoroutine(moveBill(billPosition, false));
                 }
                 else if (hit.collider.gameObject.CompareTag("Organizer") && billOut) {
-                    currBill.GetComponentInChildren<Renderer>().material.SetFloat("_Highlighted", 0);
-                    hit.collider.gameObject.GetComponentInParent<Renderer>().material.SetFloat("_Highlighted", 0);
+                    toggleHighlights(currBill.GetComponentInChildren<Renderer>(), 0);
+                    toggleHighlights(hit.collider.gameObject.GetComponentInParent<Renderer>(), 0);
                     GameObject stack = GameObject.FindGameObjectWithTag("Stack");
-                    stack.GetComponentInParent<Renderer>().material.SetFloat("_Highlighted", 1);
+                    toggleHighlights(stack.GetComponentInParent<Renderer>(), 1);
                     StartCoroutine(moveBill(organizerPosition, true));
                 }
                 else if (hit.collider.gameObject.CompareTag("Bill")) {
@@ -82,22 +82,27 @@ public class BillMovement : ToolClass
 
     public void addObjectHighlighting() {
         if (billOut) {
-            currBill.GetComponentInChildren<Renderer>().material.SetFloat("_Highlighted", 1);
+            toggleHighlights(currBill.GetComponentInChildren<Renderer>(), 1);
             GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
-            organizer.GetComponentInParent<Renderer>().material.SetFloat("_Highlighted", 1);
+            toggleHighlights(organizer.GetComponentInParent<Renderer>(), 1);
         } else {
             GameObject stack = GameObject.FindGameObjectWithTag("Stack");
-            stack.GetComponentInParent<Renderer>().material.SetFloat("_Highlighted", 1);
+            toggleHighlights(stack.GetComponentInParent<Renderer>(), 1);
         }
     }
 
     public void removeObjectHighlighting() {
         GameObject stack = GameObject.FindGameObjectWithTag("Stack");
-        stack.GetComponentInParent<Renderer>().material.SetFloat("_Highlighted", 0);
+        toggleHighlights(stack.GetComponentInParent<Renderer>(), 0);
         if (billOut) {
-            currBill.GetComponentInChildren<Renderer>().material.SetFloat("_Highlighted", 0);
+            toggleHighlights(currBill.GetComponentInChildren<Renderer>(), 0);
         }
         GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
-        organizer.GetComponentInParent<Renderer>().material.SetFloat("_Highlighted", 0);
+        toggleHighlights(organizer.GetComponentInParent<Renderer>(), 0);
+    }
+    private void toggleHighlights(Renderer renderer, int n) {
+        foreach (Material material in renderer.materials) {
+            material.SetFloat("_Highlighted", Mathf.Clamp(n, 0, 1));
+        }
     }
 }
