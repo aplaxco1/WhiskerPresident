@@ -49,6 +49,7 @@ public class CatMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Application.targetFrameRate = 60;
         // instantiate pawprint objects
         smacking = false;
         pawCollider = ArmMesh.GetComponentInChildren<BoxCollider>();
@@ -57,7 +58,7 @@ public class CatMovement : MonoBehaviour
         _smearMat = ArmMesh.GetComponent<Renderer>().material;
         dust = ArmMesh.GetComponentInChildren<ParticleSystem>(true);
         armExtension = BaseArmExtension;
-        _smearMat.SetFloat("_Smearing",1);
+        _smearMat.SetFloat("_Smearing",0);
     }
     // Update is called once per frame
     void Update()
@@ -80,7 +81,7 @@ public class CatMovement : MonoBehaviour
     }
     void Smack()
     {
-        target_rotation = Quaternion.Euler(-3 - Mathf.Abs(BaseArmExtension/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
+        //target_rotation = Quaternion.Euler(-3 - Mathf.Abs(BaseArmExtension/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
         smacking = true;
         timer = 0;
         //Debug.Log(target_rotation.eulerAngles.x);
@@ -93,7 +94,7 @@ public class CatMovement : MonoBehaviour
         x_rotate = (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) ? 20f : 5f;
 
         // dont adjust look_target right before smacking, that way it lingers a little bit behind
-        if (true ){//timer < WaitInterval/focusLevel - SmackLockTime/focusLevel) {
+        if (timer < WaitInterval/focusLevel - SmackLockTime/focusLevel) {
             lookTarget = AttentionPoint.transform.position;
         }
     }
@@ -103,7 +104,7 @@ public class CatMovement : MonoBehaviour
             // leave a pawprint behind at the end of the smack
             if (smacking) { 
                 LeavePrint(pawCollider.transform.position, y_rotate);
-                //_smearMat.SetFloat("_Smearing",0);
+                _smearMat.SetFloat("_Smearing",0);
                 //dust.gameObject.SetActive(false);
             }
 
