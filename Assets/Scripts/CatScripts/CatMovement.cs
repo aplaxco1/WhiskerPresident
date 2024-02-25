@@ -127,6 +127,11 @@ public class CatMovement : MonoBehaviour
                 x2_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
                 target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
                 if (!dust.gameObject.activeSelf) {
+                    if (pawCollisionDetection.surface.tag == "Desk") {
+                        dust.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[]{new ParticleSystem.Burst(0.05f, 5, 10)});
+                    } else {
+                        dust.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[]{new ParticleSystem.Burst(0.05f, 3, 5)});
+                    }
                     Vector3 pos = pawCollider.transform.position;
                     dust.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
                     dust.gameObject.SetActive(true);
