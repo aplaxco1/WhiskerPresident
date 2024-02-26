@@ -28,7 +28,7 @@ public class CatMovement : MonoBehaviour
     private float x_rotate = 0;             // target x value of arm rotation
     private float y_rotate = 0;             // target y value of arm rotation
     private float x2_rotate = 0;             // target x value of arm rotation when smacked
-    private float armExtension = -0.8f;     // how far the arm is stretched out
+    private float armExtension;     // how far the arm is stretched out
     private Vector3 lookTarget;             // position of the attentionpoint, but sometimes lags behind for flavor
     private bool smacking;                  // bool to ensure only one pawprint is left
     private BoxCollider pawCollider;        // reference to the paw's box collider
@@ -41,6 +41,7 @@ public class CatMovement : MonoBehaviour
     private const float SmackRecoveryTime = 0.3f;   // time for paw to linger on table
     private const float SmackWarningTime = 0.5f;    // warning time to raise paw
     private const float SmackLockTime = 0.25f;      // time before smack when attention no longer moves
+    private const float BaseArmExtension = -0.77f;
     
 	private Material _smearMat = null;
 
@@ -48,13 +49,17 @@ public class CatMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Application.targetFrameRate = 60;
         // instantiate pawprint objects
         smacking = false;
         pawCollider = ArmMesh.GetComponentInChildren<BoxCollider>();
         printColor = new Color(0,0,0,0);
         numPrints = 0;
         _smearMat = ArmMesh.GetComponent<Renderer>().material;
-        dust = ArmMesh.GetComponentInChildren<ParticleSystem>(true);
+        dust = ArmPivot.transform.parent.GetComponentInChildren<ParticleSystem>(true);
+        //Debug.Log(dust);
+        armExtension = BaseArmExtension;
+        _smearMat.SetFloat("_Smearing",0);
     }
     // Update is called once per frame
     void Update()
@@ -77,11 +82,13 @@ public class CatMovement : MonoBehaviour
     }
     void Smack()
     {
-        target_rotation = Quaternion.Euler(-3 - (-0.8f/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
+        //target_rotation = Quaternion.Euler(-3 - Mathf.Abs(BaseArmExtension/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
         smacking = true;
-        timer = 0;
-        //Debug.Log(_smearMat.GetFloat("_Smearing"));
         _smearMat.SetFloat("_Smearing",1);
+        timer = 0;
+        //Debug.Log(target_rotation.eulerAngles.x);
+        //Debug.Log((BaseArmExtension/armExtension));
+        //_smearMat.SetFloat("_Smearing",1);
     }
     void TrackFocus(float focusLevel)
     {
@@ -91,6 +98,8 @@ public class CatMovement : MonoBehaviour
         // dont adjust look_target right before smacking, that way it lingers a little bit behind
         if (timer < WaitInterval/focusLevel - SmackLockTime/focusLevel) {
             lookTarget = AttentionPoint.transform.position;
+        } else {
+            //_smearMat.SetFloat("_Smearing",1);
         }
     }
     void MoveArm(float focusLevel)
@@ -111,16 +120,25 @@ public class CatMovement : MonoBehaviour
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
 
             // calculate and extend/retract arm mesh
-            armExtension = -0.9f - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.8f, 0.2f);
+            armExtension = BaseArmExtension - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.8f, 0.2f);
             ArmMesh.transform.localPosition = new Vector3(0, 0, Mathf.Lerp(ArmMesh.transform.localPosition.z, armExtension, Time.deltaTime*10f));
         } else { // during smack!
             if (pawCollisionDetection.colliding)
             {
-                x_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
+                x2_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
                 target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
-                dust.gameObject.SetActive(true);
+                if (!dust.gameObject.activeSelf) {
+                    if (pawCollisionDetection.surface.tag == "Desk") {
+                        dust.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[]{new ParticleSystem.Burst(0.05f, 5, 10)});
+                    } else {
+                        dust.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[]{new ParticleSystem.Burst(0.05f, 3, 5)});
+                    }
+                    Vector3 pos = pawCollider.transform.position;
+                    dust.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
+                    dust.gameObject.SetActive(true);
+                }
             }
-            //target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
+            target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*50f);
         }
     }
@@ -141,7 +159,9 @@ public class CatMovement : MonoBehaviour
         GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.018f, pos.z), Quaternion.Euler(0,yRotation,0));
         newPrint.transform.SetParent(pawCollisionDetection.surface.transform, true);
         PawPrint script = newPrint.GetComponent<PawPrint>();
-        script.StencilID = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.GetFloat("_StencilID");
+        foreach (Material stencil in pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().materials) {
+            script.StencilID = stencil.GetFloat("_StencilID");
+        }
         //if (pawCollisionDetection.surface.CompareTag("Bill")) {
             //Debug.Log("bill");
             script.DisappearanceRate = 0.0f;
