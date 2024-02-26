@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667558, g: 0.48427194, b: 0.5645243, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1456,7 +1456,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 929051183}
-  - component: {fileID: 929051186}
   - component: {fileID: 929051184}
   - component: {fileID: 929051188}
   - component: {fileID: 929051187}
@@ -1504,14 +1503,6 @@ MonoBehaviour:
   redStatText: {fileID: 0}
   greenStatText: {fileID: 0}
   blueStatText: {fileID: 0}
---- !u!222 &929051186
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 929051182}
-  m_CullTransparentMesh: 1
 --- !u!114 &929051187
 MonoBehaviour:
   m_ObjectHideFlags: 0
