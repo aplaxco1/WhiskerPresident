@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BillContentsManager : MonoBehaviour
 {
@@ -19,11 +20,27 @@ public class BillContentsManager : MonoBehaviour
             Instance = this;
         }
         DontDestroyOnLoad(this);
+        
+        if (billContentLists == null)
+        {
+            billContentLists = new List<List<BillController.SymbolType>>();
+        }
     }
 
     public void SaveBill(List<BillController.SymbolType> bill)
     {
-        billContentLists.Append(bill);
+        if (bill == null || bill.Count == 0)
+        {
+            print("WARNING: attempted to save null/empty bill");
+            return;
+        }
+        billContentLists.Add(bill);
+        // string s = "";
+        // foreach (List<BillController.SymbolType> b in billContentLists)
+        // {
+        //     s += "bill of length " + b.Count + "\n";
+        // }
+        // print(s);
     }
 
     public void WipeSavedBills()
@@ -31,4 +48,11 @@ public class BillContentsManager : MonoBehaviour
         billContentLists = new List<List<BillController.SymbolType>>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {;
+            SceneManager.LoadScene("BillReview");
+        }
+    }
 }

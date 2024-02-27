@@ -18,11 +18,20 @@ public class BillController : MonoBehaviour
 
     public enum SymbolType
     {
-        Food, //Symbol1
-        Money, //Symbol2
-        Bone, //Symbol3
-        Negator,
-        Doubler, //Multiplier
+        Food = '1', //Symbol1
+        Money = '2', //Symbol2
+        Bone = '3', //Symbol3
+        Negator = 'N',
+        Doubler = 'D', //Multiplier
+        
+        // Generate symbol 1 or 2
+        ValueA = 'A',
+        
+        // Generate symbol 1 or 2 or 3
+        ValueB = 'B',
+        
+        // Generate modifier
+        Modifier = 'M',
     }
 
     public class StatVector
@@ -57,19 +66,6 @@ public class BillController : MonoBehaviour
     public float initialSymbolYCoord;
     public float initialSymbolZCoord;
 
-    private enum SequenceDict
-    {
-        // Generate symbol 1 or 2
-        ValueA = 'A',
-        
-        // Generate symbol 1 or 2 or 3
-        ValueB = 'B',
-        
-        // Generate modifier
-        Modifier = 'M',
-    }
-    
-
     private Transform symbolParent;
 
     // Designer input string (What sequence type to generate)
@@ -83,7 +79,6 @@ public class BillController : MonoBehaviour
     void Awake()
     {
         symbolParent = transform.Find("SymbolParent");
-        
     }
     
     // Start is called before the first frame update
@@ -115,33 +110,60 @@ public class BillController : MonoBehaviour
     {
         symbols = new List<SymbolType>();
         GenerateSymbolList();
+
         BillContentsManager.Instance.SaveBill(symbols);
+
         GenerateSymbolPrefabs();
+
     }
 
     // Use partial random system to generate symbol list
     private void GenerateSymbolList()
     {
+        
+        // In review scene
+        if (BillReviewController.Instance != null)
+        {
+            symbols = BillReviewController.Instance.GrabNextBill();
+            return;
+        }
+        
         if (templateSequence == "")
         {
             GenerateRandomSymbols();
             return;
         }
         
-        foreach(SequenceDict a in templateSequence)
+        foreach(SymbolType a in templateSequence)
         {
-            
             switch (a)
-            {
-                case SequenceDict.ValueA:
+            { 
+                case SymbolType.ValueA:
                     SequenceValueA();
                     break;
-                case SequenceDict.ValueB:
+                case SymbolType.ValueB:
                     SequenceValueB();
                     break;
-                case SequenceDict.Modifier:
+                case SymbolType.Modifier:
                     SequenceModifier();
                     break;
+                
+                case SymbolType.Food:
+                    symbols.Add(SymbolType.Food);
+                    break;
+                case SymbolType.Money:
+                    symbols.Add(SymbolType.Money);
+                    break;
+                case SymbolType.Bone:
+                    symbols.Add(SymbolType.Bone);
+                    break;
+                case SymbolType.Negator:
+                    symbols.Add(SymbolType.Negator);
+                    break;
+                case SymbolType.Doubler:
+                    symbols.Add(SymbolType.Doubler);
+                    break;
+                
                 default:
                     print("WARNING: INVALID SEQUENCE TEMPLATE LETTER");
                     break;
@@ -159,7 +181,6 @@ public class BillController : MonoBehaviour
         else if (rand == 1)
         {
             symbols.Add(SymbolType.Money);
-
         }
     }
     
@@ -169,17 +190,14 @@ public class BillController : MonoBehaviour
         if (rand == 0)
         {
             symbols.Add(SymbolType.Food);
-
         } 
         else if (rand == 1)
         {
             symbols.Add(SymbolType.Money);
-
         }
         else if (rand == 2)
         {
             symbols.Add(SymbolType.Bone);
-
         }
     }
 
@@ -189,7 +207,6 @@ public class BillController : MonoBehaviour
         if (rand == 0)
         {
             symbols.Add(SymbolType.Doubler);
-
         }
         else if (rand == 1)
         {
@@ -217,7 +234,6 @@ public class BillController : MonoBehaviour
     // Generate symbol prefabs onto the bill
     private void GenerateSymbolPrefabs()
     {
-        //print("Symbols: " + symbols);
         int symbolCount = -1;
         float xCoord = initialSymbolXCoord;
         float yCoord = initialSymbolYCoord;
