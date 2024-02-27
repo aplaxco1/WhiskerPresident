@@ -18,11 +18,11 @@ public class BillController : MonoBehaviour
 
     public enum SymbolType
     {
-        Food,
-        Money,
-        Bone,
+        Food, //Symbol1
+        Money, //Symbol2
+        Bone, //Symbol3
         Negator,
-        Doubler,
+        Doubler, //Multiplier
     }
 
     public class StatVector
@@ -56,9 +56,28 @@ public class BillController : MonoBehaviour
     public float initialSymbolXCoord;
     public float initialSymbolYCoord;
     public float initialSymbolZCoord;
+
+    private enum SequenceDict
+    {
+        // Generate symbol 1 or 2
+        ValueA = 'A',
+        
+        // Generate symbol 1 or 2 or 3
+        ValueB = 'B',
+        
+        // Generate modifier
+        Modifier = 'M',
+    }
     
 
     private Transform symbolParent;
+
+    // Designer input string (What sequence type to generate)
+    // Grabbed from BillContentsManager
+    private string templateSequence;
+    
+    // Script output string (What has been generated exactly)
+    public string generatedSequence;
     
     
     void Awake()
@@ -70,37 +89,116 @@ public class BillController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        templateSequence = BillContentsManager.Instance.templateSequence;
         InitializeBill();
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         // ! Temporary pass/veto controls
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            PassBill();
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            VetoBill();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reinitialize();
-        }
+        // if (Input.GetKeyDown(KeyCode.Y))
+        // {
+        //     PassBill();
+        // }
+        // if (Input.GetKeyDown(KeyCode.N))
+        // {
+        //     VetoBill();
+        // }
+        // if (Input.GetKeyDown(KeyCode.R))
+        // {
+        //     Reinitialize();
+        // }
     }
 
     public void InitializeBill()
     {
         symbols = new List<SymbolType>();
         GenerateSymbolList();
+        BillContentsManager.Instance.SaveBill(symbols);
         GenerateSymbolPrefabs();
     }
 
     // Use partial random system to generate symbol list
     private void GenerateSymbolList()
+    {
+        if (templateSequence == "")
+        {
+            GenerateRandomSymbols();
+            return;
+        }
+        
+        foreach(SequenceDict a in templateSequence)
+        {
+            
+            switch (a)
+            {
+                case SequenceDict.ValueA:
+                    SequenceValueA();
+                    break;
+                case SequenceDict.ValueB:
+                    SequenceValueB();
+                    break;
+                case SequenceDict.Modifier:
+                    SequenceModifier();
+                    break;
+                default:
+                    print("WARNING: INVALID SEQUENCE TEMPLATE LETTER");
+                    break;
+            }
+        }
+    }
+
+    private void SequenceValueA()
+    {
+        int rand = Random.Range(0, 2);
+        if (rand == 0)
+        {
+            symbols.Add(SymbolType.Food);
+        } 
+        else if (rand == 1)
+        {
+            symbols.Add(SymbolType.Money);
+
+        }
+    }
+    
+    private void SequenceValueB()
+    {
+        int rand = Random.Range(0, 3);
+        if (rand == 0)
+        {
+            symbols.Add(SymbolType.Food);
+
+        } 
+        else if (rand == 1)
+        {
+            symbols.Add(SymbolType.Money);
+
+        }
+        else if (rand == 2)
+        {
+            symbols.Add(SymbolType.Bone);
+
+        }
+    }
+
+    private void SequenceModifier()
+    {
+        int rand = Random.Range(0, 2);
+        if (rand == 0)
+        {
+            symbols.Add(SymbolType.Doubler);
+
+        }
+        else if (rand == 1)
+        {
+            symbols.Add(SymbolType.Negator);
+        }
+    }
+
+    // Ran only if not given a symbol sequence template
+    private void GenerateRandomSymbols()
     {
         int symbolsToGen = numSymbols;
         symbolsToGen += Random.Range(-(numSymbolDistribution + 1), numSymbolDistribution);
@@ -160,8 +258,6 @@ public class BillController : MonoBehaviour
             }
             xCoord += symbolHorizontalDist;
             Vector3 pos = new Vector3(xCoord, zCoord, yCoord);
-            //Quaternion rot = Quaternion.Euler(Vector3.zero);
-            //print(pos);
             
             GameObject instantiatedSymbol = Instantiate(symbolToInstantiate, symbolParent, false);
             instantiatedSymbol.transform.position += pos;
@@ -198,6 +294,7 @@ public class BillController : MonoBehaviour
                     multiplier *= 2;
                     break;
                 default:
+                    print("WARNING: INVALID SYMBOL FOR BILL CALCULATION");
                     break;
             }
         }
