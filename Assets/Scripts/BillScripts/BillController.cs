@@ -27,16 +27,16 @@ public class BillController : MonoBehaviour
 
     public class StatVector
     {
-        public int FoodStat;
-        public int MoneyStat;
-        public int BoneStat;
+        public int RedStat;
+        public int GreenStat;
+        public int BlueStat;
 
         public string StringConversion()
         {
             string ret = "";
-            ret += "Red Stat (Food): " + FoodStat + "\n";
-            ret += "Green Stat (Money): " + MoneyStat + "\n";
-            ret += "Blue Stat (Bone): " + BoneStat + "\n";
+            ret += "Red Stat (Food): " + RedStat + "\n";
+            ret += "Green Stat (Money): " + GreenStat + "\n";
+            ret += "Blue Stat (Bone): " + BlueStat + "\n";
             return ret;
         }
     }
@@ -155,12 +155,12 @@ public class BillController : MonoBehaviour
             if (symbolCount >= symbolsPerLine)
             {
                 symbolCount = 0;
-                yCoord -= symbolVerticalDist;
+                yCoord += symbolVerticalDist; // CHANGE THIS BACK TO -= IF AUTUMN WAS STUPID
                 xCoord = initialSymbolXCoord;
             }
             xCoord += symbolHorizontalDist;
             Vector3 pos = new Vector3(xCoord, zCoord, yCoord);
-            Quaternion rot = Quaternion.Euler(Vector3.zero);
+            //Quaternion rot = Quaternion.Euler(Vector3.zero);
             //print(pos);
             
             GameObject instantiatedSymbol = Instantiate(symbolToInstantiate, symbolParent, false);
@@ -180,15 +180,15 @@ public class BillController : MonoBehaviour
             switch (symbol)
             {
                 case SymbolType.Bone:
-                    returnVector.BoneStat += scoreInterval * multiplier;
+                    returnVector.BlueStat += scoreInterval * multiplier;
                     multiplier = 1;
                     break;
                 case SymbolType.Food:
-                    returnVector.FoodStat += scoreInterval * multiplier;
+                    returnVector.RedStat += scoreInterval * multiplier;
                     multiplier = 1;
                     break;
                 case SymbolType.Money:
-                    returnVector.MoneyStat += scoreInterval * multiplier;
+                    returnVector.GreenStat += scoreInterval * multiplier;
                     multiplier = 1;
                     break;
                 case SymbolType.Negator:

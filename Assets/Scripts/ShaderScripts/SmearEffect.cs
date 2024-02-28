@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class SmearEffect : MonoBehaviour
 {
 	Queue<Vector3> _recentPositions = new Queue<Vector3>();
+	Queue<Vector3> _recentRotations = new Queue<Vector3>();
 
 	[SerializeField]
 	int _frameLag = 0;
@@ -26,12 +27,22 @@ public class SmearEffect : MonoBehaviour
 
 	void LateUpdate()
 	{
+		_frameLag = (int) Mathf.Floor(1/(Time.deltaTime*12));
+		//Debug.Log(1/Time.deltaTime);
 		if(_recentPositions.Count > _frameLag)
 			smearMat.SetVector("_PrevPosition", _recentPositions.Dequeue());
-
-		smearMat.SetVector("_Position", transform.position);
-		
-		smearMat.SetVector("_Rotation", transform.eulerAngles);
+		if(_recentRotations.Count > _frameLag)
+			smearMat.SetVector("_PrevRotation", _recentRotations.Dequeue());
 		_recentPositions.Enqueue(transform.position);
+		smearMat.SetVector("_Position", transform.position);
+		Vector3 rot = transform.parent.eulerAngles;
+		rot = new Vector3(-fix(rot.y),fix(rot.x),-fix(rot.z));
+		smearMat.SetVector("_Rotation", rot);
+		//Debug.Log(rot);
+		_recentRotations.Enqueue(rot);
+	}
+	float fix(float n) {
+		float a = n <= 180 ? n : (360-n)*-1;
+		return a;
 	}
 }

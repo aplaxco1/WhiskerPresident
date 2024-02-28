@@ -16,6 +16,7 @@ Shader "Unlit/Torso"
 		_Position("Position", Vector) = (0, 0, 0, 0)
 		_PrevPosition("Prev Position", Vector) = (0, 0, 0, 0)
 		_Rotation("Rotation", Vector) = (0, 0, 0)
+		_PrevRotation("Prev Rotation", Vector) = (0, 0, 0)
 
 		_NoiseScale("Noise Scale", Float) = 15
 		_NoiseHeight("Noise Height", Float) = 1.3
@@ -86,6 +87,7 @@ Shader "Unlit/Torso"
             fixed4 _PrevPosition;
             fixed4 _Position;
             fixed3 _Rotation;
+            fixed3 _PrevRotation;
             half _NoiseScale;
             half _NoiseHeight;
 
@@ -132,16 +134,26 @@ Shader "Unlit/Torso"
                 fixed4 worldPos = mul(unity_ObjectToWorld, v.pos);
         
                 fixed3 worldOffset = _Position.xyz - _PrevPosition.xyz; // -5
+                fixed3 rotationOffset = _Rotation - _PrevRotation;
+                float angle = length(rotationOffset);
                 fixed3 localOffset = worldPos.xyz - _Position.xyz; // -5
-                localOffset = mul(localOffset, _Rotation.x);
+                float radius = length(localOffset);
+                float n = 2 * radius * sin(angle/2*3.14159/180);
+                fixed3 angularVector = normalize(rotationOffset)*n;
         
                 // World offset should only be behind swing
                 float dirDot = dot(normalize(worldOffset), localOffset);
                 fixed3 unitVec = fixed3(1, 1, 1) * _NoiseHeight;
                 worldOffset = clamp(worldOffset, unitVec * -1, unitVec);
                 worldOffset *= -clamp(dirDot, -1, 0) * lerp(1, 0, step(length(worldOffset), 0));
+                
+                // angular offset should be behind swing as well. but how?
+                float dirDot2 = dot(normalize(angularVector), localOffset);
+                angularVector = clamp(angularVector, unitVec * -1, unitVec);
+                angularVector *= -(clamp(dirDot2, -1, 0)) * lerp(1, 0, step(length(angularVector), 0)) * 7;
         
-                fixed3 smearOffset = -worldOffset.xyz * lerp(1, noise(worldPos * _NoiseScale), step(0, _NoiseScale));
+                fixed3 smearOffset = -angularVector-worldOffset;
+                smearOffset *= lerp(1, noise(worldPos * _NoiseScale), step(0, _NoiseScale));
                 
                 worldPos.xyz += smearOffset;
                 

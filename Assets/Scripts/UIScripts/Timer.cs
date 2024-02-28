@@ -8,8 +8,6 @@ public class Timer : MonoBehaviour
 {
     static public float timeValue = 120;
     public TMP_Text timerText;
-    //private float gameTimer;
-    //private bool gamePaused = false;
 
    
     void Update()
@@ -24,15 +22,6 @@ public class Timer : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             ResetTimer();
         }
-
-        /* if(!gamePaused)
-        {
-            gameTimer += Time.deltaTime;
-        }
-        else if (Time.timeScale == 0)
-        {
-            gamePaused = true;
-        } */
 
         DisplayTime(timeValue);
     }
