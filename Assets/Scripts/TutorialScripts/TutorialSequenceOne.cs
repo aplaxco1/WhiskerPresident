@@ -21,11 +21,11 @@ public class TutorialSequenceOne : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(Time.)
+        //1if (Time.) ;
         switch (currentStep)
         {
             case TutorialStep.clickBills:
-                HighlightObject(gameObject);
+                HighlightObject(stackOfBills);
                 break;
         }
         
@@ -34,10 +34,16 @@ public class TutorialSequenceOne : MonoBehaviour {
     void HighlightObject(GameObject gameObject)
     {
         if (isHighlighted) {
-            gameObject.GetComponent<Renderer>().material.SetFloat("_Highlighted", 1);
+            gameObject.GetComponent<Renderer>().material
+                      .SetFloat("_Highlighted", 1);
+            gameObject.GetComponent<MeshRenderer>().material
+                      .SetFloat("_Highlight", 1);
         }
         else {
-            gameObject.GetComponent<Renderer>().material.SetFloat("_Highlighted", 0);
+            gameObject.GetComponent<Renderer>().material
+                      .SetFloat("_Highlighted", 0);
+            gameObject.GetComponent<MeshRenderer>().material
+                      .SetFloat("_Highlight", 0);
         }
     }
 }
