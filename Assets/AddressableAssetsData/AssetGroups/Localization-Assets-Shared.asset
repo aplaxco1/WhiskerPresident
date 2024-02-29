@@ -17,16 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 89f69328ada377d438cc0fbba5943f66
   m_SerializeEntries:
-  - m_GUID: 6e6da812fb927db45946fcdcd6743b34
-    m_Address: Assets/UI/localizationTables/playButton Shared Data.asset
-    m_ReadOnly: 1
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 703f6d044390a344c94eea5a88c7d7a9
-    m_Address: Assets/UI/localizationTables/playLocalization Shared Data.asset
-    m_ReadOnly: 1
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cb9ea760d4cae904790913ef6038eb5c
     m_Address: playButtonZH
     m_ReadOnly: 1

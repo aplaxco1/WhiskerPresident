@@ -1,49 +1,71 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class TutorialSequenceOne : MonoBehaviour {
-    enum TutorialStep { clickBills, clickPaper, clickBin }
+    public enum TutorialStep { clickBills, clickPaper, clickBin }
     [SerializeField] private GameObject stackOfBills;
     [SerializeField] private GameObject paper;
     [SerializeField] private GameObject bin;
-    private TutorialStep currentStep;
+    public static TutorialStep currentStep;
 
-    private bool isHighlighted;
     // Start is called before the first frame update
     void Start()
     {
         currentStep = TutorialStep.clickBills;
-        isHighlighted = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //1if (Time.) ;
+        bool billHighlighted = false;
+        bool paperHighlighted = false;
+        bool binHighlighted = false;
         switch (currentStep)
         {
             case TutorialStep.clickBills:
-                HighlightObject(stackOfBills);
+                Debug.Log("Click the Bill!");
+                billHighlighted = true;
+                break;
+            case TutorialStep.clickPaper:
+                Debug.Log("Click the Paper!");
+                paperHighlighted = true;
+                break;
+            case TutorialStep.clickBin:
+                Debug.Log("Click the Bin!");
+                binHighlighted = true;
                 break;
         }
-        
+        HighlightObject(stackOfBills, billHighlighted);
+        HighlightObject(paper, paperHighlighted);
+        HighlightObject(bin, binHighlighted);
     }
 
-    void HighlightObject(GameObject gameObject)
+    void HighlightObject(GameObject gameObject, bool isHighlighted)
     {
-        if (isHighlighted) {
-            gameObject.GetComponent<Renderer>().material
-                      .SetFloat("_Highlighted", 1);
+        if (isHighlighted)
+        {
             gameObject.GetComponent<MeshRenderer>().material
                       .SetFloat("_Highlight", 1);
         }
-        else {
-            gameObject.GetComponent<Renderer>().material
-                      .SetFloat("_Highlighted", 0);
+        else
+        {
             gameObject.GetComponent<MeshRenderer>().material
                       .SetFloat("_Highlight", 0);
+        }
+    }
+
+    public static bool NextStepInTutorial(int stepNumber) {
+        if(stepNumber == (int)currentStep + 1)
+        {
+            currentStep = (TutorialStep)stepNumber;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

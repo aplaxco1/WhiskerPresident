@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tutorial Material
+  m_Name: Tutorial Bill Stack
   m_Shader: {fileID: -6465566751694194690, guid: fc2c0e4a373c7c54493a941c4a947bcd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -42,5 +42,5 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _Highlight: 0
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.49803925, g: 0.48627454, b: 0.45098042, a: 1}
   m_BuildTextureStacks: []

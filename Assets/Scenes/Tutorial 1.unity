@@ -146,7 +146,11 @@ PrefabInstance:
     - target: {fileID: 1273158866086553536, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1da2edd13b85eef4480a61cb9e6ce955, type: 2}
+      objectReference: {fileID: 2100000, guid: 78db15cf29ec98041952794a613ff1cb, type: 2}
+    - target: {fileID: 1326813748410246113, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4493585093827132993, guid: 01b83f2de435247d9881579ba085379d, type: 3}
     - target: {fileID: 2175780838478368890, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -157,16 +161,16 @@ PrefabInstance:
       objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3858807916358801195, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3858807916358801195, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0e205055cbcd01f48bbc745a50346b1b, type: 2}
+      objectReference: {fileID: 2100000, guid: 78db15cf29ec98041952794a613ff1cb, type: 2}
     - target: {fileID: 3858807916358801195, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: ea10c660505571f4daf6cdfeca8fc5a5, type: 2}
+      objectReference: {fileID: 2100000, guid: bd9e6247abd939040a56e074ea12890c, type: 2}
     - target: {fileID: 4302667638643576727, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Name
       value: Environment
@@ -701,7 +705,7 @@ MonoBehaviour:
   laserMaterial: {fileID: 2100000, guid: 4e685fb47c9e21c4fb4a5c656d1791a8, type: 2}
   isOnDesk: 0
   laserDeskLocation: {x: 0, y: 0, z: 0}
-  billScript: {fileID: 1994736605}
+  billScript: {fileID: 0}
 --- !u!4 &515096774
 Transform:
   m_ObjectHideFlags: 0
@@ -1767,7 +1771,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1994736604}
-  - component: {fileID: 1994736605}
+  - component: {fileID: 1994736606}
   m_Layer: 0
   m_Name: EmptyHand
   m_TagString: Untagged
@@ -1790,7 +1794,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 118722551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1994736605
+--- !u!114 &1994736606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1799,12 +1803,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1994736603}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf5aecfe8b8226e4f94236a163f61fdf, type: 3}
+  m_Script: {fileID: 11500000, guid: cb3cfae5a92817d4d873d79276cda803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cursorTexture: {fileID: 2800000, guid: c4fea79fe2fb88e47ae03eb97e364095, type: 3}
   isActive: 1
-  billPrefab: {fileID: 7222744191218044594, guid: 5557a0c335527c44aa5d5336fd291d91, type: 3}
+  billPrefab: {fileID: 7222744191218044594, guid: 20f1e6b5fa3f40e4885705077a36c591, type: 3}
   speed: 7
   rotateSpeed: 1200
   billPosition: {x: 0, y: 0.83, z: 0.08}

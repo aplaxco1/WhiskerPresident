@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8294444725532357601
+--- !u!114 &-753524339530962986
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,9 +20,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tutorial Material 1
+  m_Name: Tutorial Top Stack
   m_Shader: {fileID: -6465566751694194690, guid: fc2c0e4a373c7c54493a941c4a947bcd, type: 3}
-  m_Parent: {fileID: 2100000, guid: 0e205055cbcd01f48bbc745a50346b1b, type: 2}
+  m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -37,6 +37,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
-    m_Colors: []
+    m_Floats:
+    - _BUILTIN_QueueControl: 0
+    - _BUILTIN_QueueOffset: 0
+    - _Highlight: 0
+    m_Colors:
+    - _Color: {r: 0.49803925, g: 0.48627454, b: 0.45098042, a: 1}
   m_BuildTextureStacks: []
