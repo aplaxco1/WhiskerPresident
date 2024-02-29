@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1009,6 +1009,7 @@ MonoBehaviour:
   stackOfBills: {fileID: 1847470076}
   paper: {fileID: 0}
   bin: {fileID: 1169605376}
+  billMovementScript: {fileID: 1994736606}
 --- !u!1 &1148182447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1817,6 +1818,8 @@ MonoBehaviour:
   inspectingPosition: {x: 0, y: 1.4, z: -1}
   flatRotation: {x: 0, y: 0, z: 0}
   inspectRotation: {x: 80, y: 180, z: 0}
+  billOut: 0
+  currBill: {fileID: 0}
   inspectingBill: 0
 --- !u!1 &2023060997
 GameObject:

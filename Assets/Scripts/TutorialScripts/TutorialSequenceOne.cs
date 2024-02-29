@@ -9,6 +9,7 @@ public class TutorialSequenceOne : MonoBehaviour {
     [SerializeField] private GameObject stackOfBills;
     [SerializeField] private GameObject paper;
     [SerializeField] private GameObject bin;
+    [SerializeField] private SimpleBillMovement billMovementScript;
     public static TutorialStep currentStep;
 
     // Start is called before the first frame update
@@ -39,7 +40,10 @@ public class TutorialSequenceOne : MonoBehaviour {
                 break;
         }
         HighlightObject(stackOfBills, billHighlighted);
-        HighlightObject(paper, paperHighlighted);
+        if (billMovementScript.billOut) {
+            paper = billMovementScript.currBill.GetComponentInChildren<Renderer>().gameObject;
+            HighlightObject(paper, paperHighlighted);
+        }
         HighlightObject(bin, binHighlighted);
     }
 

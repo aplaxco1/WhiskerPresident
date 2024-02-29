@@ -22,8 +22,8 @@ public class SimpleBillMovement : ToolClass
     public Vector3 flatRotation = new(0, 0, 0); // THIS USED TO BE A FLOAT (0) - Autumn
     public Vector3 inspectRotation = new(80, 180, 0); // THIS USED TO BE A FLOAT (280) - Autumn
         
-    private bool billOut;
-    private GameObject currBill;
+    public bool billOut;
+    public GameObject currBill;
     private bool billMoving;
     public bool inspectingBill;
     private bool billRotating;
