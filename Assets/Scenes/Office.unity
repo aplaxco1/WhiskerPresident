@@ -905,7 +905,7 @@ MonoBehaviour:
   laserMaterial: {fileID: 2100000, guid: 4e685fb47c9e21c4fb4a5c656d1791a8, type: 2}
   isOnDesk: 0
   laserDeskLocation: {x: 0, y: 0, z: 0}
-  billScript: {fileID: 0}
+  billScript: {fileID: 1994736605}
 --- !u!4 &515096774
 Transform:
   m_ObjectHideFlags: 0
