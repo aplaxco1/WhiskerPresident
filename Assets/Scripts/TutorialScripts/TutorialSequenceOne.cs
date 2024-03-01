@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class TutorialSequenceOne : MonoBehaviour {
-    public enum TutorialStep { clickBills, clickPaper, clickBin, finish}
+    public enum TutorialStep { clickBills, clickPaper, putPaperDown, clickBin, finish}
     [SerializeField] private GameObject stackOfBills;
     private GameObject paper;
     [SerializeField] private GameObject bin;
@@ -37,13 +37,19 @@ public class TutorialSequenceOne : MonoBehaviour {
                 Debug.Log("Click the Paper!");
                 paperHighlighted = true;
                 break;
+            case TutorialStep.putPaperDown:
+                Debug.Log("Put the Paper Down!");
+                paperHighlighted = true;
+                break;
             case TutorialStep.clickBin:
                 Debug.Log("Click the Bin!");
                 binHighlighted = true;
                 break;
             case TutorialStep.finish:
                 Debug.Log("Finished!");
-                completeButton.SetActive(true);
+                if(completeButton.activeSelf == false) {
+                    completeButton.SetActive(true);
+                }
                 break;
 
         }

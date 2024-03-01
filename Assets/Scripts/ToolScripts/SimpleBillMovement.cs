@@ -48,7 +48,7 @@ public class SimpleBillMovement : ToolClass
                 }
                 else if (hit.collider.gameObject.CompareTag("Organizer") && billOut && !inspectingBill)
                 {
-                    TutorialSequenceOne.NextStepInTutorial(3);
+                    TutorialSequenceOne.NextStepInTutorial(4);
                     MoveBillToFinished(hit);
                 }
                 else if (hit.collider.gameObject.CompareTag("Bill") && !inspectingBill)
@@ -59,6 +59,7 @@ public class SimpleBillMovement : ToolClass
                 } 
                 else if (hit.collider.gameObject.CompareTag("Bill") && inspectingBill) 
                 {
+                    TutorialSequenceOne.NextStepInTutorial(3);
                     UninspectBill();
                 }
             }
