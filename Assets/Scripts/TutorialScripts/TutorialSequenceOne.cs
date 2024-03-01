@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using UnityEditor.SearchService;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialSequenceOne : MonoBehaviour {
-    public enum TutorialStep { clickBills, clickPaper, clickBin }
+    public enum TutorialStep { clickBills, clickPaper, clickBin, finish}
     [SerializeField] private GameObject stackOfBills;
-    [SerializeField] private GameObject paper;
+    private GameObject paper;
     [SerializeField] private GameObject bin;
     [SerializeField] private SimpleBillMovement billMovementScript;
+    [SerializeField] private GameObject completeButton;
     public static TutorialStep currentStep;
 
     // Start is called before the first frame update
@@ -38,6 +41,11 @@ public class TutorialSequenceOne : MonoBehaviour {
                 Debug.Log("Click the Bin!");
                 binHighlighted = true;
                 break;
+            case TutorialStep.finish:
+                Debug.Log("Finished!");
+                completeButton.SetActive(true);
+                break;
+
         }
         HighlightObject(stackOfBills, billHighlighted);
         if (billMovementScript.billOut) {
@@ -71,5 +79,9 @@ public class TutorialSequenceOne : MonoBehaviour {
         {
             return false;
         }
+    }
+
+    public void NextTutorial() {
+        SceneManager.LoadScene("Tutorial 2", LoadSceneMode.Single);
     }
 }
