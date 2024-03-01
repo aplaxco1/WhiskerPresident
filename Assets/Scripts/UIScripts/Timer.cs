@@ -9,15 +9,31 @@ public class Timer : MonoBehaviour
     static public float timeValue = 120;
     public TMP_Text timerText;
 
-   
+    private float flashTimer;
+    private float flashDuration = 1f;
+
+    void Start()
+    {
+        ResetTimer();
+    }
+
     void Update()
     {
         if (timeValue > 0)
         {
             timeValue -= Time.deltaTime;
         }
+        else if (timeValue == 60)
+        {
+            Flash();
+        }
+        else if (timeValue == 30)
+        {
+            Flash();
+        }
         else
         {
+            Flash();
             timeValue = 0;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             ResetTimer();
@@ -28,7 +44,7 @@ public class Timer : MonoBehaviour
 
     void DisplayTime(float timeToDisplay)
     {
-        if(timeToDisplay < 0)
+        if (timeToDisplay < 0)
         {
             timeToDisplay = 0;
         }
@@ -46,5 +62,34 @@ public class Timer : MonoBehaviour
     public static void ResetTimer()
     {
         timeValue = 120;
-    } 
+    }
+
+    private void Flash()
+    {
+        if (timeValue != 0)
+        {
+            timeValue = 0;
+            DisplayTime(timeValue);
+        }
+
+        if (flashTimer >= 0 && flashTimer <= 30)
+        {
+            flashTimer = flashDuration;
+        }
+        else if (flashTimer >= flashDuration / 2)
+        {
+            flashTimer -= Time.deltaTime;
+            SetTextDisplay(false);
+        }
+        else
+        {
+            flashTimer -= Time.deltaTime;
+            SetTextDisplay(true);
+        }
+    }
+
+    private void SetTextDisplay(bool enabled)
+    {
+        timerText.enabled = enabled;
+    }
 }
