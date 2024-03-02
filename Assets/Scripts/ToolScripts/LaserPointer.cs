@@ -22,7 +22,6 @@ public class LaserPointer : ToolClass
     public Vector3 laserDeskLocation = new Vector3(0f, 0f, 0f);
     public BillMovement billScript;
 
-    private bool isOn = false;
     private GameObject lineObj;
     private LineRenderer lineRender;
 
@@ -37,7 +36,7 @@ public class LaserPointer : ToolClass
         lineRender.positionCount = 2;
         lineRender.startColor = Color.red;
         lineRender.endColor = Color.red;
-        lineObj.SetActive(isOn);
+        lineObj.SetActive(true);
         // initialize laser pointer dot
         laserDot = Instantiate(laserDot, new Vector3(0,0,0), Quaternion.identity);
         laserDot.SetActive(isOnDesk);
@@ -46,17 +45,11 @@ public class LaserPointer : ToolClass
     // Update is called once per frame
     void Update()
     {
-        // check right click
-        if (Input.GetMouseButtonDown(0) && isActive) {
-            isOn = !isOn;
-            lineObj.SetActive(isOn);
-        }
 
-        // set laser dot active if laser is on desk
-        laserDot.SetActive(isOnDesk);
-
-        // move laser if on
-        if (isOn) {
+        if (isActive) {
+            // set laser dot active if laser is on desk
+            laserDot.SetActive(isOnDesk);
+            lineObj.SetActive(true);
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -98,9 +91,6 @@ public class LaserPointer : ToolClass
                 isOnDesk = false;
             }
         }
-        else {
-            isOnDesk = false;
-        }
     }
 
     void drawLine(Vector3 start, Vector3 end) {
@@ -110,7 +100,6 @@ public class LaserPointer : ToolClass
 
     // remove laser when its not the currently selected tool
     public void removeLaser() {
-        isOn = false;
         isOnDesk = false;
         if (laserDot) { laserDot.SetActive(false); }
         if (lineObj) { lineObj.SetActive(false); }
