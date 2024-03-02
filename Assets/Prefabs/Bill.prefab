@@ -246,6 +246,7 @@ MonoBehaviour:
   symbolsPerLine: 5
   symbolHorizontalDist: 0.05
   symbolVerticalDist: 0.05
-  initialSymbolXCoord: -0.15
+  initialSymbolXCoord: 0.15
   initialSymbolYCoord: -0.15
   initialSymbolZCoord: 0
+  generatedSequence: 

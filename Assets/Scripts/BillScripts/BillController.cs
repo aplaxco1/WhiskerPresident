@@ -272,7 +272,7 @@ public class BillController : MonoBehaviour
                 yCoord += symbolVerticalDist; // CHANGE THIS BACK TO -= IF AUTUMN WAS STUPID
                 xCoord = initialSymbolXCoord;
             }
-            xCoord += symbolHorizontalDist;
+            xCoord -= symbolHorizontalDist;
             Vector3 pos = new Vector3(xCoord, zCoord, yCoord);
             
             GameObject instantiatedSymbol = Instantiate(symbolToInstantiate, symbolParent, false);
@@ -322,15 +322,16 @@ public class BillController : MonoBehaviour
     public void PassBill()
     {
         StatVector returnedStatVector = CalculateOutcome();
+        StatManager.Instance.AdjustStats(returnedStatVector);
         string statOutput = returnedStatVector.StringConversion();
         print("BILL PASSED WITH STATS: " + statOutput);
-        GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = statOutput;
+        //GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = statOutput;
     }
 
     // Bill is denied, does not effect stats
     public void VetoBill()
     {
-        GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = "BILL VETOED";
+        //GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = "BILL VETOED";
     }
 
     // Reset the bill
@@ -345,15 +346,23 @@ public class BillController : MonoBehaviour
     // Calculates whether bill evaluates to a pass or a veto (pass = return > 0, fail = return < 0, 0 = tie)
     public float evaluatePassVeto()
     {
+        
         PawPrint[] prints = gameObject.GetComponentsInChildren<PawPrint>();
+        print("eval w/ prints length: " + prints.Length);
         float score = 0;
-        float mostRecent = 0;
+        float mostRecent = -1;
         foreach (PawPrint print in prints) {
             //score += (print.color.g - print.color.r)*print.color.a;
             if (print.renderQueue > mostRecent) {
                 mostRecent = print.renderQueue;
                 score = (print.color.g - print.color.r);
             }
+        }
+
+        print("SCORE: " +  score);
+        if (score > 0)
+        {
+            PassBill();
         }
         return score;
     }
