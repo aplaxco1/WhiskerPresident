@@ -16,18 +16,20 @@ public class WeaponSwitching : MonoBehaviour
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("right"))
         {
-            if(selectedWeapon >= transform.childCount -1)
+            if (selectedWeapon >= transform.childCount - 1)
                 selectedWeapon = 0;
             else
+                SoundEffects.audioSource.Play();
                 selectedWeapon++;
 
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown("left"))
         {
-            if(selectedWeapon <= 0)
-                selectedWeapon = transform.childCount -1;
+            if (selectedWeapon <= 0)
+                selectedWeapon = transform.childCount - 1;
             else
+                SoundEffects.audioSource.Play();
                 selectedWeapon--;
                 
         }

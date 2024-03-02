@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundEffects : MonoBehaviour
 {
-    private AudioSource audioSource;
+    public static AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,11 +12,8 @@ public class SoundEffects : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            audioSource.Play();
-        }
-    }
+       audioSource.Play();
+    } */
 }
