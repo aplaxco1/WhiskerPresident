@@ -272,7 +272,7 @@ public class BillController : MonoBehaviour
                 yCoord += symbolVerticalDist; // CHANGE THIS BACK TO -= IF AUTUMN WAS STUPID
                 xCoord = initialSymbolXCoord;
             }
-            xCoord += symbolHorizontalDist;
+            xCoord -= symbolHorizontalDist;
             Vector3 pos = new Vector3(xCoord, zCoord, yCoord);
             
             GameObject instantiatedSymbol = Instantiate(symbolToInstantiate, symbolParent, false);
