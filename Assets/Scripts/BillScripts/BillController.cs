@@ -136,6 +136,9 @@ public class BillController : MonoBehaviour
         
         foreach(SymbolType a in templateSequence)
         {
+
+            Debug.Log("NUMBER SYMBOLS PLEASE: " + numSymbols);
+            Debug.Log("WTF IS TEMPLATESEQUENCE: " + templateSequence);
             switch (a)
             { 
                 case SymbolType.ValueA:
