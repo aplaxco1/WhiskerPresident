@@ -978,6 +978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 282382967}
+  toolSwitchingManager: {fileID: 118722550}
 --- !u!1 &515096772
 GameObject:
   m_ObjectHideFlags: 0
