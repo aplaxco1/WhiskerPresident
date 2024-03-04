@@ -94,7 +94,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 78db15cf29ec98041952794a613ff1cb, type: 2}
+  - {fileID: 2100000, guid: c297e7064916df7408b56d8c65b28b75, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -199,9 +199,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8636221673187782464}
-  - component: {fileID: 1418536223251459890}
+  - component: {fileID: -4304439763002226476}
   m_Layer: 7
-  m_Name: Tutorial Paper
+  m_Name: BlankBill
   m_TagString: Bill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,7 @@ Transform:
   - {fileID: 9091327134113811384}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1418536223251459890
+--- !u!114 &-4304439763002226476
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,21 +233,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7222744191218044594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46496acf2f14aa94eaa81d3aa98ae23e, type: 3}
+  m_Script: {fileID: 11500000, guid: c8e70a49ffec04343b80d02282183a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodSymbolPrefab: {fileID: 6458324167307400363, guid: b3403a7c513a32f41b7ef94932168641, type: 3}
-  moneySymbolPrefab: {fileID: 3045581801333019849, guid: 0c2d0ed2eb621324bba91c40b0a4e29d, type: 3}
-  boneSymbolPrefab: {fileID: 4690025481383032801, guid: 32d75a471738dda46b3b31679d02d1d6, type: 3}
-  negatorSymbolPrefab: {fileID: 1410196989226856403, guid: 58f314df67f0997428bbebf1bac31c80, type: 3}
-  doublerSymbolPrefab: {fileID: 6667765636587843044, guid: 9eecd8e147e462f4995510a884eba642, type: 3}
-  isBlank: 1
-  numSymbols: 15
-  numSymbolDistribution: 1
-  symbolsPerLine: 5
-  symbolHorizontalDist: 0.05
-  symbolVerticalDist: 0.05
-  initialSymbolXCoord: 0.15
-  initialSymbolYCoord: -0.15
+  foodSymbolPrefab: {fileID: 0}
+  moneySymbolPrefab: {fileID: 0}
+  boneSymbolPrefab: {fileID: 0}
+  negatorSymbolPrefab: {fileID: 0}
+  doublerSymbolPrefab: {fileID: 0}
+  numSymbols: 0
+  numSymbolDistribution: 0
+  symbolsPerLine: 0
+  symbolHorizontalDist: 0
+  symbolVerticalDist: 0
+  initialSymbolXCoord: 0
+  initialSymbolYCoord: 0
   initialSymbolZCoord: 0
   generatedSequence: 

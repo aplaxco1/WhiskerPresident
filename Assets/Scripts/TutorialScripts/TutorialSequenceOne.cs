@@ -11,7 +11,7 @@ public class TutorialSequenceOne : MonoBehaviour {
     [SerializeField] private GameObject stackOfBills;
     private GameObject paper;
     [SerializeField] private GameObject bin;
-    [SerializeField] private SimpleBillMovement billMovementScript;
+    [SerializeField] private TutorialBillMovement billMovementScript;
     [SerializeField] private GameObject completeButton;
     public static TutorialStep currentStep;
 

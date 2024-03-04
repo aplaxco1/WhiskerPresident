@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class BillController : MonoBehaviour
+public class BlankBillController : MonoBehaviour
 {
 
     public GameObject foodSymbolPrefab;
@@ -84,7 +84,6 @@ public class BillController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        templateSequence = BillContentsManager.Instance.templateSequence;
         InitializeBill();
     }
 
@@ -110,9 +109,6 @@ public class BillController : MonoBehaviour
     {
         symbols = new List<SymbolType>();
         GenerateSymbolList();
-
-        BillContentsManager.Instance.SaveBill(symbols);
-
         GenerateSymbolPrefabs();
 
     }
@@ -124,7 +120,6 @@ public class BillController : MonoBehaviour
         // In review scene
         if (BillReviewController.Instance != null)
         {
-            symbols = BillReviewController.Instance.GrabNextBill();
             return;
         }
         
@@ -322,10 +317,10 @@ public class BillController : MonoBehaviour
     // Bill approved, add stat vector to total stats
     public void PassBill()
     {
-        StatVector returnedStatVector = CalculateOutcome();
-        StatManager.Instance.AdjustStats(returnedStatVector);
-        string statOutput = returnedStatVector.StringConversion();
-        print("BILL PASSED WITH STATS: " + statOutput);
+        //StatVector returnedStatVector = CalculateOutcome();
+        //StatManager.Instance.AdjustStats(returnedStatVector);
+        //string statOutput = returnedStatVector.StringConversion();
+        //print("BILL PASSED WITH STATS: " + statOutput);
         //GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = statOutput;
     }
 

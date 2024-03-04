@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 768944893368583701, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: m_TagString
+      value: Organizer
+      objectReference: {fileID: 0}
     - target: {fileID: 907228947598193562, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -151,6 +155,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 3354549687111104254, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: m_TagString
+      value: Stack
+      objectReference: {fileID: 0}
     - target: {fileID: 4302667638643576727, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Name
       value: Environment
@@ -2877,6 +2885,7 @@ MonoBehaviour:
   step3: {fileID: 1295647549}
   step4: {fileID: 2005492701}
   completeButton: {fileID: 1044790953}
+  bill: {fileID: 7222744191218044594, guid: 5557a0c335527c44aa5d5336fd291d91, type: 3}
 --- !u!1 &1414787478
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,7 +3536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1824826641
 Transform:
   m_ObjectHideFlags: 0
@@ -4238,6 +4247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1994736604}
   - component: {fileID: 1994736605}
+  - component: {fileID: 1994736606}
   m_Layer: 0
   m_Name: EmptyHand
   m_TagString: Untagged
@@ -4267,14 +4277,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994736603}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf5aecfe8b8226e4f94236a163f61fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cursorTexture: {fileID: 2800000, guid: 22f180c19d1922044801ffd7cd9587c4, type: 3}
   isActive: 1
-  billPrefab: {fileID: 7222744191218044594, guid: 20f1e6b5fa3f40e4885705077a36c591, type: 3}
+  billPrefab: {fileID: 7222744191218044594, guid: 5a35ef5a3e36e8440b9723de77ecd464, type: 3}
   speed: 7
   rotateSpeed: 1200
   billPosition: {x: 0, y: 0.83, z: 0.08}
@@ -4283,6 +4293,32 @@ MonoBehaviour:
   inspectingPosition: {x: 0, y: 1.4, z: -1}
   flatRotation: {x: 0, y: 0, z: 0}
   inspectRotation: {x: 80, y: 180, z: 0}
+  inspectingBill: 0
+--- !u!114 &1994736606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994736603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3cfae5a92817d4d873d79276cda803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 2800000, guid: 22f180c19d1922044801ffd7cd9587c4, type: 3}
+  isActive: 1
+  billPrefab: {fileID: 7222744191218044594, guid: 5a35ef5a3e36e8440b9723de77ecd464, type: 3}
+  speed: 7
+  rotateSpeed: 1200
+  billPosition: {x: 0, y: 0.83, z: 0.08}
+  stackPosition: {x: -0.57, y: 0.91, z: -0.16}
+  organizerPosition: {x: 0.57, y: 0.87, z: -0.16}
+  inspectingPosition: {x: 0, y: 1.4, z: -1}
+  flatRotation: {x: 0, y: 0, z: 0}
+  inspectRotation: {x: 80, y: 180, z: 0}
+  billOut: 0
+  currBill: {fileID: 0}
   inspectingBill: 0
 --- !u!1 &2005492701
 GameObject:

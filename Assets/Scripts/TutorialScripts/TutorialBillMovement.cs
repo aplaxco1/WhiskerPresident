@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SimpleBillMovement : ToolClass
+public class TutorialBillMovement : ToolClass
 {
 
     [Header("BillVariables")]
@@ -88,12 +88,16 @@ public class SimpleBillMovement : ToolClass
     private void InspectBill()
     {
         inspectingBill = true;
+        GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
+        ToggleHighlights(organizer.GetComponentInParent<Renderer>(), 0);
         StartCoroutine(InspectBillMovememt());
     }
     
     private void UninspectBill()
     {
         inspectingBill = false;
+        GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
+        ToggleHighlights(organizer.GetComponentInParent<Renderer>(), 1);
         StartCoroutine(UninspectBillMovement());
     }
 
@@ -155,6 +159,10 @@ public class SimpleBillMovement : ToolClass
 
         if (destroy)
         {
+            if (currBill.GetComponent<BlankBillController>().evaluatePassVeto() == 0)
+            {
+                Debug.Log("DESTROY HIM");
+            }
             Destroy(currBill);
             billOut = false;
         }

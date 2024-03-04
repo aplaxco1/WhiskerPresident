@@ -13,11 +13,15 @@ public class TutorialSequenceThree : MonoBehaviour {
     [SerializeField] private GameObject step3;
     [SerializeField] private GameObject step4;
     [SerializeField] private GameObject completeButton;
+
+    [SerializeField] private GameObject bill;
+
     public static TutorialStep currentStep;
 
     // Start is called before the first frame update
     void Start()
     {
+        //bill.GetComponent<BillController>().isBlank = true;
     }
 
     // Update is called once per frame
@@ -51,7 +55,7 @@ public class TutorialSequenceThree : MonoBehaviour {
         }
         // HighlightObject(stackOfBills, billHighlighted);
        // if (billMovementScript.billOut) {
-      //      paper = billMovementScript.currBill.GetComponentInChildren<Renderer>().gameObject;
+       //     paper = billMovementScript.currBill.GetComponentInChildren<Renderer>().gameObject;
        //     HighlightObject(paper, paperHighlighted);
        // }
        // HighlightObject(bin, binHighlighted);
