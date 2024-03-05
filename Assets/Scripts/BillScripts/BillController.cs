@@ -80,13 +80,6 @@ public class BillController : MonoBehaviour
     {
         symbolParent = transform.Find("SymbolParent");
     }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        templateSequence = BillContentsManager.Instance.templateSequence;
-        InitializeBill();
-    }
 
     // Update is called once per frame
     void Update()
@@ -108,28 +101,21 @@ public class BillController : MonoBehaviour
 
     public void InitializeBill()
     {
+        templateSequence = BillContentsManager.Instance.templateSequence;
         symbols = new List<SymbolType>();
         GenerateSymbolList();
-        BillContentsManager.Instance.SaveBill(symbols);
         GenerateSymbolPrefabs();
     }
 
     public void UninitializeBill()
     {
+        BillContentsManager.Instance.SaveBill(gameObject);
         Destroy(gameObject);
     }
 
     // Use partial random system to generate symbol list
     private void GenerateSymbolList()
     {
-        
-        // In review scene
-        if (BillReviewController.Instance != null)
-        {
-            symbols = BillReviewController.Instance.GrabNextBill();
-            return;
-        }
-        
         // if (templateSequence == "")
         // {
         //     GenerateRandomSymbols();

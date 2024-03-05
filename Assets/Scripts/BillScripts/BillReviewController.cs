@@ -6,8 +6,6 @@ using UnityEngine;
 public class BillReviewController : MonoBehaviour
 {
     public static BillReviewController Instance;
-    public List<List<BillController.SymbolType>> savedBills;
-    public GameObject billPrefab;
     
     public float billStartX;
     public float billStartY;
@@ -28,33 +26,22 @@ public class BillReviewController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (BillContentsManager.Instance != null)
-        {
-            savedBills = BillContentsManager.Instance.billContentLists;
-        }
-        else
-        {
-            savedBills = new List<List<BillController.SymbolType>>();
-            savedBills.Add(new List<BillController.SymbolType>('1'));
-        }
-        GenerateBills();
+        ReviewBills();
     }
 
-    public List<BillController.SymbolType> GrabNextBill()
-    {
-        List<BillController.SymbolType> nextBill;
-        nextBill = savedBills[0];
-        savedBills.RemoveAt(0);
-        return nextBill;
-    }
     
-    public void GenerateBills()
+    public void ReviewBills()
     {
         Vector3 billPos = new Vector3(billStartX, billStartY, billStartZ);
-        Vector3 billRot = new Vector3(0, 0, 0);
-        foreach (List<BillController.SymbolType> b in savedBills)
+        Vector3 billRot = new Vector3(0, 180, 180);
+        Transform savedBills = BillContentsManager.Instance.savedBills;
+        foreach (Transform t in savedBills)
         {
-            Instantiate(billPrefab, billPos, Quaternion.Euler(billRot));
+            GameObject b = t.gameObject;
+            //print(b.name);
+            b.SetActive(true);
+            b.transform.position = billPos;
+            b.transform.eulerAngles = billRot;
             billPos += new Vector3(billXGap, billYGap, billZGap);
         }
     }
