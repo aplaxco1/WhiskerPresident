@@ -33,7 +33,7 @@ public class BillReviewController : MonoBehaviour
     public void ReviewBills()
     {
         Vector3 billPos = new Vector3(billStartX, billStartY, billStartZ);
-        Vector3 billRot = new Vector3(0, 180, 180);
+        Vector3 billRot = new Vector3(180, 0, 180);
         Transform savedBills = BillContentsManager.Instance.savedBills;
         foreach (Transform t in savedBills)
         {
