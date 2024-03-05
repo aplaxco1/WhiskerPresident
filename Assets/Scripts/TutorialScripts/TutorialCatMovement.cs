@@ -19,7 +19,7 @@ public class TutorialCatMovement : MonoBehaviour
     public GameObject ArmMesh;              // reference to the "Mesh" child of "Arm"
     public GameObject HeadPivot;            // reference to where the "Head" component of president
     public TutorialFocusController focusController; // reference to the script that manages the cat's focus
-    public PawCollision pawCollisionDetection;
+    public TutorialPawCollision pawCollisionDetection;
     public GameObject PawPrintPrefab;             // reference to pawprint prefab
 
     // VARIABLES
@@ -125,6 +125,21 @@ public class TutorialCatMovement : MonoBehaviour
         } else { // during smack!
             if (pawCollisionDetection.colliding)
             {
+                // THIS IS THE TUTORIAL HOOK
+                if (pawCollisionDetection.surface.CompareTag("Inkpad"))
+                {
+                    Debug.Log("NAME: " + pawCollisionDetection.surface.ToString());
+                    if (pawCollisionDetection.surface.ToString() == "Whisker President Accept Inkpad") {
+                        Debug.Log("It do be the accpet inkpad doe, move on");
+                        TutorialSequenceThree.NextStepInTutorial(1);
+                    }
+                    else if (pawCollisionDetection.surface.ToString() == "Whisker President Reject Inkpad"){
+                        Debug.Log("Its apparently the other inkpad?");
+                        // Has to be the other inkpad
+                        TutorialSequenceThree.NextStepInTutorial(3);
+                    }
+                    Debug.Log("Inkpad HIT!");
+                }
                 x2_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
                 target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
                 if (!dust.gameObject.activeSelf) {

@@ -159,6 +159,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Stack
       objectReference: {fileID: 0}
+    - target: {fileID: 3368925636398964724, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: m_Name
+      value: Whisker President Accept Inkpad
+      objectReference: {fileID: 0}
     - target: {fileID: 4302667638643576727, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Name
       value: Environment
@@ -219,6 +223,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8533077200007150967, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: m_Name
+      value: Whisker President Reject Inkpad
+      objectReference: {fileID: 0}
     - target: {fileID: 8882078187785284427, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -968,7 +976,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 515096774}
-  - component: {fileID: 515096773}
+  - component: {fileID: 515096775}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -976,27 +984,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &515096773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 515096772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab67c47128d719844b5d74e70dad96f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: a2e43c30a85522946a8daf9cedcde0a9, type: 3}
-  isActive: 1
-  laserWidth: 0.01
-  laserOffset: {x: 0, y: -0.45, z: 0}
-  laserDot: {fileID: 6395703295835056610, guid: b0800bbbde6c95c42b1daa8130969c40, type: 3}
-  laserMaterial: {fileID: 2100000, guid: 4e685fb47c9e21c4fb4a5c656d1791a8, type: 2}
-  isOnDesk: 0
-  laserDeskLocation: {x: 0, y: 0, z: 0}
-  billScript: {fileID: 1994736605}
 --- !u!4 &515096774
 Transform:
   m_ObjectHideFlags: 0
@@ -1012,6 +999,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 118722551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &515096775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515096772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bf4dde283d78ab48a5be5f554fdd885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTexture: {fileID: 2800000, guid: a2e43c30a85522946a8daf9cedcde0a9, type: 3}
+  isActive: 1
+  laserWidth: 0.01
+  laserOffset: {x: 0, y: -0.45, z: 0}
+  laserDot: {fileID: 6395703295835056610, guid: b0800bbbde6c95c42b1daa8130969c40, type: 3}
+  laserMaterial: {fileID: 2100000, guid: 4e685fb47c9e21c4fb4a5c656d1791a8, type: 2}
+  isOnDesk: 0
+  laserDeskLocation: {x: 0, y: 0, z: 0}
+  billScript: {fileID: 1994736605}
 --- !u!1 &520407603
 GameObject:
   m_ObjectHideFlags: 0
@@ -2188,6 +2196,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4819812081335706195, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5476194437295401879, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
       propertyPath: _frameLag
       value: 60
@@ -2204,10 +2216,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: President
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4819812081335706195, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6119685285788535563, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1839143602}
   m_SourcePrefab: {fileID: 100100000, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
 --- !u!1 &1157026141 stripped
 GameObject:
@@ -2219,17 +2235,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4917030964976592492, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
   m_PrefabInstance: {fileID: 1157026140}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1175170991 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4819812081335706195, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
-  m_PrefabInstance: {fileID: 1157026140}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60acd3eb1855ff4d89abcefcc14d8e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1210471022
 GameObject:
   m_ObjectHideFlags: 0
@@ -2895,8 +2900,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1414787479}
-  - component: {fileID: 1414787480}
   - component: {fileID: 1414787481}
+  - component: {fileID: 1414787480}
   m_Layer: 0
   m_Name: CatMovementManager
   m_TagString: Untagged
@@ -2928,30 +2933,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1414787478}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8796c8adbca3914d847e98327c6c735, type: 3}
+  m_Script: {fileID: 11500000, guid: c4f94ae55c96d154b938200f66806fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttentionPoint: {fileID: 1678977051}
-  ArmPivot: {fileID: 1157026142}
-  ArmMesh: {fileID: 1157026141}
-  HeadPivot: {fileID: 522983105}
-  focusController: {fileID: 1414787481}
-  pawCollisionDetection: {fileID: 1175170991}
-  PawPrintPrefab: {fileID: 7127054691324280760, guid: 46fadd2293d508c4eb8174d100e89c8e, type: 3}
-  timer: 0
---- !u!114 &1414787481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414787478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bfef3a7f858d7044ad30c3437bfa91e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  laserPointer: {fileID: 515096773}
+  laserPointer: {fileID: 515096775}
   objectToMove: {fileID: 1678977051}
   interval: 2
   varianceRange: 1
@@ -2961,6 +2946,26 @@ MonoBehaviour:
   maxRange: {x: 0.6, y: 0.85, z: 0.6}
   pointerSpeed: 0
   focusLevel: 0.1
+--- !u!114 &1414787481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414787478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcae59cd36bd78a4988ece59ffda0255, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttentionPoint: {fileID: 1678977051}
+  ArmPivot: {fileID: 1157026142}
+  ArmMesh: {fileID: 1157026141}
+  HeadPivot: {fileID: 522983105}
+  focusController: {fileID: 1414787480}
+  pawCollisionDetection: {fileID: 1839143602}
+  PawPrintPrefab: {fileID: 7127054691324280760, guid: 46fadd2293d508c4eb8174d100e89c8e, type: 3}
+  timer: 0
 --- !u!1 &1465237682
 GameObject:
   m_ObjectHideFlags: 0
@@ -3698,6 +3703,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1826310843}
   m_CullTransparentMesh: 1
+--- !u!1 &1839143596 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6119685285788535563, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+  m_PrefabInstance: {fileID: 1157026140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1839143602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839143596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72140c07cebd9ee4fb2f284fb08ae090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliding: 0
+  collisionPos: {x: 0, y: 0, z: 0}
+  surface: {fileID: 0}
 --- !u!1 &1928364942
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class TutorialSequenceThree : MonoBehaviour {
-    public enum TutorialStep {stampGreen, stampRed, readBill, stampBill, finish}
+    public enum TutorialStep {approveInk, stampApprove, rejectInk, stampReject, readBill, stampBill, finish}
     [SerializeField] private GameObject step1;
     [SerializeField] private GameObject step2;
     [SerializeField] private GameObject step3;
@@ -29,10 +29,14 @@ public class TutorialSequenceThree : MonoBehaviour {
     {
         switch (currentStep)
         {
-            case TutorialStep.stampGreen:
+            case TutorialStep.approveInk:
+                break;
+            case TutorialStep.stampApprove:
                 step1.SetActive(true);
                 break;
-            case TutorialStep.stampRed:
+            case TutorialStep.rejectInk:
+                break;
+            case TutorialStep.stampReject:
                 step1.SetActive(false);
                 step2.SetActive(true);
                 break;
