@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: String Table_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 1aa3b4d8a65943c4ea7974a82872e11e, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 8257880064
+    m_Localized: "In the Office\n\n<b>CONTROLS</b>\n<i>Switch Tools</i> - Scrollwheel
+      (two fingers on trackpad) or \u2190\u2192\n- Blue Cursor: empty hand\n- Red
+      Cursor: laser pointer\n\n<i>Interact with Highlighted Objects</i> - Left Click\n\n<b>TIPS</b>\nEmpty
+      Hand:\n- left click on stack of papers to set a bill on the desk\n- left click
+      the paper organizer to move bill to completion\n\nLaser Pointer:\n- move mouse
+      to guide the cat\n- move mouse quickly to make cat react faster"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36095475712
+    m_Localized: Return
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

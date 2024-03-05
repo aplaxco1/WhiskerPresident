@@ -24,6 +24,11 @@ MonoBehaviour:
     - Locale-zh-Hant
     - Locale-zh
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1aa3b4d8a65943c4ea7974a82872e11e
+    m_Address: Assets/Localization/String Table Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 1fb413ee25403994396c077e20ae3bdc, type: 2}
   m_SchemaSet:
