@@ -52,11 +52,11 @@ public class BillController : MonoBehaviour
     
     private List<SymbolType> symbols;
     
-    //How many symbols should be generated
-    public int numSymbols;
-    
-    //Random factor, numSymbols +/- rand(symbolDistribution) will be generated
-    public int numSymbolDistribution;
+    // //How many symbols should be generated
+    // public int numSymbols;
+    //
+    // //Random factor, numSymbols +/- rand(symbolDistribution) will be generated
+    // public int numSymbolDistribution;
 
     public int symbolsPerLine;
     public float symbolHorizontalDist;
@@ -110,11 +110,13 @@ public class BillController : MonoBehaviour
     {
         symbols = new List<SymbolType>();
         GenerateSymbolList();
-
         BillContentsManager.Instance.SaveBill(symbols);
-
         GenerateSymbolPrefabs();
+    }
 
+    public void UninitializeBill()
+    {
+        Destroy(gameObject);
     }
 
     // Use partial random system to generate symbol list
@@ -128,11 +130,11 @@ public class BillController : MonoBehaviour
             return;
         }
         
-        if (templateSequence == "")
-        {
-            GenerateRandomSymbols();
-            return;
-        }
+        // if (templateSequence == "")
+        // {
+        //     GenerateRandomSymbols();
+        //     return;
+        // }
         
         foreach(SymbolType a in templateSequence)
         {
@@ -215,21 +217,21 @@ public class BillController : MonoBehaviour
     }
 
     // Ran only if not given a symbol sequence template
-    private void GenerateRandomSymbols()
-    {
-        int symbolsToGen = numSymbols;
-        symbolsToGen += Random.Range(-(numSymbolDistribution + 1), numSymbolDistribution);
-        //print("symbolsToGen: " + symbolsToGen);
-        
-        //All symbol types as array
-        SymbolType[] symbolTypes = Enum.GetValues(typeof(SymbolType)).Cast<SymbolType>().ToArray();
-        for (int i = 0; i <= symbolsToGen; i++)
-        {
-            SymbolType randomSymbol = symbolTypes[Random.Range(0, symbolTypes.Length)];
-            //print("randomSymbol: " + randomSymbol);
-            symbols.Add(randomSymbol);
-        }
-    }
+    // private void GenerateRandomSymbols()
+    // {
+    //     int symbolsToGen = numSymbols;
+    //     symbolsToGen += Random.Range(-(numSymbolDistribution + 1), numSymbolDistribution);
+    //     //print("symbolsToGen: " + symbolsToGen);
+    //     
+    //     //All symbol types as array
+    //     SymbolType[] symbolTypes = Enum.GetValues(typeof(SymbolType)).Cast<SymbolType>().ToArray();
+    //     for (int i = 0; i <= symbolsToGen; i++)
+    //     {
+    //         SymbolType randomSymbol = symbolTypes[Random.Range(0, symbolTypes.Length)];
+    //         //print("randomSymbol: " + randomSymbol);
+    //         symbols.Add(randomSymbol);
+    //     }
+    // }
 
     // Generate symbol prefabs onto the bill
     private void GenerateSymbolPrefabs()
@@ -324,7 +326,7 @@ public class BillController : MonoBehaviour
         StatVector returnedStatVector = CalculateOutcome();
         StatManager.Instance.AdjustStats(returnedStatVector);
         string statOutput = returnedStatVector.StringConversion();
-        print("BILL PASSED WITH STATS: " + statOutput);
+        //print("BILL PASSED WITH STATS: " + statOutput);
         //GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = statOutput;
     }
 
@@ -348,7 +350,7 @@ public class BillController : MonoBehaviour
     {
         
         PawPrint[] prints = gameObject.GetComponentsInChildren<PawPrint>();
-        print("eval w/ prints length: " + prints.Length);
+        //print("eval w/ prints length: " + prints.Length);
         float score = 0;
         float mostRecent = -1;
         foreach (PawPrint print in prints) {
@@ -359,7 +361,7 @@ public class BillController : MonoBehaviour
             }
         }
 
-        print("SCORE: " +  score);
+        //print("SCORE: " +  score);
         if (score > 0)
         {
             PassBill();
