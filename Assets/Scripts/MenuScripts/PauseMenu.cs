@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject toolSwitchingManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +22,19 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseMenu.SetActive(true);
+        toolSwitchingManager.SetActive(false);
+        Time.timeScale = 0;
+    }
+
+    public void Pause_ControlsMenu()
+    {
+        toolSwitchingManager.SetActive(false);
         Time.timeScale = 0;
     }
 
     public void Continue()
     {
+        toolSwitchingManager.SetActive(true);
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
     }

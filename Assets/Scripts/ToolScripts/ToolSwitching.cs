@@ -16,19 +16,23 @@ public class WeaponSwitching : MonoBehaviour
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("right"))
         {
-            if(selectedWeapon >= transform.childCount -1)
+            if (selectedWeapon >= transform.childCount - 1) {
                 selectedWeapon = 0;
-            else
+            }
+            else {
                 selectedWeapon++;
+            }
 
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown("left"))
         {
-            if(selectedWeapon <= 0)
-                selectedWeapon = transform.childCount -1;
-            else
+            if (selectedWeapon <= 0) {
+                selectedWeapon = transform.childCount - 1;
+            }
+            else {
                 selectedWeapon--;
+            }
                 
         }
 
@@ -47,6 +51,9 @@ public class WeaponSwitching : MonoBehaviour
                 if (weapon.gameObject.GetComponent<ToolClass>() is BillMovement) {
                     weapon.gameObject.GetComponent<BillMovement>().addObjectHighlighting();
                 }
+                if (weapon.gameObject.GetComponent<ToolClass>() is LaserPointer) {
+                    SoundEffects.audioSource.Play();
+                }
                 weapon.gameObject.GetComponent<ToolClass>().isActive = true;
                 Cursor.SetCursor(weapon.gameObject.GetComponent<ToolClass>().cursorTexture, Vector2.zero, CursorMode.Auto);
             }
@@ -54,7 +61,6 @@ public class WeaponSwitching : MonoBehaviour
                 if (weapon.gameObject.GetComponent<ToolClass>() is BillMovement) {
                     weapon.gameObject.GetComponent<BillMovement>().removeObjectHighlighting();
                 }
-                // really dumb way to make sure laser is removed when not selected
                 if (weapon.gameObject.GetComponent<ToolClass>() is LaserPointer) {
                     weapon.gameObject.GetComponent<LaserPointer>().removeLaser();
                 }
