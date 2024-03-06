@@ -3472,7 +3472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Return
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec6d1b6386b3be645a65d1d9f6d57d4a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3647,12 +3647,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "In the Office\n\n<b>CONTROLS</b>\n<i>Switch Tools</i> - Scrollwheel (two
-    fingers on trackpad) or \u2190\u2192\n- Blue Cursor: empty hand\n- Red Cursor:
-    laser pointer\n\n<i>Interact with Highlighted Objects</i> - Left Click\n\n<b>TIPS</b>\nEmpty
-    Hand:\n- left click on stack of papers to set a bill on the desk\n- left click
-    the paper organizer to move bill to completion\n\nLaser Pointer:\n- move mouse
-    to guide the cat\n- move mouse quickly to make cat react faster"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec6d1b6386b3be645a65d1d9f6d57d4a, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
