@@ -665,8 +665,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 00:00
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2303,6 +2303,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6119685285788535563, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1175170999}
+    - targetCorrespondingSourceObject: {fileID: 6119685285788535563, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1175171005}
   m_SourcePrefab: {fileID: 100100000, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
 --- !u!1 &1157026141 stripped
 GameObject:
@@ -2319,17 +2322,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6119685285788535563, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
   m_PrefabInstance: {fileID: 1157026140}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1175170991 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4819812081335706195, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
-  m_PrefabInstance: {fileID: 1157026140}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1157026143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60acd3eb1855ff4d89abcefcc14d8e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &1175170993
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2438,6 +2430,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a47f6a505c67c42229ed5784c224712a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1175171005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157026143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60acd3eb1855ff4d89abcefcc14d8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliding: 0
+  collisionPos: {x: 0, y: 0, z: 0}
+  surface: {fileID: 0}
 --- !u!1 &1210471022
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,7 +2927,7 @@ MonoBehaviour:
   ArmMesh: {fileID: 1157026141}
   HeadPivot: {fileID: 522983105}
   focusController: {fileID: 1414787481}
-  pawCollisionDetection: {fileID: 1175170991}
+  pawCollisionDetection: {fileID: 1175171005}
   PawPrintPrefab: {fileID: 7127054691324280760, guid: 46fadd2293d508c4eb8174d100e89c8e, type: 3}
   timer: 0
 --- !u!114 &1414787481

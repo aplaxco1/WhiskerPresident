@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427176, b: 0.5645241, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -837,6 +837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 282382967}
+  toolSwitchingManager: {fileID: 0}
 --- !u!1 &547516690
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,9 +2193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3cfae5a92817d4d873d79276cda803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: c4fea79fe2fb88e47ae03eb97e364095, type: 3}
+  cursorTexture: {fileID: 2800000, guid: 22f180c19d1922044801ffd7cd9587c4, type: 3}
   isActive: 1
-  billPrefab: {fileID: 7222744191218044594, guid: 20f1e6b5fa3f40e4885705077a36c591, type: 3}
+  billPrefab: {fileID: 7222744191218044594, guid: 5a35ef5a3e36e8440b9723de77ecd464, type: 3}
   speed: 7
   rotateSpeed: 1200
   billPosition: {x: 0, y: 0.83, z: 0.08}

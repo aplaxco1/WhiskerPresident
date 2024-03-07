@@ -47,9 +47,9 @@ public class TutorialToolSwitching : MonoBehaviour
                 if (weapon.gameObject.GetComponent<ToolClass>() is TutorialBillMovement) {
                     weapon.gameObject.GetComponent<TutorialBillMovement>().AddObjectHighlighting();
                 }
-                if (weapon.gameObject.GetComponent<ToolClass>() is TutorialLaserPointer) {
-                    SoundEffects.audioSource.Play();
-                }
+                //if (weapon.gameObject.GetComponent<ToolClass>() is TutorialLaserPointer) {
+                //    SoundEffects.audioSource.Play();
+                //}
                 weapon.gameObject.GetComponent<ToolClass>().isActive = true;
                 Cursor.SetCursor(weapon.gameObject.GetComponent<ToolClass>().cursorTexture, Vector2.zero, CursorMode.Auto);
             }
