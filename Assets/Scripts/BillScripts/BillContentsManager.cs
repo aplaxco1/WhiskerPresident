@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class BillContentsManager : MonoBehaviour
 {
     public static BillContentsManager Instance;
     
-    [Tooltip("A = Generate symbol 1 or 2, \n B = Generate symbol 1 or 2 or 3, \n M = Generate modifier")]
+    [Tooltip("A = Generate value 1 or 2, \n B = Generate value 1 or 2 or 3, \n M = Generate modifier")]
     public string templateSequence;
-    public List<List<BillController.SymbolType>> billContentLists;
+    public Transform savedBills;
 
     private void Awake()
     {
@@ -20,32 +21,29 @@ public class BillContentsManager : MonoBehaviour
             Instance = this;
         }
         DontDestroyOnLoad(this);
-        
-        if (billContentLists == null)
-        {
-            billContentLists = new List<List<BillController.SymbolType>>();
-        }
+
+        savedBills = transform.Find("SavedBills");
+        //WipeSavedBills();
     }
 
-    public void SaveBill(List<BillController.SymbolType> bill)
+    public void SaveBill(GameObject bill)
     {
-        if (bill == null || bill.Count == 0)
+        if (bill == null)
         {
             print("WARNING: attempted to save null/empty bill");
             return;
         }
-        billContentLists.Add(bill);
-        // string s = "";
-        // foreach (List<BillController.SymbolType> b in billContentLists)
-        // {
-        //     s += "bill of length " + b.Count + "\n";
-        // }
-        // print(s);
+
+        GameObject savedBill = Instantiate(bill, Vector3.zero, Quaternion.identity, savedBills);
+        savedBill.SetActive(false);
     }
 
     public void WipeSavedBills()
     {
-        billContentLists = new List<List<BillController.SymbolType>>();
+        foreach(Transform child in savedBills)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     private void Update()
