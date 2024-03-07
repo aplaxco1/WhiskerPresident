@@ -107,9 +107,9 @@ public class BlankBillController : MonoBehaviour
 
     public void InitializeBill()
     {
-        symbols = new List<SymbolType>();
-        GenerateSymbolList();
-        GenerateSymbolPrefabs();
+        //symbols = new List<SymbolType>();
+        //GenerateSymbolList();
+        //GenerateSymbolPrefabs();
 
     }
 

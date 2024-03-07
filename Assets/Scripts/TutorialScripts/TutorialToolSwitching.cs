@@ -14,7 +14,7 @@ public class TutorialToolSwitching : MonoBehaviour
     {
         int previousSelectedWeapon = selectedWeapon;
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("right"))
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown(KeyCode.RightArrow))
         {
             if(selectedWeapon >= transform.childCount -1)
                 selectedWeapon = 0;
@@ -23,7 +23,7 @@ public class TutorialToolSwitching : MonoBehaviour
             TutorialSequenceTwo.NextStepInTutorial(1);
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown("left"))
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             if(selectedWeapon <= 0)
                 selectedWeapon = transform.childCount -1;
@@ -44,15 +44,18 @@ public class TutorialToolSwitching : MonoBehaviour
         foreach (Transform weapon in transform) 
         {
             if(i == selectedWeapon) {
-                if (weapon.gameObject.GetComponent<ToolClass>() is BillMovement) {
-                    weapon.gameObject.GetComponent<BillMovement>().addObjectHighlighting();
+                if (weapon.gameObject.GetComponent<ToolClass>() is TutorialBillMovement) {
+                    weapon.gameObject.GetComponent<TutorialBillMovement>().AddObjectHighlighting();
+                }
+                if (weapon.gameObject.GetComponent<ToolClass>() is TutorialLaserPointer) {
+                    SoundEffects.audioSource.Play();
                 }
                 weapon.gameObject.GetComponent<ToolClass>().isActive = true;
                 Cursor.SetCursor(weapon.gameObject.GetComponent<ToolClass>().cursorTexture, Vector2.zero, CursorMode.Auto);
             }
             else {
-                if (weapon.gameObject.GetComponent<ToolClass>() is BillMovement) {
-                    weapon.gameObject.GetComponent<BillMovement>().removeObjectHighlighting();
+                if (weapon.gameObject.GetComponent<ToolClass>() is TutorialBillMovement) {
+                    weapon.gameObject.GetComponent<TutorialBillMovement>().RemoveObjectHighlighting();
                 }
                 // really dumb way to make sure laser is removed when not selected
                 if (weapon.gameObject.GetComponent<ToolClass>() is TutorialLaserPointer) {

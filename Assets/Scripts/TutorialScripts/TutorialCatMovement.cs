@@ -126,27 +126,30 @@ public class TutorialCatMovement : MonoBehaviour
             if (pawCollisionDetection.colliding)
             {
                 // THIS IS THE TUTORIAL HOOK
+                // Check if we hit an inkpad
                 if (pawCollisionDetection.surface.CompareTag("Inkpad"))
                 {
-                    Debug.Log("NAME: " + pawCollisionDetection.surface.ToString());
-                    if (pawCollisionDetection.surface.ToString() == "Whisker President Accept Inkpad") {
-                        Debug.Log("It do be the accpet inkpad doe, move on");
+
+                    // Check which inkpad we're hitting
+                    if (pawCollisionDetection.surface.ToString().Contains("Accept")) {
+                        //Debug.Log("It do be the accpet inkpad doe, move on");
                         TutorialSequenceThree.NextStepInTutorial(1);
                     }
-                    else if (pawCollisionDetection.surface.ToString() == "Whisker President Reject Inkpad"){
-                        Debug.Log("Its apparently the other inkpad?");
+                    //if (pawCollisionDetection.surface.ToString().Contains("Reject")) {
+                    else {  // No need to actually see if the other inkpad has REJECT or not. There are only 2 inkpads.
                         // Has to be the other inkpad
+                        //Debug.Log("Its apparently the other inkpad? REJECTED");
                         TutorialSequenceThree.NextStepInTutorial(3);
                     }
-                    Debug.Log("Inkpad HIT!");
+                    //Debug.Log("Inkpad HIT!");
                 }
                 x2_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
                 target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
                 if (!dust.gameObject.activeSelf) {
-                    if (pawCollisionDetection.surface.tag == "Desk") {
-                        dust.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[]{new ParticleSystem.Burst(0.05f, 5, 10)});
+                    if (pawCollisionDetection.surface.CompareTag("Desk")) {
+                        dust.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[] { new(0.05f, 5, 10) });
                     } else {
-                        dust.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[]{new ParticleSystem.Burst(0.05f, 3, 5)});
+                        dust.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[] { new(0.05f, 3, 5) });
                     }
                     Vector3 pos = pawCollider.transform.position;
                     dust.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);

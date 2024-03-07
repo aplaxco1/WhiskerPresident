@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 25265519063592563, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: m_Name
+      value: CollisionBox_AcceptInk
+      objectReference: {fileID: 0}
     - target: {fileID: 108178476078327197, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -163,6 +167,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Whisker President Accept Inkpad
       objectReference: {fileID: 0}
+    - target: {fileID: 4197961913003659548, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: m_Name
+      value: CollisionBox_RejectInk
+      objectReference: {fileID: 0}
     - target: {fileID: 4302667638643576727, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Name
       value: Environment
@@ -175,6 +183,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7798822830530903576, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2fdced7798ca4442bd39d57c4d409e1, type: 2}
     - target: {fileID: 7835207894377225282, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -219,6 +231,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7884510956498623650, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ebefabb75399e14abe99a15700627f0, type: 2}
     - target: {fileID: 8169254815077831274, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -353,6 +369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 118722551}
+  - component: {fileID: 118722555}
   - component: {fileID: 118722552}
   - component: {fileID: 118722554}
   - component: {fileID: 118722553}
@@ -387,7 +404,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 118722550}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ccd62e9223eb1e4f8428567e32fd9bd, type: 3}
   m_Name: 
@@ -501,6 +518,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cde3ef7db75c46599f07926446cf015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &118722555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118722550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bba528ab4c60994b949c9e369ec5fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedWeapon: 0
 --- !u!1 &132544151
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,6 +997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 282382967}
+  toolSwitchingManager: {fileID: 0}
 --- !u!1 &515096772
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,7 +1050,7 @@ MonoBehaviour:
   laserMaterial: {fileID: 2100000, guid: 4e685fb47c9e21c4fb4a5c656d1791a8, type: 2}
   isOnDesk: 0
   laserDeskLocation: {x: 0, y: 0, z: 0}
-  billScript: {fileID: 1994736605}
+  billScript: {fileID: 1994736606}
 --- !u!1 &520407603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,6 +1423,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574645371}
   m_CullTransparentMesh: 1
+--- !u!1 &586836093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3368925636398964724, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &628032203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,6 +1463,11 @@ Transform:
   - {fileID: 1407537308}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &680752990 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8533077200007150967, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &892499622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2890,7 +2931,9 @@ MonoBehaviour:
   step3: {fileID: 1295647549}
   step4: {fileID: 2005492701}
   completeButton: {fileID: 1044790953}
-  bill: {fileID: 7222744191218044594, guid: 5557a0c335527c44aa5d5336fd291d91, type: 3}
+  bill: {fileID: 7222744191218044594, guid: 5a35ef5a3e36e8440b9723de77ecd464, type: 3}
+  acceptInkpad: {fileID: 586836093}
+  rejectInkpad: {fileID: 680752990}
 --- !u!1 &1414787478
 GameObject:
   m_ObjectHideFlags: 0
@@ -3541,7 +3584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1824826641
 Transform:
   m_ObjectHideFlags: 0
@@ -4271,7 +4314,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1994736604}
-  - component: {fileID: 1994736605}
   - component: {fileID: 1994736606}
   m_Layer: 0
   m_Name: EmptyHand
@@ -4295,30 +4337,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 118722551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1994736605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1994736603}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf5aecfe8b8226e4f94236a163f61fdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: 22f180c19d1922044801ffd7cd9587c4, type: 3}
-  isActive: 1
-  billPrefab: {fileID: 7222744191218044594, guid: 5a35ef5a3e36e8440b9723de77ecd464, type: 3}
-  speed: 7
-  rotateSpeed: 1200
-  billPosition: {x: 0, y: 0.83, z: 0.08}
-  stackPosition: {x: -0.57, y: 0.91, z: -0.16}
-  organizerPosition: {x: 0.57, y: 0.87, z: -0.16}
-  inspectingPosition: {x: 0, y: 1.4, z: -1}
-  flatRotation: {x: 0, y: 0, z: 0}
-  inspectRotation: {x: 80, y: 180, z: 0}
-  inspectingBill: 0
 --- !u!114 &1994736606
 MonoBehaviour:
   m_ObjectHideFlags: 0

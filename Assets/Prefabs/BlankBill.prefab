@@ -236,11 +236,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e70a49ffec04343b80d02282183a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodSymbolPrefab: {fileID: 0}
-  moneySymbolPrefab: {fileID: 0}
-  boneSymbolPrefab: {fileID: 0}
-  negatorSymbolPrefab: {fileID: 0}
-  doublerSymbolPrefab: {fileID: 0}
+  foodSymbolPrefab: {fileID: 6458324167307400363, guid: b3403a7c513a32f41b7ef94932168641, type: 3}
+  moneySymbolPrefab: {fileID: 3045581801333019849, guid: 0c2d0ed2eb621324bba91c40b0a4e29d, type: 3}
+  boneSymbolPrefab: {fileID: 4690025481383032801, guid: 32d75a471738dda46b3b31679d02d1d6, type: 3}
+  negatorSymbolPrefab: {fileID: 1410196989226856403, guid: 58f314df67f0997428bbebf1bac31c80, type: 3}
+  doublerSymbolPrefab: {fileID: 6667765636587843044, guid: 9eecd8e147e462f4995510a884eba642, type: 3}
   numSymbols: 0
   numSymbolDistribution: 0
   symbolsPerLine: 0

@@ -20,7 +20,7 @@ public class TutorialLaserPointer : ToolClass
     public bool isOnDesk = false;
     [SerializeField]
     public Vector3 laserDeskLocation = new(0f, 0f, 0f);
-    public BillMovement billScript;
+    public TutorialBillMovement billScript;
 
     private bool isOn = false;
     private GameObject lineObj;

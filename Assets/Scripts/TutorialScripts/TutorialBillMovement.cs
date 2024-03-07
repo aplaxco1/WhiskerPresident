@@ -161,7 +161,15 @@ public class TutorialBillMovement : ToolClass
         {
             if (currBill.GetComponent<BlankBillController>().evaluatePassVeto() == 0)
             {
-                Debug.Log("DESTROY HIM");
+                Debug.Log("no stamps lol");
+            }
+            else if (currBill.GetComponent<BlankBillController>().evaluatePassVeto() == 1) 
+            {
+                Debug.Log("veto 1 is this pass?");
+            }
+            else
+            {
+                Debug.Log("veto -1 i presume? let's print: " + currBill.GetComponent<BlankBillController>().evaluatePassVeto());
             }
             Destroy(currBill);
             billOut = false;

@@ -16,6 +16,10 @@ public class TutorialSequenceThree : MonoBehaviour {
 
     [SerializeField] private GameObject bill;
 
+    // Objects that need highlighting
+    [SerializeField] private GameObject acceptInkpad;
+    [SerializeField] private GameObject rejectInkpad;
+
     public static TutorialStep currentStep;
 
     // Start is called before the first frame update
@@ -30,15 +34,19 @@ public class TutorialSequenceThree : MonoBehaviour {
         switch (currentStep)
         {
             case TutorialStep.approveInk:
-                break;
-            case TutorialStep.stampApprove:
                 step1.SetActive(true);
+                HighlightObject(acceptInkpad, true);
+                break;
+            case TutorialStep.stampApprove: // make sure to let the player know the status of the paper
+                HighlightObject(acceptInkpad, false);
                 break;
             case TutorialStep.rejectInk:
-                break;
-            case TutorialStep.stampReject:
                 step1.SetActive(false);
                 step2.SetActive(true);
+                HighlightObject(rejectInkpad, true);
+                break;
+            case TutorialStep.stampReject:
+                HighlightObject(rejectInkpad, false);
                 break;
             case TutorialStep.readBill:
                 step2.SetActive(false);
@@ -83,6 +91,7 @@ public class TutorialSequenceThree : MonoBehaviour {
         if(stepNumber == (int)currentStep + 1)
         {
             currentStep = (TutorialStep)stepNumber;
+            Debug.Log("Moved on to Step: " + currentStep);
             return true;
         }
         else
