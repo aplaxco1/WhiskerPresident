@@ -7,25 +7,38 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class TutorialSequenceThree : MonoBehaviour {
-    public enum TutorialStep {approveInk, stampApprove, rejectInk, stampReject, readBill, stampBill, finish}
+    public static TutorialSequenceThree Instance { get; private set; }
+    public enum TutorialStep {stampApprove, stampReject, readBill, stampBill, finish}
     [SerializeField] private GameObject step1;
     [SerializeField] private GameObject step2;
     [SerializeField] private GameObject step3;
     [SerializeField] private GameObject step4;
     [SerializeField] private GameObject completeButton;
+    [SerializeField] private GameObject retryMessage;
+    [SerializeField] private float retryMessageTimer;
 
     [SerializeField] private GameObject bill;
+    private float billGoal;
 
     // Objects that need highlighting
-    [SerializeField] private GameObject acceptInkpad;
-    [SerializeField] private GameObject rejectInkpad;
+    //[SerializeField] private GameObject acceptInkpad;
+    //[SerializeField] private GameObject rejectInkpad;
 
     public static TutorialStep currentStep;
 
+    private void Awake() {
+        if (Instance != null && Instance != this) {
+            Destroy(this);
+        }
+        else {
+            Instance = this;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
         //bill.GetComponent<BillController>().isBlank = true;
+        //retryMessage.SetActive(false);
     }
 
     // Update is called once per frame
@@ -33,20 +46,14 @@ public class TutorialSequenceThree : MonoBehaviour {
     {
         switch (currentStep)
         {
-            case TutorialStep.approveInk:
-                step1.SetActive(true);
-                HighlightObject(acceptInkpad, true);
-                break;
             case TutorialStep.stampApprove: // make sure to let the player know the status of the paper
-                HighlightObject(acceptInkpad, false);
-                break;
-            case TutorialStep.rejectInk:
-                step1.SetActive(false);
-                step2.SetActive(true);
-                HighlightObject(rejectInkpad, true);
+                step1.SetActive(true);
+                billGoal = 1;
                 break;
             case TutorialStep.stampReject:
-                HighlightObject(rejectInkpad, false);
+                step1.SetActive(false);
+                step2.SetActive(true);
+                billGoal = -1;
                 break;
             case TutorialStep.readBill:
                 step2.SetActive(false);
@@ -58,7 +65,6 @@ public class TutorialSequenceThree : MonoBehaviour {
                 break;
             case TutorialStep.finish:
                 step4.SetActive(false);
-                Debug.Log("Finished!");
                 if(completeButton.activeSelf == false) {
                     completeButton.SetActive(true);
                 }
@@ -73,6 +79,14 @@ public class TutorialSequenceThree : MonoBehaviour {
        // HighlightObject(bin, binHighlighted);
     }
 
+    IEnumerator FlashRetry() {
+        Debug.Log("Timer Called");
+        retryMessage.SetActive(true);
+        yield return new WaitForSeconds(retryMessageTimer);
+        retryMessage.SetActive(false);
+        Debug.Log("Timer Over");
+    }
+
     void HighlightObject(GameObject gameObject, bool isHighlighted)
     {
         if (isHighlighted)
@@ -84,6 +98,19 @@ public class TutorialSequenceThree : MonoBehaviour {
         {
             gameObject.GetComponent<MeshRenderer>().material
                       .SetFloat("_Highlight", 0);
+        }
+    }
+
+    public void GiveBillStatus(float billEvaluation)
+    {
+        if (billEvaluation != billGoal) {
+            StartCoroutine(FlashRetry());
+        }
+        if (billEvaluation == 1) {
+            NextStepInTutorial(1);
+        }
+        else if(billEvaluation == -1) {
+            NextStepInTutorial(2);
         }
     }
 
@@ -102,6 +129,6 @@ public class TutorialSequenceThree : MonoBehaviour {
 
 
     public void NextTutorial() {
-        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }

@@ -54,6 +54,7 @@ public class TutorialBillMovement : ToolClass
                 else if (hit.collider.gameObject.CompareTag("Bill") && !inspectingBill)
                 {
                     TutorialSequenceOne.NextStepInTutorial(2);
+                    TutorialSequenceThree.NextStepInTutorial(3);
                     // display bill on screen
                     InspectBill();
                 } 
@@ -159,18 +160,14 @@ public class TutorialBillMovement : ToolClass
 
         if (destroy)
         {
-            if (currBill.GetComponent<BlankBillController>().evaluatePassVeto() == 0)
-            {
-                Debug.Log("no stamps lol");
+            // give bill status to Tutorial
+            if ((int)TutorialSequenceThree.currentStep < 2) {
+                TutorialSequenceThree.Instance.GiveBillStatus(currBill.GetComponent<BlankBillController>().evaluatePassVeto());
             }
-            else if (currBill.GetComponent<BlankBillController>().evaluatePassVeto() == 1) 
-            {
-                Debug.Log("veto 1 is this pass?");
+            else {
+                TutorialSequenceThree.NextStepInTutorial(4);
             }
-            else
-            {
-                Debug.Log("veto -1 i presume? let's print: " + currBill.GetComponent<BlankBillController>().evaluatePassVeto());
-            }
+            Debug.Log("bill status: " + currBill.GetComponent<BlankBillController>().evaluatePassVeto());
             Destroy(currBill);
             billOut = false;
         }

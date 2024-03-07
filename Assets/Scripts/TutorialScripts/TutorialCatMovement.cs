@@ -127,22 +127,19 @@ public class TutorialCatMovement : MonoBehaviour
             {
                 // THIS IS THE TUTORIAL HOOK
                 // Check if we hit an inkpad
-                if (pawCollisionDetection.surface.CompareTag("Inkpad"))
-                {
+                // nevermind we don't need it
+                //if (pawCollisionDetection.surface.CompareTag("Inkpad")) {
+                //    //Check which inkpad we're hitting
+                //    if (pawCollisionDetection.surface.ToString().Contains("Accept")) {
+                //        TutorialSequenceThree.NextStepInTutorial(1);
+                //    }
+                //    //if (pawCollisionDetection.surface.ToString().Contains("Reject")) {
+                //    else {  // No need to actually see if the other inkpad has REJECT or not. There are only 2 inkpads.
+                //        // Has to be the other inkpad
+                //        TutorialSequenceThree.NextStepInTutorial(3);
+                //    }
+                //}
 
-                    // Check which inkpad we're hitting
-                    if (pawCollisionDetection.surface.ToString().Contains("Accept")) {
-                        //Debug.Log("It do be the accpet inkpad doe, move on");
-                        TutorialSequenceThree.NextStepInTutorial(1);
-                    }
-                    //if (pawCollisionDetection.surface.ToString().Contains("Reject")) {
-                    else {  // No need to actually see if the other inkpad has REJECT or not. There are only 2 inkpads.
-                        // Has to be the other inkpad
-                        //Debug.Log("Its apparently the other inkpad? REJECTED");
-                        TutorialSequenceThree.NextStepInTutorial(3);
-                    }
-                    //Debug.Log("Inkpad HIT!");
-                }
                 x2_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
                 target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
                 if (!dust.gameObject.activeSelf) {
