@@ -237,6 +237,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1776976244}
   m_SourcePrefab: {fileID: 100100000, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+--- !u!1 &93602767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8928355687704869824, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &93602768 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3205865218019036860, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
@@ -868,6 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 282382967}
+  toolSwitchingManager: {fileID: 0}
 --- !u!1 &486081811
 GameObject:
   m_ObjectHideFlags: 0
@@ -2090,6 +2096,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4819812081335706195, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: surface
+      value: 
+      objectReference: {fileID: 93602767}
     - target: {fileID: 5476194437295401879, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
       propertyPath: _frameLag
       value: 60
