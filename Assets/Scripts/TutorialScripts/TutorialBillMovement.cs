@@ -167,7 +167,7 @@ public class TutorialBillMovement : ToolClass
             else {
                 TutorialSequenceThree.NextStepInTutorial(4);
             }
-            Debug.Log("bill status: " + currBill.GetComponent<BlankBillController>().evaluatePassVeto());
+            //Debug.Log("bill status: " + currBill.GetComponent<BlankBillController>().evaluatePassVeto());
             Destroy(currBill);
             billOut = false;
         }

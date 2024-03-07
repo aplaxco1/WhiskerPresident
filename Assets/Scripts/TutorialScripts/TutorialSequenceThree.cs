@@ -16,8 +16,10 @@ public class TutorialSequenceThree : MonoBehaviour {
     [SerializeField] private GameObject completeButton;
     [SerializeField] private GameObject retryMessage;
     [SerializeField] private float retryMessageTimer;
+    [SerializeField] private TutorialBillMovement billMovementScript;
+    [SerializeField] private GameObject blankBillPreset;
+    [SerializeField] private GameObject regularBillPreset;
 
-    [SerializeField] private GameObject bill;
     private float billGoal;
 
     // Objects that need highlighting
@@ -33,6 +35,7 @@ public class TutorialSequenceThree : MonoBehaviour {
         else {
             Instance = this;
         }
+        billMovementScript.billPrefab = blankBillPreset;
     }
     // Start is called before the first frame update
     void Start()
@@ -56,6 +59,7 @@ public class TutorialSequenceThree : MonoBehaviour {
                 billGoal = -1;
                 break;
             case TutorialStep.readBill:
+                billMovementScript.billPrefab = regularBillPreset;
                 step2.SetActive(false);
                 step3.SetActive(true);
                 break;
@@ -129,6 +133,6 @@ public class TutorialSequenceThree : MonoBehaviour {
 
 
     public void NextTutorial() {
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        SceneManager.LoadScene("Office", LoadSceneMode.Single);
     }
 }
