@@ -61,6 +61,7 @@ public class BillMovement : ToolClass
     private void moveBillToTable(RaycastHit hit)
     {
         currBill = Instantiate(billPrefab, stackPosition, Quaternion.identity);
+        currBill.GetComponent<BillController>().InitializeBill();
         toggleHighlights(currBill.GetComponentInChildren<Renderer>(), 1);
         toggleHighlights(hit.collider.gameObject.GetComponentInParent<Renderer>(), 0);
         GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
@@ -151,7 +152,7 @@ public class BillMovement : ToolClass
         if (destroy) {
             //Debug.Log(currBill.GetComponentInChildren<BillController>().evaluatePassVeto());
             if (currBill.GetComponentInChildren<BillController>().evaluatePassVeto() == 0) {Timer.timeValue -= 10;}
-            Destroy(currBill);
+            currBill.GetComponentInChildren<BillController>().UninitializeBill();
             billOut = false;
         }
         else {
