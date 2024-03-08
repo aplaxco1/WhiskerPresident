@@ -35,7 +35,7 @@ public class Timer : MonoBehaviour
         {
             Flash();
             timeValue = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             ResetTimer();
         }
 
