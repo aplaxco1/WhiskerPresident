@@ -701,8 +701,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 00:00
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3571,13 +3571,41 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "In the Office\n\nSwitch Tools - Scrollwheel (two fingers on trackpad)
-    or \u2190\u2192\n- Green Cursor: empty hand\n- Red Cursor: laser pointer\n\nUse
-    Tools - Left Click\n\nEmpty Hand Controls:\n- left click on stack of papers to
-    set a bill on the desk\n- left click the paper organizer to move bill to completion\n\nLaser
-    Pointer Controls:\n- left click on desk to activate a laser pointer\n- left click
-    again to deactivate laser pointer\n- move mouse to guide the cat\n- move mouse
-    quickly to make cat react faster"
+  m_text: 'In the Office
+
+
+    Switch Tools - Scrollwheel (two fingers on trackpad)
+    or <- ->
+
+    - Blue Cursor: empty hand
+
+    - Red Cursor: laser pointer
+
+
+    Use
+    Tools - Left Click
+
+
+    Empty Hand Controls:
+
+    - left click on stack of papers
+    to set a bill on the desk
+
+    - left click the paper organizer to move bill
+    to completion
+
+
+    Laser Pointer Controls:
+
+    - left click on desk to activate
+    a laser pointer
+
+    - left click again to deactivate laser pointer
+
+    - move
+    mouse to guide the cat
+
+    - move mouse quickly to make cat react faster'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
