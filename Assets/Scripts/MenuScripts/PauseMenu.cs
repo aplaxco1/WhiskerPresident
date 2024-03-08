@@ -6,18 +6,8 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject settingsMenu;
     [SerializeField] GameObject toolSwitchingManager;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Pause()
     {
@@ -41,8 +31,9 @@ public class PauseMenu : MonoBehaviour
 
     public void Settings()
     {
-        SceneManager.LoadScene("MainMenu");
-        Time.timeScale = 1;
+        pauseMenu.SetActive(false);
+        settingsMenu.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void Quit()
