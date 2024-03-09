@@ -26,6 +26,7 @@ public class PauseMenu : MonoBehaviour
     {
         toolSwitchingManager.SetActive(true);
         pauseMenu.SetActive(false);
+        settingsMenu.SetActive(false);
         Time.timeScale = 1;
     }
 
