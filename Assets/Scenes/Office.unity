@@ -754,6 +754,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 121101609}
+  flashing_Label: {fileID: 121101606}
+  interval: 0
 --- !u!114 &121101609
 MonoBehaviour:
   m_ObjectHideFlags: 0
