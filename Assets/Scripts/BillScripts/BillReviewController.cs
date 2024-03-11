@@ -35,6 +35,10 @@ public class BillReviewController : MonoBehaviour
         Vector3 billPos = new Vector3(billStartX, billStartY, billStartZ);
         Vector3 billRot = new Vector3(180, 0, 180);
         Transform savedBills = BillContentsManager.Instance.savedBills;
+        if (savedBills == null)
+        {
+            print("Warning: No bills saved. Did you start the BillReview scene independently?");
+        }
         foreach (Transform t in savedBills)
         {
             GameObject b = t.gameObject;
