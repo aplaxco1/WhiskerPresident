@@ -180,7 +180,7 @@ Shader "Unlit/Torso"
                 float rimIntensity = smoothstep(0.79, 0.80, rimDot * pow(NdotL, 0.1));
 
                 // sample the texture
-                float4 col = tex2D(_MainTex, i.uv) * _Color;
+                float4 col = tex2D(_MainTex, i.uv);// * _Color;
                 if (!_Highlighted) {
                     return (light + _AmbientColor + rimIntensity /*+ specular*/) * col;
                 }
