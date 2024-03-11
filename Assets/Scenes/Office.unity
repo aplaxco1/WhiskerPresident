@@ -754,8 +754,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 121101609}
-  flashing_Label: {fileID: 121101606}
-  interval: 0
 --- !u!114 &121101609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3404,17 +3402,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4917030964976592492, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
   m_PrefabInstance: {fileID: 1157026140}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1175170991 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4819812081335706195, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
-  m_PrefabInstance: {fileID: 1157026140}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60acd3eb1855ff4d89abcefcc14d8e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1210471022
 GameObject:
   m_ObjectHideFlags: 0
@@ -3572,6 +3559,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210471022}
   m_CullTransparentMesh: 1
+--- !u!114 &1220049557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5963948396019120412, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+  m_PrefabInstance: {fileID: 1157026140}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60acd3eb1855ff4d89abcefcc14d8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1345142058
 GameObject:
   m_ObjectHideFlags: 0
@@ -4064,7 +4062,7 @@ MonoBehaviour:
   ArmMesh: {fileID: 1157026141}
   HeadPivot: {fileID: 522983105}
   focusController: {fileID: 1414787481}
-  pawCollisionDetection: {fileID: 1175171005}
+  pawCollisionDetection: {fileID: 1220049557}
   PawPrintPrefab: {fileID: 7127054691324280760, guid: 46fadd2293d508c4eb8174d100e89c8e, type: 3}
   timer: 0
 --- !u!114 &1414787481

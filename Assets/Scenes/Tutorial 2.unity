@@ -722,6 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 282382967}
+  settingsMenu: {fileID: 0}
   toolSwitchingManager: {fileID: 0}
 --- !u!1 &463090611
 GameObject:
@@ -2088,12 +2089,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: President
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5963948396019120412, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6119685285788535563, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
-      insertIndex: 2
+      insertIndex: 1
       addedObject: {fileID: 1886399944}
   m_SourcePrefab: {fileID: 100100000, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
 --- !u!1 &1157026141 stripped
@@ -2898,6 +2900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   templateSequence: AAA1111
+  savedBills: {fileID: 0}
 --- !u!1 &1678977051 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8004213579795958213, guid: f5123e42d1b32e1468be7c86d2668fb3, type: 3}
