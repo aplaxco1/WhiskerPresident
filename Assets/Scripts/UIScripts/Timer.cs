@@ -11,10 +11,13 @@ public class Timer : MonoBehaviour
 
     private float flashTimer;
     private float flashDuration = 1f;
+    //public GameObject flashing_Label;
+    //public float interval;
 
     void Start()
     {
         ResetTimer();
+        //InvokeRepeating("FlashLabel", 0, interval);
     }
 
     void Update()
@@ -35,7 +38,7 @@ public class Timer : MonoBehaviour
         {
             Flash();
             timeValue = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             ResetTimer();
         }
 
@@ -92,4 +95,16 @@ public class Timer : MonoBehaviour
     {
         timerText.enabled = enabled;
     }
+
+    /*void FlashLabel()
+    {
+        if(flashing_Label.activeSelf)
+        {
+            flashing_Label.SetActive(false);
+        }
+        else
+        {
+            flashing_Label.SetActive(true);
+        }
+    }*/
 }
