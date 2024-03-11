@@ -6,6 +6,7 @@ public class UIToolbar : MonoBehaviour
 {
     public GameObject LaserPointerHighLight;
     public GameObject BillMovementHighLight;
+    public ToolSwitching toolSwitchingScript;
 
     // Start is called before the first frame update
     void Start()
@@ -16,16 +17,26 @@ public class UIToolbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ToolSwitching.selectedWeapon == 0) // this is the billmovement 
+        if (toolSwitchingScript.selectedWeapon == 0) // this is the billmovement 
         {
             LaserPointerHighLight.SetActive(false);
             BillMovementHighLight.SetActive(true);
         }
 
-        if (ToolSwitching.selectedWeapon == 1) // this is the laser pointer s
+        if (toolSwitchingScript.selectedWeapon == 1) // this is the laser pointer s
         {
             LaserPointerHighLight.SetActive(true);
             BillMovementHighLight.SetActive(false);
         }
+    }
+
+    public void switchToHand() {
+        toolSwitchingScript.selectedWeapon = 0;
+        toolSwitchingScript.SelectWeapon();
+    }
+
+    public void switchToLaser() {
+        toolSwitchingScript.selectedWeapon = 1;
+        toolSwitchingScript.SelectWeapon();
     }
 }

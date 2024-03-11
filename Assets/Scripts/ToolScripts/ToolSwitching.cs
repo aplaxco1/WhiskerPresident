@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ToolSwitching : MonoBehaviour
 {
-    public static int selectedWeapon = 0;
+    public int selectedWeapon = 0;
     // Start is called before the first frame update
     void Start()
     {
