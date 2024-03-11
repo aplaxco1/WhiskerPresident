@@ -50,6 +50,13 @@ public class VolumeSlider : MonoBehaviour
         audioSource.volume = sliderValue;
     }
 
+    // For use with the real volumeslider (i hope it works)
+    // Update the audioSorce volume with the value of the slider
+    public void updateVolume()
+    {
+        audioSource.volume = volumeSlider.value;
+    }
+
     void OnDisable()
     {
         //Un-Register Slider Events
