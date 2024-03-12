@@ -1,6 +1,6 @@
 // 2 of the components to the outlines are based on https://roystan.net/articles/outline-shader/
 // smear effect is based off of https://github.com/cjacobwade/HelpfulScripts/tree/master/SmearEffect
-Shader "Unlit/Torso1"
+Shader "Unlit/Background"
 {
     Properties
     {
@@ -83,11 +83,11 @@ Shader "Unlit/Torso1"
                 float lightIntensity = smoothstep(0, 0.01, NdotL * shadow);
                 float lightIntensity2 = smoothstep(0, 0.01, (NdotL * shadow)-0.2f); // adds 2-step gradient to shadow
                 float lightIntensity3 = smoothstep(0, 0.01, (NdotL * shadow)-0.8f); // adds highlight (looks ugly on president rn but will look great on things with normal maps)
-                float4 light = ((lightIntensity + lightIntensity2)/2 + lightIntensity3*0.1) * _LightColor0;
+                float4 light = 1 * _LightColor0;
 
                 // calculate rim
                 float4 rimDot = 1-dot(viewDir, normal);
-                float rimIntensity = smoothstep(0.79, 0.80, rimDot * pow(NdotL, 0.1));
+                float rimIntensity = 0;//smoothstep(0.79, 0.80, rimDot * pow(NdotL, 0.1));
 
                 // sample the texture
                 float4 col = tex2D(_MainTex, i.uv);// * _Color;
