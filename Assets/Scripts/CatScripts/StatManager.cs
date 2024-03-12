@@ -17,13 +17,16 @@ public class StatManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-
         }
     }
     
     // Start is called before the first frame update
     void Start()
     {
+        if (BillContentsManager.Instance != null)
+        {
+            BillContentsManager.Instance.WipeSavedBills();
+        }
         BillController.StatVector startingStats = new BillController.StatVector();
         startingStats.RedStat = 50;
         startingStats.GreenStat = 50;

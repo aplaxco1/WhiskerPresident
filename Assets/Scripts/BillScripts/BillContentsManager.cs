@@ -35,6 +35,7 @@ public class BillContentsManager : MonoBehaviour
         }
 
         GameObject savedBill = Instantiate(bill, Vector3.zero, Quaternion.identity, savedBills);
+        savedBill.GetComponent<BillController>().symbols = bill.GetComponent<BillController>().symbols;
         savedBill.SetActive(false);
     }
 
