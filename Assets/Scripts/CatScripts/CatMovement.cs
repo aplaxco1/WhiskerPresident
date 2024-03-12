@@ -35,6 +35,9 @@ public class CatMovement : MonoBehaviour
     private Color printColor;
     private int numPrints;
     private ParticleSystem dust;
+    public ParticleSystem indicator;
+    public Material Checkmark;
+    public Material X;
 
     // CONSTANTS    
     private const float WaitInterval = 1.75f;       // base time to wait between swings
@@ -136,6 +139,18 @@ public class CatMovement : MonoBehaviour
                     Vector3 pos = pawCollider.transform.position;
                     dust.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
                     dust.gameObject.SetActive(true);
+                }
+                if (!indicator.gameObject.activeSelf && pawCollisionDetection.surface.tag == "Bill" && printColor.a>0) {
+                    indicator.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[]{new ParticleSystem.Burst(0, 1)});
+                    Renderer rend = indicator.GetComponent<Renderer>();
+                    if (printColor.r > 0.6) {
+                        rend.material = X;
+                    } else {
+                        rend.material = Checkmark;
+                    }
+                    Vector3 pos = pawCollider.transform.position;
+                    indicator.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
+                    indicator.gameObject.SetActive(true);
                 }
             }
             target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
