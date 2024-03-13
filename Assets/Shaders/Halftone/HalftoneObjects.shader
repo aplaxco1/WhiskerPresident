@@ -105,6 +105,23 @@ Shader "Unlit/HalftoneObjects"
                 float relativeValue = (input - inMin) / (inMax - inMin);
                 return lerp(outMin, outMax, relativeValue);
             }
+            float findEdgeNormal(float2 screenSpaceUV, sampler2D _CameraNormalsTexture) {
+				float2 bottomLeftUV = screenSpaceUV-0.001;
+				float2 topRightUV = screenSpaceUV+0.001;  
+				float2 bottomRightUV = screenSpaceUV + float2(0.001, -0.001);
+				float2 topLeftUV = screenSpaceUV + float2(-0.001, 0.001);
+                
+                float4 normal0 = tex2D(_CameraNormalsTexture, bottomLeftUV);
+                float4 normal1 = tex2D(_CameraNormalsTexture, topRightUV);
+                float4 normal2 = tex2D(_CameraNormalsTexture, bottomRightUV);
+                float4 normal3 = tex2D(_CameraNormalsTexture, topLeftUV);
+                float4 normalFiniteDifference0 = normal1 - normal0;
+                float4 normalFiniteDifference1 = normal3 - normal2;
+                float NormalThreshold = 1;
+                float edgeNormal = sqrt(dot(normalFiniteDifference0, normalFiniteDifference0) + dot(normalFiniteDifference1, normalFiniteDifference1));
+                edgeNormal = edgeNormal > NormalThreshold ? 1 : 0;
+                return edgeNormal;
+            }
 
             fixed4 frag (v2f i) : SV_Target // fragment shader
             {
@@ -148,16 +165,14 @@ Shader "Unlit/HalftoneObjects"
                 float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 50;
                 float DepthThreshold = 1.5 * depth0;
                 edgeDepth = edgeDepth > DepthThreshold ? 1 : 0;
-
-                float4 normal0 = tex2D(_CameraNormalsTexture, bottomLeftUV);
-                float4 normal1 = tex2D(_CameraNormalsTexture, topRightUV);
-                float4 normal2 = tex2D(_CameraNormalsTexture, bottomRightUV);
-                float4 normal3 = tex2D(_CameraNormalsTexture, topLeftUV);
-                float4 normalFiniteDifference0 = normal1 - normal0;
-                float4 normalFiniteDifference1 = normal3 - normal2;
-                float NormalThreshold = 0.4;
-                float edgeNormal = sqrt(dot(normalFiniteDifference0, normalFiniteDifference0) + dot(normalFiniteDifference1, normalFiniteDifference1));
-                edgeNormal = edgeNormal > NormalThreshold ? 1 : 0;
+                
+                // anti alias edgenormal through supersampling
+                float edgeNormal;// = findEdgeNormal(screenSpaceUV, _CameraNormalsTexture);
+                edgeNormal = (findEdgeNormal(screenSpaceUV, _CameraNormalsTexture)
+                            + findEdgeNormal(screenSpaceUV+ float2(0.0005, 0), _CameraNormalsTexture)
+                            + findEdgeNormal(screenSpaceUV+ float2(0, 0.0005), _CameraNormalsTexture)
+                            + findEdgeNormal(screenSpaceUV+ float2(-0.0005, 0), _CameraNormalsTexture)
+                            + findEdgeNormal(screenSpaceUV+ float2(0, -0.0005), _CameraNormalsTexture))/5;
                 
                 //return edgeNormal;
                 //return normalFiniteDifference1;
@@ -165,22 +180,16 @@ Shader "Unlit/HalftoneObjects"
                 float rimIntensity2 = smoothstep(DepthThreshold-0.01, DepthThreshold, edgeDepth);
                 rimIntensity2 += edgeNormal;
                 rimIntensity2 += smoothstep(0.79, 0.80, rimDot);
-                rimIntensity2 = smoothstep(0.79, 0.80, rimIntensity2);
+                rimIntensity2 = smoothstep(0, 0.5, rimIntensity2);
 
-                // calculate specular
-                /*
-                float3 halfVector = normalize(_WorldSpaceLightPos0 + viewDir);
-                float NdotH = dot(normal, halfVector);
-                float specularIntensity = pow(NdotH * lightIntensity, 32 * 32);
-                float4 specular = smoothstep(0.005, 0.01, specularIntensity);
-                */
-                if (rimIntensity2 > 0) {
-                    if (smoothstep(0, 0.01, (NdotL * shadow)-0.2f) > 0) {
-                        return 1.8 * col;
-                    } else {
-                        return 0.2 * col;
-                    }
+                //rimIntensity2 = 0;
+                float4 col2;
+                if (smoothstep(0, 0.01, (NdotL * shadow)-0.2f) > 0) {
+                    col2 = 1.8 * col;
+                } else {
+                    col2 = 0.2 * col;
                 }
+                //return rimIntensity2;
 
 
 
@@ -192,8 +201,8 @@ Shader "Unlit/HalftoneObjects"
                 halftoneValue = map(halftoneValue, _RemapInputMin, _RemapInputMax, _RemapOutputMin, _RemapOutputMax);
 
                 // anti-aliasing
-                float halftoneChange = fwidth(halftoneValue) * 0.6;
-                light = smoothstep(halftoneValue - halftoneChange, halftoneValue , light);
+                float halftoneChange = fwidth(halftoneValue) * 0.5;
+                light = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light);
                 //light = step(halftoneValue, light+0.28);
                 //return halftoneValue;
                 lightIntensity3 = smoothstep(0, 0.07, (NdotL * shadow)-0.8f);
@@ -203,7 +212,7 @@ Shader "Unlit/HalftoneObjects"
 
                 // sample the texture
                 //float4 col = tex2D(_MainTex, i.uv);// * _Color;
-                return light * col;
+                return (1-rimIntensity2) * light * col + rimIntensity2 * col2;
             }
             ENDCG
         }

@@ -12,7 +12,7 @@ public class RenderReplacementShaderToTexture : MonoBehaviour
     FilterMode filterMode = FilterMode.Point;
 
     [SerializeField]
-    int renderTextureDepth = 24;
+    int renderTextureDepth = 32;
 
     [SerializeField]
     CameraClearFlags cameraClearFlags = CameraClearFlags.Color;
