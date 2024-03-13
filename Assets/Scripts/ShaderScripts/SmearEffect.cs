@@ -25,7 +25,7 @@ public class SmearEffect : MonoBehaviour
 		}
 	}
 
-	void LateUpdate()
+	void Update()
 	{
 		_frameLag = (int) Mathf.Floor(1/(Time.deltaTime*12));
 		//Debug.Log(1/Time.deltaTime);

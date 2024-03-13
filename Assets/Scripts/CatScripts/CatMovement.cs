@@ -52,7 +52,7 @@ public class CatMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Application.targetFrameRate = 60;
+        //Application.targetFrameRate = 30;
         // instantiate pawprint objects
         smacking = false;
         pawCollider = ArmMesh.GetComponentInChildren<BoxCollider>();
@@ -128,6 +128,7 @@ public class CatMovement : MonoBehaviour
         } else { // during smack!
             if (pawCollisionDetection.colliding)
             {
+                //_smearMat.SetFloat("_Smearing",0);
                 x2_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
                 target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
                 if (!dust.gameObject.activeSelf) {
