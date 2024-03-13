@@ -139,6 +139,15 @@ Shader "Unlit/HalftoneSmear"
                 fixed3 worldOffset = _Position.xyz - _PrevPosition.xyz; // -5
                 fixed3 rotationOffset = _Rotation - _PrevRotation;
                 float angle = length(rotationOffset);
+                if (angle == 0) { // im so mad.
+                    fixed3 smearOffset = -worldOffset;
+                    smearOffset *= lerp(1, noise(worldPos * _NoiseScale), step(0, _NoiseScale));
+                    
+                    worldPos.xyz += smearOffset;
+                    
+                    o.pos = UnityObjectToClipPos(mul(unity_WorldToObject, worldPos));
+                    return o;
+                }
                 fixed3 localOffset = worldPos.xyz - _Position.xyz; // -5
                 float radius = length(localOffset);
                 float n = 2 * radius * sin(angle/2*3.14159/180);
