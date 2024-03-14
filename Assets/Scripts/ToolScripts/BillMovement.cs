@@ -62,7 +62,7 @@ public class BillMovement : ToolClass
                     // display bill on screen
                     inspectBill();
                 } 
-                else if (hit.collider.gameObject.CompareTag("Bill") && inspectingBill) {
+                else if (inspectingBill) {
                     uninspectBill();
                 }
             }

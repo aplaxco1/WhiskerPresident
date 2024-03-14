@@ -172,8 +172,8 @@ Shader "Unlit/Torso"
                 float shadow = SHADOW_ATTENUATION(i);
                 float lightIntensity = smoothstep(0, 0.01, NdotL * shadow);
                 float lightIntensity2 = smoothstep(0, 0.01, (NdotL * shadow)-0.2f); // adds 2-step gradient to shadow
-                //float lightIntensity3 = smoothstep(0, 0.01, (NdotL * shadow)-0.8f); // adds highlight (looks ugly on president rn but will look great on things with normal maps)
-                float4 light = ((lightIntensity + lightIntensity2)/2 /*+ lightIntensity3*/) * _LightColor0;
+                float lightIntensity3 = smoothstep(0, 0.01, (NdotL * shadow)-0.8f); // adds highlight (looks ugly on president rn but will look great on things with normal maps)
+                float4 light = ((lightIntensity + lightIntensity2)/2 + lightIntensity3*0.1) * _LightColor0;
 
                 // calculate rim
                 float4 rimDot = 1-dot(viewDir, normal);
@@ -181,9 +181,11 @@ Shader "Unlit/Torso"
 
                 // sample the texture
                 float4 col = tex2D(_MainTex, i.uv);// * _Color;
+                /*
                 if (!_Highlighted) {
-                    return (light + _AmbientColor + rimIntensity /*+ specular*/) * col;
+                    return (light + _AmbientColor + rimIntensity) * col;
                 }
+                */
 
 
 
@@ -220,10 +222,10 @@ Shader "Unlit/Torso"
                 //return edgeNormal;
                 //return normalFiniteDifference1;
                 //UNITY_OUTPUT_DEPTH(i.depth);
-                rimIntensity = smoothstep(DepthThreshold-0.01, DepthThreshold, edgeDepth);
-                rimIntensity += edgeNormal;
-                rimIntensity += smoothstep(0.79, 0.80, rimDot);
-                rimIntensity = smoothstep(0.79, 0.80, rimIntensity);
+                float rimIntensity2 = smoothstep(DepthThreshold-0.01, DepthThreshold, edgeDepth);
+                rimIntensity2 += edgeNormal;
+                rimIntensity2 += smoothstep(0.79, 0.80, rimDot);
+                rimIntensity2 = smoothstep(0.79, 0.80, rimIntensity2);
 
                 // calculate specular
                 /*
@@ -232,6 +234,19 @@ Shader "Unlit/Torso"
                 float specularIntensity = pow(NdotH * lightIntensity, 32 * 32);
                 float4 specular = smoothstep(0.005, 0.01, specularIntensity);
                 */
+                if (rimIntensity2 > 0) {
+                    if (_Highlighted) {
+                        return 2 * col;
+                    }
+                    if (smoothstep(0, 0.01, (NdotL * shadow)-0.2f) > 0) {
+                        return 1.4 * col;
+                    } else {
+                        return 0.2 * col;
+                    }
+                }
+                if (!_Highlighted) {
+                    return (light + _AmbientColor + rimIntensity) * col;
+                }
 
                 return (light + _AmbientColor + rimIntensity /*+ specular*/) * col + (0.1,0.1,0.1);
             }
