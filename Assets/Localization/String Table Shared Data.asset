@@ -23,6 +23,14 @@ MonoBehaviour:
     m_Key: controls-return-button
     m_Metadata:
       m_Items: []
+  - m_Id: 3249940016218112
+    m_Key: cat-stat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3249960287289344
+    m_Key: dog-stat
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
