@@ -52,7 +52,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3272364514426880
-    m_Key: credits-text
+    m_Key: credits-text-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3275277123010560
+    m_Key: credits-text-2
     m_Metadata:
       m_Items: []
   m_Metadata:
