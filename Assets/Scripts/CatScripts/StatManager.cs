@@ -38,9 +38,10 @@ public class StatManager : MonoBehaviour
     {
         UpdateRedStat(statVector.RedStat);
         UpdateGreenStat(statVector.GreenStat);
-        UpdateBlueStat(statVector.BlueStat);
+        //UpdateBlueStat(statVector.BlueStat); // blue stat unused rn
     }
 
+    // Red Stat Correlates to the Bone Symbol RN
     private void UpdateRedStat(int factor)
     {
         redStat += factor;
@@ -49,9 +50,10 @@ public class StatManager : MonoBehaviour
             TriggerLoss("Red Stat Loss");
         }
         redStat = Mathf.Clamp(redStat, 0, 100);
-        StatTextManager.Instance.redStatText.text = "RedStat: " + redStat;
+        StatTextManager.Instance.redStatText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + redStat;
     }
     
+    // Green Stat Correlated to the Fish Symbol RN
     private void UpdateGreenStat(int factor)
     {
         greenStat += factor;
@@ -60,7 +62,7 @@ public class StatManager : MonoBehaviour
             TriggerLoss("Green Stat Loss");
         }
         greenStat = Mathf.Clamp(greenStat, 0, 100);
-        StatTextManager.Instance.greenStatText.text = "GreenStat: " + greenStat;
+        StatTextManager.Instance.greenStatText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + greenStat; // translate this
     }
     
     private void UpdateBlueStat(int factor)
