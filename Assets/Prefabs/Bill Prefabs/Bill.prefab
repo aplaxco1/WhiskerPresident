@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9091327134113811384}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: SymbolParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2894982765400753579}
   - component: {fileID: 5695875514626477302}
   - component: {fileID: 9123895530047303297}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Paper
   m_TagString: Bill
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8437245889581403252}
   - component: {fileID: 8050307478957460056}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Collider
   m_TagString: Bill
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8636221673187782464}
   - component: {fileID: 7240427621849086695}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Bill
   m_TagString: Bill
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ Transform:
   m_GameObject: {fileID: 7222744191218044594}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.8, z: 0}
+  m_LocalPosition: {x: -0.09904122, y: 0.82692873, z: 0.1981237}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
