@@ -60,15 +60,15 @@ public class BillReviewController : MonoBehaviour
             string passedString;
             if (passed == 0)
             {
-                passedString = "Ignored!\n";
+                passedString = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "ignored") + "\n";
             } 
             else if (passed > 0)
             {
-                passedString = "Passed!\n";
+                passedString = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "passed") + "\n";
             }
             else
             {
-                passedString = "Vetoed!\n";
+                passedString = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "vetoed") + "\n";
             }
             textObject.GetComponentInChildren<TMP_Text>().text = "" + passedString + "\n" + statVector.StringConversion();
         }

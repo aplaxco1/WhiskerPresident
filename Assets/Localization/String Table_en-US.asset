@@ -39,6 +39,26 @@ MonoBehaviour:
     m_Localized: 'Dog Approval:'
     m_Metadata:
       m_Items: []
+  - m_Id: 3271002418397184
+    m_Localized: Ignored!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3271025797447680
+    m_Localized: Passed!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3271043098951680
+    m_Localized: Vetoed!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272257496760320
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272296277295104
+    m_Localized: Next morning...
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
