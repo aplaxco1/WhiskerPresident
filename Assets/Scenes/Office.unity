@@ -10061,6 +10061,7 @@ MonoBehaviour:
   flatRotation: {x: 0, y: 0, z: 0}
   inspectRotation: {x: 80, y: 180, z: 0}
   inspectingBill: 0
+  holdDuration: 1
 --- !u!1 &2023060997
 GameObject:
   m_ObjectHideFlags: 0
