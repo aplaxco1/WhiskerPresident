@@ -754,8 +754,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 121101609}
-  flashing_Label: {fileID: 121101606}
-  interval: 0
 --- !u!114 &121101609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1198,7 +1196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 282382967}
-  settingsMenu: {fileID: 1097177854}
+  settingsMenu: {fileID: 0}
   toolSwitchingManager: {fileID: 118722550}
 --- !u!1 &316033208
 GameObject:
@@ -3213,7 +3211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 282382967}
-  settingsMenu: {fileID: 1097177854}
+  settingsMenu: {fileID: 0}
   toolSwitchingManager: {fileID: 118722550}
 --- !u!1 &1148182447
 GameObject:
@@ -5757,7 +5755,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994736603}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf5aecfe8b8226e4f94236a163f61fdf, type: 3}
   m_Name: 
@@ -5783,18 +5781,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1994736603}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab67c47128d719844b5d74e70dad96f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c36639bd67a01b4381874b2613c7d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: 22f180c19d1922044801ffd7cd9587c4, type: 3}
+  cursorTexture: {fileID: 0}
   isActive: 1
   laserWidth: 0.01
-  laserOffset: {x: 0, y: -0.45, z: 0}
+  laserOffset: {x: 0, y: 2, z: 0}
   laserDot: {fileID: 7222744191218044594, guid: 5557a0c335527c44aa5d5336fd291d91, type: 3}
   laserMaterial: {fileID: 0}
   isOnDesk: 0
   laserDeskLocation: {x: 0, y: 0, z: 0}
-  billScript: {fileID: 0}
+  billScript: {fileID: 1994736605}
+  billLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &2023060997
 GameObject:
   m_ObjectHideFlags: 0

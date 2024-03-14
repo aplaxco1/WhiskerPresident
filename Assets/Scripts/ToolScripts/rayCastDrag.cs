@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using UnityEngine;
 
-public class rayCastDrag : MonoBehaviour
+public class rayCastDrag : ToolClass
 {
     [Header("Adjustable Laser Variables")]
     [SerializeField]
@@ -20,10 +21,12 @@ public class rayCastDrag : MonoBehaviour
     [SerializeField]
     public Vector3 laserDeskLocation = new Vector3(0f, 0f, 0f);
     public BillMovement billScript;
+    public LayerMask billLayer;
 
     private GameObject lineObj;
     private LineRenderer lineRender;
 
+    private bool billActive = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,15 +40,30 @@ public class rayCastDrag : MonoBehaviour
         lineRender.endColor = Color.red;
         lineObj.SetActive(true);
         // initialize laser pointer dot
-        laserDot = Instantiate(laserDot, new Vector3(0, 0, 0), Quaternion.identity);
-        laserDot.SetActive(isOnDesk);
+        //laserDot = Instantiate(laserDot, new Vector3(0, 0, 0), Quaternion.identity);
+        //laserDot.SetActive(isOnDesk);
     }
 
     // Update is called once per frame
     void Update()
     {
+        GameObject myObject = GameObject.Find("Bill(Clone)");
+        if (myObject != null)
+        {
+            // Do something with myObject
+            //Debug.Log("test");
+            billActive = true;
+            laserDot = myObject;
+            laserDot.SetActive(true);
+            //laserDot.SetActive(isOnDesk);
+        }
 
-        if (isActive)
+
+
+
+
+        if (isActive && billActive)
+        //if(true)
         {
             // set laser dot active if laser is on desk
             laserDot.SetActive(isOnDesk);
@@ -62,13 +80,13 @@ public class rayCastDrag : MonoBehaviour
             if (Physics.Raycast(ray, out mouseHit))
             {
                 //Debug.Log("hit");
-                drawLine(laserStartPos, mouseHit.point);
+                //drawLine(laserStartPos, mouseHit.point);
                 Vector3 direction = mouseHit.point - laserStartPos;
                 RaycastHit laserHit;
                 // make sure actual visual laser doesnt go through any objects
                 if (Physics.Raycast(laserStartPos, direction, out laserHit, Mathf.Infinity) && !isOnDesk)
                 {
-                    drawLine(laserStartPos, laserHit.point);
+                    //drawLine(laserStartPos, laserHit.point);
                 }
                 // check if on desk
                 if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk"))
@@ -94,7 +112,7 @@ public class rayCastDrag : MonoBehaviour
             else
             {
                 float distance = 100f;
-                drawLine(laserStartPos, ray.direction * distance);
+                //drawLine(laserStartPos, ray.direction * distance);
                 isOnDesk = false;
             }
         }
