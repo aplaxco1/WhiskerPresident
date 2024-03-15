@@ -23,6 +23,42 @@ MonoBehaviour:
     m_Key: controls-return-button
     m_Metadata:
       m_Items: []
+  - m_Id: 3249940016218112
+    m_Key: cat-stat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3249960287289344
+    m_Key: dog-stat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3271002418397184
+    m_Key: ignored
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3271025797447680
+    m_Key: passed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3271043098951680
+    m_Key: vetoed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272257496760320
+    m_Key: credits-button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272296277295104
+    m_Key: next-morning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272364514426880
+    m_Key: credits-text-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3275277123010560
+    m_Key: credits-text-2
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

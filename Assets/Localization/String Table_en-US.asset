@@ -31,6 +31,102 @@ MonoBehaviour:
     m_Localized: Return
     m_Metadata:
       m_Items: []
+  - m_Id: 3249940016218112
+    m_Localized: 'Cat Approval:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3249960287289344
+    m_Localized: 'Dog Approval:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3271002418397184
+    m_Localized: Ignored!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3271025797447680
+    m_Localized: Passed!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3271043098951680
+    m_Localized: Vetoed!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272257496760320
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272296277295104
+    m_Localized: Next morning...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3272364514426880
+    m_Localized: 'Whisker President Dev Team
+
+
+      Leads
+
+      Kirsten Lindblad:
+      Production Lead
+
+      Abraham Halim: Engine Lead
+
+      Samuel Zhang: Tools
+      Lead
+
+      Michael Law: Design Lead
+
+      Samip Niraula: Playtesting Lead
+
+
+      Programming
+
+      Kirsten
+      Lindblad: Systems Programmer
+
+      Autumn Plaxco: Gameplay Programmer
+
+      Samuel
+      Zhang: UI Programmer
+
+      Abraham Halim: Technical Programmer
+
+      Justin
+      Hu: Bill Programmer
+
+      Samip Niraula: General Programmer
+
+      Dexter
+      Zhang: General Programmer
+
+      Michael Law: General Programmer'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3275277123010560
+    m_Localized: 'Art
+
+      Daniel Gonzalez: 3D Environment, Character, and Prop
+      Artist
+
+      Kirsten Lindblad: Technical Artist
+
+
+      Design
+
+      Michael
+      Law: Systems Designer
+
+
+      Production
+
+      Kirsten Lindblad: Lead Producer
+
+
+      Sound
+
+      Evan
+      Oliveras: Composer and SFX Designer'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

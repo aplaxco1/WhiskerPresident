@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BillReviewController : MonoBehaviour
 {
     public static BillReviewController Instance;
+
+    public GameObject reviewTextPrefab;
     
     public float billStartX;
     public float billStartY;
@@ -34,6 +37,11 @@ public class BillReviewController : MonoBehaviour
     {
         Vector3 billPos = new Vector3(billStartX, billStartY, billStartZ);
         Vector3 billRot = new Vector3(180, 0, 180);
+        if (BillContentsManager.Instance == null)
+        {
+            print("Warning: No bills saved. Did you start the BillReview scene independently?");
+            return;
+        }
         Transform savedBills = BillContentsManager.Instance.savedBills;
         foreach (Transform t in savedBills)
         {
@@ -43,6 +51,27 @@ public class BillReviewController : MonoBehaviour
             b.transform.position = billPos;
             b.transform.eulerAngles = billRot;
             billPos += new Vector3(billXGap, billYGap, billZGap);
+            
+            BillController controller = b.GetComponent<BillController>();
+            float passed = controller.evaluatePassVeto();
+            BillController.StatVector statVector = controller.CalculateOutcome();
+
+            GameObject textObject = Instantiate(reviewTextPrefab, t, false);
+            string passedString;
+            if (passed == 0)
+            {
+                passedString = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "ignored") + "\n";
+            } 
+            else if (passed > 0)
+            {
+                passedString = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "passed") + "\n";
+            }
+            else
+            {
+                passedString = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "vetoed") + "\n";
+            }
+            textObject.GetComponentInChildren<TMP_Text>().text = "" + passedString + "\n" + statVector.StringConversion();
         }
+        BillReviewCameraManager.Instance.SetLastBill(billPos.x);
     }
 }

@@ -27,7 +27,12 @@ public class BillMovement : ToolClass
     private bool billMoving;
     public bool inspectingBill;
     private bool billRotating;
-    
+
+    //Tracks time held down
+    private float holdStartTime;
+
+    public float holdDuration = 1f;
+
     void Start()
     {
     }
@@ -38,6 +43,12 @@ public class BillMovement : ToolClass
         if (Input.GetMouseButtonDown(0) && !billMoving && !billRotating && isActive) {
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            //if mouse is held down it tracks the time. 
+            if (Input.GetMouseButtonDown(0))
+            {
+                holdStartTime = Time.time;
+            }
 
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
@@ -51,11 +62,12 @@ public class BillMovement : ToolClass
                     // display bill on screen
                     inspectBill();
                 } 
-                else if (hit.collider.gameObject.CompareTag("Bill") && inspectingBill) {
+                else if (inspectingBill) {
                     uninspectBill();
                 }
             }
         }
+        holdStartTime = 0f;
     }
 
     private void moveBillToTable(RaycastHit hit)

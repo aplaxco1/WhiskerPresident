@@ -40,17 +40,20 @@ public class BillController : MonoBehaviour
         public int GreenStat;
         public int BlueStat;
 
+        // Changed This For Localization Purposes - Autumn
         public string StringConversion()
         {
             string ret = "";
-            ret += "Red Stat (Food): " + RedStat + "\n";
-            ret += "Green Stat (Money): " + GreenStat + "\n";
-            ret += "Blue Stat (Bone): " + BlueStat + "\n";
+            ret += UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + RedStat + "\n";
+            ret += UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + GreenStat + "\n";
+            // ret += "Red: " + RedStat + "\n";
+            // ret += "Green: " + GreenStat + "\n";
+            // ret += "Blue: " + BlueStat + "\n";
             return ret;
         }
     }
     
-    private List<SymbolType> symbols;
+    public List<SymbolType> symbols;
     
     // //How many symbols should be generated
     // public int numSymbols;
@@ -271,7 +274,7 @@ public class BillController : MonoBehaviour
     }
 
     // Will return the effects of the bill on stat bars
-    private StatVector CalculateOutcome()
+    public StatVector CalculateOutcome()
     {
         StatVector returnVector = new StatVector();
         int multiplier = 1;
