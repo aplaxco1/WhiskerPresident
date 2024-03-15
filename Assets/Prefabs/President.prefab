@@ -172,7 +172,7 @@ Transform:
   m_GameObject: {fileID: 4917030964976592492}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.3420201, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -0.493, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 7883441006355915742}
   - component: {fileID: 5865973614322212701}
   - component: {fileID: 3295755261373413794}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CollisonBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
