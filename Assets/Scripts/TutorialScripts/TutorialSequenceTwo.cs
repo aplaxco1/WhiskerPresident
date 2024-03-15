@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using UnityEditor.SearchService;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
