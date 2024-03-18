@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.NetworkInformation;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -33,13 +35,68 @@ public class BillMovement : ToolClass
 
     public float holdDuration = 1f;
 
+    //laserStuff (i.e. Abe's bullshit)
+    [Header("Adjustable Laser Variables")]
+    [SerializeField]
+    public float laserWidth = 0.01f;
+    [SerializeField]
+    public Vector3 laserOffset = new Vector3(0.0f, -0.45f, 0.0f);
+    [SerializeField]
+    public GameObject laserDot;
+    public Material laserMaterial;
+
+    [Header("Global Laser Variables")]
+    // variables to capture location on desk for cats attention
+    [SerializeField]
+    public bool isOnDesk = false;
+    [SerializeField]
+    public Vector3 laserDeskLocation = new Vector3(0f, 0f, 0f);
+    public BillMovement billScript;
+    public LayerMask billLayer;
+
+    private GameObject lineObj;
+    private LineRenderer lineRender;
+
+    private bool billActive = false;
+
+    //public Collider BillCollider;
+    public Collider trayCollider;
+
     void Start()
     {
+        //stuff for bill move sorry 
+        //Sincerely Abraham
+        lineObj = new GameObject("LaserPointerLine");
+        lineRender = lineObj.AddComponent<LineRenderer>();
+        lineRender.material = laserMaterial ? laserMaterial : new Material(Shader.Find("Sprites/Default"));
+        lineRender.widthMultiplier = laserWidth;
+        lineRender.positionCount = 2;
+        lineRender.startColor = Color.red;
+        lineRender.endColor = Color.red;
+        lineObj.SetActive(true);
     }
 
     void Update()
     {
-        // if the player right clicks, check where they clicked
+        
+
+        if (Input.GetMouseButton(1) && !billMoving && !billRotating && isActive)
+        {
+            dragBill();
+            /*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject.CompareTag("Bill") && !inspectingBill)
+                {
+
+                    dragBill();
+                }
+            }*/
+        }
+
+
+        
         if (Input.GetMouseButtonDown(0) && !billMoving && !billRotating && isActive) {
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -194,5 +251,91 @@ public class BillMovement : ToolClass
         foreach (Material material in renderer.materials) {
             material.SetFloat("_Highlighted", Mathf.Clamp(n, 0, 1));
         }
+    }
+
+    public void dragBill()
+    {
+        GameObject myObject = GameObject.Find("Bill(Clone)");
+        if (myObject != null)
+        {
+            // Do something with myObject
+            //Debug.Log("test");
+            billActive = true;
+            laserDot = myObject;
+            laserDot.SetActive(true);
+            laserDot.SetActive(isOnDesk);
+        }
+
+
+
+
+
+        if (isActive && billActive)
+        //if(true)
+        {
+            // set laser dot active if laser is on desk
+            laserDot.SetActive(isOnDesk);
+            lineObj.SetActive(true);
+            // create ray from camera to mouse
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            // calculate position of visual laser
+            Vector3 laserStartPos = new Vector3(Camera.main.transform.position.x + laserOffset.x, Camera.main.transform.position.y + laserOffset.y, Camera.main.transform.position.z + laserOffset.z);
+
+            // determine raycast collision
+            RaycastHit mouseHit;
+            //hitInfo = mouseHit;
+            if (Physics.Raycast(ray, out mouseHit))
+            {
+                //Debug.Log("hit");
+                //drawLine(laserStartPos, mouseHit.point);
+                Vector3 direction = mouseHit.point - laserStartPos;
+                RaycastHit laserHit;
+
+                
+                // make sure actual visual laser doesnt go through any objects
+                if (Physics.Raycast(laserStartPos, direction, out laserHit, Mathf.Infinity) && !isOnDesk)
+                {
+                    //drawLine(laserStartPos, laserHit.point);
+                }
+                // check if on desk
+                if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk"))
+                {
+                    if (mouseHit.collider.gameObject.CompareTag("Bill") && !inspectingBill)
+                    {
+                        isOnDesk = false;
+                        laserDot.SetActive(true);
+                    }
+                    else
+                    {
+                        isOnDesk = true;
+                        laserDot.SetActive(true);
+                    }
+                    laserDeskLocation = mouseHit.point;
+                    laserDot.transform.position = mouseHit.point;
+                    laserDot.transform.rotation = Quaternion.FromToRotation(laserDot.transform.up, mouseHit.normal) * laserDot.transform.rotation;
+                }
+                //Collider currBillBounds = currBill.GetComponent<Renderer>().bounds;
+                //Collider trayBounds = tray.GetComponent<Renderer>().bounds;
+
+                bool overlap = currBill.GetComponentInChildren<Collider>().bounds.Intersects(trayCollider.bounds);
+
+                if (overlap)
+                {
+                    moveBillToFinished(mouseHit);
+                }
+                else
+                {
+                    //isOnDesk = false;
+                }
+            }
+            else
+            {
+                float distance = 100f;
+                //drawLine(laserStartPos, ray.direction * distance);
+                isOnDesk = false;
+            }
+        }
+
     }
 }
