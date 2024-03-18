@@ -1878,7 +1878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3cfae5a92817d4d873d79276cda803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: 22f180c19d1922044801ffd7cd9587c4, type: 3}
+  cursorTexture: {fileID: 2800000, guid: adbce35c4e2f17745bded200594b269f, type: 3}
   isActive: 1
   billPrefab: {fileID: 7222744191218044594, guid: 5a35ef5a3e36e8440b9723de77ecd464, type: 3}
   speed: 7
@@ -1892,7 +1892,6 @@ MonoBehaviour:
   billOut: 0
   currBill: {fileID: 0}
   inspectingBill: 0
-  holdDuration: 1
 --- !u!1 &2023060997
 GameObject:
   m_ObjectHideFlags: 0
