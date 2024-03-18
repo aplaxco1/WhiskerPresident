@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+//using System.Diagnostics;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -356,5 +357,15 @@ public class BillController : MonoBehaviour
             PassBill();
         }
         return score;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        // Check if the collided object is the one we want to detect collisions with.
+        if (collision.gameObject.tag == "tray")
+        {
+            Debug.Log("Collision detected with the referenced GameObject!");
+            // You can put any code here to handle the collision with the referenced GameObject.
+        }
     }
 }
