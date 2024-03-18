@@ -105,13 +105,13 @@ public class TutorialSequenceThree : MonoBehaviour {
 
     public void GiveBillStatus(float billEvaluation)
     {
-        if (billEvaluation != billGoal) {
-            StartCoroutine(FlashRetry());
-        }
-        if (billEvaluation == 1) {
+        // if (billEvaluation != billGoal) {
+        //     StartCoroutine(FlashRetry());
+        // }
+        if (billGoal == 1 && billEvaluation > 0) {
             NextStepInTutorial(1);
         }
-        else if(billEvaluation == -1) {
+        else if(billGoal == -1 && billEvaluation < 0) {
             NextStepInTutorial(2);
         }
     }
