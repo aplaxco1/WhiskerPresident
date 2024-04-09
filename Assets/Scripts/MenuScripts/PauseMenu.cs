@@ -12,22 +12,29 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseMenu.SetActive(true);
-        toolSwitchingManager.SetActive(false);
+        toggleTools(false);
         Time.timeScale = 0;
     }
 
     public void Pause_ControlsMenu()
     {
-        toolSwitchingManager.SetActive(false);
+        toggleTools(false);
         Time.timeScale = 0;
     }
 
     public void Continue()
     {
-        toolSwitchingManager.SetActive(true);
+        toggleTools(true);
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void toggleTools(bool toggle) {
+        toolSwitchingManager.gameObject.GetComponent<WeaponSwitching>().enabled = toggle;
+        foreach (Transform tool in toolSwitchingManager.transform) {
+            tool.gameObject.GetComponent<ToolClass>().enabled = toggle;
+        }
     }
 
     public void Settings()
