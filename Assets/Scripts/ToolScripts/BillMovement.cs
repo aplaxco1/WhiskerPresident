@@ -24,12 +24,14 @@ public class BillMovement : ToolClass
     public Vector3 flatRotation = new Vector3(0, 0, 0);
     public Vector3 inspectRotation = new Vector3(80, 180, 0);
         
+    [Header("BillStatusVariables")]
     private bool billOut;
     private GameObject currBill;
     private bool billMoving;
     public bool inspectingBill;
     private bool billRotating;
     private bool draggingBill = false;
+    public Texture2D draggingCursorTexture;
 
     private int LayerIgnoreRaycast;
 
@@ -45,6 +47,7 @@ public class BillMovement : ToolClass
         {
             if (!draggingBill) {
                 draggingBill = true;
+                Cursor.SetCursor(draggingCursorTexture, Vector2.zero, CursorMode.Auto);
                 changeObjectLayer(currBill, LayerIgnoreRaycast);
             }
             else {
@@ -212,12 +215,14 @@ public class BillMovement : ToolClass
             if (hit.collider.gameObject.CompareTag("Organizer")) {
                 moveBillToFinished(hit);
                 draggingBill = false;
+                Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
             }
         }
     }
 
     private void stopDragging() {
         draggingBill = false;
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
         changeObjectLayer(currBill, LayerMask.NameToLayer("Desk"));
         StartCoroutine(moveBill(billPosition, false));
     }
