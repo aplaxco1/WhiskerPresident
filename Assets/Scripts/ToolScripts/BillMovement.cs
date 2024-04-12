@@ -43,7 +43,7 @@ public class BillMovement : ToolClass
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(1) && isActive && billOut && !billMoving && !billRotating)
+        if (Input.GetMouseButtonDown(1) && isActive && billOut && !inspectingBill && !billMoving && !billRotating)
         {
             if (!draggingBill) {
                 draggingBill = true;
