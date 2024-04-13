@@ -6328,6 +6328,7 @@ GameObject:
   - component: {fileID: 1773983170}
   - component: {fileID: 1773983169}
   - component: {fileID: 1773983172}
+  - component: {fileID: 1773983173}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6428,6 +6429,24 @@ MonoBehaviour:
   cameraClearFlags: 2
   background: {r: 0, g: 0, b: 0, a: 1}
   targetTexture: _CameraNormalsTexture
+--- !u!114 &1773983173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773983168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917699460908212488e152194da0c0d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enAssets:
+  - {fileID: 1361341141}
+  - {fileID: 1210471022}
+  zhAssets:
+  - {fileID: 1886266547}
+  - {fileID: 1953619056}
 --- !u!64 &1776976244
 MeshCollider:
   m_ObjectHideFlags: 0

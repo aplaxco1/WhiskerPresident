@@ -7,14 +7,6 @@ using UnityEngine.Localization.Settings;
 public class MainMenuScreen : MonoBehaviour
 {
 
-    IEnumerator Start()
-    {
-        // Wait for the localization system to initialize
-        yield return LocalizationSettings.InitializationOperation;
-        // silly little way to make sure unity uses the first locale as the default
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
-    }
-
     public void PlayGame()
     {
         Timer.timeValue = 120;
