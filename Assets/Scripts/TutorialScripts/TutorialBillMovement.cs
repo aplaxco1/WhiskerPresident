@@ -27,6 +27,13 @@ public class TutorialBillMovement : ToolClass
     private bool billMoving;
     public bool inspectingBill;
     private bool billRotating;
+
+    //Tracks time held down
+    private float holdStartTime;
+
+    public float holdDuration = 1f;
+
+    [SerializeField] private int tutorialNumber = 0;
     
     void Start()
     {
@@ -39,6 +46,10 @@ public class TutorialBillMovement : ToolClass
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+            if (Input.GetMouseButtonDown(0))
+            {
+                holdStartTime = Time.time;
+            }
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
                 if (hit.collider.gameObject.CompareTag("Stack") && !billOut && !currBill && !inspectingBill)
@@ -53,23 +64,31 @@ public class TutorialBillMovement : ToolClass
                 }
                 else if (hit.collider.gameObject.CompareTag("Bill") && !inspectingBill)
                 {
-                    TutorialSequenceOne.NextStepInTutorial(2);
-                    TutorialSequenceThree.NextStepInTutorial(3);
+                    if (tutorialNumber == 1)
+                    {
+                        TutorialSequenceOne.NextStepInTutorial(2);
+                    }
+                    else if (tutorialNumber == 3)
+                    {
+                        TutorialSequenceThree.NextStepInTutorial(3);
+                    }
                     // display bill on screen
                     InspectBill();
                 } 
-                else if (hit.collider.gameObject.CompareTag("Bill") && inspectingBill) 
+                else if (inspectingBill) 
                 {
                     TutorialSequenceOne.NextStepInTutorial(3);
                     UninspectBill();
                 }
             }
         }
+        holdStartTime = 0f;
     }
 
     private void MoveBillToTable(RaycastHit hit) 
     {
         currBill = Instantiate(billPrefab, stackPosition, Quaternion.identity);
+        currBill.GetComponent<BlankBillController>().InitializeBill();
         ToggleHighlights(currBill.GetComponentInChildren<Renderer>(), 1);
         ToggleHighlights(hit.collider.gameObject.GetComponentInParent<Renderer>(), 0);
         GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
@@ -161,14 +180,27 @@ public class TutorialBillMovement : ToolClass
         if (destroy)
         {
             // give bill status to Tutorial
-            if ((int)TutorialSequenceThree.currentStep < 2) {
-                TutorialSequenceThree.Instance.GiveBillStatus(currBill.GetComponent<BlankBillController>().evaluatePassVeto());
+            if (tutorialNumber == 3)
+            {
+                if ((int)TutorialSequenceThree.currentStep < 2)
+                {
+                    TutorialSequenceThree.Instance.GiveBillStatus(currBill.GetComponent<BlankBillController>().evaluatePassVeto());
+                }
+                else
+                {
+                    TutorialSequenceThree.NextStepInTutorial(4);
+                }
+                if (currBill.GetComponentInChildren<BillController>().evaluatePassVeto() == 0)
+                {
+                    Timer.timeValue -= 10;
+                }
+                currBill.GetComponentInChildren<BillController>().UninitializeBill();
             }
-            else {
-                TutorialSequenceThree.NextStepInTutorial(4);
+            else if (tutorialNumber == 1)
+            {
+                currBill.GetComponentInChildren<BlankBillController>().UninitializeBill();
             }
-            //Debug.Log("bill status: " + currBill.GetComponent<BlankBillController>().evaluatePassVeto());
-            Destroy(currBill);
+            
             billOut = false;
         }
         else

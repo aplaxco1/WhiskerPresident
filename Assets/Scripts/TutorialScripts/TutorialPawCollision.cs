@@ -8,17 +8,6 @@ public class TutorialPawCollision : MonoBehaviour
     public Vector3 collisionPos;
     public GameObject surface;
     //public float StencilID;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void OnTriggerEnter(Collider other) {
         bool registerCollision = !colliding;
         if (colliding) {

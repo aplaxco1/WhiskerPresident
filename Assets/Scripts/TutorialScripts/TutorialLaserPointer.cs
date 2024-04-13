@@ -22,7 +22,7 @@ public class TutorialLaserPointer : ToolClass
     public Vector3 laserDeskLocation = new(0f, 0f, 0f);
     public TutorialBillMovement billScript;
 
-    private bool isOn = false;
+    //private bool isOn = false;
     private GameObject lineObj;
     private LineRenderer lineRender;
 
@@ -37,7 +37,7 @@ public class TutorialLaserPointer : ToolClass
         lineRender.positionCount = 2;
         lineRender.startColor = Color.red;
         lineRender.endColor = Color.red;
-        lineObj.SetActive(isOn);
+        lineObj.SetActive(true);
         // initialize laser pointer dot
         laserDot = Instantiate(laserDot, new Vector3(0,0,0), Quaternion.identity);
         laserDot.SetActive(isOnDesk);
@@ -46,62 +46,116 @@ public class TutorialLaserPointer : ToolClass
     // Update is called once per frame
     void Update()
     {
-        // check right click
-        if (Input.GetMouseButtonDown(0) && isActive) {
-            TutorialSequenceTwo.NextStepInTutorial(2);
-            isOn = !isOn;
-            lineObj.SetActive(isOn);
-        }
-
-        // set laser dot active if laser is on desk
-        laserDot.SetActive(isOnDesk);
-
-        // move laser if on
-        if (isOn) {
+        if (isActive)
+        {
+            // set laser dot active if laser is on desk
+            laserDot.SetActive(isOnDesk);
+            lineObj.SetActive(true);
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             // calculate position of visual laser
-            Vector3 laserStartPos = new(Camera.main.transform.position.x + laserOffset.x, Camera.main.transform.position.y + laserOffset.y, Camera.main.transform.position.z + laserOffset.z);
+            Vector3 laserStartPos = new Vector3(Camera.main.transform.position.x + laserOffset.x, Camera.main.transform.position.y + laserOffset.y, Camera.main.transform.position.z + laserOffset.z);
 
             // determine raycast collision
             RaycastHit mouseHit;
             //hitInfo = mouseHit;
-            if (Physics.Raycast(ray, out mouseHit)) {
+            if (Physics.Raycast(ray, out mouseHit))
+            {
                 //Debug.Log("hit");
                 drawLine(laserStartPos, mouseHit.point);
                 Vector3 direction = mouseHit.point - laserStartPos;
                 RaycastHit laserHit;
                 // make sure actual visual laser doesnt go through any objects
-                if (Physics.Raycast(laserStartPos, direction, out laserHit, Mathf.Infinity) && !isOnDesk) {
+                if (Physics.Raycast(laserStartPos, direction, out laserHit, Mathf.Infinity) && !isOnDesk)
+                {
                     drawLine(laserStartPos, laserHit.point);
                 }
                 // check if on desk
-                if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk")) {
-                    if (mouseHit.collider.gameObject.CompareTag("Bill") && billScript.inspectingBill) {
+                if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk"))
+                {
+                    if (mouseHit.collider.gameObject.CompareTag("Bill") && billScript.inspectingBill)
+                    {
                         isOnDesk = false;
                         laserDot.SetActive(true);
                     }
-                    else {
+                    else
+                    {
                         isOnDesk = true;
                     }
                     laserDeskLocation = mouseHit.point;
                     laserDot.transform.position = mouseHit.point;
                     laserDot.transform.rotation = Quaternion.FromToRotation(laserDot.transform.up, mouseHit.normal) * laserDot.transform.rotation;
                 }
-                else {
+                else
+                {
                     isOnDesk = false;
                 }
             }
-            else {
+            else
+            {
                 float distance = 100f;
                 drawLine(laserStartPos, ray.direction * distance);
                 isOnDesk = false;
             }
         }
-        else {
-            isOnDesk = false;
-        }
+
+        //// check right click
+        //if (Input.GetMouseButtonDown(0) && isActive) {
+        //    TutorialSequenceTwo.NextStepInTutorial(2);
+        //    isOn = !isOn;
+        //    lineObj.SetActive(isOn);
+        //}
+
+        //// set laser dot active if laser is on desk
+        //laserDot.SetActive(isOnDesk);
+
+        //// move laser if on
+        //if (isOn) {
+        //    // create ray from camera to mouse
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        //    // calculate position of visual laser
+        //    Vector3 laserStartPos = new(Camera.main.transform.position.x + laserOffset.x, Camera.main.transform.position.y + laserOffset.y, Camera.main.transform.position.z + laserOffset.z);
+
+        //    // determine raycast collision
+        //    RaycastHit mouseHit;
+        //    //hitInfo = mouseHit;
+        //    if (Physics.Raycast(ray, out mouseHit)) {
+        //        //Debug.Log("hit");
+        //        drawLine(laserStartPos, mouseHit.point);
+        //        Vector3 direction = mouseHit.point - laserStartPos;
+        //        RaycastHit laserHit;
+        //        // make sure actual visual laser doesnt go through any objects
+        //        if (Physics.Raycast(laserStartPos, direction, out laserHit, Mathf.Infinity) && !isOnDesk) {
+        //            drawLine(laserStartPos, laserHit.point);
+        //        }
+        //        // check if on desk
+        //        if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk")) {
+        //            if (mouseHit.collider.gameObject.CompareTag("Bill") && billScript.inspectingBill) {
+        //                isOnDesk = false;
+        //                laserDot.SetActive(true);
+        //            }
+        //            else {
+        //                isOnDesk = true;
+        //            }
+        //            laserDeskLocation = mouseHit.point;
+        //            laserDot.transform.position = mouseHit.point;
+        //            laserDot.transform.rotation = Quaternion.FromToRotation(laserDot.transform.up, mouseHit.normal) * laserDot.transform.rotation;
+        //        }
+        //        else {
+        //            isOnDesk = false;
+        //        }
+        //    }
+        //    else {
+        //        float distance = 100f;
+        //        drawLine(laserStartPos, ray.direction * distance);
+        //        isOnDesk = false;
+        //    }
+        //}
+        //else {
+        //    isOnDesk = false;
+        //}
     }
 
     void drawLine(Vector3 start, Vector3 end) {
@@ -111,7 +165,6 @@ public class TutorialLaserPointer : ToolClass
 
     // remove laser when its not the currently selected tool
     public void removeLaser() {
-        isOn = false;
         isOnDesk = false;
         if (laserDot) { laserDot.SetActive(false); }
         if (lineObj) { lineObj.SetActive(false); }

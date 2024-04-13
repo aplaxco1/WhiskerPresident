@@ -113,6 +113,11 @@ public class BlankBillController : MonoBehaviour
 
     }
 
+    public void UninitializeBill()
+    {
+        Destroy(gameObject);
+    }
+
     // Use partial random system to generate symbol list
     private void GenerateSymbolList()
     {

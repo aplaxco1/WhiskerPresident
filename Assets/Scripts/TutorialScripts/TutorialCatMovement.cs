@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using Random = UnityEngine.Random;
 /*
@@ -19,7 +20,7 @@ public class TutorialCatMovement : MonoBehaviour
     public GameObject ArmMesh;              // reference to the "Mesh" child of "Arm"
     public GameObject HeadPivot;            // reference to where the "Head" component of president
     public TutorialFocusController focusController; // reference to the script that manages the cat's focus
-    public TutorialPawCollision pawCollisionDetection;
+    public PawCollision pawCollisionDetection;
     public GameObject PawPrintPrefab;             // reference to pawprint prefab
 
     // VARIABLES
@@ -34,7 +35,12 @@ public class TutorialCatMovement : MonoBehaviour
     private BoxCollider pawCollider;        // reference to the paw's box collider
     private Color printColor;
     private int numPrints;
+
+    // particle system interactors
     private ParticleSystem dust;
+    public ParticleSystem indicator;
+    public Material Checkmark;
+    public Material X;
 
     // CONSTANTS    
     private const float WaitInterval = 1.75f;       // base time to wait between swings
@@ -125,21 +131,6 @@ public class TutorialCatMovement : MonoBehaviour
         } else { // during smack!
             if (pawCollisionDetection.colliding)
             {
-                // THIS IS THE TUTORIAL HOOK
-                // Check if we hit an inkpad
-                // nevermind we don't need it
-                //if (pawCollisionDetection.surface.CompareTag("Inkpad")) {
-                //    //Check which inkpad we're hitting
-                //    if (pawCollisionDetection.surface.ToString().Contains("Accept")) {
-                //        TutorialSequenceThree.NextStepInTutorial(1);
-                //    }
-                //    //if (pawCollisionDetection.surface.ToString().Contains("Reject")) {
-                //    else {  // No need to actually see if the other inkpad has REJECT or not. There are only 2 inkpads.
-                //        // Has to be the other inkpad
-                //        TutorialSequenceThree.NextStepInTutorial(3);
-                //    }
-                //}
-
                 x2_rotate = Quaternion.LookRotation((ArmPivot.transform.position - pawCollisionDetection.collisionPos).normalized).eulerAngles.x;
                 target_rotation = Quaternion.Euler(x_rotate, target_rotation.eulerAngles.y, 0);
                 if (!dust.gameObject.activeSelf) {
@@ -152,6 +143,22 @@ public class TutorialCatMovement : MonoBehaviour
                     dust.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
                     dust.gameObject.SetActive(true);
                 }
+            }
+            if (!indicator.gameObject.activeSelf && pawCollisionDetection.surface.tag == "Bill" && printColor.a > 0)
+            {
+                indicator.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[] { new(0, 1) });
+                Renderer rend = indicator.GetComponent<Renderer>();
+                if (printColor.r > 0.6)
+                {
+                    rend.material = X;
+                }
+                else
+                {
+                    rend.material = Checkmark;
+                }
+                Vector3 pos = pawCollider.transform.position;
+                indicator.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
+                indicator.gameObject.SetActive(true);
             }
             target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*50f);

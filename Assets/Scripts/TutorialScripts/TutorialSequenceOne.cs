@@ -17,46 +17,58 @@ public class TutorialSequenceOne : MonoBehaviour {
     void Start()
     {
         currentStep = TutorialStep.clickBills;
+        StartCoroutine(CheckTutorialStatus());
+    }
+
+    private IEnumerator CheckTutorialStatus()
+    {
+        while (true)
+        {
+            bool billHighlighted = false;
+            bool paperHighlighted = false;
+            bool binHighlighted = false;
+            switch (currentStep)
+            {
+                case TutorialStep.clickBills:
+                    Debug.Log("Click the Bill!");
+                    billHighlighted = true;
+                    break;
+                case TutorialStep.clickPaper:
+                    Debug.Log("Click the Paper!");
+                    paperHighlighted = true;
+                    break;
+                case TutorialStep.putPaperDown:
+                    Debug.Log("Put the Paper Down!");
+                    paperHighlighted = true;
+                    break;
+                case TutorialStep.clickBin:
+                    Debug.Log("Click the Bin!");
+                    binHighlighted = true;
+                    break;
+                case TutorialStep.finish:
+                    Debug.Log("Finished!");
+                    if (completeButton.activeSelf == false)
+                    {
+                        completeButton.SetActive(true);
+                    }
+                    break;
+
+            }
+            HighlightObject(stackOfBills, billHighlighted);
+            if (billMovementScript.billOut)
+            {
+                paper = billMovementScript.currBill.GetComponentInChildren<Renderer>().gameObject;
+                HighlightObject(paper, paperHighlighted);
+            }
+            HighlightObject(bin, binHighlighted);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool billHighlighted = false;
-        bool paperHighlighted = false;
-        bool binHighlighted = false;
-        switch (currentStep)
-        {
-            case TutorialStep.clickBills:
-                Debug.Log("Click the Bill!");
-                billHighlighted = true;
-                break;
-            case TutorialStep.clickPaper:
-                Debug.Log("Click the Paper!");
-                paperHighlighted = true;
-                break;
-            case TutorialStep.putPaperDown:
-                Debug.Log("Put the Paper Down!");
-                paperHighlighted = true;
-                break;
-            case TutorialStep.clickBin:
-                Debug.Log("Click the Bin!");
-                binHighlighted = true;
-                break;
-            case TutorialStep.finish:
-                Debug.Log("Finished!");
-                if(completeButton.activeSelf == false) {
-                    completeButton.SetActive(true);
-                }
-                break;
-
-        }
-        HighlightObject(stackOfBills, billHighlighted);
-        if (billMovementScript.billOut) {
-            paper = billMovementScript.currBill.GetComponentInChildren<Renderer>().gameObject;
-            HighlightObject(paper, paperHighlighted);
-        }
-        HighlightObject(bin, binHighlighted);
+       
     }
 
     void HighlightObject(GameObject gameObject, bool isHighlighted)

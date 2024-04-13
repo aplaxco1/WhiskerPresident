@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class TutorialSequenceThree : MonoBehaviour {
     public static TutorialSequenceThree Instance { get; private set; }
-    public enum TutorialStep {stampApprove, stampReject, readBill, stampBill, finish}
+    public enum TutorialStep {switchLaser, stampApprove, stampReject, readBill, stampBill, finish}
     [SerializeField] private GameObject step1;
     [SerializeField] private GameObject step2;
     [SerializeField] private GameObject step3;

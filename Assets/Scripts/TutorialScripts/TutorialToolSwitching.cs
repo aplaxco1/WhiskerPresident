@@ -43,22 +43,27 @@ public class TutorialToolSwitching : MonoBehaviour
         int i = 0;
         foreach (Transform weapon in transform) 
         {
-            if(i == selectedWeapon) {
+            if(i == selectedWeapon)
+            {
                 if (weapon.gameObject.GetComponent<ToolClass>() is TutorialBillMovement) {
                     weapon.gameObject.GetComponent<TutorialBillMovement>().AddObjectHighlighting();
                 }
-                //if (weapon.gameObject.GetComponent<ToolClass>() is TutorialLaserPointer) {
-                //    SoundEffects.audioSource.Play();
-                //}
+                if (weapon.gameObject.GetComponent<ToolClass>() is TutorialLaserPointer)
+                {
+                    SoundEffects.audioSource.Play();
+                }
                 weapon.gameObject.GetComponent<ToolClass>().isActive = true;
                 Cursor.SetCursor(weapon.gameObject.GetComponent<ToolClass>().cursorTexture, Vector2.zero, CursorMode.Auto);
             }
-            else {
-                if (weapon.gameObject.GetComponent<ToolClass>() is TutorialBillMovement) {
+            else
+            {
+                if (weapon.gameObject.GetComponent<ToolClass>() is TutorialBillMovement)
+                {
                     weapon.gameObject.GetComponent<TutorialBillMovement>().RemoveObjectHighlighting();
                 }
                 // really dumb way to make sure laser is removed when not selected
-                if (weapon.gameObject.GetComponent<ToolClass>() is TutorialLaserPointer) {
+                if (weapon.gameObject.GetComponent<ToolClass>() is TutorialLaserPointer)
+                {
                     weapon.gameObject.GetComponent<TutorialLaserPointer>().removeLaser();
                 }
                 weapon.gameObject.GetComponent<ToolClass>().isActive = false;
