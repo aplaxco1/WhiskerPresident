@@ -13,8 +13,9 @@ public class LangChanger : MonoBehaviour
     {
         // Wait for the localization system to initialize
         yield return LocalizationSettings.InitializationOperation;
+
         // silly little way to make sure unity uses the first locale as the default
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
+        // LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
 
         ToggleLangAssets();
     }
@@ -23,7 +24,6 @@ public class LangChanger : MonoBehaviour
     {
         if (LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale("en-US"))
         {
-            Debug.Log("IN ENGLISH");
             foreach (GameObject obj in enAssets) {
                 obj.SetActive(true);
             }
@@ -33,7 +33,6 @@ public class LangChanger : MonoBehaviour
         }
         else if(LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale("zh"))
         {
-            Debug.Log("IN CHINESE");
             foreach (GameObject obj in enAssets) {
                 obj.SetActive(false);
             }
@@ -42,5 +41,10 @@ public class LangChanger : MonoBehaviour
             }
         }
 
+    }
+
+    public void setLang(int index) {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+        ToggleLangAssets();   
     }
 }
