@@ -7,31 +7,38 @@ public class SettingsResolution : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+        ResolutionDefault();
+    }
+
+    public void ResolutionDefault()
+    {
+        Resolution1();
     }
 
     public void Resolution1()
     {
-        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+        Settings.Resolution res = Settings.Resolution1;
+        Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);
     }
 
     public void Resolution2()
     {
-        Screen.SetResolution(1600, 900, FullScreenMode.FullScreenWindow);
+        Settings.Resolution res = Settings.Resolution2;
+        Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);
     }
 
     public void Resolution3()
     {
-        Screen.SetResolution(1440, 900, FullScreenMode.FullScreenWindow);
-    }
+        Settings.Resolution res = Settings.Resolution3;
+        Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);    }
 
     public void Resolution4()
     {
-        Screen.SetResolution(1366, 768, FullScreenMode.FullScreenWindow);
-    }
+        Settings.Resolution res = Settings.Resolution4;
+        Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);    }
 
     public void Resolution5()
     {
-        Screen.SetResolution(1280, 1024, FullScreenMode.FullScreenWindow);
-    }
+        Settings.Resolution res = Settings.Resolution5;
+        Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);    }
 }
