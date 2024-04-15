@@ -8,6 +8,7 @@ public class LangChanger : MonoBehaviour
 
     public List<GameObject> enAssets;
     public List<GameObject> zhAssets;
+    static public bool langScreenSeen;
 
     IEnumerator Start()
     {
