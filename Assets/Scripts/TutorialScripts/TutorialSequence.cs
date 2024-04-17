@@ -4,21 +4,18 @@ using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TutorialSequenceThree : MonoBehaviour {
-    public static TutorialSequenceThree Instance { get; private set; }
-    public enum TutorialStep {switchLaser, stampApprove, stampReject, readBill, stampBill, finish}
+public class TutorialSequence : MonoBehaviour {
+    public static TutorialSequence Instance { get; private set; }
+    public enum TutorialStep {getBill, readBill, switchLaser, stampBill, submitBill, finish}
     [SerializeField] private GameObject step1;
     [SerializeField] private GameObject step2;
     [SerializeField] private GameObject step3;
     [SerializeField] private GameObject step4;
+    [SerializeField] private GameObject step5;
     [SerializeField] private GameObject completeButton;
-    [SerializeField] private GameObject retryMessage;
-    [SerializeField] private float retryMessageTimer;
     [SerializeField] private TutorialBillMovement billMovementScript;
-    [SerializeField] private GameObject blankBillPreset;
-    [SerializeField] private GameObject regularBillPreset;
-
-    private float billGoal;
+    //[SerializeField] private GameObject blankBillPreset;
+    //[SerializeField] private GameObject regularBillPreset;
 
     // Objects that need highlighting
     //[SerializeField] private GameObject acceptInkpad;
@@ -33,7 +30,6 @@ public class TutorialSequenceThree : MonoBehaviour {
         else {
             Instance = this;
         }
-        billMovementScript.billPrefab = blankBillPreset;
     }
     // Start is called before the first frame update
     void Start()
@@ -47,17 +43,14 @@ public class TutorialSequenceThree : MonoBehaviour {
     {
         switch (currentStep)
         {
-            case TutorialStep.stampApprove: // make sure to let the player know the status of the paper
+            case TutorialStep.getBill:
                 step1.SetActive(true);
-                billGoal = 1;
-                break;
-            case TutorialStep.stampReject:
-                step1.SetActive(false);
-                step2.SetActive(true);
-                billGoal = -1;
                 break;
             case TutorialStep.readBill:
-                billMovementScript.billPrefab = regularBillPreset;
+                step1.SetActive(false);
+                step2.SetActive(true);
+                break;
+            case TutorialStep.switchLaser:
                 step2.SetActive(false);
                 step3.SetActive(true);
                 break;
@@ -65,13 +58,17 @@ public class TutorialSequenceThree : MonoBehaviour {
                 step3.SetActive(false);
                 step4.SetActive(true);
                 break;
-            case TutorialStep.finish:
+            case TutorialStep.submitBill:
                 step4.SetActive(false);
-                if(completeButton.activeSelf == false) {
-                    completeButton.SetActive(true);
-                }
+                step5.SetActive(true);
                 break;
-
+            case TutorialStep.finish:
+                step5.SetActive(false);
+                completeButton.SetActive(true);
+                break;
+            default:
+                Debug.LogWarning("Somehow reading impossible tutorial step, send help");
+                break;
         }
         // HighlightObject(stackOfBills, billHighlighted);
        // if (billMovementScript.billOut) {
@@ -79,14 +76,6 @@ public class TutorialSequenceThree : MonoBehaviour {
        //     HighlightObject(paper, paperHighlighted);
        // }
        // HighlightObject(bin, binHighlighted);
-    }
-
-    IEnumerator FlashRetry() {
-        Debug.Log("Timer Called");
-        retryMessage.SetActive(true);
-        yield return new WaitForSeconds(retryMessageTimer);
-        retryMessage.SetActive(false);
-        Debug.Log("Timer Over");
     }
 
     void HighlightObject(GameObject gameObject, bool isHighlighted)
@@ -103,19 +92,6 @@ public class TutorialSequenceThree : MonoBehaviour {
         }
     }
 
-    public void GiveBillStatus(float billEvaluation)
-    {
-        // if (billEvaluation != billGoal) {
-        //     StartCoroutine(FlashRetry());
-        // }
-        if (billGoal == 1 && billEvaluation > 0) {
-            NextStepInTutorial(1);
-        }
-        else if(billGoal == -1 && billEvaluation < 0) {
-            NextStepInTutorial(2);
-        }
-    }
-
     public static bool NextStepInTutorial(int stepNumber) {
         if(stepNumber == (int)currentStep + 1)
         {
@@ -129,8 +105,7 @@ public class TutorialSequenceThree : MonoBehaviour {
         }
     }
 
-
     public void NextTutorial() {
-        SceneManager.LoadScene("Office", LoadSceneMode.Single);
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }

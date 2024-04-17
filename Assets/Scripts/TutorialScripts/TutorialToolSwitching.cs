@@ -20,7 +20,6 @@ public class TutorialToolSwitching : MonoBehaviour
                 selectedWeapon = 0;
             else
                 selectedWeapon++;
-            TutorialSequenceTwo.NextStepInTutorial(1);
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown(KeyCode.LeftArrow))
@@ -29,7 +28,6 @@ public class TutorialToolSwitching : MonoBehaviour
                 selectedWeapon = transform.childCount -1;
             else
                 selectedWeapon--;
-            TutorialSequenceTwo.NextStepInTutorial(1);
         }
 
         if(previousSelectedWeapon != selectedWeapon)
@@ -50,6 +48,8 @@ public class TutorialToolSwitching : MonoBehaviour
                 }
                 if (weapon.gameObject.GetComponent<ToolClass>() is TutorialLaserPointer)
                 {
+                    // for sure it's laser pointer, move onto the next tutorial step
+                    TutorialSequence.NextStepInTutorial(3);
                     SoundEffects.audioSource.Play();
                 }
                 weapon.gameObject.GetComponent<ToolClass>().isActive = true;

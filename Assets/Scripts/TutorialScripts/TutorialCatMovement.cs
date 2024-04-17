@@ -146,6 +146,7 @@ public class TutorialCatMovement : MonoBehaviour
             }
             if (!indicator.gameObject.activeSelf && pawCollisionDetection.surface.tag == "Bill" && printColor.a > 0)
             {
+                TutorialSequence.NextStepInTutorial(4);
                 indicator.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[] { new(0, 1) });
                 Renderer rend = indicator.GetComponent<Renderer>();
                 if (printColor.r > 0.6)

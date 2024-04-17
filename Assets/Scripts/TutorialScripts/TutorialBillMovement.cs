@@ -33,8 +33,6 @@ public class TutorialBillMovement : ToolClass
 
     public float holdDuration = 1f;
 
-    [SerializeField] private int tutorialNumber = 0;
-    
     void Start()
     {
     }
@@ -54,30 +52,19 @@ public class TutorialBillMovement : ToolClass
             if (Physics.Raycast(ray, out hit)) {
                 if (hit.collider.gameObject.CompareTag("Stack") && !billOut && !currBill && !inspectingBill)
                 {
-                    TutorialSequenceOne.NextStepInTutorial(1);
                     MoveBillToTable(hit);
                 }
                 else if (hit.collider.gameObject.CompareTag("Organizer") && billOut && !inspectingBill)
                 {
-                    TutorialSequenceOne.NextStepInTutorial(4);
                     MoveBillToFinished(hit);
                 }
                 else if (hit.collider.gameObject.CompareTag("Bill") && !inspectingBill)
                 {
-                    if (tutorialNumber == 1)
-                    {
-                        TutorialSequenceOne.NextStepInTutorial(2);
-                    }
-                    else if (tutorialNumber == 3)
-                    {
-                        TutorialSequenceThree.NextStepInTutorial(3);
-                    }
                     // display bill on screen
                     InspectBill();
                 } 
                 else if (inspectingBill) 
                 {
-                    TutorialSequenceOne.NextStepInTutorial(3);
                     UninspectBill();
                 }
             }
@@ -87,8 +74,9 @@ public class TutorialBillMovement : ToolClass
 
     private void MoveBillToTable(RaycastHit hit) 
     {
+        TutorialSequence.NextStepInTutorial(1);
         currBill = Instantiate(billPrefab, stackPosition, Quaternion.identity);
-        currBill.GetComponent<BlankBillController>().InitializeBill();
+        currBill.GetComponent<BillController>().InitializeBill();
         ToggleHighlights(currBill.GetComponentInChildren<Renderer>(), 1);
         ToggleHighlights(hit.collider.gameObject.GetComponentInParent<Renderer>(), 0);
         GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
@@ -98,6 +86,7 @@ public class TutorialBillMovement : ToolClass
 
     private void MoveBillToFinished(RaycastHit hit)
     {
+        TutorialSequence.NextStepInTutorial(5);
         ToggleHighlights(currBill.GetComponentInChildren<Renderer>(), 0);
         ToggleHighlights(hit.collider.gameObject.GetComponentInParent<Renderer>(), 0);
         GameObject stack = GameObject.FindGameObjectWithTag("Stack");
@@ -107,6 +96,7 @@ public class TutorialBillMovement : ToolClass
 
     private void InspectBill()
     {
+        TutorialSequence.NextStepInTutorial(2);
         inspectingBill = true;
         GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
         ToggleHighlights(organizer.GetComponentInParent<Renderer>(), 0);
@@ -179,29 +169,13 @@ public class TutorialBillMovement : ToolClass
 
         if (destroy)
         {
-            // give bill status to Tutorial
-            if (tutorialNumber == 3)
-            {
-                if ((int)TutorialSequenceThree.currentStep < 2)
-                {
-                    TutorialSequenceThree.Instance.GiveBillStatus(currBill.GetComponent<BlankBillController>().evaluatePassVeto());
-                }
-                else
-                {
-                    TutorialSequenceThree.NextStepInTutorial(4);
-                }
-                if (currBill.GetComponentInChildren<BillController>().evaluatePassVeto() == 0)
-                {
-                    Timer.timeValue -= 10;
-                }
-                Debug.Log("uh we hit uninitialize?");
-                currBill.GetComponentInChildren<BillController>().UninitializeBill();
-            }
-            else if (tutorialNumber == 1)
-            {
-                currBill.GetComponentInChildren<BlankBillController>().UninitializeBill();
-            }
-            
+                //if (currBill.GetComponentInChildren<BillController>().evaluatePassVeto() == 0)
+                //{
+                //    Timer.timeValue -= 10;
+                //}
+                //Debug.Log("uh we hit uninitialize?");
+                //currBill.GetComponentInChildren<BillController>().UninitializeBill()
+                //;
             billOut = false;
         }
         else
