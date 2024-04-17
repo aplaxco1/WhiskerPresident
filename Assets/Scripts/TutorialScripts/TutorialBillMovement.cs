@@ -194,6 +194,7 @@ public class TutorialBillMovement : ToolClass
                 {
                     Timer.timeValue -= 10;
                 }
+                Debug.Log("uh we hit uninitialize?");
                 currBill.GetComponentInChildren<BillController>().UninitializeBill();
             }
             else if (tutorialNumber == 1)

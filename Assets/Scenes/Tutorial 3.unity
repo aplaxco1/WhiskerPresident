@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.441139, g: 0.48990357, b: 0.5699758, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1274,17 +1274,6 @@ Transform:
   - {fileID: 1407537308}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &845339798 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5963948396019120412, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
-  m_PrefabInstance: {fileID: 1157026140}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60acd3eb1855ff4d89abcefcc14d8e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &892499622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2967,7 +2956,7 @@ MonoBehaviour:
   ArmMesh: {fileID: 1157026141}
   HeadPivot: {fileID: 522983105}
   focusController: {fileID: 1414787480}
-  pawCollisionDetection: {fileID: 845339798}
+  pawCollisionDetection: {fileID: 1157026144}
   PawPrintPrefab: {fileID: 7127054691324280760, guid: 46fadd2293d508c4eb8174d100e89c8e, type: 3}
   timer: 0
   indicator: {fileID: 1440500315}
@@ -9199,7 +9188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursorTexture: {fileID: 2800000, guid: adbce35c4e2f17745bded200594b269f, type: 3}
   isActive: 1
-  billPrefab: {fileID: 7222744191218044594, guid: 5a35ef5a3e36e8440b9723de77ecd464, type: 3}
+  billPrefab: {fileID: 7222744191218044594, guid: 5557a0c335527c44aa5d5336fd291d91, type: 3}
   speed: 7
   rotateSpeed: 1200
   billPosition: {x: 0, y: 0.83, z: 0.08}

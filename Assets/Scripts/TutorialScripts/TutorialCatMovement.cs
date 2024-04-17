@@ -20,7 +20,7 @@ public class TutorialCatMovement : MonoBehaviour
     public GameObject ArmMesh;              // reference to the "Mesh" child of "Arm"
     public GameObject HeadPivot;            // reference to where the "Head" component of president
     public TutorialFocusController focusController; // reference to the script that manages the cat's focus
-    public PawCollision pawCollisionDetection;
+    public TutorialPawCollision pawCollisionDetection;
     public GameObject PawPrintPrefab;             // reference to pawprint prefab
 
     // VARIABLES
