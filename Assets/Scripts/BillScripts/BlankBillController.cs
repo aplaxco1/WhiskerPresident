@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Diagnostics;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class BillController : MonoBehaviour
+public class BlankBillController : MonoBehaviour
 {
 
     public GameObject foodSymbolPrefab;
@@ -41,26 +40,23 @@ public class BillController : MonoBehaviour
         public int GreenStat;
         public int BlueStat;
 
-        // Changed This For Localization Purposes - Autumn
         public string StringConversion()
         {
             string ret = "";
-            ret += UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + RedStat + "\n";
-            ret += UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + GreenStat + "\n";
-            // ret += "Red: " + RedStat + "\n";
-            // ret += "Green: " + GreenStat + "\n";
-            // ret += "Blue: " + BlueStat + "\n";
+            ret += "Red Stat (Food): " + RedStat + "\n";
+            ret += "Green Stat (Money): " + GreenStat + "\n";
+            ret += "Blue Stat (Bone): " + BlueStat + "\n";
             return ret;
         }
     }
     
-    public List<SymbolType> symbols;
+    private List<SymbolType> symbols;
+
+    //How many symbols should be generated
+    public int numSymbols;
     
-    // //How many symbols should be generated
-    // public int numSymbols;
-    //
-    // //Random factor, numSymbols +/- rand(symbolDistribution) will be generated
-    // public int numSymbolDistribution;
+    //Random factor, numSymbols +/- rand(symbolDistribution) will be generated
+    public int numSymbolDistribution;
 
     public int symbolsPerLine;
     public float symbolHorizontalDist;
@@ -84,6 +80,12 @@ public class BillController : MonoBehaviour
     {
         symbolParent = transform.Find("SymbolParent");
     }
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        InitializeBill();
+    }
 
     // Update is called once per frame
     void Update()
@@ -105,29 +107,32 @@ public class BillController : MonoBehaviour
 
     public void InitializeBill()
     {
-        templateSequence = BillContentsManager.Instance.templateSequence;
-        symbols = new List<SymbolType>();
-        GenerateSymbolList();
-        GenerateSymbolPrefabs();
+        //symbols = new List<SymbolType>();
+        //GenerateSymbolList();
+        //GenerateSymbolPrefabs();
+
     }
 
     public void UninitializeBill()
     {
-        Debug.Log("ok inside uninitializebill");
-        BillContentsManager.Instance.SaveBill(gameObject);
-        Debug.Log("bill saved");
         Destroy(gameObject);
-        Debug.Log("bill destroyed");
     }
 
     // Use partial random system to generate symbol list
     private void GenerateSymbolList()
     {
-        // if (templateSequence == "")
-        // {
-        //     GenerateRandomSymbols();
-        //     return;
-        // }
+        
+        // In review scene
+        if (BillReviewController.Instance != null)
+        {
+            return;
+        }
+        
+        if (templateSequence == "")
+        {
+            GenerateRandomSymbols();
+            return;
+        }
         
         foreach(SymbolType a in templateSequence)
         {
@@ -211,21 +216,21 @@ public class BillController : MonoBehaviour
     }
 
     // Ran only if not given a symbol sequence template
-    // private void GenerateRandomSymbols()
-    // {
-    //     int symbolsToGen = numSymbols;
-    //     symbolsToGen += Random.Range(-(numSymbolDistribution + 1), numSymbolDistribution);
-    //     //print("symbolsToGen: " + symbolsToGen);
-    //     
-    //     //All symbol types as array
-    //     SymbolType[] symbolTypes = Enum.GetValues(typeof(SymbolType)).Cast<SymbolType>().ToArray();
-    //     for (int i = 0; i <= symbolsToGen; i++)
-    //     {
-    //         SymbolType randomSymbol = symbolTypes[Random.Range(0, symbolTypes.Length)];
-    //         //print("randomSymbol: " + randomSymbol);
-    //         symbols.Add(randomSymbol);
-    //     }
-    // }
+    private void GenerateRandomSymbols()
+    {
+        int symbolsToGen = numSymbols;
+        symbolsToGen += Random.Range(-(numSymbolDistribution + 1), numSymbolDistribution);
+        //print("symbolsToGen: " + symbolsToGen);
+        
+        //All symbol types as array
+        SymbolType[] symbolTypes = Enum.GetValues(typeof(SymbolType)).Cast<SymbolType>().ToArray();
+        for (int i = 0; i <= symbolsToGen; i++)
+        {
+            SymbolType randomSymbol = symbolTypes[Random.Range(0, symbolTypes.Length)];
+            //print("randomSymbol: " + randomSymbol);
+            symbols.Add(randomSymbol);
+        }
+    }
 
     // Generate symbol prefabs onto the bill
     private void GenerateSymbolPrefabs()
@@ -278,7 +283,7 @@ public class BillController : MonoBehaviour
     }
 
     // Will return the effects of the bill on stat bars
-    public StatVector CalculateOutcome()
+    private StatVector CalculateOutcome()
     {
         StatVector returnVector = new StatVector();
         int multiplier = 1;
@@ -317,9 +322,9 @@ public class BillController : MonoBehaviour
     // Bill approved, add stat vector to total stats
     public void PassBill()
     {
-        StatVector returnedStatVector = CalculateOutcome();
-        StatManager.Instance.AdjustStats(returnedStatVector);
-        string statOutput = returnedStatVector.StringConversion();
+        //StatVector returnedStatVector = CalculateOutcome();
+        //StatManager.Instance.AdjustStats(returnedStatVector);
+        //string statOutput = returnedStatVector.StringConversion();
         //print("BILL PASSED WITH STATS: " + statOutput);
         //GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = statOutput;
     }
@@ -344,7 +349,7 @@ public class BillController : MonoBehaviour
     {
         
         PawPrint[] prints = gameObject.GetComponentsInChildren<PawPrint>();
-        //print("eval w/ prints length: " + prints.Length);
+        print("eval w/ prints length: " + prints.Length);
         float score = 0;
         float mostRecent = -1;
         foreach (PawPrint print in prints) {
@@ -355,21 +360,11 @@ public class BillController : MonoBehaviour
             }
         }
 
-        //print("SCORE: " +  score);
+        print("SCORE: " +  score);
         if (score > 0)
         {
             PassBill();
         }
         return score;
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        // Check if the collided object is the one we want to detect collisions with.
-        if (collision.gameObject.tag == "tray")
-        {
-            Debug.Log("Collision detected with the referenced GameObject!");
-            // You can put any code here to handle the collision with the referenced GameObject.
-        }
     }
 }

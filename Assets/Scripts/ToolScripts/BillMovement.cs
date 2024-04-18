@@ -110,12 +110,16 @@ public class BillMovement : ToolClass
     private void inspectBill()
     {
         inspectingBill = true;
+        GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
+        toggleHighlights(organizer.GetComponentInParent<Renderer>(), 0);
         StartCoroutine(inspectBillMovememt());
     }
     
     private void uninspectBill()
     {
         inspectingBill = false;
+        GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
+        toggleHighlights(organizer.GetComponentInParent<Renderer>(), 1);
         StartCoroutine(uninspectBillMovement());
     }
 

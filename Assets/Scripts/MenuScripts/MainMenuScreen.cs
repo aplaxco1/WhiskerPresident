@@ -19,7 +19,8 @@ public class MainMenuScreen : MonoBehaviour
     {
         LangChanger.langScreenSeen = true;
         Timer.timeValue = 120;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Tutorial 1");
     }
 
     public void QuitGame()
