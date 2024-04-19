@@ -17,28 +17,28 @@ public class SettingsResolution : MonoBehaviour
 
     public void Resolution1()
     {
-        Settings.Resolution res = Settings.Resolution1;
+        SettingsData.Resolution res = SettingsData.Resolution1;
         Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);
     }
 
     public void Resolution2()
     {
-        Settings.Resolution res = Settings.Resolution2;
+        SettingsData.Resolution res = SettingsData.Resolution2;
         Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);
     }
 
     public void Resolution3()
     {
-        Settings.Resolution res = Settings.Resolution3;
+        SettingsData.Resolution res = SettingsData.Resolution3;
         Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);    }
 
     public void Resolution4()
     {
-        Settings.Resolution res = Settings.Resolution4;
+        SettingsData.Resolution res = SettingsData.Resolution4;
         Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);    }
 
     public void Resolution5()
     {
-        Settings.Resolution res = Settings.Resolution5;
+        SettingsData.Resolution res = SettingsData.Resolution5;
         Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);    }
 }

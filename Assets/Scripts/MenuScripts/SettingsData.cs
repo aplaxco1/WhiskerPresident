@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Settings
+public class SettingsData
 {
 
     public static Resolution Resolution1 = new Resolution(1920, 1080);
@@ -20,7 +20,6 @@ public class Settings
         {
             this.width = width;
             this.height = height;
-            return;
         }
     }
 }
