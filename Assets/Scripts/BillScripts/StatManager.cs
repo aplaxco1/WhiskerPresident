@@ -91,16 +91,25 @@ public class StatManager : MonoBehaviour
         return greenStat;
     }
 
+    public StatVector GetStats()
+    {
+        StatVector ret = new StatVector();
+        ret.RedStat = GetRedStat();
+        ret.GreenStat = GetGreenStat();
+        ret.BlueStat = GetBlueStat();
+        return ret;
+    }
+    
+    public void SetStats(StatVector statVector)
+    {
+        redStat = statVector.RedStat;
+        greenStat = statVector.GreenStat;
+        blueStat = statVector.BlueStat;
+    }
+
     public void TriggerLoss(string lossMessage)
     {
         print("GAME OVER: " + lossMessage);
     }
 
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

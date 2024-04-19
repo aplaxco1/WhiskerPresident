@@ -22,10 +22,5 @@ public class SettingsData
             this.height = height;
         }
     }
-
-    public class Volume
-    {
-        public float magnitude;
-    }
 }
 

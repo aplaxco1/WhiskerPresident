@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class VolumeSlider : MonoBehaviour
 {
+    public static VolumeSlider Instance;
+    
     public AudioClip[] soundtrack;
     public Slider volumeSlider;
+    public float currentVolume;
 
     AudioSource audioSource;
 
 
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
+        Instance = this;
     }
 
     // Start is called before the first frame update
@@ -54,7 +57,7 @@ public class VolumeSlider : MonoBehaviour
     // Update the audioSorce volume with the value of the slider
     public void updateVolume()
     {
-        audioSource.volume = volumeSlider.value;
+        audioSource.volume = currentVolume = volumeSlider.value;
     }
 
     void OnDisable()

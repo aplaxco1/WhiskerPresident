@@ -5,29 +5,48 @@ using System.Runtime.Serialization.Json;
 using UnityEngine;
 
 // NOTE: Used parts of my other Unity project's save/load code here -Justin
+
 [Serializable]
 public class SaveData
 {
-    // this is the only place the constructor should ever be called
     private static SaveData instance = new SaveData();
     private static Settings settingsInst = new Settings();
     
+    public StatVector statVector = new StatVector();
+    public int dayProgression = 0;
 
     private SaveData()
     {
-        StatVector statVector = new StatVector();
-        statVector.RedStat = 50;
-        statVector.GreenStat = 50;
-        statVector.BlueStat = 50;
-        int dayProgression = 0;
     }
 
     public static void SaveSettings()
     {
+        float volumeToSave = 0.5f;
+        SettingsData.Resolution resToSave = SettingsData.Resolution1;
+
+        if (VolumeSlider.Instance != null)
+        {
+            volumeToSave = VolumeSlider.Instance.currentVolume;
+        }
+        else
+        {
+            Debug.LogError("SAVEDATA - SAVESETTINGS: Cannot access VolumeSlider instance.");
+        }
+        
+        if (SettingsResolution.Instance != null)
+        {
+            resToSave = SettingsResolution.Instance.currentResolution;
+        }
+        else
+        {
+            Debug.LogError("SAVEDATA - SAVESETTINGS: Cannot access SettingsResolution instance.");
+        }
+        
         settingsInst = new Settings
         {
             // update stuff here, then save to object file
-            // volume = AudioSlider.instance.slider.value
+            volume = volumeToSave,
+            resolution = resToSave,
         };
 
         // write to file
@@ -55,13 +74,11 @@ public class SaveData
         catch (IOException ioe)
         {
             Debug.LogError(
-                "IO ERROR WHILE LOADING FILE, CREATING DEFAULT SETTINGS OBJECT "
+                "SAVEDATA - LOADSETTINGS: IO error while loading file, loading default settings."
                 + ": "
                 + ioe.Message
             );
-
-            //DEFAULT SETTINGS
-            settingsInst = new Settings();
+            LoadDefaultSettings();
             return;
         }
 
@@ -71,22 +88,51 @@ public class SaveData
         }
         catch (SerializationException)
         {
-            Debug.LogError("something is wrong with the settings file, ignoring it");
-            //DEFAULT SETTINGS
+            Debug.LogError("SAVEDATA - LOADSETTINGS: Something is wrong with the settings file, ignoring it.");
+            LoadDefaultSettings();
             return;
         }
+
+        if (VolumeSlider.Instance != null)
+        {
+            VolumeSlider.Instance.currentVolume = settingsInst.volume;
+            VolumeSlider.Instance.changeVolume(settingsInst.volume);
+        }
+        else
+        {
+            Debug.LogError("SAVEDATA - LOADSETTINGS: Cannot access VolumeSlider instance.");
+        }
         
-        // AudioManager.instance.UpdateVolume(_settingsInst.volume);
+        if (SettingsResolution.Instance != null)
+        {
+            SettingsResolution.Instance.SetRes(settingsInst.resolution);
+        }
+        else
+        {
+            Debug.LogError("SAVEDATA - LOADSETTINGS: Cannot access SettingsResolution instance.");
+        }
+        
+        
     }
 
     public static void SaveToFile(int saveNum)
     {
+        StatVector statVectorToSave = new StatVector();
+        if (StatManager.Instance != null)
+        {
+            statVectorToSave = StatManager.Instance.GetStats();
+        }
+        else
+        {
+            Debug.LogError("SAVEDATA - SAVETOFILE: Cannot access StatManager instance.");
+        }
+
         instance = new SaveData
         {
-            // update stuff here, then save to object file
-            // levelProgress = GameManager.instance.levelProgress
+            dayProgression = EnvironmentManager.Instance.day,
+            statVector = statVectorToSave,
         };
-
+        
         // write to file
         var jsonSerializer = new DataContractJsonSerializer(
             typeof(SaveData)
@@ -114,14 +160,12 @@ public class SaveData
         catch (IOException ioe)
         {
             Debug.LogError(
-                "IO ERROR WHILE LOADING SAVEFILE, USING DEFAULT SAVE OBJECT "
+                "SAVEDATA - LOADFROMFILE: IO error while loading save file, using default save data."
                 + saveNum
                 + ": "
                 + ioe.Message
             );
-            //DEFAULT SAVE OBJECT
-            instance = new SaveData();
-            // GameManager.instance.levelProgress = _instance.levelProgress;
+            LoadDefaultSave();
             return;
         }
 
@@ -131,25 +175,58 @@ public class SaveData
         }
         catch (SerializationException)
         {
-            // GameManager.instance.levelProgress = defaultLevelProgress;
             Debug.LogError(
-                "something is wrong with the read save file, using default lvl progress"
+                "SAVEDATA - LOADFROMFILE: Something is wrong with the read save file, using default data."
             );
+            LoadDefaultSave();
             return;
         }
+
+        if (StatManager.Instance != null)
+        {
+            StatManager.Instance.SetStats(instance.statVector);
+        }
+        else
+        {
+            Debug.LogError(
+                "SAVEDATA - LOADFROMFILE: Cannot access StatManager instance."
+            );
+        }
+        
+        if (EnvironmentManager.Instance != null)
+        {
+            EnvironmentManager.Instance.day = instance.dayProgression;
+        }
+        else
+        {
+            Debug.LogError(
+                "SAVEDATA - LOADFROMFILE: Cannot access EnvironmentManager instance."
+            );
+        }
+    }
+
+    private static void LoadDefaultSave()
+    {
+        instance = new SaveData();
+        instance.dayProgression = 0;
+        instance.statVector = new StatVector();
+        
+        if (StatManager.Instance != null)
+        {
+            StatManager.Instance.SetStats(instance.statVector);
+        }
+    }
+    
+    private static void LoadDefaultSettings()
+    {
+        settingsInst = new Settings();
+        settingsInst.volume = 0.5f;
+        settingsInst.resolution = SettingsData.Resolution1;
     }
 
     public class Settings
     {
-        public SettingsData.Volume volume;
+        public float volume;
         public SettingsData.Resolution resolution;
-
-        public Settings()
-        {
-            // Default Settings Data
-            volume = new SettingsData.Volume();
-            volume.magnitude = 0.5f;
-            resolution = SettingsData.Resolution1;
-        }
     }
 }
