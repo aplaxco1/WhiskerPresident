@@ -9,17 +9,22 @@ using UnityEngine;
 public class SaveData
 {
     // this is the only place the constructor should ever be called
-    private static SaveData _instance = new SaveData();
-    private static Settings _settingsInst = new Settings();
+    private static SaveData instance = new SaveData();
+    private static Settings settingsInst = new Settings();
     
 
     private SaveData()
     {
+        StatVector statVector = new StatVector();
+        statVector.RedStat = 50;
+        statVector.GreenStat = 50;
+        statVector.BlueStat = 50;
+        int dayProgression = 0;
     }
 
     public static void SaveSettings()
     {
-        _settingsInst = new Settings
+        settingsInst = new Settings
         {
             // update stuff here, then save to object file
             // volume = AudioSlider.instance.slider.value
@@ -30,7 +35,7 @@ public class SaveData
             typeof(Settings)
         );
         var jsonStream = new MemoryStream();
-        jsonSerializer.WriteObject(jsonStream, _settingsInst);
+        jsonSerializer.WriteObject(jsonStream, settingsInst);
         var fileStream = File.Create(Application.persistentDataPath + "/settings" + ".set");
         jsonStream.Seek(0, SeekOrigin.Begin);
         jsonStream.CopyTo(fileStream);
@@ -56,17 +61,13 @@ public class SaveData
             );
 
             //DEFAULT SETTINGS
-            _settingsInst = new Settings();
-            _settingsInst.volume = .5f;
-            // if (GameManager.instance.isMenu) AudioSlider.instance.slider.value = _settingsInst.volume;
-            // AudioManager.instance.UpdateVolume(_settingsInst.volume);
-            // Screen.fullScreen = _settingsInst.isFullscreen;
+            settingsInst = new Settings();
             return;
         }
 
         try
         {
-            _settingsInst = (Settings) jsonSerializer.ReadObject(fileStream);
+            settingsInst = (Settings) jsonSerializer.ReadObject(fileStream);
         }
         catch (SerializationException)
         {
@@ -80,7 +81,7 @@ public class SaveData
 
     public static void SaveToFile(int saveNum)
     {
-        _instance = new SaveData
+        instance = new SaveData
         {
             // update stuff here, then save to object file
             // levelProgress = GameManager.instance.levelProgress
@@ -91,9 +92,9 @@ public class SaveData
             typeof(SaveData)
         );
         var jsonStream = new MemoryStream();
-        jsonSerializer.WriteObject(jsonStream, _instance);
+        jsonSerializer.WriteObject(jsonStream, instance);
         var fileStream = File.Create(
-            Application.persistentDataPath + "/save" + saveNum + ".pbb"
+            Application.persistentDataPath + "/save" + saveNum + ".sav"
         );
         jsonStream.Seek(0, SeekOrigin.Begin);
         jsonStream.CopyTo(fileStream);
@@ -108,7 +109,7 @@ public class SaveData
         FileStream fileStream;
         try
         {
-            fileStream = File.OpenRead(Application.persistentDataPath + "/save" + saveNum + ".pbb");
+            fileStream = File.OpenRead(Application.persistentDataPath + "/save" + saveNum + ".sav");
         }
         catch (IOException ioe)
         {
@@ -119,14 +120,14 @@ public class SaveData
                 + ioe.Message
             );
             //DEFAULT SAVE OBJECT
-            _instance = new SaveData();
+            instance = new SaveData();
             // GameManager.instance.levelProgress = _instance.levelProgress;
             return;
         }
 
         try
         {
-            _instance = (SaveData) jsonSerializer.ReadObject(fileStream);
+            instance = (SaveData) jsonSerializer.ReadObject(fileStream);
         }
         catch (SerializationException)
         {
@@ -140,6 +141,15 @@ public class SaveData
 
     public class Settings
     {
-        public float volume;
+        public SettingsData.Volume volume;
+        public SettingsData.Resolution resolution;
+
+        public Settings()
+        {
+            // Default Settings Data
+            volume = new SettingsData.Volume();
+            volume.magnitude = 0.5f;
+            resolution = SettingsData.Resolution1;
+        }
     }
 }

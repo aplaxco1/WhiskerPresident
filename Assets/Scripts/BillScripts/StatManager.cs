@@ -27,14 +27,14 @@ public class StatManager : MonoBehaviour
         {
             BillContentsManager.Instance.WipeSavedBills();
         }
-        BillController.StatVector startingStats = new BillController.StatVector();
+        StatVector startingStats = new StatVector();
         startingStats.RedStat = 50;
         startingStats.GreenStat = 50;
         startingStats.BlueStat = 50;
         AdjustStats(startingStats);
     }
 
-    public void AdjustStats(BillController.StatVector statVector)
+    public void AdjustStats(StatVector statVector)
     {
         UpdateRedStat(statVector.RedStat);
         UpdateGreenStat(statVector.GreenStat);

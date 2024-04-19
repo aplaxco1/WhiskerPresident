@@ -54,7 +54,7 @@ public class BillReviewController : MonoBehaviour
             
             BillController controller = b.GetComponent<BillController>();
             float passed = controller.evaluatePassVeto();
-            BillController.StatVector statVector = controller.CalculateOutcome();
+            StatVector statVector = controller.CalculateOutcome();
 
             GameObject textObject = Instantiate(reviewTextPrefab, t, false);
             string passedString;
