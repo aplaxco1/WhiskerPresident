@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CreditsMenu : MonoBehaviour
+public class NewspaperMenu : MonoBehaviour
 {
-    public void RestartGame()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
 
-    public void NextMorning()
+    public void BacktoOffice()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }
     // Start is called before the first frame update
     void Start()
