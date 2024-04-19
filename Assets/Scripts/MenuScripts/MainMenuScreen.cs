@@ -7,16 +7,17 @@ using UnityEngine.Localization.Settings;
 public class MainMenuScreen : MonoBehaviour
 {
 
-    IEnumerator Start()
-    {
-        // Wait for the localization system to initialize
-        yield return LocalizationSettings.InitializationOperation;
-        // silly little way to make sure unity uses the first locale as the default
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
+    public GameObject langScreen;
+
+    void Start() {
+        if (langScreen && LangChanger.langScreenSeen) {
+            langScreen.SetActive(false);
+        }
     }
 
     public void PlayGame()
     {
+        LangChanger.langScreenSeen = true;
         Timer.timeValue = 120;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

@@ -96,8 +96,11 @@ public class BillController : MonoBehaviour
 
     public void UninitializeBill()
     {
+        Debug.Log("ok inside uninitializebill");
         BillContentsManager.Instance.SaveBill(gameObject);
+        Debug.Log("bill saved");
         Destroy(gameObject);
+        Debug.Log("bill destroyed");
     }
 
     // Use partial random system to generate symbol list
@@ -111,6 +114,7 @@ public class BillController : MonoBehaviour
         
         foreach(SymbolType a in templateSequence)
         {
+
             switch (a)
             { 
                 case SymbolType.ValueA:

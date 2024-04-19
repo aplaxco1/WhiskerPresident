@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+//using System.Diagnostics;
 using System.Net.NetworkInformation;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -21,91 +21,52 @@ public class BillMovement : ToolClass
     public Vector3 organizerPosition;
     public Vector3 inspectingPosition;
 
-    public Vector3 flatRotation = new Vector3(0, 0, 0); // THIS USED TO BE A FLOAT (0) - Autumn
-    public Vector3 inspectRotation = new Vector3(80, 180, 0); // THIS USED TO BE A FLOAT (280) - Autumn
+    public Vector3 flatRotation = new Vector3(0, 0, 0);
+    public Vector3 inspectRotation = new Vector3(80, 180, 0);
         
+    [Header("BillStatusVariables")]
     private bool billOut;
     private GameObject currBill;
     private bool billMoving;
     public bool inspectingBill;
     private bool billRotating;
+    private bool draggingBill = false;
+    public Texture2D draggingCursorTexture;
 
-    //Tracks time held down
-    private float holdStartTime;
-
-    public float holdDuration = 1f;
-
-    //laserStuff (i.e. Abe's bullshit)
-    [Header("Adjustable Laser Variables")]
-    [SerializeField]
-    public float laserWidth = 0.01f;
-    [SerializeField]
-    public Vector3 laserOffset = new Vector3(0.0f, -0.45f, 0.0f);
-    [SerializeField]
-    public GameObject laserDot;
-    public Material laserMaterial;
-
-    [Header("Global Laser Variables")]
-    // variables to capture location on desk for cats attention
-    [SerializeField]
-    public bool isOnDesk = false;
-    [SerializeField]
-    public Vector3 laserDeskLocation = new Vector3(0f, 0f, 0f);
-    public BillMovement billScript;
-    public LayerMask billLayer;
-
-    private GameObject lineObj;
-    private LineRenderer lineRender;
-
-    private bool billActive = false;
-
-    //public Collider BillCollider;
-    public Collider trayCollider;
+    private int LayerIgnoreRaycast;
 
     void Start()
     {
-        //stuff for bill move sorry 
-        //Sincerely Abraham
-        lineObj = new GameObject("LaserPointerLine");
-        lineRender = lineObj.AddComponent<LineRenderer>();
-        lineRender.material = laserMaterial ? laserMaterial : new Material(Shader.Find("Sprites/Default"));
-        lineRender.widthMultiplier = laserWidth;
-        lineRender.positionCount = 2;
-        lineRender.startColor = Color.red;
-        lineRender.endColor = Color.red;
-        lineObj.SetActive(true);
+        LayerIgnoreRaycast = LayerMask.NameToLayer("Ignore Raycast");
     }
 
     void Update()
     {
-        
 
-        if (Input.GetMouseButton(1) && !billMoving && !billRotating && isActive)
+        if (Input.GetMouseButtonDown(1) && isActive && billOut && !inspectingBill && !billMoving && !billRotating)
         {
-            dragBill();
-            /*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.gameObject.CompareTag("Bill") && !inspectingBill)
-                {
-
-                    dragBill();
-                }
-            }*/
+            if (!draggingBill) {
+                draggingBill = true;
+                Cursor.SetCursor(draggingCursorTexture, Vector2.zero, CursorMode.Auto);
+                changeObjectLayer(currBill, LayerIgnoreRaycast);
+            }
+            else {
+                stopDragging();
+            }
         }
 
 
+        if (draggingBill && isActive) {
+            dragBill();
+        }
+        else if (draggingBill && !isActive) {
+            stopDragging();
+        }
+
         
-        if (Input.GetMouseButtonDown(0) && !billMoving && !billRotating && isActive) {
+        if (Input.GetMouseButtonDown(0) && !billMoving && !billRotating && isActive && !draggingBill) {
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            //if mouse is held down it tracks the time. 
-            if (Input.GetMouseButtonDown(0))
-            {
-                holdStartTime = Time.time;
-            }
 
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
@@ -124,7 +85,6 @@ public class BillMovement : ToolClass
                 }
             }
         }
-        holdStartTime = 0f;
     }
 
     private void moveBillToTable(RaycastHit hit)
@@ -150,12 +110,16 @@ public class BillMovement : ToolClass
     private void inspectBill()
     {
         inspectingBill = true;
+        GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
+        toggleHighlights(organizer.GetComponentInParent<Renderer>(), 0);
         StartCoroutine(inspectBillMovememt());
     }
     
     private void uninspectBill()
     {
         inspectingBill = false;
+        GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
+        toggleHighlights(organizer.GetComponentInParent<Renderer>(), 1);
         StartCoroutine(uninspectBillMovement());
     }
 
@@ -169,14 +133,6 @@ public class BillMovement : ToolClass
             if (currBill.transform.rotation == Quaternion.Euler(inspectRotation)) {
                 yield break;
             }
-            // IDK WHAT ALL THIS IS IM TOO STUPID SORRY - Autumn
-            // currBill.transform.Rotate(Vector3.left, rotateSpeed * Time.deltaTime);
-            // //print(currBill.transform.eulerAngles.x );
-            // if (Mathf.Abs((currBill.transform.eulerAngles.x + inspectRotation)) < 2f)
-            // {
-            //     currBill.transform.eulerAngles = new Vector3(inspectRotation, 0, 0);
-            //     yield break;
-            // }
             yield return null;
             billRotating = false;
         }
@@ -192,14 +148,6 @@ public class BillMovement : ToolClass
             if (currBill.transform.rotation == Quaternion.Euler(0, 0, 0)) {
                 yield break;
             }
-            // IDK WHAT ALL THIS IS IM TOO STUPID - Autumn
-            // currBill.transform.Rotate(Vector3.right, rotateSpeed * Time.deltaTime);
-            // //print(currBill.transform.eulerAngles.x);
-            // if (Mathf.Abs((currBill.transform.eulerAngles.x - flatRotation)) < 2f)
-            // {
-            //     currBill.transform.eulerAngles = new Vector3(flatRotation, 0, 0);
-            //     yield break;
-            // }
             yield return null;
             billRotating = false;
         }
@@ -215,7 +163,6 @@ public class BillMovement : ToolClass
         }
 
         if (destroy) {
-            //Debug.Log(currBill.GetComponentInChildren<BillController>().evaluatePassVeto());
             if (currBill.GetComponentInChildren<BillController>().evaluatePassVeto() == 0) {Timer.timeValue -= 10;}
             currBill.GetComponentInChildren<BillController>().UninitializeBill();
             billOut = false;
@@ -247,6 +194,7 @@ public class BillMovement : ToolClass
         GameObject organizer = GameObject.FindGameObjectWithTag("Organizer");
         toggleHighlights(organizer.GetComponentInParent<Renderer>(), 0);
     }
+
     private void toggleHighlights(Renderer renderer, int n) {
         foreach (Material material in renderer.materials) {
             material.SetFloat("_Highlighted", Mathf.Clamp(n, 0, 1));
@@ -255,87 +203,38 @@ public class BillMovement : ToolClass
 
     public void dragBill()
     {
-        GameObject myObject = GameObject.Find("Bill(Clone)");
-        if (myObject != null)
-        {
-            // Do something with myObject
-            //Debug.Log("test");
-            billActive = true;
-            laserDot = myObject;
-            laserDot.SetActive(true);
-            laserDot.SetActive(isOnDesk);
-        }
 
+        // create ray from camera to mouse
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-
-
-
-        if (isActive && billActive)
-        //if(true)
-        {
-            // set laser dot active if laser is on desk
-            laserDot.SetActive(isOnDesk);
-            lineObj.SetActive(true);
-            // create ray from camera to mouse
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            // calculate position of visual laser
-            Vector3 laserStartPos = new Vector3(Camera.main.transform.position.x + laserOffset.x, Camera.main.transform.position.y + laserOffset.y, Camera.main.transform.position.z + laserOffset.z);
-
-            // determine raycast collision
-            RaycastHit mouseHit;
-            //hitInfo = mouseHit;
-            if (Physics.Raycast(ray, out mouseHit))
-            {
-                //Debug.Log("hit");
-                //drawLine(laserStartPos, mouseHit.point);
-                Vector3 direction = mouseHit.point - laserStartPos;
-                RaycastHit laserHit;
-
-                
-                // make sure actual visual laser doesnt go through any objects
-                if (Physics.Raycast(laserStartPos, direction, out laserHit, Mathf.Infinity) && !isOnDesk)
-                {
-                    //drawLine(laserStartPos, laserHit.point);
-                }
-                // check if on desk
-                if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk"))
-                {
-                    if (mouseHit.collider.gameObject.CompareTag("Bill") && !inspectingBill)
-                    {
-                        isOnDesk = false;
-                        laserDot.SetActive(true);
-                    }
-                    else
-                    {
-                        isOnDesk = true;
-                        laserDot.SetActive(true);
-                    }
-                    laserDeskLocation = mouseHit.point;
-                    laserDot.transform.position = mouseHit.point;
-                    laserDot.transform.rotation = Quaternion.FromToRotation(laserDot.transform.up, mouseHit.normal) * laserDot.transform.rotation;
-                }
-                //Collider currBillBounds = currBill.GetComponent<Renderer>().bounds;
-                //Collider trayBounds = tray.GetComponent<Renderer>().bounds;
-
-                bool overlap = currBill.GetComponentInChildren<Collider>().bounds.Intersects(trayCollider.bounds);
-
-                if (overlap)
-                {
-                    moveBillToFinished(mouseHit);
-                }
-                else
-                {
-                    //isOnDesk = false;
-                }
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit)) {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Desk")) {
+                currBill.transform.position = hit.point;
             }
-            else
-            {
-                float distance = 100f;
-                //drawLine(laserStartPos, ray.direction * distance);
-                isOnDesk = false;
+            else {
+                currBill.transform.position = billPosition;
+            }
+
+            if (hit.collider.gameObject.CompareTag("Organizer")) {
+                moveBillToFinished(hit);
+                draggingBill = false;
+                Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
             }
         }
+    }
 
+    private void stopDragging() {
+        draggingBill = false;
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        changeObjectLayer(currBill, LayerMask.NameToLayer("Desk"));
+        StartCoroutine(moveBill(billPosition, false));
+    }
+
+    private void changeObjectLayer(GameObject obj, int layer) {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform) {
+            changeObjectLayer(child.gameObject, layer);
+        }
     }
 }

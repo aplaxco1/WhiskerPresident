@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Top of Bill Stack
   m_Shader: {fileID: 4800000, guid: 06eb270866b9c7c4d846150d32317cdf, type: 3}
-  m_Parent: {fileID: 2100000, guid: c297e7064916df7408b56d8c65b28b75, type: 2}
+  m_Parent: {fileID: 2100000, guid: 0bfdc7b6337a02c4a92710677f475d08, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -24,7 +24,6 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats:
-    - _StencilID: 4
+    m_Floats: []
     m_Colors: []
   m_BuildTextureStacks: []

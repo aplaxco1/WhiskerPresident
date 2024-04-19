@@ -1,20 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class LangChanger : MonoBehaviour
 {
 
-    public void ToggleLang()
+    public List<GameObject> enAssets;
+    public List<GameObject> zhAssets;
+    static public bool langScreenSeen;
+
+    IEnumerator Start()
     {
-        if (PlayerPrefs.GetString("Lang") != "EN")
+        // Wait for the localization system to initialize
+        yield return LocalizationSettings.InitializationOperation;
+
+        // silly little way to make sure unity uses the first locale as the default
+        // LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
+
+        ToggleLangAssets();
+    }
+
+    public void ToggleLangAssets()
+    {
+        if (LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale("en-US"))
         {
-            PlayerPrefs.SetString("Lang", "EN");
+            foreach (GameObject obj in enAssets) {
+                obj.SetActive(true);
+            }
+            foreach (GameObject obj in zhAssets) {
+                obj.SetActive(false);
+            }
         }
-        else if(PlayerPrefs.GetString("Lang") != "ZH")
+        else if(LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale("zh"))
         {
-            PlayerPrefs.SetString("Lang", "ZH");
+            foreach (GameObject obj in enAssets) {
+                obj.SetActive(false);
+            }
+            foreach (GameObject obj in zhAssets) {
+                obj.SetActive(true);
+            }
         }
 
+    }
+
+    public void setLang(int index) {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+        ToggleLangAssets();   
     }
 }
