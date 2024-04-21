@@ -111,7 +111,7 @@ public class rayCastDrag : ToolClass
             }
             else
             {
-                float distance = 100f;
+                //float distance = 100f;
                 //drawLine(laserStartPos, ray.direction * distance);
                 isOnDesk = false;
             }
