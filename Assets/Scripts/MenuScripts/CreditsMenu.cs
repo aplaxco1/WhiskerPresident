@@ -9,6 +9,11 @@ public class CreditsMenu : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void NextMorning()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
     // Start is called before the first frame update
     void Start()
     {
