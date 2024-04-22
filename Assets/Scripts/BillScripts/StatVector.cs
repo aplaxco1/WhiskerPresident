@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 public class StatVector
@@ -19,5 +20,10 @@ public class StatVector
             // ret += "Green: " + GreenStat + "\n";
             // ret += "Blue: " + BlueStat + "\n";
             return ret;
+        }
+
+        public StatVector()
+        {
+            
         }
 }

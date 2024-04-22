@@ -17,12 +17,15 @@ public class SaveManager : MonoBehaviour
     {
         [DataMember]
         public StatVector statVector = new StatVector();
+        
+        [DataMember]
         public int dayProgression = 0;
     }
     
     [Serializable]
     public class Settings
     {
+        [DataMember]
         public float volume;
         
         [DataMember]
@@ -120,8 +123,9 @@ public class SaveManager : MonoBehaviour
         {
             settingsInstance = (Settings) jsonSerializer.ReadObject(fileStream);
         }
-        catch (SerializationException)
+        catch (SerializationException e)
         {
+            Debug.LogError(e);
             Debug.LogError("SAVEMANAGER - LOADSETTINGS: Something is wrong with the settings file, ignoring it.");
             LoadDefaultSettings();
             return;
@@ -169,7 +173,7 @@ public class SaveManager : MonoBehaviour
         
         // write to file
         var jsonSerializer = new DataContractJsonSerializer(
-            typeof(SaveManager)
+            typeof(SaveData)
         );
         var jsonStream = new MemoryStream();
         jsonSerializer.WriteObject(jsonStream, saveInstance);
@@ -186,7 +190,7 @@ public class SaveManager : MonoBehaviour
     public static void LoadFromFile(int saveNum)
     {
         var jsonSerializer = new DataContractJsonSerializer(
-            typeof(SaveManager)
+            typeof(SaveData)
         );
         FileStream fileStream;
         Debug.Log("Attempting to load data file from " + Application.persistentDataPath + "/save" + saveNum + ".sav");
@@ -210,8 +214,9 @@ public class SaveManager : MonoBehaviour
         {
             saveInstance = (SaveData) jsonSerializer.ReadObject(fileStream);
         }
-        catch (SerializationException)
+        catch (SerializationException e)
         {
+            Debug.LogError(e);
             Debug.LogError(
                 "SAVEMANAGER - LOADFROMFILE: Something is wrong with the read save file, using default data."
             );
