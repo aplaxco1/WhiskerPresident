@@ -6,17 +6,23 @@ using UnityEngine;
 
 // NOTE: Used parts of my other Unity project's save/load code here -Justin
 
-[Serializable]
-public class SaveData
+public class SaveManager
 {
-    private static SaveData instance = new SaveData();
-    private static Settings settingsInst = new Settings();
-    
-    public StatVector statVector = new StatVector();
-    public int dayProgression = 0;
+    private static SaveData saveInstance = new SaveData();
+    private static Settings settingsInstance = new Settings();
 
-    private SaveData()
+    [Serializable]
+    public class SaveData
     {
+        public StatVector statVector = new StatVector();
+        public int dayProgression = 0;
+    }
+    
+    [Serializable]
+    public class Settings
+    {
+        public float volume;
+        public SettingsData.Resolution resolution;
     }
 
     public static void SaveSettings()
@@ -30,7 +36,7 @@ public class SaveData
         }
         else
         {
-            Debug.LogError("SAVEDATA - SAVESETTINGS: Cannot access VolumeSlider instance.");
+            Debug.LogError("SAVEMANAGER - SAVESETTINGS: Cannot access VolumeSlider instance.");
         }
         
         if (SettingsResolution.Instance != null)
@@ -39,10 +45,10 @@ public class SaveData
         }
         else
         {
-            Debug.LogError("SAVEDATA - SAVESETTINGS: Cannot access SettingsResolution instance.");
+            Debug.LogError("SAVEMANAGER - SAVESETTINGS: Cannot access SettingsResolution instance.");
         }
         
-        settingsInst = new Settings
+        settingsInstance = new Settings
         {
             // update stuff here, then save to object file
             volume = volumeToSave,
@@ -54,7 +60,7 @@ public class SaveData
             typeof(Settings)
         );
         var jsonStream = new MemoryStream();
-        jsonSerializer.WriteObject(jsonStream, settingsInst);
+        jsonSerializer.WriteObject(jsonStream, settingsInstance);
         var fileStream = File.Create(Application.persistentDataPath + "/settings" + ".set");
         jsonStream.Seek(0, SeekOrigin.Begin);
         jsonStream.CopyTo(fileStream);
@@ -74,7 +80,7 @@ public class SaveData
         catch (IOException ioe)
         {
             Debug.LogError(
-                "SAVEDATA - LOADSETTINGS: IO error while loading file, loading default settings."
+                "SAVEMANAGER - LOADSETTINGS: IO error while loading file, loading default settings."
                 + ": "
                 + ioe.Message
             );
@@ -84,35 +90,35 @@ public class SaveData
 
         try
         {
-            settingsInst = (Settings) jsonSerializer.ReadObject(fileStream);
+            settingsInstance = (Settings) jsonSerializer.ReadObject(fileStream);
         }
         catch (SerializationException)
         {
-            Debug.LogError("SAVEDATA - LOADSETTINGS: Something is wrong with the settings file, ignoring it.");
+            Debug.LogError("SAVEMANAGER - LOADSETTINGS: Something is wrong with the settings file, ignoring it.");
             LoadDefaultSettings();
             return;
         }
 
         if (VolumeSlider.Instance != null)
         {
-            VolumeSlider.Instance.currentVolume = settingsInst.volume;
-            VolumeSlider.Instance.changeVolume(settingsInst.volume);
+            VolumeSlider.Instance.currentVolume = settingsInstance.volume;
+            VolumeSlider.Instance.changeVolume(settingsInstance.volume);
+            VolumeSlider.Instance.updateVolume();
+            VolumeSlider.Instance.volumeSlider.value = settingsInstance.volume;
         }
         else
         {
-            Debug.LogError("SAVEDATA - LOADSETTINGS: Cannot access VolumeSlider instance.");
+            Debug.LogError("SAVEMANAGER - LOADSETTINGS: Cannot access VolumeSlider instance.");
         }
         
         if (SettingsResolution.Instance != null)
         {
-            SettingsResolution.Instance.SetRes(settingsInst.resolution);
+            SettingsResolution.Instance.SetRes(settingsInstance.resolution);
         }
         else
         {
-            Debug.LogError("SAVEDATA - LOADSETTINGS: Cannot access SettingsResolution instance.");
+            Debug.LogError("SAVEMANAGER - LOADSETTINGS: Cannot access SettingsResolution instance.");
         }
-        
-        
     }
 
     public static void SaveToFile(int saveNum)
@@ -124,10 +130,10 @@ public class SaveData
         }
         else
         {
-            Debug.LogError("SAVEDATA - SAVETOFILE: Cannot access StatManager instance.");
+            Debug.LogError("SAVEMANAGER - SAVETOFILE: Cannot access StatManager instance.");
         }
 
-        instance = new SaveData
+        saveInstance = new SaveData
         {
             dayProgression = EnvironmentManager.Instance.day,
             statVector = statVectorToSave,
@@ -135,10 +141,10 @@ public class SaveData
         
         // write to file
         var jsonSerializer = new DataContractJsonSerializer(
-            typeof(SaveData)
+            typeof(SaveManager)
         );
         var jsonStream = new MemoryStream();
-        jsonSerializer.WriteObject(jsonStream, instance);
+        jsonSerializer.WriteObject(jsonStream, saveInstance);
         var fileStream = File.Create(
             Application.persistentDataPath + "/save" + saveNum + ".sav"
         );
@@ -150,7 +156,7 @@ public class SaveData
     public static void LoadFromFile(int saveNum)
     {
         var jsonSerializer = new DataContractJsonSerializer(
-            typeof(SaveData)
+            typeof(SaveManager)
         );
         FileStream fileStream;
         try
@@ -160,7 +166,7 @@ public class SaveData
         catch (IOException ioe)
         {
             Debug.LogError(
-                "SAVEDATA - LOADFROMFILE: IO error while loading save file, using default save data."
+                "SAVEMANAGER - LOADFROMFILE: IO error while loading save file, using default save data."
                 + saveNum
                 + ": "
                 + ioe.Message
@@ -171,12 +177,12 @@ public class SaveData
 
         try
         {
-            instance = (SaveData) jsonSerializer.ReadObject(fileStream);
+            saveInstance = (SaveData) jsonSerializer.ReadObject(fileStream);
         }
         catch (SerializationException)
         {
             Debug.LogError(
-                "SAVEDATA - LOADFROMFILE: Something is wrong with the read save file, using default data."
+                "SAVEMANAGER - LOADFROMFILE: Something is wrong with the read save file, using default data."
             );
             LoadDefaultSave();
             return;
@@ -184,49 +190,62 @@ public class SaveData
 
         if (StatManager.Instance != null)
         {
-            StatManager.Instance.SetStats(instance.statVector);
+            StatManager.Instance.SetStats(saveInstance.statVector);
         }
         else
         {
             Debug.LogError(
-                "SAVEDATA - LOADFROMFILE: Cannot access StatManager instance."
+                "SAVEMANAGER - LOADFROMFILE: Cannot access StatManager instance."
             );
         }
         
         if (EnvironmentManager.Instance != null)
         {
-            EnvironmentManager.Instance.day = instance.dayProgression;
+            EnvironmentManager.Instance.day = saveInstance.dayProgression;
         }
         else
         {
             Debug.LogError(
-                "SAVEDATA - LOADFROMFILE: Cannot access EnvironmentManager instance."
+                "SAVEMANAGER - LOADFROMFILE: Cannot access EnvironmentManager instance."
             );
         }
     }
 
     private static void LoadDefaultSave()
     {
-        instance = new SaveData();
-        instance.dayProgression = 0;
-        instance.statVector = new StatVector();
+        saveInstance = new SaveData();
+        saveInstance.dayProgression = 0;
+        saveInstance.statVector = new StatVector();
         
         if (StatManager.Instance != null)
         {
-            StatManager.Instance.SetStats(instance.statVector);
+            StatManager.Instance.SetStats(saveInstance.statVector);
+        }
+        else
+        {
+            Debug.LogError(
+                "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access StatManager instance."
+            );
+        }
+        
+        if (EnvironmentManager.Instance != null)
+        {
+            EnvironmentManager.Instance.day = saveInstance.dayProgression;
+        }
+        else
+        {
+            Debug.LogError(
+                "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access EnvironmentManager instance."
+            );
         }
     }
     
     private static void LoadDefaultSettings()
     {
-        settingsInst = new Settings();
-        settingsInst.volume = 0.5f;
-        settingsInst.resolution = SettingsData.Resolution1;
+        settingsInstance = new Settings();
+        settingsInstance.volume = 0.5f;
+        settingsInstance.resolution = SettingsData.Resolution1;
     }
 
-    public class Settings
-    {
-        public float volume;
-        public SettingsData.Resolution resolution;
-    }
+
 }
