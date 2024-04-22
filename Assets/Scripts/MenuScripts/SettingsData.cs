@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,10 @@ public class SettingsData
         {
             this.width = width;
             this.height = height;
+        }
+
+        public Resolution()
+        {
         }
     }
 }
