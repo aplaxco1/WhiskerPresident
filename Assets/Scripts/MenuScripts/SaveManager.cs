@@ -33,7 +33,7 @@ public class SaveManager : MonoBehaviour
     }
 
     
-    //Temp
+    // Temporary save/load controls
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
@@ -65,7 +65,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SAVEMANAGER - SAVESETTINGS: Cannot access VolumeSlider instance.");
+            Debug.LogWarning("SAVEMANAGER - SAVESETTINGS: Cannot access VolumeSlider instance.");
         }
         
         if (SettingsResolution.Instance != null)
@@ -74,7 +74,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SAVEMANAGER - SAVESETTINGS: Cannot access SettingsResolution instance.");
+            Debug.LogWarning("SAVEMANAGER - SAVESETTINGS: Cannot access SettingsResolution instance.");
         }
         
         settingsInstance = new Settings
@@ -140,7 +140,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SAVEMANAGER - LOADSETTINGS: Cannot access VolumeSlider instance.");
+            Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Cannot access VolumeSlider instance.");
         }
         
         if (SettingsResolution.Instance != null)
@@ -149,7 +149,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SAVEMANAGER - LOADSETTINGS: Cannot access SettingsResolution instance.");
+            Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Cannot access SettingsResolution instance.");
         }
     }
 
@@ -162,7 +162,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SAVEMANAGER - SAVETOFILE: Cannot access StatManager instance.");
+            Debug.LogWarning("SAVEMANAGER - SAVETOFILE: Cannot access StatManager instance.");
         }
 
         saveInstance = new SaveData
@@ -230,7 +230,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError(
+            Debug.LogWarning(
                 "SAVEMANAGER - LOADFROMFILE: Cannot access StatManager instance."
             );
         }
@@ -241,7 +241,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError(
+            Debug.LogWarning(
                 "SAVEMANAGER - LOADFROMFILE: Cannot access EnvironmentManager instance."
             );
         }
@@ -259,7 +259,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError(
+            Debug.LogWarning(
                 "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access StatManager instance."
             );
         }
@@ -270,7 +270,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError(
+            Debug.LogWarning(
                 "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access EnvironmentManager instance."
             );
         }
