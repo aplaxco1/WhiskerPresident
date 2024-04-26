@@ -1304,9 +1304,10 @@ GameObject:
   - component: {fileID: 8819144250115534098}
   - component: {fileID: 5605925375652635319}
   - component: {fileID: 7649584026567530109}
+  - component: {fileID: 4639461809382194482}
   m_Layer: 7
   m_Name: Whisker President Desk
-  m_TagString: Untagged
+  m_TagString: Desk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1319,14 +1320,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8153824663447861160}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0.395, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: 0.84, z: 1.72}
+  m_LocalScale: {x: 120, y: 120, z: 120}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5291098937332792125}
   m_Father: {fileID: 836587676757781267}
-  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: -180, z: 0}
 --- !u!33 &5605925375652635319
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1334,7 +1335,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8153824663447861160}
-  m_Mesh: {fileID: -5495902117074765545, guid: 098a670d36a2a43a8afc61b737a6094d, type: 3}
+  m_Mesh: {fileID: 6317106008045385693, guid: 166ee24d9bbac4c409e1d330648ca8c0, type: 3}
 --- !u!23 &7649584026567530109
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1377,6 +1378,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4639461809382194482
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8153824663447861160}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6317106008045385693, guid: 166ee24d9bbac4c409e1d330648ca8c0, type: 3}
 --- !u!1 &8301953104195984455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,7 +1600,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5291098937332792125}
-  - component: {fileID: 3727907462695052476}
   - component: {fileID: 8301542919828419416}
   - component: {fileID: 2377103839645493462}
   m_Layer: 7
@@ -1602,27 +1624,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8819144250115534098}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3727907462695052476
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8928355687704869824}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8301542919828419416
 MonoBehaviour:
   m_ObjectHideFlags: 0
