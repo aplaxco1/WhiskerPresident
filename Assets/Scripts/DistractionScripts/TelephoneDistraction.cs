@@ -6,6 +6,7 @@ public class TelephoneDistraction : MonoBehaviour
 {
 
     static public bool isActive = false;
+    static public Vector3 distractionPosition;
 
     private float timer = 0;
     private float nextRing;
@@ -15,6 +16,7 @@ public class TelephoneDistraction : MonoBehaviour
     void Start()
     {
         nextRing = Random.Range(10, 20);
+        distractionPosition = transform.position;
     }
 
     // Update is called once per frame

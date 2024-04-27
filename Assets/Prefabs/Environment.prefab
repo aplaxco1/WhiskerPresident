@@ -1808,7 +1808,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.455
+      value: -1.709
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1816,23 +1816,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.413
+      value: 0.436
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.251622
+      value: 0.630818
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.25162202
+      value: -0.6308182
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.6608226
+      value: -0.31948164
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.66082245
+      value: -0.3194816
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1844,7 +1844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -138.309
+      value: -53.72
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_ConstrainProportionsScale
