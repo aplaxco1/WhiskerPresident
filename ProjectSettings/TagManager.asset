@@ -11,6 +11,7 @@ TagManager:
   - Desk
   - Inkpad
   - tray
+  - Phone
   layers:
   - Default
   - TransparentFX
