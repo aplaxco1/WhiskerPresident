@@ -1,37 +1,58 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SettingsResolution : MonoBehaviour
 {
+
+    public static SettingsResolution Instance;
+    public SettingsData.Resolution currentResolution;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+        ResolutionDefault();
+    }
+
+    public void ResolutionDefault()
+    {
+        Resolution1();
     }
 
     public void Resolution1()
     {
-        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+        SetRes(SettingsData.Resolution1);
     }
 
     public void Resolution2()
     {
-        Screen.SetResolution(1600, 900, FullScreenMode.FullScreenWindow);
+        SetRes(SettingsData.Resolution2);
     }
 
     public void Resolution3()
     {
-        Screen.SetResolution(1440, 900, FullScreenMode.FullScreenWindow);
+        SetRes(SettingsData.Resolution3);    
     }
 
     public void Resolution4()
     {
-        Screen.SetResolution(1366, 768, FullScreenMode.FullScreenWindow);
+        SetRes(SettingsData.Resolution4);
     }
 
     public void Resolution5()
     {
-        Screen.SetResolution(1280, 1024, FullScreenMode.FullScreenWindow);
+        SetRes(SettingsData.Resolution5);
+    }
+
+    public void SetRes(SettingsData.Resolution res)
+    {
+        currentResolution = res;
+        Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);    
     }
 }

@@ -27,14 +27,14 @@ public class StatManager : MonoBehaviour
         {
             BillContentsManager.Instance.WipeSavedBills();
         }
-        BillController.StatVector startingStats = new BillController.StatVector();
+        StatVector startingStats = new StatVector();
         startingStats.RedStat = 50;
         startingStats.GreenStat = 50;
         startingStats.BlueStat = 50;
         AdjustStats(startingStats);
     }
 
-    public void AdjustStats(BillController.StatVector statVector)
+    public void AdjustStats(StatVector statVector)
     {
         UpdateRedStat(statVector.RedStat);
         UpdateGreenStat(statVector.GreenStat);
@@ -91,16 +91,25 @@ public class StatManager : MonoBehaviour
         return greenStat;
     }
 
+    public StatVector GetStats()
+    {
+        StatVector ret = new StatVector();
+        ret.RedStat = GetRedStat();
+        ret.GreenStat = GetGreenStat();
+        ret.BlueStat = GetBlueStat();
+        return ret;
+    }
+    
+    public void SetStats(StatVector statVector)
+    {
+        redStat = statVector.RedStat;
+        greenStat = statVector.GreenStat;
+        blueStat = statVector.BlueStat;
+    }
+
     public void TriggerLoss(string lossMessage)
     {
         print("GAME OVER: " + lossMessage);
     }
 
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
