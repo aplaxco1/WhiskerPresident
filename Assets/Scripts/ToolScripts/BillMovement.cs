@@ -45,7 +45,9 @@ public class BillMovement : ToolClass
 
         if (Input.GetMouseButtonDown(1) && isActive && billOut && !inspectingBill && !billMoving && !billRotating)
         {
-            if (!draggingBill) {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("Bill") && !draggingBill) {
                 draggingBill = true;
                 Cursor.SetCursor(draggingCursorTexture, Vector2.zero, CursorMode.Auto);
                 changeObjectLayer(currBill, LayerIgnoreRaycast);
