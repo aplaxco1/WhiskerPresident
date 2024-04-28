@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Phone
-  m_Shader: {fileID: 4800000, guid: b4e8dda9fc0171e40b6046fce5eac3a8, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2cfd83c4b78885c42a02382fca5e24e2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -45,10 +45,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _HalftonePattern:
         m_Texture: {fileID: 2800000, guid: 4eb172dea49397247b9e3f87c1c1987e, type: 3}
-        m_Scale: {x: 96, y: 54}
+        m_Scale: {x: 96, y: 65}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c0301d1c7350c73469418a0645681fc9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4127c52198cd79744a9bdad837cd8d49, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -87,7 +87,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _StencilID: 0
+    - _StencilID: 2
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
