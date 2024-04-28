@@ -1850,6 +1850,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 67d6a13b61a55884da47aa931897e1c8, type: 2}
     - target: {fileID: 919132149155446097, guid: 6e17b53d5a080b34a9a719536adcb902, type: 3}
       propertyPath: m_Name
       value: PhoneBlockout
