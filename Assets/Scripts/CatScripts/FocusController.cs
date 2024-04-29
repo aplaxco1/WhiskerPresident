@@ -59,8 +59,12 @@ public class FocusController : MonoBehaviour
             MoveObjectTo(TelephoneDistraction.distractionPosition);
         }
 
+        if (ClockDistraction.isActive) {
+            MoveObjectTo(ClockDistraction.distractionPosition);
+        }
+
         // Check if the player has clicked the mouse
-        if (laserPointer.isOnDesk && !TelephoneDistraction.isActive)
+        if (laserPointer.isOnDesk && !TelephoneDistraction.isActive && !ClockDistraction.isActive)
         {
             // Cast a ray from the camera to the mouse position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
