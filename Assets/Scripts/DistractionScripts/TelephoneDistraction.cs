@@ -10,12 +10,14 @@ public class TelephoneDistraction : MonoBehaviour
 
     private float timer = 0;
     private float nextRing;
+    public float minTime = 30;
+    public float maxTime = 50;
     public AudioSource ringSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        nextRing = Random.Range(10, 20);
+        nextRing = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
     }
 
@@ -45,13 +47,13 @@ public class TelephoneDistraction : MonoBehaviour
             ringSource.Stop();
             isActive = false;
             timer = 0;
-            nextRing = Random.Range(10, 20);
+            nextRing = Random.Range(minTime, maxTime);
         }
     }
 
     // temporary way to stop distraction (right click phone)
     bool checkStop() {
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0)) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
