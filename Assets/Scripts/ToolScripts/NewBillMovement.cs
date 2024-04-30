@@ -11,17 +11,21 @@ public class NewBillMovement : MonoBehaviour
     private GameObject currBill;
     private Vector3 stackPosition;
     private int stencilID = 3;
+
+    public List<GameObject> bills;
     // Start is called before the first frame update
     void Start()
     {
         stackPosition = new Vector3(stack.transform.position.x, stack.transform.position.y+0.095f, stack.transform.position.z);
         createBill();
+        bills = new List<GameObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (currBill.transform.position.y != stackPosition.y) { // THIS IS BAD! IT CHECKS EVERY FRAME
+            bills.Add(currBill);
             createBill();
         }
     }
