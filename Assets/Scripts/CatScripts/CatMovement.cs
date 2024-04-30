@@ -175,7 +175,7 @@ public class CatMovement : MonoBehaviour
         if (printColor.a == 0) {return;}
         if (attached) { // release glue!
             attached.parent = null;
-            attached.position = new Vector3(attached.position.x, attached.position.y+ 0.1f, attached.position.z);
+            attached.position = new Vector3(attached.position.x, attached.position.y+ 0.08f, attached.position.z);
             attached.rotation = Quaternion.Euler(0, attached.rotation.eulerAngles.y, 0);
             attached.GetComponentInChildren<Collider>().enabled = true;
             attached = null;
