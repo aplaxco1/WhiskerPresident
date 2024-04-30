@@ -9,23 +9,14 @@ using UnityEngine;
 
 public class FocusController : MonoBehaviour
 {
-    //private Coroutine moveCoroutine;
-
-    // reference to laser pointer script
-    public LaserPointer laserPointer;
 
     // Reference to the GameObject to move
     public GameObject objectToMove;
 
-    // Speed of the movement
-    //public float moveSpeed = 5f;
-
+    [Header("Random Attention Point Generation")]
     public float interval = 5f;       // Desired interval between calls
     public float varianceRange = 2f;  // Variance range
-
     private float timer = 0f;
-
-    //private float hackSolution = 0.8f;
 
     //public Vector3 ballOffset = new Vector3(2f, 2f, 2f);
 
@@ -35,7 +26,9 @@ public class FocusController : MonoBehaviour
     public Vector3 maxRange = new Vector3(0.80f, 0.80f, 0.80f);
 
 
+    [Header("Laser Pointer Reference")]
     // for keeping track of laser pointer movement
+    public LaserPointer laserPointer;  // reference to laser pointer script
     private Vector3 previousPointerLocation = new Vector3(0, 0, 0);
     private bool wasOnTable = false;
     public float pointerSpeed = 0;
@@ -45,6 +38,7 @@ public class FocusController : MonoBehaviour
     {
         timer -= Time.deltaTime;
 
+        // generate new random attention point
         if (timer <= 0f)
         {
             // Call your helper function or perform any desired task
@@ -55,33 +49,20 @@ public class FocusController : MonoBehaviour
             timer = interval + Random.Range(-varianceRange, varianceRange);
         }
 
+        // cat is distracted -> will be changed when more distractions are added
         if (TelephoneDistraction.isActive) {
             MoveObjectTo(TelephoneDistraction.distractionPosition);
         }
 
-        // Check if the player has clicked the mouse
+        // cat is focused on laser pointer
         if (laserPointer.isOnDesk && !TelephoneDistraction.isActive)
         {
-            // Cast a ray from the camera to the mouse position
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // Check if the ray hits any colliders
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Debug.Log("hit");
-                lastPoint = hit.point;
-                // Move the referenced object towards the click position
-                MoveObjectTo(laserPointer.laserDeskLocation);
-
-                pointerSpeed = wasOnTable ? Mathf.Clamp((laserPointer.laserDeskLocation - previousPointerLocation).magnitude/Time.deltaTime, 0.0f, 16.0f) : 1;
-                wasOnTable = true;
-                
-                previousPointerLocation = laserPointer.laserDeskLocation;
-            }
-            else { wasOnTable = false; pointerSpeed = 0; }
+            MoveObjectTo(laserPointer.laserDeskLocation);
+            updateMouseSpeed();
         }
         else { wasOnTable = false; pointerSpeed = 0; }
+
+        // update focus level 
         focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(pointerSpeed/16.0f * 5f, 1f, 20f),Time.deltaTime*1.2f), 1f, 5f);
     }
 
@@ -92,10 +73,6 @@ public class FocusController : MonoBehaviour
         {
             objectToMove.transform.position = targetPosition;
         }
-        /*else
-        {
-            Debug.LogWarning("Object to move not assigned. Please assign an object in the Inspector.");
-        }*/
     }
 
     Vector3 GenerateRandomVector()
@@ -106,5 +83,12 @@ public class FocusController : MonoBehaviour
         float z = (float)Random.Range(minRange.z, maxRange.z);
 
         return new Vector3(x, y, z);
+    }
+
+    // only called when laser pointer is on the desk
+    void updateMouseSpeed() {
+        pointerSpeed = wasOnTable ? Mathf.Clamp((laserPointer.laserDeskLocation - previousPointerLocation).magnitude/Time.deltaTime, 0.0f, 16.0f) : 1;
+        wasOnTable = true;
+        previousPointerLocation = laserPointer.laserDeskLocation;
     }
 }
