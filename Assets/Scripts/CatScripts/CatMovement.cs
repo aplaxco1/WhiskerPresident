@@ -162,6 +162,7 @@ public class CatMovement : MonoBehaviour
     {
         HeadPivot.transform.rotation = Quaternion.Slerp(HeadPivot.transform.rotation, Quaternion.LookRotation((HeadPivot.transform.position - lookTarget).normalized), Time.deltaTime*5f);
     }
+    private Transform attached = null;
     void LeavePrint(Vector3 pos, float yRotation)
     {
         smacking = false;
@@ -170,8 +171,25 @@ public class CatMovement : MonoBehaviour
             printColor = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.color;
             return;
         }
-        if (pawCollisionDetection.surface.CompareTag("Organizer")) { return; }
+        if (pawCollisionDetection.surface.CompareTag("Organizer")) { return; } // get rid of this
         if (printColor.a == 0) {return;}
+        if (attached) {
+            attached.parent = null;
+            attached.position = new Vector3(attached.position.x, attached.position.y+ 0.1f, attached.position.z);
+            attached.rotation = Quaternion.Euler(0, attached.rotation.eulerAngles.y, 0);
+            attached = null;
+            return;
+        }
+        if (printColor.r < 0.6) { // glue!
+            if (pawCollisionDetection.surface.CompareTag("Bill")) {
+                Debug.Log("sticking!");
+                Transform billTransform = pawCollisionDetection.surface.GetComponentInParent<BillController>().transform;
+                billTransform.parent = pawCollider.transform;
+                billTransform.position = new Vector3(billTransform.position.x, billTransform.position.y - 0.07f, billTransform.position.z);
+                attached = billTransform;
+            }
+            return;
+        }
         GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.018f, pos.z), Quaternion.Euler(0,yRotation,0));
         newPrint.transform.SetParent(pawCollisionDetection.surface.transform, true);
         PawPrint script = newPrint.GetComponent<PawPrint>();
