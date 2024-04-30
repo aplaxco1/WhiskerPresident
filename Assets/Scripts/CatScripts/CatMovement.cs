@@ -173,7 +173,7 @@ public class CatMovement : MonoBehaviour
         }
         if (pawCollisionDetection.surface.CompareTag("Organizer")) { return; } // get rid of this
         if (printColor.a == 0) {return;}
-        if (attached) {
+        if (attached) { // release glue!
             attached.parent = null;
             attached.position = new Vector3(attached.position.x, attached.position.y+ 0.1f, attached.position.z);
             attached.rotation = Quaternion.Euler(0, attached.rotation.eulerAngles.y, 0);

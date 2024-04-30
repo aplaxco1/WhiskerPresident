@@ -22,7 +22,7 @@ public class PawCollision : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         bool registerCollision = !colliding;
         if (colliding) {
-            if (other.gameObject.CompareTag("Desk") && surface.CompareTag("Bill")) {
+            if ((other.gameObject.CompareTag("Desk") || other.gameObject.CompareTag("Stack")) && surface.CompareTag("Bill")) {
                 Bounds otherCollider = surface.GetComponent<BoxCollider>().bounds;
                 Bounds newBounds = new Bounds(otherCollider.center, new Vector3(otherCollider.size.x*1.1f, 20, otherCollider.size.z*1.1f)); 
                 if(!newBounds.Contains(gameObject.transform.position)){ registerCollision = true; }
