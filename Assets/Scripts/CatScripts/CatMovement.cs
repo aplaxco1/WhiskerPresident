@@ -177,16 +177,17 @@ public class CatMovement : MonoBehaviour
             attached.parent = null;
             attached.position = new Vector3(attached.position.x, attached.position.y+ 0.1f, attached.position.z);
             attached.rotation = Quaternion.Euler(0, attached.rotation.eulerAngles.y, 0);
+            attached.GetComponentInChildren<Collider>().enabled = true;
             attached = null;
             return;
         }
-        if (printColor.r < 0.6) { // glue!
+        if (printColor.r < 0.6 && !attached) { // glue!
             if (pawCollisionDetection.surface.CompareTag("Bill")) {
                 Debug.Log("sticking!");
-                Transform billTransform = pawCollisionDetection.surface.GetComponentInParent<BillController>().transform;
-                billTransform.parent = pawCollider.transform;
-                billTransform.position = new Vector3(billTransform.position.x, billTransform.position.y - 0.07f, billTransform.position.z);
-                attached = billTransform;
+                attached = pawCollisionDetection.surface.GetComponentInParent<BillController>().transform;
+                attached.parent = pawCollider.transform;
+                attached.position = new Vector3(attached.position.x, attached.position.y - 0.07f, attached.position.z);
+                pawCollisionDetection.surface.GetComponent<Collider>().enabled = false;
             }
             return;
         }
