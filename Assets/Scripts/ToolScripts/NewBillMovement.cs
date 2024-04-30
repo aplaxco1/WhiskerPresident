@@ -10,6 +10,7 @@ public class NewBillMovement : MonoBehaviour
     public GameObject stack;
     private GameObject currBill;
     private Vector3 stackPosition;
+    private int stencilID = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,5 +28,9 @@ public class NewBillMovement : MonoBehaviour
     void createBill() {
         currBill = Instantiate(billPrefab, stackPosition, Quaternion.identity);
         currBill.GetComponent<BillController>().InitializeBill();
+        Material material = currBill.GetComponentInChildren<Renderer>().material;
+        material.SetFloat(Shader.PropertyToID("_StencilID"), stencilID);
+        material.renderQueue = material.renderQueue + stencilID;
+        stencilID ++;
     }
 }
