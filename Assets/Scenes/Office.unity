@@ -788,6 +788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 121101609}
+  billMovementScript: {fileID: 1994736606}
 --- !u!114 &121101609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12321,6 +12322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   billPrefab: {fileID: 7222744191218044594, guid: 5557a0c335527c44aa5d5336fd291d91, type: 3}
   stack: {fileID: 753079169}
+  bills: []
 --- !u!1 &2023060997
 GameObject:
   m_ObjectHideFlags: 0

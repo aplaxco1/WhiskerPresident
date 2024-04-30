@@ -8,6 +8,7 @@ public class Timer : MonoBehaviour
 {
     static public float timeValue = 120;
     public TMP_Text timerText;
+    public NewBillMovement billMovementScript;
 
     private float flashTimer;
     private float flashDuration = 1f;
@@ -38,6 +39,11 @@ public class Timer : MonoBehaviour
         {
             Flash();
             timeValue = 0;
+            if (billMovementScript) {
+                foreach(GameObject bill in billMovementScript.bills) {
+                    bill.GetComponentInChildren<BillController>().UninitializeBill();
+                }
+            }
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             ResetTimer();
         }
