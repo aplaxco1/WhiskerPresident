@@ -52,7 +52,7 @@ public class FocusController : MonoBehaviour
         }
 
         // cat is focused on laser pointer
-        if (laserPointer.isOnDesk && !TelephoneDistraction.isActive)
+        if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f) && !TelephoneDistraction.isActive)
         {
             MoveObjectTo(laserPointer.laserDeskLocation);
         }

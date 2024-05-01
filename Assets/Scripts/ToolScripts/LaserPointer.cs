@@ -23,6 +23,7 @@ public class LaserPointer : ToolClass
     private Vector3 previousPointerLocation = new Vector3(0, 0, 0);
     private bool wasOnTable = false;
     public float pointerSpeed = 0;
+    public float attentionLevel = 0f; // float between 0 and 1
 
     public BillMovement billScript;
 
@@ -55,8 +56,8 @@ public class LaserPointer : ToolClass
             laserDot.SetActive(isOnDesk);
             lineObj.SetActive(true);
 
-            // update pointer speed if on desk
-            if (isOnDesk) { updatePointerSpeed(); }
+            // update pointer speed and corresponding attention level if on desk
+            if (isOnDesk) { updatePointerSpeed(); updateAttentionLevel();}
 
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -112,6 +113,29 @@ public class LaserPointer : ToolClass
         pointerSpeed = wasOnTable ? Mathf.Clamp((laserDeskLocation - previousPointerLocation).magnitude/Time.deltaTime, 0.0f, 16.0f) : 1;
         wasOnTable = true;
         previousPointerLocation = laserDeskLocation;
+    }
+
+    void updateAttentionLevel() {
+        // handle attention level decrease/increase here
+        if (pointerSpeed == 0f) {
+            // decrease attention is laser held still
+            attentionLevel -= 0.0005f;
+        }
+        else {
+            attentionLevel += 0.01f;
+        }
+
+        attentionLevel = Mathf.Clamp(attentionLevel, 0f, 1f);
+    }
+
+    public void toggleOn() {
+        if (attentionLevel == 0f) {
+            // give some immediate attention when laser toggled on
+            attentionLevel += 0.5f;
+        } 
+        else {
+            // small attention boost
+        }
     }
 
     // remove laser when its not the currently selected tool

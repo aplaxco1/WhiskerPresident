@@ -53,6 +53,8 @@ public class WeaponSwitching : MonoBehaviour
                 }
                 if (weapon.gameObject.GetComponent<ToolClass>() is LaserPointer) {
                     SoundEffects.audioSource.Play();
+                    // TEMPORARY WAY TO GIVE ATTENTION BOOST ON TOGGLE
+                    weapon.gameObject.GetComponent<LaserPointer>().toggleOn();
                 }
                 weapon.gameObject.GetComponent<ToolClass>().isActive = true;
                 Cursor.SetCursor(weapon.gameObject.GetComponent<ToolClass>().cursorTexture, Vector2.zero, CursorMode.Auto);
