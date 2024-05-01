@@ -29,9 +29,6 @@ public class FocusController : MonoBehaviour
     [Header("Laser Pointer Reference")]
     // for keeping track of laser pointer movement
     public LaserPointer laserPointer;  // reference to laser pointer script
-    private Vector3 previousPointerLocation = new Vector3(0, 0, 0);
-    private bool wasOnTable = false;
-    public float pointerSpeed = 0;
     public float focusLevel = 0.1f;
 
     void Update()
@@ -58,12 +55,10 @@ public class FocusController : MonoBehaviour
         if (laserPointer.isOnDesk && !TelephoneDistraction.isActive)
         {
             MoveObjectTo(laserPointer.laserDeskLocation);
-            updateMouseSpeed();
         }
-        else { wasOnTable = false; pointerSpeed = 0; }
 
         // update focus level 
-        focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(pointerSpeed/16.0f * 5f, 1f, 20f),Time.deltaTime*1.2f), 1f, 5f);
+        focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(laserPointer.pointerSpeed/16.0f * 5f, 1f, 20f),Time.deltaTime*1.2f), 1f, 5f);
     }
 
     void MoveObjectTo(Vector3 targetPosition)
@@ -85,10 +80,4 @@ public class FocusController : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
-    // only called when laser pointer is on the desk
-    void updateMouseSpeed() {
-        pointerSpeed = wasOnTable ? Mathf.Clamp((laserPointer.laserDeskLocation - previousPointerLocation).magnitude/Time.deltaTime, 0.0f, 16.0f) : 1;
-        wasOnTable = true;
-        previousPointerLocation = laserPointer.laserDeskLocation;
-    }
 }

@@ -20,6 +20,10 @@ public class LaserPointer : ToolClass
     public bool isOnDesk = false;
     [SerializeField]
     public Vector3 laserDeskLocation = new Vector3(0f, 0f, 0f);
+    private Vector3 previousPointerLocation = new Vector3(0, 0, 0);
+    private bool wasOnTable = false;
+    public float pointerSpeed = 0;
+
     public BillMovement billScript;
 
     private GameObject lineObj;
@@ -50,6 +54,10 @@ public class LaserPointer : ToolClass
             // set laser dot active if laser is on desk
             laserDot.SetActive(isOnDesk);
             lineObj.SetActive(true);
+
+            // update pointer speed if on desk
+            if (isOnDesk) { updatePointerSpeed(); }
+
             // create ray from camera to mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -58,9 +66,7 @@ public class LaserPointer : ToolClass
 
             // determine raycast collision
             RaycastHit mouseHit;
-            //hitInfo = mouseHit;
             if (Physics.Raycast(ray, out mouseHit)) {
-                //Debug.Log("hit");
                 drawLine(laserStartPos, mouseHit.point);
                 Vector3 direction = mouseHit.point - laserStartPos;
                 RaycastHit laserHit;
@@ -83,12 +89,16 @@ public class LaserPointer : ToolClass
                 }
                 else {
                     isOnDesk = false;
+                    wasOnTable = false; 
+                    pointerSpeed = 0;
                 }
             }
             else {
                 float distance = 100f;
                 drawLine(laserStartPos, ray.direction * distance);
                 isOnDesk = false;
+                wasOnTable = false; 
+                pointerSpeed = 0;
             }
         }
     }
@@ -96,6 +106,12 @@ public class LaserPointer : ToolClass
     void drawLine(Vector3 start, Vector3 end) {
         lineRender.SetPosition(0, start);
         lineRender.SetPosition(1, end);
+    }
+
+    void updatePointerSpeed() {
+        pointerSpeed = wasOnTable ? Mathf.Clamp((laserDeskLocation - previousPointerLocation).magnitude/Time.deltaTime, 0.0f, 16.0f) : 1;
+        wasOnTable = true;
+        previousPointerLocation = laserDeskLocation;
     }
 
     // remove laser when its not the currently selected tool
