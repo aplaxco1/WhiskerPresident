@@ -48,7 +48,8 @@ public class FocusController : MonoBehaviour
 
         // cat is distracted -> will be changed when more distractions are added
         if (TelephoneDistraction.isActive) {
-            MoveObjectTo(TelephoneDistraction.distractionPosition);
+            //MoveObjectTo(TelephoneDistraction.distractionPosition);
+            catGoCrazyMode();
         }
 
         // cat is focused on laser pointer
@@ -78,6 +79,11 @@ public class FocusController : MonoBehaviour
         float z = (float)Random.Range(minRange.z, maxRange.z);
 
         return new Vector3(x, y, z);
+    }
+
+    void catGoCrazyMode() {
+        focusLevel = 3f;
+        interval = 1f;
     }
 
 }
