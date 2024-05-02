@@ -21,7 +21,7 @@ public class TutorialPawCollision : MonoBehaviour
             } else if (!other.gameObject.CompareTag("Desk")) { registerCollision = true; }
         }
         if (registerCollision) {
-            SmackSounds.smackSource.Play();
+            AudioManager.Instance.Play(SoundName.wood_cut, 0.5f);
             colliding = true;
             collisionPos = new Vector3(gameObject.transform.position.x, other.bounds.center.y + other.bounds.extents.y + 0.02f, gameObject.transform.position.z);
             surface = other.gameObject;
