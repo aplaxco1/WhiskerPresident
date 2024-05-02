@@ -12,6 +12,7 @@ TagManager:
   - Inkpad
   - tray
   - Phone
+  - Clock
   layers:
   - Default
   - TransparentFX
