@@ -3776,6 +3776,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adae8831147943cd9a53f5d395b1d73a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSaveData:
+    dayProgression: 0
+  currentSettings:
+    volume: 0
 --- !u!4 &1538033602
 Transform:
   m_ObjectHideFlags: 0
@@ -4139,9 +4143,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1594687646}
+      - m_Target: {fileID: 1594687643}
         m_TargetAssemblyTypeName: VolumeSlider, Assembly-CSharp
-        m_MethodName: updateVolume
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

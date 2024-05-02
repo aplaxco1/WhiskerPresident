@@ -13,6 +13,9 @@ public class SaveManager : MonoBehaviour
     private static Settings settingsInstance = new Settings();
     public static SaveManager Instance;
 
+    public SaveData currentSaveData;
+    public Settings currentSettings;
+
     [Serializable]
     public class SaveData
     {
@@ -145,6 +148,8 @@ public class SaveManager : MonoBehaviour
             return;
         }
 
+        currentSettings = settingsInstance;
+
         if (VolumeSlider.Instance != null)
         {
             VolumeSlider.Instance.currentVolume = settingsInstance.volume;
@@ -154,7 +159,7 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Cannot access VolumeSlider instance.");
+            Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Cannot access VolumeSlider instance. (This is probably fine)");
         }
         
         if (SettingsResolution.Instance != null)
@@ -237,6 +242,8 @@ public class SaveManager : MonoBehaviour
             LoadDefaultSave();
             return;
         }
+
+        currentSaveData = saveInstance;
 
         if (StatManager.Instance != null)
         {
