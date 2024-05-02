@@ -14,4 +14,9 @@ public class EnvironmentManager : MonoBehaviour
     {
         Instance = this;
     }
+
+    private void Start()
+    {
+        SaveManager.Instance.LoadFromFile(1);
+    }
 }

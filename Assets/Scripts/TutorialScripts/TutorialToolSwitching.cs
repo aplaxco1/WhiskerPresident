@@ -50,7 +50,7 @@ public class TutorialToolSwitching : MonoBehaviour
                 {
                     // for sure it's laser pointer, move onto the next tutorial step
                     TutorialSequence.NextStepInTutorial(3);
-                    SoundEffects.audioSource.Play();
+                    AudioManager.Instance.Play(SoundName.laser_click, 0.5f);
                 }
                 weapon.gameObject.GetComponent<ToolClass>().isActive = true;
                 Cursor.SetCursor(weapon.gameObject.GetComponent<ToolClass>().cursorTexture, Vector2.zero, CursorMode.Auto);

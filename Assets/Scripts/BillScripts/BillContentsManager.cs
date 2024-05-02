@@ -49,9 +49,9 @@ public class BillContentsManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {;
-            SceneManager.LoadScene("BillReview");
-        }
+        // if (Input.GetKeyDown(KeyCode.R))
+        // {;
+        //     SceneManager.LoadScene("BillReview");
+        // }
     }
 }
