@@ -52,7 +52,7 @@ public class WeaponSwitching : MonoBehaviour
                     weapon.gameObject.GetComponent<BillMovement>().addObjectHighlighting();
                 }
                 if (weapon.gameObject.GetComponent<ToolClass>() is LaserPointer) {
-                    SoundEffects.audioSource.Play();
+                    AudioManager.Instance.Play(SoundName.laser_click, 0.5f);
                     // TEMPORARY WAY TO GIVE ATTENTION BOOST ON TOGGLE
                     weapon.gameObject.GetComponent<LaserPointer>().toggleOn();
                 }
