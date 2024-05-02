@@ -10,12 +10,14 @@ public class ClockDistraction : MonoBehaviour
 
     private float timer = 0;
     private float nextTick;
+    public float minTime = 50;
+    public float maxTime = 70;
     public AudioSource tickSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        nextTick = Random.Range(20, 30);
+        nextTick = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
     }
 
@@ -45,13 +47,13 @@ public class ClockDistraction : MonoBehaviour
             tickSource.Stop();
             isActive = false;
             timer = 0;
-            nextTick = Random.Range(20, 30);
+            nextTick = Random.Range(minTime, maxTime);
         }
     }
 
     // stop distraction by right clicking clock
     bool checkStop() {
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0)) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
