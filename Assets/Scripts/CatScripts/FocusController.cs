@@ -22,8 +22,8 @@ public class FocusController : MonoBehaviour
 
     public Vector3 lastPoint;
     public Vector3 randomPoint;
-    public Vector3 minRange = new Vector3(-0.80f, 0.80f, -0.50f);
-    public Vector3 maxRange = new Vector3(0.80f, 0.80f, 0.80f);
+    public Vector3 minRange = new Vector3(-1.60f, 0.80f, -0.50f);
+    public Vector3 maxRange = new Vector3(1.60f, 0.80f, 0.80f);
 
 
     [Header("Laser Pointer Reference")]
