@@ -47,13 +47,12 @@ public class FocusController : MonoBehaviour
         }
 
         // cat is distracted -> will be changed when more distractions are added
-        if (TelephoneDistraction.isActive) {
-            //MoveObjectTo(TelephoneDistraction.distractionPosition);
+        if (TelephoneDistraction.isActive || ClockDistraction.isActive) {
             catGoCrazyMode();
         }
 
         // cat is focused on laser pointer
-        if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f) && !TelephoneDistraction.isActive)
+        if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f) && !TelephoneDistraction.isActive && !ClockDistraction.isActive)
         {
             MoveObjectTo(laserPointer.laserDeskLocation);
         }
