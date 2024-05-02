@@ -11,6 +11,7 @@ public class SaveManager : MonoBehaviour
 {
     private static SaveData saveInstance = new SaveData();
     private static Settings settingsInstance = new Settings();
+    public static SaveManager Instance;
 
     [Serializable]
     public class SaveData
@@ -34,27 +35,40 @@ public class SaveManager : MonoBehaviour
 
     
     // Temporary save/load controls
-    void Update()
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.I))
+    //     {
+    //         SaveSettings();
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.O))
+    //     {
+    //         LoadSettings();
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.K))
+    //     {
+    //         SaveToFile(1);
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.L))
+    //     {
+    //         LoadFromFile(1);
+    //     }
+    // }
+
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Instance == null)
         {
-            SaveSettings();
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            LoadSettings();
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SaveToFile(1);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            LoadFromFile(1);
+            Instance = this;
         }
     }
 
-    public static void SaveSettings()
+    private void Start()
+    {
+        LoadSettings();
+    }
+
+    public void SaveSettings()
     {
         float volumeToSave = 0.5f;
         SettingsData.Resolution resToSave = SettingsData.Resolution1;
@@ -97,7 +111,7 @@ public class SaveManager : MonoBehaviour
         fileStream.Close();
     }
 
-    public static void LoadSettings()
+    public void LoadSettings()
     {
         var jsonSerializer = new DataContractJsonSerializer(
             typeof(Settings)
@@ -153,7 +167,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public static void SaveToFile(int saveNum)
+    public void SaveToFile(int saveNum)
     {
         StatVector statVectorToSave = new StatVector();
         if (StatManager.Instance != null)
@@ -187,7 +201,7 @@ public class SaveManager : MonoBehaviour
         fileStream.Close();
     }
 
-    public static void LoadFromFile(int saveNum)
+    public void LoadFromFile(int saveNum)
     {
         var jsonSerializer = new DataContractJsonSerializer(
             typeof(SaveData)
@@ -247,7 +261,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private static void LoadDefaultSave()
+    private void LoadDefaultSave()
     {
         saveInstance = new SaveData();
         saveInstance.dayProgression = 0;
@@ -276,7 +290,7 @@ public class SaveManager : MonoBehaviour
         }
     }
     
-    private static void LoadDefaultSettings()
+    private void LoadDefaultSettings()
     {
         settingsInstance = new Settings();
         settingsInstance.volume = 0.5f;
