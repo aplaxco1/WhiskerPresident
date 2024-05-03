@@ -192,7 +192,7 @@ Shader "Unlit/HalftoneFace"
 
                 // anti-aliasing
                 float halftoneChange = fwidth(halftoneValue) * 0.6;
-                light = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light+0.28);
+                light = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light);
                 //light = smoothstep(0,0.1, light);
                 //light = step(halftoneValue, light+0.28);
                 //return halftoneValue;
