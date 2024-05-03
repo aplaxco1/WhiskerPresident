@@ -7,6 +7,7 @@ Shader "Unlit/HalftoneObjects"
         _MainTex ("Texture", 2D) = "white" {}
         _HalftonePattern ("Halftone Pattern", 2D) = "white" {}
         _Color ("Color", Color) = (0.5,0.5,0.5,1)
+        [IntRange] _Textured("Textured", Range(0,1)) = 1
 		[HDR]
 		_AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
         _RemapInputMin ("Remap input min value", Range(0, 1)) = 0
@@ -75,6 +76,8 @@ Shader "Unlit/HalftoneObjects"
             float4 _HalftonePattern_ST;
             float4 _AmbientColor;
             float4 _Color;
+
+            float _Textured;
 
             float _RemapInputMin;
             float _RemapInputMax;
@@ -145,7 +148,10 @@ Shader "Unlit/HalftoneObjects"
                 float4 rimDot = 1-dot(viewDir, normal);
                 float rimIntensity = smoothstep(0.79, 0.80, rimDot * pow(NdotL, 0.1));
                 // sample the texture
-                float4 col = tex2D(_MainTex, i.uv);// * _Color;
+                float4 col = _Color;
+                if (_Textured) {
+                    col = tex2D(_MainTex, i.uv);// * _Color;
+                }
 
                 float2 screenSpaceUV = i.screenSpace.xy / i.screenSpace.w;
 
@@ -203,7 +209,6 @@ Shader "Unlit/HalftoneObjects"
                 // anti-aliasing
                 float halftoneChange = fwidth(halftoneValue) * 0.5;
                 light = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light);
-                //light = step(halftoneValue, light+0.28);
                 //return halftoneValue;
                 lightIntensity3 = smoothstep(0, 0.07, (NdotL * shadow)-0.8f);
                 float highlight = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, lightIntensity3);
