@@ -4938,8 +4938,8 @@ MonoBehaviour:
   varianceRange: 1
   lastPoint: {x: 0, y: 0, z: 0}
   randomPoint: {x: 0, y: 0, z: 0}
-  minRange: {x: -0.6, y: 0.85, z: -0.4}
-  maxRange: {x: 0.6, y: 0.85, z: 0.6}
+  minRange: {x: -1.6, y: 0.85, z: -0.5}
+  maxRange: {x: 1.6, y: 0.85, z: 0.8}
   laserPointer: {fileID: 515096773}
   focusLevel: 0.1
 --- !u!1 &1432634562
