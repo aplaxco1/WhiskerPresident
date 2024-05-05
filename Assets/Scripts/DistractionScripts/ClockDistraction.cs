@@ -2,22 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClockDistraction : MonoBehaviour
+public class ClockDistraction : DistractionClass
 {
 
-    static public bool isActive = false;
-    static public Vector3 distractionPosition;
-
-    private float timer = 0;
-    private float nextTick;
-    public float minTime = 50;
-    public float maxTime = 70;
     public AudioSource tickSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        nextTick = Random.Range(minTime, maxTime);
+        minTime = 50;
+        maxTime = 60;
+        nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
     }
 
@@ -25,19 +20,16 @@ public class ClockDistraction : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= nextTick) {
+        if (timer >= nextEvent) {
             isActive = true;
         }
 
         if (isActive) {
-            clockTick();
+            distractionEvent();
         }
-        else {
-        }
-
     }
 
-    void clockTick() {
+    public override void distractionEvent() {
         if (!tickSource.isPlaying) {
             tickSource.Play();
         }
@@ -47,12 +39,12 @@ public class ClockDistraction : MonoBehaviour
             tickSource.Stop();
             isActive = false;
             timer = 0;
-            nextTick = Random.Range(minTime, maxTime);
+            nextEvent = Random.Range(minTime, maxTime);
         }
     }
 
     // stop distraction by right clicking clock
-    bool checkStop() {
+    public override bool checkStop() {
         if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0)) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
