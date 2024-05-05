@@ -31,6 +31,9 @@ public class FocusController : MonoBehaviour
     public LaserPointer laserPointer;  // reference to laser pointer script
     public float focusLevel = 0.1f;
 
+    [Header("Distraction Reference")]
+    public DistractionManager distractions;
+
     void Update()
     {
         timer -= Time.deltaTime;
@@ -47,12 +50,12 @@ public class FocusController : MonoBehaviour
         }
 
         // cat is distracted -> will be changed when more distractions are added
-        if (TelephoneDistraction.isActive || ClockDistraction.isActive) {
+        if (distractions.activeDistractions.Count > 0) {
             catGoCrazyMode();
         }
 
         // cat is focused on laser pointer
-        if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f) && !TelephoneDistraction.isActive && !ClockDistraction.isActive)
+        if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f) && distractions.activeDistractions.Count == 0)
         {
             MoveObjectTo(laserPointer.laserDeskLocation);
         }
