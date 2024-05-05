@@ -46,6 +46,7 @@ public class Timer : MonoBehaviour
             }
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             ResetTimer();
+            AnalyticsEvents.tutorialCompleted(); // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
         }
 
         DisplayTime(timeValue);
