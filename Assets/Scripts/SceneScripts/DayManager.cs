@@ -7,9 +7,9 @@ public class DayManager : MonoBehaviour
 {
     public static DayManager Instance;
 
-    private int redStat;
-    private int blueStat;
-    private int greenStat;
+    private int statA;
+    private int statB;
+    private int statC;
 
     public int day;
 
@@ -31,83 +31,83 @@ public class DayManager : MonoBehaviour
             BillContentsManager.Instance.WipeSavedBills();
         }
         StatVector startingStats = new StatVector();
-        startingStats.RedStat = 50;
-        startingStats.GreenStat = 50;
-        startingStats.BlueStat = 50;
+        startingStats.StatA = 50;
+        startingStats.StatB = 50;
+        startingStats.StatC = 50;
         AdjustStats(startingStats);
     }
 
     public void AdjustStats(StatVector statVector)
     {
-        UpdateRedStat(statVector.RedStat);
-        UpdateGreenStat(statVector.GreenStat);
-        //UpdateBlueStat(statVector.BlueStat); // blue stat unused rn
+        UpdateStatA(statVector.StatA);
+        UpdateStatB(statVector.StatB);
+        UpdateStatC(statVector.StatC);
     }
 
     // Red Stat Correlates to the Bone Symbol RN
-    private void UpdateRedStat(int factor)
+    private void UpdateStatA(int factor)
     {
-        redStat += factor;
-        if (redStat <= 0)
+        statA += factor;
+        if (statA <= 0)
         {
             TriggerLoss("Red Stat Loss");
         }
-        redStat = Mathf.Clamp(redStat, 0, 100);
-        StatTextManager.Instance.redStatText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + redStat;
+        statA = Mathf.Clamp(statA, 0, 100);
+        StatTextManager.Instance.statAText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + statA;
     }
     
     // Green Stat Correlated to the Fish Symbol RN
-    private void UpdateGreenStat(int factor)
+    private void UpdateStatB(int factor)
     {
-        greenStat += factor;
-        if (greenStat <= 0)
+        statB += factor;
+        if (statB <= 0)
         {
-            TriggerLoss("Green Stat Loss");
+            TriggerLoss("StatB Loss");
         }
-        greenStat = Mathf.Clamp(greenStat, 0, 100);
-        StatTextManager.Instance.greenStatText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + greenStat; // translate this
+        statB = Mathf.Clamp(statB, 0, 100);
+        StatTextManager.Instance.statBText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + statC; // translate this
     }
     
-    private void UpdateBlueStat(int factor)
+    private void UpdateStatC(int factor)
     {
-        blueStat += factor;
-        if (blueStat <= 0)
+        statC += factor;
+        if (statC <= 0)
         {
-            TriggerLoss("Blue Stat Loss");
+            TriggerLoss("StatC Loss");
         }
-        blueStat = Mathf.Clamp(blueStat, 0, 100);
-        StatTextManager.Instance.blueStatText.text = "BlueStat: " + blueStat;
+        statC = Mathf.Clamp(statC, 0, 100);
+        StatTextManager.Instance.statCText.text = "StatC: " + statC;
     }
 
-    public int GetRedStat()
+    public int GetStatA()
     {
-        return redStat;
+        return statA;
     }
     
-    public int GetBlueStat()
+    public int GetStatB()
     {
-        return blueStat;
+        return statB;
     }
     
-    public int GetGreenStat()
+    public int GetStatC()
     {
-        return greenStat;
+        return statC;
     }
 
     public StatVector GetStats()
     {
         StatVector ret = new StatVector();
-        ret.RedStat = GetRedStat();
-        ret.GreenStat = GetGreenStat();
-        ret.BlueStat = GetBlueStat();
+        ret.StatA = GetStatA();
+        ret.StatB = GetStatB();
+        ret.StatC = GetStatC();
         return ret;
     }
     
     public void SetStats(StatVector statVector)
     {
-        redStat = statVector.RedStat;
-        greenStat = statVector.GreenStat;
-        blueStat = statVector.BlueStat;
+        statA = statVector.StatA;
+        statB = statVector.StatB;
+        statC = statVector.StatC;
     }
 
     public void TriggerLoss(string lossMessage)

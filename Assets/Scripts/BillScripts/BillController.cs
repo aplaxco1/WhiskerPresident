@@ -271,15 +271,15 @@ public class BillController : MonoBehaviour
             switch (symbol)
             {
                 case SymbolType.Bone:
-                    returnVector.BlueStat += scoreInterval * multiplier;
+                    returnVector.StatC += scoreInterval * multiplier;
                     multiplier = 1;
                     break;
                 case SymbolType.Food:
-                    returnVector.RedStat += scoreInterval * multiplier;
+                    returnVector.StatA += scoreInterval * multiplier;
                     multiplier = 1;
                     break;
                 case SymbolType.Money:
-                    returnVector.GreenStat += scoreInterval * multiplier;
+                    returnVector.StatB += scoreInterval * multiplier;
                     multiplier = 1;
                     break;
                 case SymbolType.Negator:
