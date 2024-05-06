@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class DayManager : MonoBehaviour
+public partial class DayManager
 {
-    
-
     private int statA;
     private int statB;
     private int statC;
@@ -23,11 +21,7 @@ public partial class DayManager : MonoBehaviour
     private void UpdateStatA(int factor)
     {
         statA += factor;
-        if (statA <= 0)
-        {
-            TriggerLoss("Red Stat Loss");
-        }
-        statA = Mathf.Clamp(statA, 0, 100);
+        statA = Mathf.Clamp(statA, -100, 100);
         StatTextManager.Instance.statAText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + statA;
     }
     
@@ -35,22 +29,14 @@ public partial class DayManager : MonoBehaviour
     private void UpdateStatB(int factor)
     {
         statB += factor;
-        if (statB <= 0)
-        {
-            TriggerLoss("StatB Loss");
-        }
-        statB = Mathf.Clamp(statB, 0, 100);
+        statB = Mathf.Clamp(statB, -100, 100);
         StatTextManager.Instance.statBText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + statC; // translate this
     }
     
     private void UpdateStatC(int factor)
     {
         statC += factor;
-        if (statC <= 0)
-        {
-            TriggerLoss("StatC Loss");
-        }
-        statC = Mathf.Clamp(statC, 0, 100);
+        statC = Mathf.Clamp(statC, -100, 100);
         StatTextManager.Instance.statCText.text = "StatC: " + statC;
     }
 
@@ -85,9 +71,6 @@ public partial class DayManager : MonoBehaviour
         statC = statVector.StatC;
     }
 
-    public void TriggerLoss(string lossMessage)
-    {
-        print("GAME OVER: " + lossMessage);
-    }
+
 
 }

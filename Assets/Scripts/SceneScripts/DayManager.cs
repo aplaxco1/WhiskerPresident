@@ -5,6 +5,7 @@ using UnityEngine;
 public partial class DayManager : MonoBehaviour
 {
     public int day;
+    public bool impeached;
     public static DayManager Instance;
     private void Awake()
     {
@@ -23,11 +24,25 @@ public partial class DayManager : MonoBehaviour
         {
             BillContentsManager.Instance.WipeSavedBills();
         }
+
+        if (SaveManager.Instance.currentSaveData == null)
+        {
+            InitializeStats();
+
+        }
+    }
+
+    void InitializeStats()
+    {
         StatVector startingStats = new StatVector();
         startingStats.StatA = 50;
         startingStats.StatB = 50;
         startingStats.StatC = 50;
         AdjustStats(startingStats);
+
+        sinkA = -10;
+        sinkB = -10;
+        sinkC = -10;
     }
 
 }
