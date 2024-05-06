@@ -11,13 +11,10 @@ public class MainMenuScreen : MonoBehaviour
 
     public GameObject langScreen;
 
-    async void Start() {
+    void Start() {
         if (langScreen && LangChanger.langScreenSeen) {
             langScreen.SetActive(false);
         }
-        // INITIALIZE ANALYTICS DATA COLLECTION
-        await UnityServices.InitializeAsync();
-        AnalyticsService.Instance.StartDataCollection();
     }
 
     public void PlayGame()
