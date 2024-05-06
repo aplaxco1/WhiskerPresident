@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneTransitionManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static void TransitionScene(int index, bool save = true, bool reload = false)
     {
-        
-    }
+        if (save && SaveManager.Instance != null)
+        {
+            SaveManager.Instance.SaveToFile();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SceneManager.LoadScene(index);
+
+        if (reload && SaveManager.Instance != null)
+        {
+            SaveManager.Instance.LoadFromFile();
+        }
     }
 }

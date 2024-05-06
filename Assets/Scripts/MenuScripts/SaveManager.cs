@@ -36,28 +36,6 @@ public class SaveManager : MonoBehaviour
         public SettingsData.Resolution resolution;
     }
 
-    
-    // Temporary save/load controls
-    // void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.I))
-    //     {
-    //         SaveSettings();
-    //     }
-    //     if (Input.GetKeyDown(KeyCode.O))
-    //     {
-    //         LoadSettings();
-    //     }
-    //     if (Input.GetKeyDown(KeyCode.K))
-    //     {
-    //         SaveToFile(1);
-    //     }
-    //     if (Input.GetKeyDown(KeyCode.L))
-    //     {
-    //         LoadFromFile(1);
-    //     }
-    // }
-
     private void Awake()
     {
         if (Instance == null)
@@ -172,7 +150,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void SaveToFile(int saveNum)
+    public void SaveToFile(int saveNum = 1)
     {
         StatVector statVectorToSave = new StatVector();
         if (DayManager.Instance != null)
@@ -206,7 +184,7 @@ public class SaveManager : MonoBehaviour
         fileStream.Close();
     }
 
-    public void LoadFromFile(int saveNum)
+    public void LoadFromFile(int saveNum = 1)
     {
         var jsonSerializer = new DataContractJsonSerializer(
             typeof(SaveData)
