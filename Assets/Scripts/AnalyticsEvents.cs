@@ -8,7 +8,7 @@ public class AnalyticsEvents : MonoBehaviour
 {
 
     static public bool lowFramerateFound = false;
-    static public float lowFramerateCount = 0f;
+    static public float lowFramerateTimer = 0f;
 
     // variables used to determine framerate
     static public float frameCount = 0f;
@@ -48,10 +48,14 @@ public class AnalyticsEvents : MonoBehaviour
         }
 
         if (fps < 30f && fps != 0) {
-            lowFramerateCount += 1;
+            lowFramerateTimer += Time.deltaTime;
+
+        }
+        else {
+            lowFramerateTimer = 0f;
         }
 
-        if (lowFramerateCount >= 120f && lowFramerateFound == false) {
+        if (lowFramerateTimer >= 2f && lowFramerateFound == false) {
             lowFramerate();
             lowFramerateFound = true;
         }
