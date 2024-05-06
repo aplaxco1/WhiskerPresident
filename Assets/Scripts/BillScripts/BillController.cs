@@ -301,7 +301,7 @@ public class BillController : MonoBehaviour
     public void PassBill()
     {
         StatVector returnedStatVector = CalculateOutcome();
-        StatManager.Instance.AdjustStats(returnedStatVector);
+        DayManager.Instance.AdjustStats(returnedStatVector);
         string statOutput = returnedStatVector.StringConversion();
         //print("BILL PASSED WITH STATS: " + statOutput);
         //GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = statOutput;

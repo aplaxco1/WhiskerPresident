@@ -175,18 +175,18 @@ public class SaveManager : MonoBehaviour
     public void SaveToFile(int saveNum)
     {
         StatVector statVectorToSave = new StatVector();
-        if (StatManager.Instance != null)
+        if (DayManager.Instance != null)
         {
-            statVectorToSave = StatManager.Instance.GetStats();
+            statVectorToSave = DayManager.Instance.GetStats();
         }
         else
         {
-            Debug.LogWarning("SAVEMANAGER - SAVETOFILE: Cannot access StatManager instance.");
+            Debug.LogWarning("SAVEMANAGER - SAVETOFILE: Cannot access DayManager instance.");
         }
 
         saveInstance = new SaveData
         {
-            dayProgression = EnvironmentManager.Instance.day,
+            dayProgression = DayManager.Instance.day,
             statVector = statVectorToSave,
         };
         
@@ -245,25 +245,25 @@ public class SaveManager : MonoBehaviour
 
         currentSaveData = saveInstance;
 
-        if (StatManager.Instance != null)
+        if (DayManager.Instance != null)
         {
-            StatManager.Instance.SetStats(saveInstance.statVector);
+            DayManager.Instance.SetStats(saveInstance.statVector);
         }
         else
         {
             Debug.LogWarning(
-                "SAVEMANAGER - LOADFROMFILE: Cannot access StatManager instance."
+                "SAVEMANAGER - LOADFROMFILE: Cannot access DayManager instance."
             );
         }
         
-        if (EnvironmentManager.Instance != null)
+        if (DayManager.Instance != null)
         {
-            EnvironmentManager.Instance.day = saveInstance.dayProgression;
+            DayManager.Instance.day = saveInstance.dayProgression;
         }
         else
         {
             Debug.LogWarning(
-                "SAVEMANAGER - LOADFROMFILE: Cannot access EnvironmentManager instance."
+                "SAVEMANAGER - LOADFROMFILE: Cannot access DayManager instance."
             );
         }
     }
@@ -274,25 +274,25 @@ public class SaveManager : MonoBehaviour
         saveInstance.dayProgression = 0;
         saveInstance.statVector = new StatVector();
         
-        if (StatManager.Instance != null)
+        if (DayManager.Instance != null)
         {
-            StatManager.Instance.SetStats(saveInstance.statVector);
+            DayManager.Instance.SetStats(saveInstance.statVector);
         }
         else
         {
             Debug.LogWarning(
-                "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access StatManager instance."
+                "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access DayManager instance."
             );
         }
         
-        if (EnvironmentManager.Instance != null)
+        if (DayManager.Instance != null)
         {
-            EnvironmentManager.Instance.day = saveInstance.dayProgression;
+            DayManager.Instance.day = saveInstance.dayProgression;
         }
         else
         {
             Debug.LogWarning(
-                "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access EnvironmentManager instance."
+                "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access DayManager instance."
             );
         }
     }

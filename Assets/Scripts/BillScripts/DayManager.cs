@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatManager : MonoBehaviour
+public class DayManager : MonoBehaviour
 {
-
-    public static StatManager Instance;
+    public static DayManager Instance;
 
     private int redStat;
     private int blueStat;
     private int greenStat;
+
+    public int day;
 
     private void Awake()
     {
@@ -23,6 +24,8 @@ public class StatManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SaveManager.Instance.LoadFromFile(1);
+
         if (BillContentsManager.Instance != null)
         {
             BillContentsManager.Instance.WipeSavedBills();
