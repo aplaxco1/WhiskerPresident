@@ -47,11 +47,11 @@ public class AnalyticsEvents : MonoBehaviour
             dt -= 1.0f/updateRate;
         }
 
-        if (fps < 30f) {
+        if (fps < 30f && fps != 0) {
             lowFramerateCount += 1;
         }
 
-        if (lowFramerateCount >= 30f && lowFramerateFound == false) {
+        if (lowFramerateCount >= 120f && lowFramerateFound == false) {
             lowFramerate();
             lowFramerateFound = true;
         }
