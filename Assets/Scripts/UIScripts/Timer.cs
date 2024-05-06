@@ -18,6 +18,8 @@ public class Timer : MonoBehaviour
     void Start()
     {
         ResetTimer();
+
+        AnalyticsEvents.playerScreenSettings(); // CHECKS IF PLAYER PLAYING GAME FULLSCREEN OR WINDOWED
         //InvokeRepeating("FlashLabel", 0, interval);
     }
 
@@ -48,6 +50,8 @@ public class Timer : MonoBehaviour
             ResetTimer();
             AnalyticsEvents.tutorialCompleted(); // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
         }
+
+        AnalyticsEvents.checkFramerate(); // CHECKS FRAMERATE DURING GAMEPLAY FOR ANALYTICS
 
         DisplayTime(timeValue);
     }
