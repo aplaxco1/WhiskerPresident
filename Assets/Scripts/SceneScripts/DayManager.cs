@@ -4,8 +4,8 @@ using UnityEngine;
 
 public partial class DayManager : MonoBehaviour
 {
-    public int day;
-    public bool impeached;
+    public DayInfo dayInfo;
+    
     public static DayManager Instance;
     private void Awake()
     {
@@ -40,9 +40,9 @@ public partial class DayManager : MonoBehaviour
         startingStats.StatC = 50;
         AdjustStats(startingStats);
 
-        sinkA = -10;
-        sinkB = -10;
-        sinkC = -10;
+        dayInfo.sinkA = -10;
+        dayInfo.sinkB = -10;
+        dayInfo.sinkC = -10;
     }
 
 }

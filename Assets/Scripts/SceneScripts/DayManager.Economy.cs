@@ -4,14 +4,13 @@ using UnityEngine;
 
 public partial class DayManager
 {
-    public int sinkA;
-    public int sinkB;
-    public int sinkC;
+
+        
     public void DayEnd()
     {
-        statA += sinkA;
-        statB += sinkB;
-        statC += sinkC;
+        dayInfo.statA += dayInfo.sinkA;
+        dayInfo.statB += dayInfo.sinkB;
+        dayInfo.statC += dayInfo.sinkC;
         
         if (LowStatCheck())
         {
@@ -19,14 +18,14 @@ public partial class DayManager
         }
         else
         {
-            impeached = false;
+            dayInfo.impeached = false;
         }
 
     }
 
     bool LowStatCheck()
     {
-        return (statA <= 0 || statB <= 0 || statC <= 0);
+        return (dayInfo.statA <= 0 || dayInfo.statB <= 0 || dayInfo.statC <= 0);
     }
 
     public void DayStart()
@@ -36,13 +35,13 @@ public partial class DayManager
     
     public void StatLow()
     {
-        if (impeached)
+        if (dayInfo.impeached)
         {
             TriggerLoss();
         }
         else
         {
-            impeached = true;
+            dayInfo.impeached = true;
         }
     }
 

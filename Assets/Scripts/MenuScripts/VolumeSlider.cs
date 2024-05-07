@@ -30,9 +30,9 @@ public class VolumeSlider : MonoBehaviour
             audioSource.Play();
         }
 
-        if (SaveManager.Instance.currentSettings != null)
+        if (SaveManager.Instance.currentSettingsData != null)
         {
-            volumeSlider.value = SaveManager.Instance.currentSettings.volume;
+            volumeSlider.value = SaveManager.Instance.currentSettingsData.volume;
         }
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer Instance;
     static public float timeValue = 120;
     public TMP_Text timerText;
     public NewBillMovement billMovementScript;
@@ -14,6 +16,11 @@ public class Timer : MonoBehaviour
     private float flashDuration = 1f;
     //public GameObject flashing_Label;
     //public float interval;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {

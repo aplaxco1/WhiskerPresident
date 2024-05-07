@@ -4,17 +4,18 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 
 // NOTE: Used parts of my other Unity project's save/load code here -Justin
 
 public class SaveManager : MonoBehaviour
 {
-    private static SaveData saveInstance = new SaveData();
-    private static Settings settingsInstance = new Settings();
+    private static SaveData saveDataInstance = new SaveData();
+    private static SettingsData settingsDataInstance = new SettingsData();
     public static SaveManager Instance;
 
     public SaveData currentSaveData;
-    public Settings currentSettings;
+    [FormerlySerializedAs("currentSettings")] public SettingsData currentSettingsData;
 
     [Serializable]
     public class SaveData
@@ -27,13 +28,13 @@ public class SaveManager : MonoBehaviour
     }
     
     [Serializable]
-    public class Settings
+    public class SettingsData
     {
         [DataMember]
         public float volume;
         
         [DataMember]
-        public SettingsData.Resolution resolution;
+        public global::SettingsData.Resolution resolution;
     }
 
     private void Awake()
@@ -52,7 +53,7 @@ public class SaveManager : MonoBehaviour
     public void SaveSettings()
     {
         float volumeToSave = 0.5f;
-        SettingsData.Resolution resToSave = SettingsData.Resolution1;
+        global::SettingsData.Resolution resToSave = global::SettingsData.Resolution1;
 
         if (VolumeSlider.Instance != null)
         {
@@ -72,7 +73,7 @@ public class SaveManager : MonoBehaviour
             Debug.LogWarning("SAVEMANAGER - SAVESETTINGS: Cannot access SettingsResolution instance.");
         }
         
-        settingsInstance = new Settings
+        settingsDataInstance = new SettingsData
         {
             // update stuff here, then save to object file
             volume = volumeToSave,
@@ -81,10 +82,10 @@ public class SaveManager : MonoBehaviour
 
         // write to file
         var jsonSerializer = new DataContractJsonSerializer(
-            typeof(Settings)
+            typeof(SettingsData)
         );
         var jsonStream = new MemoryStream();
-        jsonSerializer.WriteObject(jsonStream, settingsInstance);
+        jsonSerializer.WriteObject(jsonStream, settingsDataInstance);
         Debug.Log("Attempting to save settings file to " + Application.persistentDataPath + "/settings" + ".set");
         var fileStream = File.Create(Application.persistentDataPath + "/settings" + ".set");
         jsonStream.Seek(0, SeekOrigin.Begin);
@@ -95,7 +96,7 @@ public class SaveManager : MonoBehaviour
     public void LoadSettings()
     {
         var jsonSerializer = new DataContractJsonSerializer(
-            typeof(Settings)
+            typeof(SettingsData)
         );
         FileStream fileStream;
         Debug.Log("Attempting to load settings file from " + Application.persistentDataPath + "/settings" + ".set");
@@ -116,7 +117,7 @@ public class SaveManager : MonoBehaviour
 
         try
         {
-            settingsInstance = (Settings) jsonSerializer.ReadObject(fileStream);
+            settingsDataInstance = (SettingsData) jsonSerializer.ReadObject(fileStream);
         }
         catch (SerializationException e)
         {
@@ -126,14 +127,14 @@ public class SaveManager : MonoBehaviour
             return;
         }
 
-        currentSettings = settingsInstance;
+        currentSettingsData = settingsDataInstance;
 
         if (VolumeSlider.Instance != null)
         {
-            VolumeSlider.Instance.currentVolume = settingsInstance.volume;
-            VolumeSlider.Instance.changeVolume(settingsInstance.volume);
+            VolumeSlider.Instance.currentVolume = settingsDataInstance.volume;
+            VolumeSlider.Instance.changeVolume(settingsDataInstance.volume);
             VolumeSlider.Instance.updateVolume();
-            VolumeSlider.Instance.volumeSlider.value = settingsInstance.volume;
+            VolumeSlider.Instance.volumeSlider.value = settingsDataInstance.volume;
         }
         else
         {
@@ -142,7 +143,7 @@ public class SaveManager : MonoBehaviour
         
         if (SettingsResolution.Instance != null)
         {
-            SettingsResolution.Instance.SetRes(settingsInstance.resolution);
+            SettingsResolution.Instance.SetRes(settingsDataInstance.resolution);
         }
         else
         {
@@ -162,9 +163,9 @@ public class SaveManager : MonoBehaviour
             Debug.LogWarning("SAVEMANAGER - SAVETOFILE: Cannot access DayManager instance.");
         }
 
-        saveInstance = new SaveData
+        saveDataInstance = new SaveData
         {
-            dayProgression = DayManager.Instance.day,
+            dayProgression = DayManager.Instance.dayInfo.day,
             statVector = statVectorToSave,
         };
         
@@ -173,7 +174,7 @@ public class SaveManager : MonoBehaviour
             typeof(SaveData)
         );
         var jsonStream = new MemoryStream();
-        jsonSerializer.WriteObject(jsonStream, saveInstance);
+        jsonSerializer.WriteObject(jsonStream, saveDataInstance);
         Debug.Log("Attempting to save data file to " + Application.persistentDataPath + "/save" + saveNum + ".sav");
 
         var fileStream = File.Create(
@@ -209,7 +210,7 @@ public class SaveManager : MonoBehaviour
 
         try
         {
-            saveInstance = (SaveData) jsonSerializer.ReadObject(fileStream);
+            saveDataInstance = (SaveData) jsonSerializer.ReadObject(fileStream);
         }
         catch (SerializationException e)
         {
@@ -221,11 +222,11 @@ public class SaveManager : MonoBehaviour
             return;
         }
 
-        currentSaveData = saveInstance;
+        currentSaveData = saveDataInstance;
 
         if (DayManager.Instance != null)
         {
-            DayManager.Instance.SetStats(saveInstance.statVector);
+            DayManager.Instance.SetStats(saveDataInstance.statVector);
         }
         else
         {
@@ -236,7 +237,7 @@ public class SaveManager : MonoBehaviour
         
         if (DayManager.Instance != null)
         {
-            DayManager.Instance.day = saveInstance.dayProgression;
+            DayManager.Instance.dayInfo.day = saveDataInstance.dayProgression;
         }
         else
         {
@@ -248,13 +249,13 @@ public class SaveManager : MonoBehaviour
 
     private void LoadDefaultSave()
     {
-        saveInstance = new SaveData();
-        saveInstance.dayProgression = 0;
-        saveInstance.statVector = new StatVector();
+        saveDataInstance = new SaveData();
+        saveDataInstance.dayProgression = 0;
+        saveDataInstance.statVector = new StatVector();
         
         if (DayManager.Instance != null)
         {
-            DayManager.Instance.SetStats(saveInstance.statVector);
+            DayManager.Instance.SetStats(saveDataInstance.statVector);
         }
         else
         {
@@ -265,7 +266,7 @@ public class SaveManager : MonoBehaviour
         
         if (DayManager.Instance != null)
         {
-            DayManager.Instance.day = saveInstance.dayProgression;
+            DayManager.Instance.dayInfo.day = saveDataInstance.dayProgression;
         }
         else
         {
@@ -277,9 +278,9 @@ public class SaveManager : MonoBehaviour
     
     private void LoadDefaultSettings()
     {
-        settingsInstance = new Settings();
-        settingsInstance.volume = 0.5f;
-        settingsInstance.resolution = SettingsData.Resolution1;
+        settingsDataInstance = new SettingsData();
+        settingsDataInstance.volume = 0.5f;
+        settingsDataInstance.resolution = global::SettingsData.Resolution1;
     }
 
 

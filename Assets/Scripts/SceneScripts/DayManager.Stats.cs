@@ -5,10 +5,6 @@ using UnityEngine;
 
 public partial class DayManager
 {
-    private int statA;
-    private int statB;
-    private int statC;
-
    
     public void AdjustStats(StatVector statVector)
     {
@@ -20,39 +16,39 @@ public partial class DayManager
     // Red Stat Correlates to the Bone Symbol RN
     private void UpdateStatA(int factor)
     {
-        statA += factor;
-        statA = Mathf.Clamp(statA, -100, 100);
-        StatTextManager.Instance.statAText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + statA;
+        dayInfo.statA += factor;
+        dayInfo.statA = Mathf.Clamp(dayInfo.statA, -100, 100);
+        StatTextManager.Instance.statAText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + dayInfo.statA;
     }
     
     // Green Stat Correlated to the Fish Symbol RN
     private void UpdateStatB(int factor)
     {
-        statB += factor;
-        statB = Mathf.Clamp(statB, -100, 100);
-        StatTextManager.Instance.statBText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + statC; // translate this
+        dayInfo.statB += factor;
+        dayInfo.statB = Mathf.Clamp(dayInfo.statB, -100, 100);
+        StatTextManager.Instance.statBText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + dayInfo.statB; // translate this
     }
     
     private void UpdateStatC(int factor)
     {
-        statC += factor;
-        statC = Mathf.Clamp(statC, -100, 100);
-        StatTextManager.Instance.statCText.text = "StatC: " + statC;
+        dayInfo.statC += factor;
+        dayInfo.statC = Mathf.Clamp(dayInfo.statC, -100, 100);
+        StatTextManager.Instance.statCText.text = "StatC: " + dayInfo.statC;
     }
 
     public int GetStatA()
     {
-        return statA;
+        return dayInfo.statA;
     }
     
     public int GetStatB()
     {
-        return statB;
+        return dayInfo.statB;
     }
     
     public int GetStatC()
     {
-        return statC;
+        return dayInfo.statC;
     }
 
     public StatVector GetStats()
@@ -66,9 +62,9 @@ public partial class DayManager
     
     public void SetStats(StatVector statVector)
     {
-        statA = statVector.StatA;
-        statB = statVector.StatB;
-        statC = statVector.StatC;
+        dayInfo.statA = statVector.StatA;
+        dayInfo.statB = statVector.StatB;
+        dayInfo.statC = statVector.StatC;
     }
 
 
