@@ -47,6 +47,27 @@ public class SaveManager : MonoBehaviour
         LoadSettings();
     }
 
+    //Temporary save/load controls
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            SaveSettings();
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            LoadSettings();
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            SaveToFile(1);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadFromFile(1);
+        }
+    }
+
     public void SaveSettings()
     {
         float volumeToSave = 0.5f;
@@ -182,6 +203,17 @@ public class SaveManager : MonoBehaviour
         {
             fileStream = File.OpenRead(Application.persistentDataPath + "/save" + saveNum + ".sav");
         }
+        catch (SerializationException se)
+        {
+            Debug.LogError(
+                "SAVEMANAGER - LOADFROMFILE: Serialization error while loading save file, using default save data."
+                + saveNum
+                + ": "
+                + se.Message
+            );
+            LoadDefaultSave();
+            return;
+        }
         catch (IOException ioe)
         {
             Debug.LogError(
@@ -202,7 +234,7 @@ public class SaveManager : MonoBehaviour
         {
             Debug.LogError(e);
             Debug.LogError(
-                "SAVEMANAGER - LOADFROMFILE: Something is wrong with the read save file, using default data."
+                "SAVEMANAGER - LOADFROMFILE: Serialization Error: Something is wrong with the read save file, using default data."
             );
             LoadDefaultSave();
             return;

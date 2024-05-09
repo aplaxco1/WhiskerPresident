@@ -14,4 +14,7 @@ public class DayInfo : MonoBehaviour
     public int statA;
     public int statB;
     public int statC;
+    public DayInfo() {
+
+    }
 }

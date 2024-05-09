@@ -27,24 +27,23 @@ public partial class DayManager : MonoBehaviour
 
         if (SaveManager.Instance.currentSaveData == null)
         {
-            InitializeStats();
+            InitializeDefaultStats();
 
         }
     }
 
-    void InitializeStats()
+    void InitializeDefaultStats()
     {
-        StatVector startingStats = new StatVector
-        {
-            StatA = 50,
-            StatB = 50,
-            StatC = 50
-        };
-        AdjustStats(startingStats);
+        dayInfo.statA = 50;
+        dayInfo.statB = 50;
+        dayInfo.statC = 50;
 
         dayInfo.sinkA = -10;
         dayInfo.sinkB = -10;
         dayInfo.sinkC = -10;
+
+        dayInfo.day = 1;
+        dayInfo.impeached = false;
     }
 
 }
