@@ -228,7 +228,8 @@ public class SaveManager : MonoBehaviour
         {
             dayInfo = new DayInfo()
         };
-
+        
+        currentSaveData = saveDataInstance;
 
         if (DayManager.Instance != null)
         {
