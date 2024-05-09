@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DayInfo : MonoBehaviour
-{
+public class DayInfo {
     public int day;
     public bool impeached;
 
