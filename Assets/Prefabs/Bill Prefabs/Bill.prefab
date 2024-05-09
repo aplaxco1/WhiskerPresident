@@ -219,6 +219,8 @@ MonoBehaviour:
   boneSymbolPrefab: {fileID: 6458324167307400363, guid: b3403a7c513a32f41b7ef94932168641, type: 3}
   negatorSymbolPrefab: {fileID: 4690025481383032801, guid: 898690c4ca26feb4fb77b07e1567848f, type: 3}
   doublerSymbolPrefab: {fileID: 4690025481383032801, guid: 4e64501deff5cc34bbc100a0325fb08d, type: 3}
+  nowSymbolPrefab: {fileID: 3045581801333019849, guid: 0c2d0ed2eb621324bba91c40b0a4e29d, type: 3}
+  laterSymbolPrefab: {fileID: 1410196989226856403, guid: 58f314df67f0997428bbebf1bac31c80, type: 3}
   symbols: 
   symbolsPerLine: 5
   symbolHorizontalDist: 0.05
