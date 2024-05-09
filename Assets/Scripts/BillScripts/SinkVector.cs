@@ -1,18 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 
-public class SinkVector : MonoBehaviour
+public class SinkVector
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        public int SinkA;
+        public int SinkB;
+        public int SinkC;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        public string StringConversion()
+        {
+            string ret = "";
+            ret += SinkA + SinkB + SinkC;
+            // TODO: string conversion
+            // ret += UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + StatA + "\n";
+            // ret += UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + StatB + "\n";
+            return ret;
+        }
+
+        public SinkVector()
+        {
+            
+        }
 }
