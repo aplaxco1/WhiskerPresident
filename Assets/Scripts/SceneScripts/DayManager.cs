@@ -34,10 +34,12 @@ public partial class DayManager : MonoBehaviour
 
     void InitializeStats()
     {
-        StatVector startingStats = new StatVector();
-        startingStats.StatA = 50;
-        startingStats.StatB = 50;
-        startingStats.StatC = 50;
+        StatVector startingStats = new StatVector
+        {
+            StatA = 50,
+            StatB = 50,
+            StatC = 50
+        };
         AdjustStats(startingStats);
 
         dayInfo.sinkA = -10;

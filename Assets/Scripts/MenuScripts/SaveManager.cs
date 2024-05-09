@@ -15,16 +15,13 @@ public class SaveManager : MonoBehaviour
     public static SaveManager Instance;
 
     public SaveData currentSaveData;
-    [FormerlySerializedAs("currentSettings")] public SettingsData currentSettingsData;
+    public SettingsData currentSettingsData;
 
     [Serializable]
     public class SaveData
     {
-        [DataMember]
-        public StatVector statVector = new StatVector();
-        
-        [DataMember]
-        public int dayProgression = 0;
+        [DataMember] 
+        public DayInfo dayInfo;
     }
     
     [Serializable]
@@ -153,20 +150,9 @@ public class SaveManager : MonoBehaviour
 
     public void SaveToFile(int saveNum = 1)
     {
-        StatVector statVectorToSave = new StatVector();
-        if (DayManager.Instance != null)
-        {
-            statVectorToSave = DayManager.Instance.GetStats();
-        }
-        else
-        {
-            Debug.LogWarning("SAVEMANAGER - SAVETOFILE: Cannot access DayManager instance.");
-        }
-
         saveDataInstance = new SaveData
         {
-            dayProgression = DayManager.Instance.dayInfo.day,
-            statVector = statVectorToSave,
+            dayInfo = DayManager.Instance.dayInfo,
         };
         
         // write to file
@@ -223,21 +209,10 @@ public class SaveManager : MonoBehaviour
         }
 
         currentSaveData = saveDataInstance;
-
-        if (DayManager.Instance != null)
-        {
-            DayManager.Instance.SetStats(saveDataInstance.statVector);
-        }
-        else
-        {
-            Debug.LogWarning(
-                "SAVEMANAGER - LOADFROMFILE: Cannot access DayManager instance."
-            );
-        }
         
         if (DayManager.Instance != null)
         {
-            DayManager.Instance.dayInfo.day = saveDataInstance.dayProgression;
+            DayManager.Instance.dayInfo = saveDataInstance.dayInfo;
         }
         else
         {
@@ -249,24 +224,15 @@ public class SaveManager : MonoBehaviour
 
     private void LoadDefaultSave()
     {
-        saveDataInstance = new SaveData();
-        saveDataInstance.dayProgression = 0;
-        saveDataInstance.statVector = new StatVector();
-        
+        saveDataInstance = new SaveData
+        {
+            dayInfo = new DayInfo()
+        };
+
+
         if (DayManager.Instance != null)
         {
-            DayManager.Instance.SetStats(saveDataInstance.statVector);
-        }
-        else
-        {
-            Debug.LogWarning(
-                "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access DayManager instance."
-            );
-        }
-        
-        if (DayManager.Instance != null)
-        {
-            DayManager.Instance.dayInfo.day = saveDataInstance.dayProgression;
+            DayManager.Instance.dayInfo = saveDataInstance.dayInfo;
         }
         else
         {
@@ -278,9 +244,11 @@ public class SaveManager : MonoBehaviour
     
     private void LoadDefaultSettings()
     {
-        settingsDataInstance = new SettingsData();
-        settingsDataInstance.volume = 0.5f;
-        settingsDataInstance.resolution = global::SettingsData.Resolution1;
+        settingsDataInstance = new SettingsData
+        {
+            volume = 0.5f,
+            resolution = global::SettingsData.Resolution1
+        };
     }
 
 
