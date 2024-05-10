@@ -8,13 +8,13 @@ public partial class DayManager
    
     public void AdjustStats(StatVector statVector)
     {
-        UpdateStatA(statVector.StatA);
-        UpdateStatB(statVector.StatB);
-        UpdateStatC(statVector.StatC);
+        AddToStatA(statVector.StatA);
+        AddToStatB(statVector.StatB);
+        AddToStatC(statVector.StatC);
     }
 
     // Red Stat Correlates to the Bone Symbol RN
-    private void UpdateStatA(int factor)
+    private void AddToStatA(int factor)
     {
         dayInfo.statA += factor;
         dayInfo.statA = Mathf.Clamp(dayInfo.statA, -100, 100);
@@ -22,14 +22,14 @@ public partial class DayManager
     }
     
     // Green Stat Correlated to the Fish Symbol RN
-    private void UpdateStatB(int factor)
+    private void AddToStatB(int factor)
     {
         dayInfo.statB += factor;
         dayInfo.statB = Mathf.Clamp(dayInfo.statB, -100, 100);
         StatTextManager.Instance.statBText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + dayInfo.statB; // translate this
     }
     
-    private void UpdateStatC(int factor)
+    private void AddToStatC(int factor)
     {
         dayInfo.statC += factor;
         dayInfo.statC = Mathf.Clamp(dayInfo.statC, -100, 100);
@@ -53,10 +53,12 @@ public partial class DayManager
 
     public StatVector GetStats()
     {
-        StatVector ret = new StatVector();
-        ret.StatA = GetStatA();
-        ret.StatB = GetStatB();
-        ret.StatC = GetStatC();
+        StatVector ret = new StatVector
+        {
+            StatA = GetStatA(),
+            StatB = GetStatB(),
+            StatC = GetStatC()
+        };
         return ret;
     }
     

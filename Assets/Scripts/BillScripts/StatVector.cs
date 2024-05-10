@@ -16,9 +16,9 @@ public class StatVector
             string ret = "";
             ret += UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + StatA + "\n";
             ret += UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + StatB + "\n";
-            // ret += "Red: " + StatA + "\n";
-            // ret += "Green: " + StatB + "\n";
-            // ret += "Blue: " + StatC + "\n";
+
+            // TODO
+            //ret += UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + StatB + "\n";
             return ret;
         }
 

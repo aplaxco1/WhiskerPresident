@@ -15,6 +15,7 @@ public class CatMovement : MonoBehaviour
 {
     // REFERENCES TO GAME OBJECTS
     public GameObject AttentionPoint;       // reference to where the cat's attention is
+    public GameObject BasePivot;             // reference to the president
     public GameObject ArmPivot;             // reference to where the "Arm" component of president
     public GameObject ArmMesh;              // reference to the "Mesh" child of "Arm"
     public GameObject HeadPivot;            // reference to where the "Head" component of president
@@ -59,7 +60,7 @@ public class CatMovement : MonoBehaviour
         printColor = new Color(0,0,0,0);
         numPrints = 0;
         _smearMat = ArmMesh.GetComponent<Renderer>().material;
-        dust = ArmPivot.transform.parent.GetComponentInChildren<ParticleSystem>(true);
+        dust = ArmPivot.transform.parent.parent.GetComponentInChildren<ParticleSystem>(true);
         //Debug.Log(dust);
         armExtension = BaseArmExtension;
         _smearMat.SetFloat("_Smearing",0);
@@ -96,7 +97,10 @@ public class CatMovement : MonoBehaviour
     void TrackFocus(float focusLevel)
     {
         // when smacking is imminent, raise arm up as a warning
-        x_rotate = (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) ? 20f : 5f;
+        if (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) {
+            x_rotate = 20f;
+        }
+        //x_rotate = (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) ? 20f : 5f;
 
         // dont adjust look_target right before smacking, that way it lingers a little bit behind
         if (timer < WaitInterval/focusLevel - SmackLockTime/focusLevel) {
@@ -113,14 +117,12 @@ public class CatMovement : MonoBehaviour
                 LeavePrint(pawCollider.transform.position, y_rotate);
                 _smearMat.SetFloat("_Smearing",0);
                 //dust.gameObject.SetActive(false);
+                x_rotate = 20f;
+                pawCollisionDetection.colliding = false;
             }
 
             // calculate and rotate arm pivot
-            Quaternion tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
-            y_rotate = tempAngle.eulerAngles.y;
-            x2_rotate = tempAngle.eulerAngles.x;
-		    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
-            ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
+            pivot();
 
             // calculate and extend/retract arm mesh
             armExtension = BaseArmExtension - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.8f, 0.2f);
@@ -156,7 +158,32 @@ public class CatMovement : MonoBehaviour
             }
             target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*50f);
+           
         }
+    }
+    float fix(float n) {
+		float a = n <= 180 ? n : (360-n)*-1;
+		return a;
+	}
+    void pivot() {
+        Quaternion tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
+        y_rotate = tempAngle.eulerAngles.y;
+        float a = fix(ArmPivot.transform.localEulerAngles.y);
+        if (a > 15 || a < 0) {
+            Quaternion baseTarget = Quaternion.Euler(0, y_rotate, 0);
+            if (a < 0) {
+                BasePivot.transform.rotation = Quaternion.Slerp(BasePivot.transform.rotation, baseTarget, Time.deltaTime*Mathf.Abs(a-50)/10f);
+            }
+            else {
+                BasePivot.transform.rotation = Quaternion.Slerp(BasePivot.transform.rotation, baseTarget, Time.deltaTime*Mathf.Abs(a-20)/20f);
+            }
+
+            tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
+            y_rotate = tempAngle.eulerAngles.y;
+        }
+        x2_rotate = tempAngle.eulerAngles.x;
+	    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
+        ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
     }
     void MoveHead()
     {
@@ -175,7 +202,8 @@ public class CatMovement : MonoBehaviour
         if (printColor.a == 0) {return;}
         if (attached) { // release glue!
             attached.parent = null;
-            attached.position = new Vector3(attached.position.x, attached.position.y+ 0.08f, attached.position.z);
+            float billYPos = attached.position.y+ 0.08f > 0.82f? attached.position.y+ 0.08f: 0.82f;
+            attached.position = new Vector3(attached.position.x, billYPos, attached.position.z);
             attached.rotation = Quaternion.Euler(0, attached.rotation.eulerAngles.y + Random.Range(-45f, 45f), 0);
             attached.GetComponentInChildren<Collider>().enabled = true;
             attached = null;
