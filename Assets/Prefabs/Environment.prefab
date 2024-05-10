@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 3126369458823324673}
   m_Layer: 7
   m_Name: RoofCollider
-  m_TagString: Untagged
+  m_TagString: Clock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1343,7 +1343,7 @@ GameObject:
   - component: {fileID: 495647494298824835}
   m_Layer: 7
   m_Name: BaseCollider
-  m_TagString: Untagged
+  m_TagString: Clock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
