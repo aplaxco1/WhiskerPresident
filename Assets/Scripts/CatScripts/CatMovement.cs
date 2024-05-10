@@ -39,7 +39,6 @@ public class CatMovement : MonoBehaviour
     public ParticleSystem indicator;
     public Material Checkmark;
     public Material X;
-    private float touchAversionCooldown;
 
     // CONSTANTS    
     private const float WaitInterval = 1.75f;       // base time to wait between swings
@@ -65,7 +64,6 @@ public class CatMovement : MonoBehaviour
         //Debug.Log(dust);
         armExtension = BaseArmExtension;
         _smearMat.SetFloat("_Smearing",0);
-        touchAversionCooldown = 0;
     }
     // Update is called once per frame
     void Update()
@@ -173,21 +171,17 @@ public class CatMovement : MonoBehaviour
         float a = fix(ArmPivot.transform.localEulerAngles.y);
         if (a > 15 || a < 0) {
             Quaternion baseTarget = Quaternion.Euler(0, y_rotate, 0);
-            BasePivot.transform.rotation = Quaternion.Slerp(BasePivot.transform.rotation, baseTarget, Time.deltaTime*Mathf.Abs(a-20)/20f);
+            if (a < 0) {
+                BasePivot.transform.rotation = Quaternion.Slerp(BasePivot.transform.rotation, baseTarget, Time.deltaTime*Mathf.Abs(a-50)/10f);
+            }
+            else {
+                BasePivot.transform.rotation = Quaternion.Slerp(BasePivot.transform.rotation, baseTarget, Time.deltaTime*Mathf.Abs(a-20)/20f);
+            }
 
             tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
             y_rotate = tempAngle.eulerAngles.y;
         }
         x2_rotate = tempAngle.eulerAngles.x;
-        if (pawCollisionDetection.colliding) {
-            //x_rotate += 0.5f;
-            touchAversionCooldown = 0.1f;
-        //} else if (touchAversionCooldown > 0) {
-        //    touchAversionCooldown -= Time.deltaTime;
-        //    Debug.Log(touchAversionCooldown);
-        } else if (x_rotate > 5f) {
-            //x_rotate -= 0.5f;
-        }
 	    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
         ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
     }
