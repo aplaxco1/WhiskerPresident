@@ -11,12 +11,13 @@ using Random = UnityEngine.Random;
 public class BillController : MonoBehaviour
 {
 
-    public GameObject foodSymbolPrefab;
-    public GameObject moneySymbolPrefab;
-    public GameObject boneSymbolPrefab;
+    [SerializeField] private GameObject foodSymbolPrefab;
+    [SerializeField] private GameObject moneySymbolPrefab;
+    [SerializeField] private GameObject boneSymbolPrefab;
 
-    public GameObject negatorSymbolPrefab;
-    public GameObject doublerSymbolPrefab;
+    [SerializeField] private GameObject negatorSymbolPrefab;
+    [SerializeField] private GameObject doublerSymbolPrefab;
+
     // THESE SYMBOLS ARE TEMPORARY
     // DELETE THEM ONCE WE HAVE A PROPER IMPLEMENTATION
     [SerializeField] private GameObject nowSymbolPrefab;
@@ -27,21 +28,6 @@ public class BillController : MonoBehaviour
     // One bill is classified as: One Resource, Positive or Negative, Immediate or Delayed
     public enum SymbolType
     {
-        //Food = '1', //Symbol1
-        //Money = '2', //Symbol2
-        //Bone = '3', //Symbol3
-        //Negator = 'N',
-        //Doubler = 'D', //Multiplier
-
-        //// Generate symbol 1 or 2
-        //ValueA = 'A',
-
-        //// Generate symbol 1 or 2 or 3
-        //ValueB = 'B',
-
-        //// Generate modifier
-        //Modifier = 'M',
-
         // New Symbol Types
         // Symbols for representing randomized categories
         RandomResource = 'R',
@@ -59,8 +45,6 @@ public class BillController : MonoBehaviour
         Delayed = 'd',
     }
 
-    
-    
     public List<SymbolType> symbols;
     
     public int symbolsPerLine;
