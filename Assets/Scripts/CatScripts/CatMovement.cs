@@ -39,6 +39,7 @@ public class CatMovement : MonoBehaviour
     public ParticleSystem indicator;
     public Material Checkmark;
     public Material X;
+    private float touchAversionCooldown;
 
     // CONSTANTS    
     private const float WaitInterval = 1.75f;       // base time to wait between swings
@@ -64,6 +65,7 @@ public class CatMovement : MonoBehaviour
         //Debug.Log(dust);
         armExtension = BaseArmExtension;
         _smearMat.SetFloat("_Smearing",0);
+        touchAversionCooldown = 0;
     }
     // Update is called once per frame
     void Update()
@@ -97,7 +99,10 @@ public class CatMovement : MonoBehaviour
     void TrackFocus(float focusLevel)
     {
         // when smacking is imminent, raise arm up as a warning
-        x_rotate = (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) ? 20f : 5f;
+        if (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) {
+            x_rotate = 20f;
+        }
+        //x_rotate = (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) ? 20f : 5f;
 
         // dont adjust look_target right before smacking, that way it lingers a little bit behind
         if (timer < WaitInterval/focusLevel - SmackLockTime/focusLevel) {
@@ -114,6 +119,8 @@ public class CatMovement : MonoBehaviour
                 LeavePrint(pawCollider.transform.position, y_rotate);
                 _smearMat.SetFloat("_Smearing",0);
                 //dust.gameObject.SetActive(false);
+                x_rotate = 20f;
+                pawCollisionDetection.colliding = false;
             }
 
             // calculate and rotate arm pivot
@@ -172,6 +179,15 @@ public class CatMovement : MonoBehaviour
             y_rotate = tempAngle.eulerAngles.y;
         }
         x2_rotate = tempAngle.eulerAngles.x;
+        if (pawCollisionDetection.colliding) {
+            //x_rotate += 0.5f;
+            touchAversionCooldown = 0.1f;
+        //} else if (touchAversionCooldown > 0) {
+        //    touchAversionCooldown -= Time.deltaTime;
+        //    Debug.Log(touchAversionCooldown);
+        } else if (x_rotate > 5f) {
+            //x_rotate -= 0.5f;
+        }
 	    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
         ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
     }
