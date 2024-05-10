@@ -222,7 +222,7 @@ MonoBehaviour:
   nowSymbolPrefab: {fileID: 3045581801333019849, guid: 0c2d0ed2eb621324bba91c40b0a4e29d, type: 3}
   laterSymbolPrefab: {fileID: 1410196989226856403, guid: 58f314df67f0997428bbebf1bac31c80, type: 3}
   symbols: 
-  symbolsPerLine: 5
+  symbolsPerLine: 1
   symbolHorizontalDist: 0.05
   symbolVerticalDist: 0.05
   initialSymbolXCoord: 0.15
