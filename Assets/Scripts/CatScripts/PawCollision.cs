@@ -22,7 +22,7 @@ public class PawCollision : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         bool registerCollision = !colliding;
         if (colliding) {
-            if ((other.gameObject.CompareTag("Desk") || other.gameObject.CompareTag("Stack")) && surface.CompareTag("Bill")) {
+            if (!other.gameObject.CompareTag("Bill") && surface.CompareTag("Bill")) {
                 Bounds otherCollider = surface.GetComponent<BoxCollider>().bounds;
                 Bounds newBounds = new Bounds(otherCollider.center, new Vector3(otherCollider.size.x*1.1f, 20, otherCollider.size.z*1.1f)); 
                 if(!newBounds.Contains(gameObject.transform.position)){ registerCollision = true; }
@@ -33,7 +33,7 @@ public class PawCollision : MonoBehaviour
             } else if (other.gameObject.CompareTag("Bill")) {
                 Bounds newBounds = new Bounds(other.bounds.center, new Vector3(other.bounds.size.x*1.1f, 20, other.bounds.size.z*1.1f));
                 if(newBounds.Contains(gameObject.transform.position)){ registerCollision = true; }
-            } else if (!other.gameObject.CompareTag("Desk")) { registerCollision = true; }
+            } else if (!other.gameObject.CompareTag("Desk") && other.gameObject.tag != surface.tag) { registerCollision = true; }
         }
         if (registerCollision) {
             AudioManager.Instance.Play(SoundName.wood_cut, 0.5f);

@@ -211,7 +211,7 @@ public class CatMovement : MonoBehaviour
         }
         if (printColor.r < 0.6 && !attached) { // glue!
             if (pawCollisionDetection.surface.CompareTag("Bill")) {
-                Debug.Log("sticking!");
+                //Debug.Log("sticking!");
                 attached = pawCollisionDetection.surface.GetComponentInParent<BillController>().transform;
                 attached.parent = pawCollider.transform;
                 attached.position = new Vector3(attached.position.x, attached.position.y - 0.07f, attached.position.z);
