@@ -164,9 +164,9 @@ public class CatMovement : MonoBehaviour
         Quaternion tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
         y_rotate = tempAngle.eulerAngles.y;
         float a = fix(ArmPivot.transform.localEulerAngles.y);
-        if (Mathf.Abs(a-5) > 5) {
+        if (a > 15 || a < 0) {
             Quaternion baseTarget = Quaternion.Euler(0, y_rotate, 0);
-            BasePivot.transform.rotation = Quaternion.Slerp(BasePivot.transform.rotation, baseTarget, Time.deltaTime*Mathf.Abs(a-10)/20f);
+            BasePivot.transform.rotation = Quaternion.Slerp(BasePivot.transform.rotation, baseTarget, Time.deltaTime*Mathf.Abs(a-20)/20f);
 
             tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
             y_rotate = tempAngle.eulerAngles.y;
