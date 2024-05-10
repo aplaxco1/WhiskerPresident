@@ -15,6 +15,7 @@ public class CatMovement : MonoBehaviour
 {
     // REFERENCES TO GAME OBJECTS
     public GameObject AttentionPoint;       // reference to where the cat's attention is
+    public GameObject BasePivot;             // reference to the president
     public GameObject ArmPivot;             // reference to where the "Arm" component of president
     public GameObject ArmMesh;              // reference to the "Mesh" child of "Arm"
     public GameObject HeadPivot;            // reference to where the "Head" component of president
@@ -59,7 +60,7 @@ public class CatMovement : MonoBehaviour
         printColor = new Color(0,0,0,0);
         numPrints = 0;
         _smearMat = ArmMesh.GetComponent<Renderer>().material;
-        dust = ArmPivot.transform.parent.GetComponentInChildren<ParticleSystem>(true);
+        dust = ArmPivot.transform.parent.parent.GetComponentInChildren<ParticleSystem>(true);
         //Debug.Log(dust);
         armExtension = BaseArmExtension;
         _smearMat.SetFloat("_Smearing",0);
@@ -116,11 +117,7 @@ public class CatMovement : MonoBehaviour
             }
 
             // calculate and rotate arm pivot
-            Quaternion tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
-            y_rotate = tempAngle.eulerAngles.y;
-            x2_rotate = tempAngle.eulerAngles.x;
-		    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
-            ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
+            pivot();
 
             // calculate and extend/retract arm mesh
             armExtension = BaseArmExtension - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.8f, 0.2f);
@@ -156,7 +153,27 @@ public class CatMovement : MonoBehaviour
             }
             target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*50f);
+           
         }
+    }
+    float fix(float n) {
+		float a = n <= 180 ? n : (360-n)*-1;
+		return a;
+	}
+    void pivot() {
+        Quaternion tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
+        y_rotate = tempAngle.eulerAngles.y;
+        float a = fix(ArmPivot.transform.localEulerAngles.y);
+        if (Mathf.Abs(a-5) > 5) {
+            Quaternion baseTarget = Quaternion.Euler(0, y_rotate, 0);
+            BasePivot.transform.rotation = Quaternion.Slerp(BasePivot.transform.rotation, baseTarget, Time.deltaTime*Mathf.Abs(a-10)/20f);
+
+            tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
+            y_rotate = tempAngle.eulerAngles.y;
+        }
+        x2_rotate = tempAngle.eulerAngles.x;
+	    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
+        ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
     }
     void MoveHead()
     {

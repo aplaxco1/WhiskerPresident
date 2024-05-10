@@ -3504,6 +3504,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1022510887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5759438502194031394, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+  m_PrefabInstance: {fileID: 1157026140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1059192303
 GameObject:
   m_ObjectHideFlags: 0
@@ -4962,6 +4967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttentionPoint: {fileID: 1678977051}
+  BasePivot: {fileID: 1022510887}
   ArmPivot: {fileID: 1157026142}
   ArmMesh: {fileID: 1157026141}
   HeadPivot: {fileID: 522983105}
