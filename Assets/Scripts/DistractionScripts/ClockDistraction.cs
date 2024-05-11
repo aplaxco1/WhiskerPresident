@@ -16,6 +16,8 @@ public class ClockDistraction : DistractionClass
         maxTime = 60;
         nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
+        attentionLevel = 0f;
+        frenzyDistraction = true;
     }
 
     // Update is called once per frame
