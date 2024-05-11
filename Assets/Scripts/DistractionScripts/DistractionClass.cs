@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class DistractionClass : MonoBehaviour
 {
+
+    [Header("Distraction Variables")]
     public bool isActive = false;
     public Vector3 distractionPosition;
+    public float attentionLevel; // NOTE: If a frenzy distraction, it should have an attention level of 0
+    public bool frenzyDistraction;
 
     // variables for handling time interval between next distraction trigger
     public float timer = 0;
