@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sunlight : MonoBehaviour
 {
-    public float speed = 100.0f;
+    public float speed = 2.5f;
     Vector3 angle;
     float rotation = 0f;
     public enum Axis
