@@ -6,7 +6,7 @@ public class Sunlight : MonoBehaviour
 {
     public float speed = 2.5f;
     Vector3 angle;
-    float rotation = 0f;
+    public float rotation = 0f;
     public enum Axis
     {
         X,

@@ -199,11 +199,11 @@ Shader "Unlit/HalftoneSmear"
                 // calculate directional lighting
                 float NdotL = dot(_WorldSpaceLightPos0, normal);
                 float shadow = SHADOW_ATTENUATION(i);
-                float lightIntensity = smoothstep(0, 0.01, NdotL * shadow);
-                float lightIntensity2 = smoothstep(0, 0.01, (NdotL * shadow)-0.2f); // adds 2-step gradient to shadow
+                float lightIntensity = smoothstep(0, 0.2, NdotL * shadow);
+                float lightIntensity2 = smoothstep(0, 0.2, (NdotL * shadow)-0.2f); // adds 2-step gradient to shadow
                 float lightIntensity3 = smoothstep(0, 0.01, (NdotL * shadow)-0.8f); // adds highlight (looks ugly on president rn but will look great on things with normal maps)
-                float4 light = ((lightIntensity + lightIntensity2)/2 + lightIntensity3*0.1) * _LightColor0;
-                light = NdotL*shadow;
+                float light = ((lightIntensity + lightIntensity2)/2 + lightIntensity3*0.1);// * _LightColor0;
+                light = smoothstep(0, 0.8,NdotL * shadow);
 
                 // calculate rim
                 float4 rimDot = 1-dot(viewDir, normal);
@@ -264,7 +264,7 @@ Shader "Unlit/HalftoneSmear"
 
                 // anti-aliasing
                 float halftoneChange = fwidth(halftoneValue) * 0.6;
-                light = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light+0.28);
+                light = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light);
                 //light = step(halftoneValue, light+0.28);
                 //return halftoneValue;
                 lightIntensity3 = smoothstep(0, 0.2, (NdotL * shadow)-0.8f);
@@ -272,7 +272,10 @@ Shader "Unlit/HalftoneSmear"
 
                 light = (light + (1-light)*_AmbientColor + rimIntensity + highlight*0.2/*+ specular*/);
 
-                return (1-rimIntensity2) * light * col + rimIntensity2 * col2;
+                float4 light2 = smoothstep(rimDot, 1, normal.y);
+                light2 = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light2);
+
+                return (1-rimIntensity2) * (light+0.4) * col + rimIntensity2 * col2 + light2 * float4(0.05,0.05,0.05,1);
             }
             ENDCG
         }
