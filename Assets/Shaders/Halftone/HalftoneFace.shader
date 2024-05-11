@@ -203,7 +203,7 @@ Shader "Unlit/HalftoneFace"
 
                 // sample the texture
                 //float4 col = tex2D(_MainTex, i.uv);// * _Color;
-                return (1-rimIntensity2) * light * col + rimIntensity2 * col2;
+                return (1-rimIntensity2) * (light+0.4) * col + rimIntensity2 * col2;
             }
             ENDCG
         }

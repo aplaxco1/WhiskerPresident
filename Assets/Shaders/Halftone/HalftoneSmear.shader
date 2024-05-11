@@ -272,7 +272,7 @@ Shader "Unlit/HalftoneSmear"
 
                 light = (light + (1-light)*_AmbientColor + rimIntensity + highlight*0.2/*+ specular*/);
 
-                return (1-rimIntensity2) * light * col + rimIntensity2 * col2;
+                return (1-rimIntensity2) * (light+0.4) * col + rimIntensity2 * col2;
             }
             ENDCG
         }

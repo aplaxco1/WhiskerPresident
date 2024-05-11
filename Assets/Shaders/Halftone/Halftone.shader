@@ -188,7 +188,7 @@ Shader "Unlit/Halftone"
 
                 // sample the texture
                 //float4 col = tex2D(_MainTex, i.uv);// * _Color;
-                return light * col;
+                return (light+0.4) * col;
             }
             ENDCG
         }
