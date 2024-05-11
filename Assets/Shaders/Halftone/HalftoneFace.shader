@@ -121,7 +121,7 @@ Shader "Unlit/HalftoneFace"
                 float lightIntensity2 = smoothstep(0, 0.2, (NdotL * shadow)-0.2f); // adds 2-step gradient to shadow
                 float lightIntensity3 = smoothstep(0, 0.01, (NdotL * shadow)-0.8f); // adds highlight (looks ugly on president rn but will look great on things with normal maps)
                 float light = ((lightIntensity + lightIntensity2)/2 + lightIntensity3*0.1);// * _LightColor0;
-                //light = NdotL*shadow;
+                light = smoothstep(0, 0.8,NdotL * shadow);
                 //return lightIntensity;
                 //light = smoothstep(0,0.7,NdotL*shadow);
                 light = lightIntensity*2/3 + lightIntensity2/3;
@@ -203,7 +203,9 @@ Shader "Unlit/HalftoneFace"
 
                 // sample the texture
                 //float4 col = tex2D(_MainTex, i.uv);// * _Color;
-                return (1-rimIntensity2) * (light+0.4) * col + rimIntensity2 * col2;
+                float4 light2 = smoothstep(rimDot, 1, normal.y);
+                light2 = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light2);
+                return (1-rimIntensity2) * (light+0.4) * col + rimIntensity2 * col2 + light2 * float4(0.05,0.05,0,1);
             }
             ENDCG
         }

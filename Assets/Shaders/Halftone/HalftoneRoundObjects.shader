@@ -1,6 +1,6 @@
 // 2 of the components to the outlines are based on https://roystan.net/articles/outline-shader/
 // smear effect is based off of https://github.com/cjacobwade/HelpfulScripts/tree/master/SmearEffect
-Shader "Unlit/HalftoneObjects"
+Shader "Unlit/HalftoneRoundObjects"
 {
     Properties
     {
@@ -214,16 +214,18 @@ Shader "Unlit/HalftoneObjects"
                 // anti-aliasing
                 float halftoneChange = fwidth(halftoneValue) * 0.5;
                 //light += rimDot;
+                //float4 waugh = float4(0,0,0,1);
+                //waugh.xyz += normal;
+                //return waugh;
                 light = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light);
-                float4 light2 = smoothstep(0, 0.7, normal.y + normal.x);
+                float4 light2 = smoothstep(rimDot, 1, normal.y + normal.x);
                 light2 = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light2);
-                //float4 light2 = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, rimDot);
                 //return halftoneValue;
                 lightIntensity3 = smoothstep(0, 0.07, (NdotL * shadow)-0.8f);
                 float highlight = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, lightIntensity3);
 
                 light = (light + (1-light)*_AmbientColor + rimIntensity + highlight*0.2 /*+ specular*/);
-                //if (light != float4(0,0,0,0)) {
+                //if (normal.y > 0.5) {
                 //    light2 = float4(0,0,0,0);
                 //}
                 
@@ -232,7 +234,7 @@ Shader "Unlit/HalftoneObjects"
 
                 // sample the texture
                 //float4 col = tex2D(_MainTex, i.uv);// * _Color;
-                return (1-rimIntensity2) * (light+0.4) * col + rimIntensity2 * col2 + light2 * float4(0.05,0.05,0.05,1);
+                return (1-rimIntensity2) * (light+0.4) * col + rimIntensity2 * col2 + light2 * float4(0.1,0.1,0,1);
             }
             ENDCG
         }
