@@ -19,6 +19,7 @@ public class PawCollision : MonoBehaviour
     {
         
     }
+
     void OnTriggerEnter(Collider other) {
         bool registerCollision = !colliding;
         if (colliding) {
@@ -36,10 +37,10 @@ public class PawCollision : MonoBehaviour
             } else if (!other.gameObject.CompareTag("Desk") && other.gameObject.tag != surface.tag) { registerCollision = true; }
         }
         if (registerCollision) {
-            AudioManager.Instance.Play(SoundName.wood_cut, 0.5f);
             colliding = true;
             collisionPos = new Vector3(gameObject.transform.position.x, other.bounds.center.y + other.bounds.extents.y + 0.02f, gameObject.transform.position.z);
             surface = other.gameObject;
+            playSoundEffect(surface);
             //Debug.Log(other.tag);
             //StencilID = other.gameObject.GetComponentInParent<MeshRenderer>().material.GetFloat("_StencilID");
         }
@@ -47,5 +48,14 @@ public class PawCollision : MonoBehaviour
     void OnTriggerExit(Collider other) {
         //Debug.Log("leaves Collider");
         colliding = false;
+    }
+
+    private void playSoundEffect(GameObject ob) {
+        if (ob.CompareTag("Bill") || ob.CompareTag("Stack")) {
+            AudioManager.Instance.Play(SoundName.paper_smack, 0.5f);
+        }
+        else{
+            AudioManager.Instance.Play(SoundName.wood_cut, 0.5f);
+        }
     }
 }
