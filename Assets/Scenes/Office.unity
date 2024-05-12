@@ -1685,6 +1685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 384477971}
   - component: {fileID: 384477972}
+  - component: {fileID: 384477973}
   m_Layer: 0
   m_Name: DistractionManager
   m_TagString: Untagged
@@ -1722,7 +1723,33 @@ MonoBehaviour:
   distractionObjects:
   - {fileID: 900930951}
   - {fileID: 203697468}
+  - {fileID: 384477973}
   activeDistractions: []
+  frenzyActive: 0
+--- !u!114 &384477973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384477970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36216ac656008b748a475047cc8655b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 0
+  distractionPosition: {x: 0, y: 0, z: 0}
+  attentionLevel: 0
+  frenzyDistraction: 0
+  timer: 0
+  minTime: 0
+  maxTime: 0
+  nextEvent: 0
+  distractionDuration: 0
+  distractionTimer: 0
+  mouseObj: {fileID: 848657899}
+  squeakSource: {fileID: 0}
 --- !u!1 &390665263
 GameObject:
   m_ObjectHideFlags: 0
@@ -2970,6 +2997,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758242632}
   m_CullTransparentMesh: 1
+--- !u!1 &848657899 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1325068987853345354, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &875154986
 GameObject:
   m_ObjectHideFlags: 0

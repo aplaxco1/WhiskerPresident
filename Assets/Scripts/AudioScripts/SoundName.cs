@@ -7,8 +7,8 @@ public enum SoundName
     paper_shuffle,
     paper_smack,
     paper_throw,
-    phone_sfx_temp,
     stack_paper_smack,
+    telephone_1,
     wood,
     wood_cut,
 }
