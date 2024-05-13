@@ -80,6 +80,7 @@ public class TelephoneDistraction : DistractionClass
         ringSource.loop = true;
 
         if (checkStop()) {
+            AudioManager.Instance.Play(SoundName.phone_hangup, 0.5f);
             ringSource.Stop();
             isActive = false;
             transform.position = startPosition; // set the phone back to the position it was before it started shaking

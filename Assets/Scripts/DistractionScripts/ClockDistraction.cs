@@ -43,6 +43,7 @@ public class ClockDistraction : DistractionClass
         springAnim.Play("Spring");
 
         if (checkStop()) {
+            AudioManager.Instance.Play(SoundName.button, 0.5f);
             tickSource.Stop();
             birdAnim.Play("Stop");
             springAnim.Play("Stop");
