@@ -55,6 +55,8 @@ public class BillController : MonoBehaviour
     public float initialSymbolYCoord;
     public float initialSymbolZCoord;
 
+    public float initialSymbolScale;
+
     private Transform symbolParent;
 
     // Designer input string (What sequence type to generate)
@@ -241,14 +243,17 @@ public class BillController : MonoBehaviour
             if (symbolCount >= symbolsPerLine)
             {
                 symbolCount = 0;
-                yCoord += symbolVerticalDist; // CHANGE THIS BACK TO -= IF AUTUMN WAS STUPID
+                zCoord += symbolVerticalDist; // CHANGE THIS BACK TO -= IF AUTUMN WAS STUPID
                 xCoord = initialSymbolXCoord;
             }
             xCoord -= symbolHorizontalDist;
-            Vector3 pos = new Vector3(xCoord, zCoord, yCoord);
+            Vector3 pos = new Vector3(xCoord, yCoord, zCoord);
+            // changing the scale of the symbols, subject to change
+            Vector3 scale = new Vector3(0.16f * initialSymbolScale, 0.03f, 0.1f *initialSymbolScale);
             
             GameObject instantiatedSymbol = Instantiate(symbolToInstantiate, symbolParent, false);
             instantiatedSymbol.transform.position += pos;
+            instantiatedSymbol.transform.localScale = scale;
 
         }
     }
