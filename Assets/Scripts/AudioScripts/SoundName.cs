@@ -3,6 +3,7 @@ public enum SoundName
     None,
     button,
     cuckoo_cluck,
+    kitty_meow,
     laser_click,
     meows,
     paper_shuffle,
