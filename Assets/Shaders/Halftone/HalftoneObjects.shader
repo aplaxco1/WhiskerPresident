@@ -139,6 +139,10 @@ Shader "Unlit/HalftoneObjects"
                 float lightIntensity2 = smoothstep(0, 0.4, (NdotL * shadow)-0.2f); // adds 2-step gradient to shadow
                 float lightIntensity3 = smoothstep(0, 0.01, (NdotL * shadow)-0.8f); // adds highlight (looks ugly on president rn but will look great on things with normal maps)
                 float4 light = ((lightIntensity + lightIntensity2)/2);// + lightIntensity3*0.1);// * _LightColor0;
+                light = smoothstep(0, 0.8,NdotL * shadow);
+                //return normal;
+                //float4 diff = light;
+                //light.rgb += ShadeSH9(half4(i.worldNormal,1));
                 //light = NdotL*shadow;
                 //return lightIntensity;
                 //light = smoothstep(0,0.7,NdotL*shadow);
@@ -146,6 +150,7 @@ Shader "Unlit/HalftoneObjects"
 
                 // calculate rim
                 float4 rimDot = 1-dot(viewDir, normal);
+                //return rimDot;
                 float rimIntensity = smoothstep(0.79, 0.80, rimDot * pow(NdotL, 0.1));
                 // sample the texture
                 float4 col = _Color;
@@ -208,16 +213,26 @@ Shader "Unlit/HalftoneObjects"
 
                 // anti-aliasing
                 float halftoneChange = fwidth(halftoneValue) * 0.5;
+                //light += rimDot;
                 light = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light);
+                float4 light2 = smoothstep(0, 0.7, normal.y + normal.x);
+                light2 = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light2);
+                //float4 light2 = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, rimDot);
                 //return halftoneValue;
                 lightIntensity3 = smoothstep(0, 0.07, (NdotL * shadow)-0.8f);
                 float highlight = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, lightIntensity3);
 
                 light = (light + (1-light)*_AmbientColor + rimIntensity + highlight*0.2 /*+ specular*/);
+                //if (light != float4(0,0,0,0)) {
+                //    light2 = float4(0,0,0,0);
+                //}
+                
+                //light.rgb += ShadeSH9(half4(i.worldNormal,1));
+                //return light2;
 
                 // sample the texture
                 //float4 col = tex2D(_MainTex, i.uv);// * _Color;
-                return (1-rimIntensity2) * light * col + rimIntensity2 * col2;
+                return (1-rimIntensity2) * (light+0.4) * col + rimIntensity2 * col2 + light2 * float4(0.05,0.05,0.05,1);
             }
             ENDCG
         }

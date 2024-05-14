@@ -49,16 +49,32 @@ public class FocusController : MonoBehaviour
             timer = interval + Random.Range(-varianceRange, varianceRange);
         }
 
-        // cat is distracted -> will be changed when more distractions are added
-        if (distractions.activeDistractions.Count > 0) {
+        // 
+        if (distractions.activeDistractions.Count > 0 && distractions.frenzyActive) {
             catGoCrazyMode();
         }
 
-        // cat is focused on laser pointer
-        if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f) && distractions.activeDistractions.Count == 0)
-        {
+        // set focus level to object with highest attention level
+        else if (distractions.activeDistractions.Count > 0) {
+            // if no laser, or if distraction attention level is higher than laser, move attention point to distraction
+            if ((laserPointer.isOnDesk && (distractions.activeDistractions[distractions.activeDistractions.Count - 1].attentionLevel > laserPointer.attentionLevel)) || !laserPointer.isOnDesk) {
+                MoveObjectTo(distractions.activeDistractions[distractions.activeDistractions.Count - 1].distractionPosition);
+            }
+            // otherwise, if laser and laser attention level is higher than distraction, move attention point to laser
+            else if (laserPointer.isOnDesk && (distractions.activeDistractions[distractions.activeDistractions.Count - 1].attentionLevel < laserPointer.attentionLevel)) {
+                MoveObjectTo(laserPointer.laserDeskLocation);
+            }
+        }
+
+        else if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f)) {
             MoveObjectTo(laserPointer.laserDeskLocation);
         }
+
+        // cat is focused on laser pointer, no distractions
+        // if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f) && distractions.activeDistractions.Count == 0)
+        // {
+        //     MoveObjectTo(laserPointer.laserDeskLocation);
+        // }
 
         // update focus level 
         focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(laserPointer.pointerSpeed/16.0f * 5f, 1f, 20f),Time.deltaTime*1.2f), 1f, 5f);

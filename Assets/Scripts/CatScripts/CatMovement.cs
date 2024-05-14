@@ -148,12 +148,12 @@ public class CatMovement : MonoBehaviour
                     Renderer rend = indicator.GetComponent<Renderer>();
                     if (printColor.r > 0.6) {
                         rend.material = X;
+                        Vector3 pos = pawCollider.transform.position;
+                        indicator.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
+                        indicator.gameObject.SetActive(true);
                     } else {
-                        rend.material = Checkmark;
+                        //rend.material = Checkmark;
                     }
-                    Vector3 pos = pawCollider.transform.position;
-                    indicator.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
-                    indicator.gameObject.SetActive(true);
                 }
             }
             target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
@@ -211,7 +211,7 @@ public class CatMovement : MonoBehaviour
         }
         if (printColor.r < 0.6 && !attached) { // glue!
             if (pawCollisionDetection.surface.CompareTag("Bill")) {
-                Debug.Log("sticking!");
+                //Debug.Log("sticking!");
                 attached = pawCollisionDetection.surface.GetComponentInParent<BillController>().transform;
                 attached.parent = pawCollider.transform;
                 attached.position = new Vector3(attached.position.x, attached.position.y - 0.07f, attached.position.z);

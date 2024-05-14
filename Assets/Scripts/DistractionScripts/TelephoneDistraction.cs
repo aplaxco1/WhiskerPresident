@@ -7,6 +7,8 @@ public class TelephoneDistraction : DistractionClass
 {
 
     public AudioSource ringSource;
+
+    [Header("Shaking Animation")]
     // following is for the shaking
     private Vector3 startPosition;
     private Vector3 randomPosition;
@@ -27,9 +29,9 @@ public class TelephoneDistraction : DistractionClass
         maxTime = 50;
         nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
-        startPosition = transform.position; // the og spot of the phone before it starts shaking. 
-
-
+        startPosition = transform.position; // the og spot of the phone before it starts shaking.
+        attentionLevel = 0f;
+        frenzyDistraction = true; 
     }
 
     // Update is called once per frame
@@ -78,6 +80,7 @@ public class TelephoneDistraction : DistractionClass
         ringSource.loop = true;
 
         if (checkStop()) {
+            AudioManager.Instance.Play(SoundName.phone_hangup, 0.5f);
             ringSource.Stop();
             isActive = false;
             transform.position = startPosition; // set the phone back to the position it was before it started shaking

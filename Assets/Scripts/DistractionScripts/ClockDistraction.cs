@@ -16,6 +16,8 @@ public class ClockDistraction : DistractionClass
         maxTime = 60;
         nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
+        attentionLevel = 0f;
+        frenzyDistraction = true;
     }
 
     // Update is called once per frame
@@ -41,6 +43,7 @@ public class ClockDistraction : DistractionClass
         springAnim.Play("Spring");
 
         if (checkStop()) {
+            AudioManager.Instance.Play(SoundName.button, 0.5f);
             tickSource.Stop();
             birdAnim.Play("Stop");
             springAnim.Play("Stop");

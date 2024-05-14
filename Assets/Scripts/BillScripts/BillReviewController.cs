@@ -18,6 +18,10 @@ public class BillReviewController : MonoBehaviour
     public float billYGap;
     public float billZGap;
 
+    private int index;
+    private int numBills;
+    private GameObject activeBill;
+
     private void Awake()
     {
         if (Instance == null)
@@ -29,7 +33,49 @@ public class BillReviewController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ReviewBills();
+        //ReviewBills();
+        index = 0;
+        numBills = 0;
+        if (BillContentsManager.Instance) {numBills = BillContentsManager.Instance.savedBills.childCount;}
+        if (numBills > 0)
+        {
+            activateBill(0);
+        }
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            prevBill();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            nextBill();
+        }
+    }
+    public void prevBill()
+    {
+        if (index > 0) {
+            index = index - 1;
+            activeBill.SetActive(false); //disable current bill
+            activateBill(index);
+        }
+    }
+    public void nextBill()
+    {
+        if (index < numBills - 1) {
+            index = index + 1;
+            activeBill.SetActive(false); //disable current bill
+            activateBill(index);
+        }
+    }
+
+    public void activateBill(int n) {
+        activeBill = BillContentsManager.Instance.savedBills.GetChild(n).gameObject;
+        activeBill.SetActive(true);
+        activeBill.transform.position = new Vector3(0,0.479f,0);
+        activeBill.transform.eulerAngles = new Vector3(90,0,0);
+        activeBill.transform.localScale = new Vector3(4,4,4);
     }
 
     

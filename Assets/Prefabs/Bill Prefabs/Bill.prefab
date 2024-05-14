@@ -224,8 +224,9 @@ MonoBehaviour:
   symbols: 
   symbolsPerLine: 1
   symbolHorizontalDist: 0.05
-  symbolVerticalDist: 0.05
-  initialSymbolXCoord: 0.15
-  initialSymbolYCoord: -0.15
-  initialSymbolZCoord: 0
+  symbolVerticalDist: 0.1
+  initialSymbolXCoord: 0.05
+  initialSymbolYCoord: 0
+  initialSymbolZCoord: -0.1
+  initialSymbolScale: 2
   generatedSequence: 
