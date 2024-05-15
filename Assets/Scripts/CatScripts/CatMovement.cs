@@ -26,9 +26,10 @@ public class CatMovement : MonoBehaviour
     // VARIABLES
     public float timer = 0;                 // timer to keep track of how long since last smack
     private Quaternion target_rotation;     // arm rotation to move to
-    private float x_rotate = 0;             // target x value of arm rotation
-    private float y_rotate = 0;             // target y value of arm rotation
-    private float x2_rotate = 0;             // target x value of arm rotation when smacked
+    private float x_rotate;             // target x value of arm rotation
+    private float y_rotate;             // target y value of arm rotation
+    private float x2_rotate;             // target x value of arm rotation when smacked
+    private float z_rotate;
     private float armExtension;     // how far the arm is stretched out
     private Vector3 lookTarget;             // position of the attentionpoint, but sometimes lags behind for flavor
     private bool smacking;                  // bool to ensure only one pawprint is left
@@ -39,6 +40,7 @@ public class CatMovement : MonoBehaviour
     public ParticleSystem indicator;
     public Material Checkmark;
     public Material X;
+    public bool holdingPhone;
 
     // CONSTANTS    
     private const float WaitInterval = 1.75f;       // base time to wait between swings
@@ -64,6 +66,11 @@ public class CatMovement : MonoBehaviour
         //Debug.Log(dust);
         armExtension = BaseArmExtension;
         _smearMat.SetFloat("_Smearing",0);
+        holdingPhone = false;
+        x_rotate = 0;
+        x2_rotate = 0;
+        y_rotate = 0;
+        z_rotate = 0;
     }
     // Update is called once per frame
     void Update()
@@ -86,13 +93,10 @@ public class CatMovement : MonoBehaviour
     }
     void Smack()
     {
-        //target_rotation = Quaternion.Euler(-3 - Mathf.Abs(BaseArmExtension/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
+        // slam into the table
         smacking = true;
         _smearMat.SetFloat("_Smearing",1);
         timer = 0;
-        //Debug.Log(target_rotation.eulerAngles.x);
-        //Debug.Log((BaseArmExtension/armExtension));
-        //_smearMat.SetFloat("_Smearing",1);
     }
     void TrackFocus(float focusLevel)
     {
@@ -100,13 +104,10 @@ public class CatMovement : MonoBehaviour
         if (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) {
             x_rotate = 20f;
         }
-        //x_rotate = (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) ? 20f : 5f;
 
         // dont adjust look_target right before smacking, that way it lingers a little bit behind
         if (timer < WaitInterval/focusLevel - SmackLockTime/focusLevel) {
             lookTarget = AttentionPoint.transform.position;
-        } else {
-            //_smearMat.SetFloat("_Smearing",1);
         }
     }
     void MoveArm(float focusLevel)
@@ -116,15 +117,24 @@ public class CatMovement : MonoBehaviour
             if (smacking) { 
                 LeavePrint(pawCollider.transform.position, y_rotate);
                 _smearMat.SetFloat("_Smearing",0);
-                //dust.gameObject.SetActive(false);
                 x_rotate = 20f;
                 pawCollisionDetection.colliding = false;
             }
 
+            // calculate and extend/retract arm mesh
+            if (holdingPhone)
+            {
+                //armExtension = BaseArmExtension +0.8f;
+                z_rotate = 90;
+            } else 
+            {
+                z_rotate = 0;
+                //armExtension = BaseArmExtension - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.8f, 0.2f);
+            }
+
             // calculate and rotate arm pivot
             pivot();
-
-            // calculate and extend/retract arm mesh
+            
             armExtension = BaseArmExtension - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.8f, 0.2f);
             ArmMesh.transform.localPosition = new Vector3(0, 0, Mathf.Lerp(ArmMesh.transform.localPosition.z, armExtension, Time.deltaTime*10f));
         } else { // during smack!
@@ -182,7 +192,7 @@ public class CatMovement : MonoBehaviour
             y_rotate = tempAngle.eulerAngles.y;
         }
         x2_rotate = tempAngle.eulerAngles.x;
-	    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
+	    target_rotation = Quaternion.Euler(x_rotate, y_rotate, z_rotate);
         ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
     }
     void MoveHead()
@@ -194,6 +204,17 @@ public class CatMovement : MonoBehaviour
     {
         smacking = false;
         if (pawCollisionDetection.surface == null) { Debug.Log("gone :("); return; }
+        if (pawCollisionDetection.surface.CompareTag("Phone"))
+        {
+            if (holdingPhone)
+            { // release the handset
+                holdingPhone = false;
+            } else
+            { // pick up the handset
+                holdingPhone = true;
+            }
+            return;
+        }
         if (pawCollisionDetection.surface.CompareTag("Inkpad")) {
             printColor = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.color;
             return;
