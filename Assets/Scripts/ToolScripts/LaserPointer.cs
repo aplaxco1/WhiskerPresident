@@ -45,11 +45,25 @@ public class LaserPointer : ToolClass
         // initialize laser pointer dot
         laserDot = Instantiate(laserDot, new Vector3(0,0,0), Quaternion.identity);
         laserDot.SetActive(isOnDesk);
+        isActive = false;
+        // set cursor
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0)) {
+            AudioManager.Instance.Play(SoundName.laser_click, 0.5f);
+            isActive = !isActive;
+            if (isActive) {
+                // small attention boost when toggling
+                toggleOn();
+            }
+            else {
+                removeLaser();
+            }
+        }
 
         if (isActive) {
             // set laser dot active if laser is on desk
