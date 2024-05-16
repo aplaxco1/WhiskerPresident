@@ -36,6 +36,7 @@ public class StatTextManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // TODO: TEMPORARY!!
         dayInfoText.text = DayManager.Instance.dayInfo.ConvertToString();
     }
 }
