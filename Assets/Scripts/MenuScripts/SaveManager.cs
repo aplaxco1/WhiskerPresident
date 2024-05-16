@@ -44,6 +44,7 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
+        LoadFromFile();
         LoadSettings();
     }
 
@@ -60,11 +61,15 @@ public class SaveManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            SaveToFile(1);
+            SaveToFile();
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            LoadFromFile(1);
+            LoadFromFile();
+        }
+        if (Input.GetKeyDown(KeyCode.Semicolon))
+        {
+            DayManager.Instance.InitializeDefaultStats();
         }
     }
 

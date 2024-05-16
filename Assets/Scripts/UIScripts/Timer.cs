@@ -34,7 +34,7 @@ public class Timer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            timeValue = 10;
+            timeValue = 2;
         }
         
         if (timeValue > 0)

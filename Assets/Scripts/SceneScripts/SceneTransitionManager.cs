@@ -25,4 +25,14 @@ public class SceneTransitionManager : MonoBehaviour
         int index = SceneManager.GetActiveScene().buildIndex + 1;
         TransitionScene(index, save, reload);
     }
+    
+    
+    // I dont think SceneManager.GetSceneByName works as I thought...
+    //
+    // public static void TransitionSceneByName(string sceneName, bool save = true, bool reload = false)
+    // {
+    //     int index = SceneManager.GetSceneByName(sceneName).buildIndex;
+    //     TransitionScene(index, save, reload);
+    // }
+    
 }

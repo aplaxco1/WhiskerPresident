@@ -18,8 +18,7 @@ public partial class DayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dayInfo = new DayInfo();
-        SaveManager.Instance.LoadFromFile(1);
+        // SaveManager.Instance.LoadFromFile();
 
         if (BillContentsManager.Instance != null)
         {
@@ -34,9 +33,9 @@ public partial class DayManager : MonoBehaviour
         DayStart();
     }
 
-    void InitializeDefaultStats()
+    public void InitializeDefaultStats()
     { 
-        // print("init default stats");
+        print("init default stats");
         dayInfo.statA = 50;
         dayInfo.statB = 50;
         dayInfo.statC = 50;
@@ -47,6 +46,7 @@ public partial class DayManager : MonoBehaviour
 
         dayInfo.day = 1;
         dayInfo.impeached = false;
+        dayInfo.lose = false;
     }
 
 }
