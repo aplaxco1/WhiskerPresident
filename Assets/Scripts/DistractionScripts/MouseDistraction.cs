@@ -9,6 +9,14 @@ public class MouseDistraction : DistractionClass
     public float distractionTimer;
     public GameObject mouseObj;
     public AudioSource squeakSource;
+
+    [Header("Mouse Movement")]
+    public Vector3 startPos;
+    public Vector3 endPos;
+    private Vector3 currTarget;
+    public float moveSpeed = 1.3f;
+    public float rotateSpeed = 800f;
+    private Vector3 direction;
     
     // Start is called before the first frame update
     void Start()
@@ -19,16 +27,22 @@ public class MouseDistraction : DistractionClass
         distractionPosition = mouseObj.transform.position;
         attentionLevel = 0.98f;
         frenzyDistraction = false;
-        distractionDuration = Random.Range(5, 10);
+        distractionDuration = Random.Range(8, 16);
         distractionTimer = 0;
+        // movement stuff
+        startPos = mouseObj.transform.position;
+        endPos = new Vector3(mouseObj.transform.position.x - 1.3f, mouseObj.transform.position.y, mouseObj.transform.position.z);
+        currTarget = endPos;
+        direction = new Vector3(270,180,0);
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= nextEvent) {
+        if (timer >= nextEvent && !isActive) {
             isActive = true;
+            mouseObj.transform.position = startPos;
         }
 
         if (isActive) {
@@ -39,6 +53,23 @@ public class MouseDistraction : DistractionClass
 
     public override void distractionEvent() {
         mouseObj.SetActive(true);
+
+        // makes mouse swap directions
+        if (mouseObj.transform.position == startPos) {
+            currTarget = endPos;
+            direction = new Vector3(270,180,0);
+        }
+        if (mouseObj.transform.position == endPos) {
+            currTarget = startPos;
+            direction = new Vector3(270,0,0);
+        }
+
+        // rotate
+        mouseObj.transform.rotation = Quaternion.RotateTowards(mouseObj.transform.rotation, Quaternion.Euler(direction), rotateSpeed * Time.deltaTime);
+
+        // move mouse towards current target position
+        mouseObj.transform.position = Vector3.MoveTowards(mouseObj.transform.position, currTarget, Time.deltaTime * moveSpeed);
+        distractionPosition = mouseObj.transform.position;
 
         if (checkStop()) {
             isActive = false;
