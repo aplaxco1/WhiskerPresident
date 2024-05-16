@@ -29,8 +29,9 @@ public partial class DayManager : MonoBehaviour
         if (SaveManager.Instance.currentSaveData == null || SaveManager.Instance.currentSaveData.dayInfo.day == 0)
         {
             InitializeDefaultStats();
-
         }
+        
+        DayStart();
     }
 
     void InitializeDefaultStats()

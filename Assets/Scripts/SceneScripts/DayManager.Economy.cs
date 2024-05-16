@@ -11,7 +11,19 @@ public partial class DayManager
         dayInfo.statA += dayInfo.sinkA;
         dayInfo.statB += dayInfo.sinkB;
         dayInfo.statC += dayInfo.sinkC;
+        dayInfo.day++;
+        
+        if (CheckLowStats())
+        {
+            StatLow();
+        }
+        
         SceneTransitionManager.TransitionNextScene();
+    }
+
+    public bool CheckLowStats()
+    {
+        return dayInfo.statA <= 0 || dayInfo.statB <= 0 || dayInfo.statC <= 0;
     }
 
 
@@ -20,7 +32,7 @@ public partial class DayManager
         
     }
     
-    public void SinkLow()
+    public void StatLow()
     {
         if (dayInfo.impeached)
         {
@@ -34,6 +46,7 @@ public partial class DayManager
 
     public void TriggerLoss()
     {
+        dayInfo.lose = true;
         print("YOU LOSE");
     }
 

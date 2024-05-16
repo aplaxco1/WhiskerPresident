@@ -19,7 +19,7 @@ public class Tiling : MonoBehaviour
         // calculate tiling dimensions so stays square
         float ratio = Screen.width*1.0f/Screen.height;
         float tileCount2 = tileCount * Screen.width/1500;
-        Debug.Log(Screen.width);
+        //Debug.Log(Screen.width);
         Vector2 tiling = new Vector2(tileCount2*ratio, tileCount2);
         // set the tiling value of halftonepattern
         mat.SetTextureScale("_HalftonePattern", tiling);
