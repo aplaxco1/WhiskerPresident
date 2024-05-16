@@ -1087,7 +1087,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 282382967}
   settingsMenu: {fileID: 1505856589}
-  toolSwitchingManager: {fileID: 0}
+  laserPointer: {fileID: 515096772}
 --- !u!1 &297827395
 GameObject:
   m_ObjectHideFlags: 0
@@ -6673,7 +6673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1781013890}
   settingsMenu: {fileID: 1377575801}
-  toolSwitchingManager: {fileID: 0}
+  laserPointer: {fileID: 515096772}
 --- !u!1 &1824826640
 GameObject:
   m_ObjectHideFlags: 0
