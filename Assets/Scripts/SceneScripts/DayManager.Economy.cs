@@ -11,6 +11,7 @@ public partial class DayManager
         dayInfo.statA += dayInfo.sinkA;
         dayInfo.statB += dayInfo.sinkB;
         dayInfo.statC += dayInfo.sinkC;
+        SceneTransitionManager.TransitionNextScene();
     }
 
 
