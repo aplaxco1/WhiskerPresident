@@ -11,23 +11,28 @@ public class TutorialPopups : MonoBehaviour
 
     public GameObject laserPointer;
 
+    static bool tutorialSeen = false;
+
     // NOTE: Once we have actual popups made, we can start programming this for real. Right now, all this does is set
     // our controls menu to active at the start of the scene and pauses the game.
 
     // Start is called before the first frame update
     void Start()
     {   
-        if (LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale("en-US"))
-        {
-            tutorialMenusEN[0].SetActive(true);
+        if (!tutorialSeen) {
+            if (LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale("en-US"))
+            {
+                tutorialMenusEN[0].SetActive(true);
+            }
+            else if(LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale("zh"))
+            {
+                tutorialMenusZH[0].SetActive(true);
+            }
+            // pause game
+            laserPointer.SetActive(false);
+            Time.timeScale = 0;
         }
-        else if(LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale("zh"))
-        {
-            tutorialMenusZH[0].SetActive(true);
-        }
-        // pause game
-        laserPointer.SetActive(false);
-        Time.timeScale = 0;
+        tutorialSeen = true;
     }
 
     // Update is called once per frame
