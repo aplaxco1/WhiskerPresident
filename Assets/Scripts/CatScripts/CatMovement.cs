@@ -153,7 +153,7 @@ public class CatMovement : MonoBehaviour
                     dust.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
                     dust.gameObject.SetActive(true);
                 }
-                if (!indicator.gameObject.activeSelf && pawCollisionDetection.surface.tag == "Bill" && printColor.a>0) {
+                if (!holdingPhone && !indicator.gameObject.activeSelf && pawCollisionDetection.surface.tag == "Bill" && printColor.a>0) {
                     indicator.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[]{new ParticleSystem.Burst(0, 1)});
                     Renderer rend = indicator.GetComponent<Renderer>();
                     if (printColor.r > 0.6) {
@@ -209,12 +209,26 @@ public class CatMovement : MonoBehaviour
             if (holdingPhone)
             { // release the handset
                 holdingPhone = false;
+                Renderer[] held = pawCollider.gameObject.GetComponentsInChildren<Renderer>();
+                foreach (Renderer item in held) {
+                    Debug.Log(item.gameObject);
+                    if (item.gameObject.CompareTag("Phone")) {
+                        item.gameObject.SetActive(false);
+                    }
+                }
             } else
             { // pick up the handset
                 holdingPhone = true;
+                Renderer[] held = pawCollider.gameObject.GetComponentsInChildren<Renderer>(true);
+                foreach (Renderer item in held) {
+                    if (item.gameObject.CompareTag("Phone")) {
+                        item.gameObject.SetActive(true);
+                    }
+                }
             }
             return;
         }
+        if (holdingPhone) {return;}
         if (pawCollisionDetection.surface.CompareTag("Inkpad")) {
             printColor = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.color;
             return;
