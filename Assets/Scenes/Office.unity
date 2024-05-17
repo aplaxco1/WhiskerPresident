@@ -155,6 +155,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2231218259048859884, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: pawCollisionDetection
+      value: 
+      objectReference: {fileID: 2065851087}
     - target: {fileID: 2367639930970037399, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -5117,6 +5121,7 @@ MonoBehaviour:
   indicator: {fileID: 1929627729}
   Checkmark: {fileID: 2100000, guid: d022ce54a2f87a94cb2d8d5882e09edf, type: 2}
   X: {fileID: 2100000, guid: e2b675f332f39a94fa803839b1d3c00e, type: 2}
+  holdingPhone: 0
 --- !u!114 &1414787481
 MonoBehaviour:
   m_ObjectHideFlags: 0
