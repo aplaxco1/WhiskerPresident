@@ -7,35 +7,35 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
-    [SerializeField] GameObject toolSwitchingManager;
+    [SerializeField] GameObject laserPointer;
 
     public void Pause()
     {
         pauseMenu.SetActive(true);
-        toggleTools(false);
+        laserPointer.SetActive(false);
         Time.timeScale = 0;
     }
 
     public void Pause_ControlsMenu()
     {
-        toggleTools(false);
+        laserPointer.SetActive(false);
         Time.timeScale = 0;
     }
 
     public void Continue()
     {
-        toggleTools(true);
+        laserPointer.SetActive(true);
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
         Time.timeScale = 1;
     }
 
-    public void toggleTools(bool toggle) {
-        toolSwitchingManager.gameObject.GetComponent<WeaponSwitching>().enabled = toggle;
-        foreach (Transform tool in toolSwitchingManager.transform) {
-            tool.gameObject.GetComponent<ToolClass>().enabled = toggle;
-        }
-    }
+    // public void toggleTools(bool toggle) {
+    //     toolSwitchingManager.gameObject.GetComponent<WeaponSwitching>().enabled = toggle;
+    //     foreach (Transform tool in toolSwitchingManager.transform) {
+    //         tool.gameObject.GetComponent<ToolClass>().enabled = toggle;
+    //     }
+    // }
 
     public void Settings()
     {

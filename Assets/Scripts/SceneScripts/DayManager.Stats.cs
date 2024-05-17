@@ -12,8 +12,7 @@ public partial class DayManager
         AddToStatB(statVector.StatB);
         AddToStatC(statVector.StatC);
     }
-
-    // Red Stat Correlates to the Bone Symbol RN
+    
     private void AddToStatA(int factor)
     {
         dayInfo.statA += factor;
@@ -21,7 +20,6 @@ public partial class DayManager
         StatTextManager.Instance.statAText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + dayInfo.statA;
     }
     
-    // Green Stat Correlated to the Fish Symbol RN
     private void AddToStatB(int factor)
     {
         dayInfo.statB += factor;
