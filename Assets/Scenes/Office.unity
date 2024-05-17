@@ -5816,7 +5816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e0f1b041855384d81734b0cae03c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  templateSequence: RPI
+  templateSequence: RPIRPI
   savedBills: {fileID: 0}
 --- !u!1 &1577289826
 GameObject:
