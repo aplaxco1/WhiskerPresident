@@ -32,6 +32,11 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            timeValue = 2;
+        }
+        
         if (timeValue > 0)
         {
             timeValue -= Time.deltaTime;
@@ -53,7 +58,7 @@ public class Timer : MonoBehaviour
                     bill.GetComponentInChildren<BillController>().UninitializeBill();
                 }
             }
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            DayManager.Instance.DayEnd();
             ResetTimer();
             AnalyticsEvents.tutorialCompleted(); // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
         }

@@ -134,7 +134,7 @@ public class BillController : MonoBehaviour
     private void RandomizeResourceSymbol()
     {
         int rand = Random.Range(0, 3);
-        print("Random Resource: " + rand);
+        //print("Random Resource: " + rand);
         if (rand == 0)
         {
             symbols.Add(SymbolType.Food);
@@ -152,7 +152,7 @@ public class BillController : MonoBehaviour
     private void RandomizePositivitySymbol()
     {
         int rand = Random.Range(0, 2);
-        print("Random Positivity: " + rand);
+        //print("Random Positivity: " + rand);
         if (rand == 1)
         {
             symbols.Add(SymbolType.Positive);
@@ -165,7 +165,7 @@ public class BillController : MonoBehaviour
     private void RandomizeImmediacySymbol()
     {
         int rand = Random.Range(0, 2);
-        print("Random Immediacy: " + rand);
+        //print("Random Immediacy: " + rand);
         if (rand == 1)
         {
             symbols.Add(SymbolType.Immediate);

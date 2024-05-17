@@ -18,6 +18,9 @@ public class TelephoneDistraction : DistractionClass
     public float _time = 0.2f;
     [Range(0f, 0.1f)]
     public float _delayBetweenShakes = 0.1f;
+    
+    public PawCollision pawCollisionDetection;
+
 
 
 
@@ -25,13 +28,13 @@ public class TelephoneDistraction : DistractionClass
     // Start is called before the first frame update
     void Start()
     {
-        minTime = 30;
-        maxTime = 50;
+        minTime = 10;
+        maxTime = 20;
         nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
         startPosition = transform.position; // the og spot of the phone before it starts shaking.
-        attentionLevel = 0f;
-        frenzyDistraction = true; 
+        attentionLevel = 1f;
+        frenzyDistraction = false; 
     }
 
     // Update is called once per frame
@@ -91,6 +94,11 @@ public class TelephoneDistraction : DistractionClass
 
     // temporary way to stop distraction (right click phone)
     public override bool checkStop() {
+        if (pawCollisionDetection && pawCollisionDetection.surface.CompareTag("Phone")) {
+            return true;
+        }
+        return false;
+        /*
         if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0)) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -101,6 +109,7 @@ public class TelephoneDistraction : DistractionClass
             }
         }
         return false;
+        */
     }
 
 }
