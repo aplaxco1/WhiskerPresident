@@ -33,6 +33,8 @@ public class LaserPointer : ToolClass
 
     // WII REMOTE STUFF AHHHH
     Wiimote mote;
+    float mouseX;
+    float mouseY;
 
     // Start is called before the first frame update
     void Start()
@@ -56,12 +58,36 @@ public class LaserPointer : ToolClass
         // WII REMOTE STUFF AHHHH
         WiimoteManager.FindWiimotes();
         mote = WiimoteManager.Wiimotes[0];
-        mote.SendPlayerLED(true, false, false, false);
+        mote.SendPlayerLED(true, false, false, true);
+        mote.SendDataReportMode(InputDataType.REPORT_BUTTONS_ACCEL_EXT16);
+        mote.Accel.CalibrateAccel(AccelCalibrationStep.A_BUTTON_UP);
+        mote.SetupIRCamera(IRDataType.BASIC);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (mote.Button.home) {
+            mote.Accel.CalibrateAccel(AccelCalibrationStep.A_BUTTON_UP);
+            Debug.Log("Wow look i pressed a button!");
+        }
+
+        if (mote != null) {
+            // float[] acell = mote.Accel.GetCalibratedAccelData();
+            float[] pointer = mote.Ir.GetPointingPosition();
+
+            mouseX = pointer[0] * 800f;
+            mouseY = pointer[1] * 500f;
+        }
+
+        if (mote.Button.a) {
+            isActive = true;
+        }
+        else {
+            isActive = false;
+            removeLaser();
+        }
+
         if (Input.GetMouseButtonDown(0)) {
             AudioManager.Instance.Play(SoundName.laser_click, 0.5f);
             isActive = !isActive;
@@ -83,7 +109,9 @@ public class LaserPointer : ToolClass
             if (isOnDesk) { updatePointerSpeed(); updateAttentionLevel();}
 
             // create ray from camera to mouse
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray;
+            if (mote != null) { ray = Camera.main.ScreenPointToRay(new Vector2(mouseX, mouseY)); }
+            else { ray = Camera.main.ScreenPointToRay(Input.mousePosition); }
 
             // calculate position of visual laser
             Vector3 laserStartPos = new Vector3(Camera.main.transform.position.x + laserOffset.x, Camera.main.transform.position.y + laserOffset.y, Camera.main.transform.position.z + laserOffset.z);
@@ -167,4 +195,23 @@ public class LaserPointer : ToolClass
         if (laserDot) { laserDot.SetActive(false); }
         if (lineObj) { lineObj.SetActive(false); }
     }
+
+    IEnumerator ActivateMote() {
+        yield return new WaitUntil(()=> WiimoteManager.HasWiimote());
+        mote = WiimoteManager.Wiimotes[0];
+    }
+
+    // IEnumerator toggleLaser() {
+    //     AudioManager.Instance.Play(SoundName.laser_click, 0.5f);
+    //     isActive = !isActive;
+    //     if (isActive) {
+    //         // small attention boost when toggling
+    //         toggleOn();
+    //     }
+    //     else {
+    //         removeLaser();
+    //     }
+
+    //     yield return new WaitForSeconds(1f);
+    // }
 }
