@@ -11,15 +11,14 @@ public class TutorialPopups : MonoBehaviour
 
     public GameObject laserPointer;
 
-    static bool tutorialSeen = false;
-
     // NOTE: Once we have actual popups made, we can start programming this for real. Right now, all this does is set
-    // our controls menu to active at the start of the scene and pauses the game.
+    // our controls menu to active at the start of the scene and pauses the game. It also has to handle
+    // localization stuff because I cant think of any other way to do it LOL.
 
     // Start is called before the first frame update
     void Start()
     {   
-        if (!tutorialSeen) {
+        if (SaveManager.Instance.currentSaveData.dayInfo.day <= 1) {
             if (LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.GetLocale("en-US"))
             {
                 tutorialMenusEN[0].SetActive(true);
@@ -32,7 +31,6 @@ public class TutorialPopups : MonoBehaviour
             laserPointer.SetActive(false);
             Time.timeScale = 0;
         }
-        tutorialSeen = true;
     }
 
     // Update is called once per frame
