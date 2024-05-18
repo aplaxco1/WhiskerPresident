@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: InkPad_GlueBlotMat_BaseMap
-  m_Shader: {fileID: 4800000, guid: b4e8dda9fc0171e40b6046fce5eac3a8, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2cfd83c4b78885c42a02382fca5e24e2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -88,6 +88,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _StencilID: 2
+    - _Textured: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:

@@ -2486,8 +2486,8 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 0.867092
-  m_SpotAngle: 85.6
+  m_Range: 0.8239176
+  m_SpotAngle: 159.00388
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
@@ -9543,6 +9543,7 @@ MonoBehaviour:
   ringSource: {fileID: 8987188411410978676}
   _time: 0.2
   _delayBetweenShakes: 0.1
+  pawCollisionDetection: {fileID: 0}
 --- !u!82 &8987188411410978676
 AudioSource:
   m_ObjectHideFlags: 0
