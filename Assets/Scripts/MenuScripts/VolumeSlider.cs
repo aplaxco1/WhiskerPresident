@@ -29,6 +29,11 @@ public class VolumeSlider : MonoBehaviour
             audioSource.clip = soundtrack[Random.Range(0, soundtrack.Length)];
             audioSource.Play();
         }
+
+        if (SaveManager.Instance.currentSettingsData != null)
+        {
+            volumeSlider.value = SaveManager.Instance.currentSettingsData.volume;
+        }
     }
 
     // Update is called once per frame

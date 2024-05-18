@@ -1,58 +1,104 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class TelephoneDistraction : MonoBehaviour
+public class TelephoneDistraction : DistractionClass
 {
 
-    static public bool isActive = false;
-    static public Vector3 distractionPosition;
-
-    private float timer = 0;
-    private float nextRing;
-    public float minTime = 30;
-    public float maxTime = 50;
     public AudioSource ringSource;
+
+    [Header("Shaking Animation")]
+    // following is for the shaking
+    private Vector3 startPosition;
+    private Vector3 randomPosition;
+    [Range(0f, 0.1f)]
+    private float phone_vibrate_distance = 0.005f; // change this variable to increase amount of shaking!
+    [Range(0f, 2f)]
+    public float _time = 0.2f;
+    [Range(0f, 0.1f)]
+    public float _delayBetweenShakes = 0.1f;
+    
+    public PawCollision pawCollisionDetection;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        nextRing = Random.Range(minTime, maxTime);
+        minTime = 10;
+        maxTime = 20;
+        nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
+        startPosition = transform.position; // the og spot of the phone before it starts shaking.
+        attentionLevel = 1f;
+        frenzyDistraction = false; 
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= nextRing) {
+        if (timer >= nextEvent) {
             isActive = true;
         }
 
         if (isActive) {
-            phoneRing();
+            distractionEvent();
+            
+            StartCoroutine(Shake());
+            
         }
-        else {
+    }
+    private IEnumerator Shake()
+    {
+        Debug.Log("TRYNA SHAKE: " + phone_vibrate_distance);
+        while (isActive)
+        {
+            randomPosition = startPosition + (Random.insideUnitSphere * phone_vibrate_distance);
+
+            transform.position = randomPosition;
+            
+
+            if (_delayBetweenShakes > 0f)
+            {
+                yield return new WaitForSeconds(_delayBetweenShakes);
+            }
+            else
+            {
+                yield return null;
+            }
         }
+
+        transform.position = startPosition;
 
     }
 
-    void phoneRing() {
+    public override void distractionEvent() {
         if (!ringSource.isPlaying) {
             ringSource.Play();
         }
         ringSource.loop = true;
 
         if (checkStop()) {
+            AudioManager.Instance.Play(SoundName.phone_hangup, 0.5f);
             ringSource.Stop();
             isActive = false;
+            transform.position = startPosition; // set the phone back to the position it was before it started shaking
             timer = 0;
-            nextRing = Random.Range(minTime, maxTime);
+            nextEvent = Random.Range(minTime, maxTime);
         }
     }
 
     // temporary way to stop distraction (right click phone)
-    bool checkStop() {
+    public override bool checkStop() {
+        if (pawCollisionDetection && pawCollisionDetection.surface.CompareTag("Phone")) {
+            return true;
+        }
+        return false;
+        /*
         if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0)) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -63,6 +109,7 @@ public class TelephoneDistraction : MonoBehaviour
             }
         }
         return false;
+        */
     }
 
 }

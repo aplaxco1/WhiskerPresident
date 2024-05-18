@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,22 +7,36 @@ using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer Instance;
     static public float timeValue = 120;
     public TMP_Text timerText;
+    public NewBillMovement billMovementScript;
 
     private float flashTimer;
     private float flashDuration = 1f;
     //public GameObject flashing_Label;
     //public float interval;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         ResetTimer();
+
+        AnalyticsEvents.playerScreenSettings(); // CHECKS IF PLAYER PLAYING GAME FULLSCREEN OR WINDOWED
         //InvokeRepeating("FlashLabel", 0, interval);
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            timeValue = 2;
+        }
+        
         if (timeValue > 0)
         {
             timeValue -= Time.deltaTime;
@@ -38,9 +53,17 @@ public class Timer : MonoBehaviour
         {
             Flash();
             timeValue = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if (billMovementScript) {
+                foreach(GameObject bill in billMovementScript.bills) {
+                    bill.GetComponentInChildren<BillController>().UninitializeBill();
+                }
+            }
+            DayManager.Instance.DayEnd();
             ResetTimer();
+            AnalyticsEvents.tutorialCompleted(); // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
         }
+
+        AnalyticsEvents.checkFramerate(); // CHECKS FRAMERATE DURING GAMEPLAY FOR ANALYTICS
 
         DisplayTime(timeValue);
     }

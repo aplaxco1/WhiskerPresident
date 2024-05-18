@@ -15,6 +15,7 @@ public class CatMovement : MonoBehaviour
 {
     // REFERENCES TO GAME OBJECTS
     public GameObject AttentionPoint;       // reference to where the cat's attention is
+    public GameObject BasePivot;             // reference to the president
     public GameObject ArmPivot;             // reference to where the "Arm" component of president
     public GameObject ArmMesh;              // reference to the "Mesh" child of "Arm"
     public GameObject HeadPivot;            // reference to where the "Head" component of president
@@ -25,9 +26,10 @@ public class CatMovement : MonoBehaviour
     // VARIABLES
     public float timer = 0;                 // timer to keep track of how long since last smack
     private Quaternion target_rotation;     // arm rotation to move to
-    private float x_rotate = 0;             // target x value of arm rotation
-    private float y_rotate = 0;             // target y value of arm rotation
-    private float x2_rotate = 0;             // target x value of arm rotation when smacked
+    private float x_rotate;             // target x value of arm rotation
+    private float y_rotate;             // target y value of arm rotation
+    private float x2_rotate;             // target x value of arm rotation when smacked
+    private float z_rotate;
     private float armExtension;     // how far the arm is stretched out
     private Vector3 lookTarget;             // position of the attentionpoint, but sometimes lags behind for flavor
     private bool smacking;                  // bool to ensure only one pawprint is left
@@ -38,6 +40,7 @@ public class CatMovement : MonoBehaviour
     public ParticleSystem indicator;
     public Material Checkmark;
     public Material X;
+    public bool holdingPhone;
 
     // CONSTANTS    
     private const float WaitInterval = 1.75f;       // base time to wait between swings
@@ -59,10 +62,15 @@ public class CatMovement : MonoBehaviour
         printColor = new Color(0,0,0,0);
         numPrints = 0;
         _smearMat = ArmMesh.GetComponent<Renderer>().material;
-        dust = ArmPivot.transform.parent.GetComponentInChildren<ParticleSystem>(true);
+        dust = ArmPivot.transform.parent.parent.GetComponentInChildren<ParticleSystem>(true);
         //Debug.Log(dust);
         armExtension = BaseArmExtension;
         _smearMat.SetFloat("_Smearing",0);
+        holdingPhone = false;
+        x_rotate = 0;
+        x2_rotate = 0;
+        y_rotate = 0;
+        z_rotate = 0;
     }
     // Update is called once per frame
     void Update()
@@ -85,24 +93,21 @@ public class CatMovement : MonoBehaviour
     }
     void Smack()
     {
-        //target_rotation = Quaternion.Euler(-3 - Mathf.Abs(BaseArmExtension/armExtension), target_rotation.eulerAngles.y, 0); // slam into the table
+        // slam into the table
         smacking = true;
         _smearMat.SetFloat("_Smearing",1);
         timer = 0;
-        //Debug.Log(target_rotation.eulerAngles.x);
-        //Debug.Log((BaseArmExtension/armExtension));
-        //_smearMat.SetFloat("_Smearing",1);
     }
     void TrackFocus(float focusLevel)
     {
         // when smacking is imminent, raise arm up as a warning
-        x_rotate = (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) ? 20f : 5f;
+        if (timer >= WaitInterval/focusLevel - SmackWarningTime/focusLevel) {
+            x_rotate = 20f;
+        }
 
         // dont adjust look_target right before smacking, that way it lingers a little bit behind
         if (timer < WaitInterval/focusLevel - SmackLockTime/focusLevel) {
             lookTarget = AttentionPoint.transform.position;
-        } else {
-            //_smearMat.SetFloat("_Smearing",1);
         }
     }
     void MoveArm(float focusLevel)
@@ -112,17 +117,24 @@ public class CatMovement : MonoBehaviour
             if (smacking) { 
                 LeavePrint(pawCollider.transform.position, y_rotate);
                 _smearMat.SetFloat("_Smearing",0);
-                //dust.gameObject.SetActive(false);
+                x_rotate = 20f;
+                pawCollisionDetection.colliding = false;
+            }
+
+            // calculate and extend/retract arm mesh
+            if (holdingPhone)
+            {
+                //armExtension = BaseArmExtension +0.8f;
+                z_rotate = 90;
+            } else 
+            {
+                z_rotate = 0;
+                //armExtension = BaseArmExtension - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.8f, 0.2f);
             }
 
             // calculate and rotate arm pivot
-            Quaternion tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
-            y_rotate = tempAngle.eulerAngles.y;
-            x2_rotate = tempAngle.eulerAngles.x;
-		    target_rotation = Quaternion.Euler(x_rotate, y_rotate, 0);
-            ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
-
-            // calculate and extend/retract arm mesh
+            pivot();
+            
             armExtension = BaseArmExtension - Mathf.Clamp(Vector3.Distance(ArmPivot.transform.position, lookTarget)-2.1f, -0.8f, 0.2f);
             ArmMesh.transform.localPosition = new Vector3(0, 0, Mathf.Lerp(ArmMesh.transform.localPosition.z, armExtension, Time.deltaTime*10f));
         } else { // during smack!
@@ -141,37 +153,107 @@ public class CatMovement : MonoBehaviour
                     dust.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
                     dust.gameObject.SetActive(true);
                 }
-                if (!indicator.gameObject.activeSelf && pawCollisionDetection.surface.tag == "Bill" && printColor.a>0) {
+                if (!holdingPhone && !indicator.gameObject.activeSelf && pawCollisionDetection.surface.tag == "Bill" && printColor.a>0) {
                     indicator.GetComponent<ParticleSystem>().emission.SetBursts(new ParticleSystem.Burst[]{new ParticleSystem.Burst(0, 1)});
                     Renderer rend = indicator.GetComponent<Renderer>();
                     if (printColor.r > 0.6) {
                         rend.material = X;
+                        Vector3 pos = pawCollider.transform.position;
+                        indicator.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
+                        indicator.gameObject.SetActive(true);
                     } else {
-                        rend.material = Checkmark;
+                        //rend.material = Checkmark;
                     }
-                    Vector3 pos = pawCollider.transform.position;
-                    indicator.transform.position = new Vector3(pos.x, pos.y + 0.018f, pos.z);
-                    indicator.gameObject.SetActive(true);
                 }
             }
             target_rotation = Quaternion.Euler(x2_rotate, y_rotate, 0);
             ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*50f);
+           
         }
+    }
+    float fix(float n) {
+		float a = n <= 180 ? n : (360-n)*-1;
+		return a;
+	}
+    void pivot() {
+        Quaternion tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
+        y_rotate = tempAngle.eulerAngles.y;
+        float a = fix(ArmPivot.transform.localEulerAngles.y);
+        if (a > 15 || a < 0) {
+            Quaternion baseTarget = Quaternion.Euler(0, y_rotate, 0);
+            if (a < 0) {
+                BasePivot.transform.rotation = Quaternion.Slerp(BasePivot.transform.rotation, baseTarget, Time.deltaTime*Mathf.Abs(a-50)/10f);
+            }
+            else {
+                BasePivot.transform.rotation = Quaternion.Slerp(BasePivot.transform.rotation, baseTarget, Time.deltaTime*Mathf.Abs(a-20)/20f);
+            }
+
+            tempAngle = Quaternion.LookRotation((ArmPivot.transform.position - lookTarget).normalized);
+            y_rotate = tempAngle.eulerAngles.y;
+        }
+        x2_rotate = tempAngle.eulerAngles.x;
+	    target_rotation = Quaternion.Euler(x_rotate, y_rotate, z_rotate);
+        ArmPivot.transform.rotation = Quaternion.Slerp(ArmPivot.transform.rotation, target_rotation, Time.deltaTime*5f);
     }
     void MoveHead()
     {
         HeadPivot.transform.rotation = Quaternion.Slerp(HeadPivot.transform.rotation, Quaternion.LookRotation((HeadPivot.transform.position - lookTarget).normalized), Time.deltaTime*5f);
     }
+    private Transform attached = null;
     void LeavePrint(Vector3 pos, float yRotation)
     {
         smacking = false;
         if (pawCollisionDetection.surface == null) { Debug.Log("gone :("); return; }
+        if (pawCollisionDetection.surface.CompareTag("Phone"))
+        {
+            if (holdingPhone)
+            { // release the handset
+                holdingPhone = false;
+                Renderer[] held = pawCollider.gameObject.GetComponentsInChildren<Renderer>();
+                foreach (Renderer item in held) {
+                    Debug.Log(item.gameObject);
+                    if (item.gameObject.CompareTag("Phone")) {
+                        item.gameObject.SetActive(false);
+                    }
+                }
+            } else
+            { // pick up the handset
+                holdingPhone = true;
+                Renderer[] held = pawCollider.gameObject.GetComponentsInChildren<Renderer>(true);
+                foreach (Renderer item in held) {
+                    if (item.gameObject.CompareTag("Phone")) {
+                        item.gameObject.SetActive(true);
+                    }
+                }
+            }
+            return;
+        }
+        if (holdingPhone) {return;}
         if (pawCollisionDetection.surface.CompareTag("Inkpad")) {
             printColor = pawCollisionDetection.surface.GetComponentInParent<MeshRenderer>().material.color;
             return;
         }
-        if (pawCollisionDetection.surface.CompareTag("Organizer")) { return; }
+        if (pawCollisionDetection.surface.CompareTag("Organizer")) { return; } // get rid of this
         if (printColor.a == 0) {return;}
+        if (attached) { // release glue!
+            attached.parent = null;
+            float billYPos = attached.position.y+ 0.08f > 0.82f? attached.position.y+ 0.08f: 0.82f;
+            attached.position = new Vector3(attached.position.x, billYPos, attached.position.z);
+            attached.rotation = Quaternion.Euler(0, attached.rotation.eulerAngles.y + Random.Range(-45f, 45f), 0);
+            attached.GetComponentInChildren<Collider>().enabled = true;
+            attached = null;
+            return;
+        }
+        if (printColor.r < 0.6 && !attached) { // glue!
+            if (pawCollisionDetection.surface.CompareTag("Bill")) {
+                //Debug.Log("sticking!");
+                attached = pawCollisionDetection.surface.GetComponentInParent<BillController>().transform;
+                attached.parent = pawCollider.transform;
+                attached.position = new Vector3(attached.position.x, attached.position.y - 0.07f, attached.position.z);
+                pawCollisionDetection.surface.GetComponent<Collider>().enabled = false;
+            }
+            return;
+        }
         GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.018f, pos.z), Quaternion.Euler(0,yRotation,0));
         newPrint.transform.SetParent(pawCollisionDetection.surface.transform, true);
         PawPrint script = newPrint.GetComponent<PawPrint>();

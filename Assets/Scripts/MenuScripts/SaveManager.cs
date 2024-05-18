@@ -4,36 +4,51 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 
 // NOTE: Used parts of my other Unity project's save/load code here -Justin
 
 public class SaveManager : MonoBehaviour
 {
-    private static SaveData saveInstance = new SaveData();
-    private static Settings settingsInstance = new Settings();
+    private static SaveData saveDataInstance = new SaveData();
+    private static SettingsData settingsDataInstance = new SettingsData();
+    public static SaveManager Instance;
+
+    public SaveData currentSaveData;
+    public SettingsData currentSettingsData;
 
     [Serializable]
     public class SaveData
     {
-        [DataMember]
-        public StatVector statVector = new StatVector();
-        
-        [DataMember]
-        public int dayProgression = 0;
+        [DataMember] 
+        public DayInfo dayInfo;
     }
     
     [Serializable]
-    public class Settings
+    public class SettingsData
     {
         [DataMember]
         public float volume;
         
         [DataMember]
-        public SettingsData.Resolution resolution;
+        public global::SettingsData.Resolution resolution;
     }
 
-    
-    // Temporary save/load controls
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
+    private void Start()
+    {
+        LoadFromFile();
+        LoadSettings();
+    }
+
+    //Temporary save/load controls
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
@@ -46,18 +61,22 @@ public class SaveManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            SaveToFile(1);
+            SaveToFile();
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            LoadFromFile(1);
+            LoadFromFile();
+        }
+        if (Input.GetKeyDown(KeyCode.Semicolon))
+        {
+            DayManager.Instance.InitializeDefaultStats();
         }
     }
 
-    public static void SaveSettings()
+    public void SaveSettings()
     {
         float volumeToSave = 0.5f;
-        SettingsData.Resolution resToSave = SettingsData.Resolution1;
+        global::SettingsData.Resolution resToSave = global::SettingsData.Resolution1;
 
         if (VolumeSlider.Instance != null)
         {
@@ -77,7 +96,7 @@ public class SaveManager : MonoBehaviour
             Debug.LogWarning("SAVEMANAGER - SAVESETTINGS: Cannot access SettingsResolution instance.");
         }
         
-        settingsInstance = new Settings
+        settingsDataInstance = new SettingsData
         {
             // update stuff here, then save to object file
             volume = volumeToSave,
@@ -86,10 +105,10 @@ public class SaveManager : MonoBehaviour
 
         // write to file
         var jsonSerializer = new DataContractJsonSerializer(
-            typeof(Settings)
+            typeof(SettingsData)
         );
         var jsonStream = new MemoryStream();
-        jsonSerializer.WriteObject(jsonStream, settingsInstance);
+        jsonSerializer.WriteObject(jsonStream, settingsDataInstance);
         Debug.Log("Attempting to save settings file to " + Application.persistentDataPath + "/settings" + ".set");
         var fileStream = File.Create(Application.persistentDataPath + "/settings" + ".set");
         jsonStream.Seek(0, SeekOrigin.Begin);
@@ -97,10 +116,10 @@ public class SaveManager : MonoBehaviour
         fileStream.Close();
     }
 
-    public static void LoadSettings()
+    public void LoadSettings()
     {
         var jsonSerializer = new DataContractJsonSerializer(
-            typeof(Settings)
+            typeof(SettingsData)
         );
         FileStream fileStream;
         Debug.Log("Attempting to load settings file from " + Application.persistentDataPath + "/settings" + ".set");
@@ -121,7 +140,7 @@ public class SaveManager : MonoBehaviour
 
         try
         {
-            settingsInstance = (Settings) jsonSerializer.ReadObject(fileStream);
+            settingsDataInstance = (SettingsData) jsonSerializer.ReadObject(fileStream);
         }
         catch (SerializationException e)
         {
@@ -131,21 +150,23 @@ public class SaveManager : MonoBehaviour
             return;
         }
 
+        currentSettingsData = settingsDataInstance;
+
         if (VolumeSlider.Instance != null)
         {
-            VolumeSlider.Instance.currentVolume = settingsInstance.volume;
-            VolumeSlider.Instance.changeVolume(settingsInstance.volume);
+            VolumeSlider.Instance.currentVolume = settingsDataInstance.volume;
+            VolumeSlider.Instance.changeVolume(settingsDataInstance.volume);
             VolumeSlider.Instance.updateVolume();
-            VolumeSlider.Instance.volumeSlider.value = settingsInstance.volume;
+            VolumeSlider.Instance.volumeSlider.value = settingsDataInstance.volume;
         }
         else
         {
-            Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Cannot access VolumeSlider instance.");
+            Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Cannot access VolumeSlider instance. (This is probably fine)");
         }
         
         if (SettingsResolution.Instance != null)
         {
-            SettingsResolution.Instance.SetRes(settingsInstance.resolution);
+            SettingsResolution.Instance.SetRes(settingsDataInstance.resolution);
         }
         else
         {
@@ -153,22 +174,11 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public static void SaveToFile(int saveNum)
+    public void SaveToFile(int saveNum = 1)
     {
-        StatVector statVectorToSave = new StatVector();
-        if (StatManager.Instance != null)
+        saveDataInstance = new SaveData
         {
-            statVectorToSave = StatManager.Instance.GetStats();
-        }
-        else
-        {
-            Debug.LogWarning("SAVEMANAGER - SAVETOFILE: Cannot access StatManager instance.");
-        }
-
-        saveInstance = new SaveData
-        {
-            dayProgression = EnvironmentManager.Instance.day,
-            statVector = statVectorToSave,
+            dayInfo = DayManager.Instance.dayInfo,
         };
         
         // write to file
@@ -176,7 +186,7 @@ public class SaveManager : MonoBehaviour
             typeof(SaveData)
         );
         var jsonStream = new MemoryStream();
-        jsonSerializer.WriteObject(jsonStream, saveInstance);
+        jsonSerializer.WriteObject(jsonStream, saveDataInstance);
         Debug.Log("Attempting to save data file to " + Application.persistentDataPath + "/save" + saveNum + ".sav");
 
         var fileStream = File.Create(
@@ -187,7 +197,7 @@ public class SaveManager : MonoBehaviour
         fileStream.Close();
     }
 
-    public static void LoadFromFile(int saveNum)
+    public void LoadFromFile(int saveNum = 1)
     {
         var jsonSerializer = new DataContractJsonSerializer(
             typeof(SaveData)
@@ -197,6 +207,17 @@ public class SaveManager : MonoBehaviour
         try
         {
             fileStream = File.OpenRead(Application.persistentDataPath + "/save" + saveNum + ".sav");
+        }
+        catch (SerializationException se)
+        {
+            Debug.LogError(
+                "SAVEMANAGER - LOADFROMFILE: Serialization error while loading save file, using default save data."
+                + saveNum
+                + ": "
+                + se.Message
+            );
+            LoadDefaultSave();
+            return;
         }
         catch (IOException ioe)
         {
@@ -212,75 +233,60 @@ public class SaveManager : MonoBehaviour
 
         try
         {
-            saveInstance = (SaveData) jsonSerializer.ReadObject(fileStream);
+            saveDataInstance = (SaveData) jsonSerializer.ReadObject(fileStream);
         }
         catch (SerializationException e)
         {
             Debug.LogError(e);
             Debug.LogError(
-                "SAVEMANAGER - LOADFROMFILE: Something is wrong with the read save file, using default data."
+                "SAVEMANAGER - LOADFROMFILE: Serialization Error: Something is wrong with the read save file, using default data."
             );
             LoadDefaultSave();
             return;
         }
 
-        if (StatManager.Instance != null)
-        {
-            StatManager.Instance.SetStats(saveInstance.statVector);
-        }
-        else
-        {
-            Debug.LogWarning(
-                "SAVEMANAGER - LOADFROMFILE: Cannot access StatManager instance."
-            );
-        }
+        currentSaveData = saveDataInstance;
         
-        if (EnvironmentManager.Instance != null)
+        if (DayManager.Instance != null)
         {
-            EnvironmentManager.Instance.day = saveInstance.dayProgression;
+            DayManager.Instance.dayInfo = saveDataInstance.dayInfo;
         }
         else
         {
             Debug.LogWarning(
-                "SAVEMANAGER - LOADFROMFILE: Cannot access EnvironmentManager instance."
+                "SAVEMANAGER - LOADFROMFILE: Cannot access DayManager instance."
             );
         }
     }
 
-    private static void LoadDefaultSave()
+    private void LoadDefaultSave()
     {
-        saveInstance = new SaveData();
-        saveInstance.dayProgression = 0;
-        saveInstance.statVector = new StatVector();
-        
-        if (StatManager.Instance != null)
+        saveDataInstance = new SaveData
         {
-            StatManager.Instance.SetStats(saveInstance.statVector);
+            dayInfo = new DayInfo()
+        };
+        
+        currentSaveData = saveDataInstance;
+
+        if (DayManager.Instance != null)
+        {
+            DayManager.Instance.dayInfo = saveDataInstance.dayInfo;
         }
         else
         {
             Debug.LogWarning(
-                "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access StatManager instance."
-            );
-        }
-        
-        if (EnvironmentManager.Instance != null)
-        {
-            EnvironmentManager.Instance.day = saveInstance.dayProgression;
-        }
-        else
-        {
-            Debug.LogWarning(
-                "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access EnvironmentManager instance."
+                "SAVEMANAGER - LOADDEFAULTSAVE: Cannot access DayManager instance."
             );
         }
     }
     
-    private static void LoadDefaultSettings()
+    private void LoadDefaultSettings()
     {
-        settingsInstance = new Settings();
-        settingsInstance.volume = 0.5f;
-        settingsInstance.resolution = SettingsData.Resolution1;
+        settingsDataInstance = new SettingsData
+        {
+            volume = 0.5f,
+            resolution = global::SettingsData.Resolution1
+        };
     }
 
 

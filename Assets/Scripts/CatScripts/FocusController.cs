@@ -9,42 +9,36 @@ using UnityEngine;
 
 public class FocusController : MonoBehaviour
 {
-    //private Coroutine moveCoroutine;
-
-    // reference to laser pointer script
-    public LaserPointer laserPointer;
 
     // Reference to the GameObject to move
     public GameObject objectToMove;
 
-    // Speed of the movement
-    //public float moveSpeed = 5f;
-
+    [Header("Random Attention Point Generation")]
     public float interval = 5f;       // Desired interval between calls
     public float varianceRange = 2f;  // Variance range
-
     private float timer = 0f;
-
-    //private float hackSolution = 0.8f;
 
     //public Vector3 ballOffset = new Vector3(2f, 2f, 2f);
 
     public Vector3 lastPoint;
     public Vector3 randomPoint;
-    public Vector3 minRange = new Vector3(-0.80f, 0.80f, -0.50f);
-    public Vector3 maxRange = new Vector3(0.80f, 0.80f, 0.80f);
+    public Vector3 minRange = new Vector3(-1.60f, 0.80f, -0.50f);
+    public Vector3 maxRange = new Vector3(1.60f, 0.80f, 0.80f);
 
 
+    [Header("Laser Pointer Reference")]
     // for keeping track of laser pointer movement
-    private Vector3 previousPointerLocation = new Vector3(0, 0, 0);
-    private bool wasOnTable = false;
-    public float pointerSpeed = 0;
+    public LaserPointer laserPointer;  // reference to laser pointer script
     public float focusLevel = 0.1f;
+
+    [Header("Distraction Reference")]
+    public DistractionManager distractions;
 
     void Update()
     {
         timer -= Time.deltaTime;
 
+        // generate new random attention point
         if (timer <= 0f)
         {
             // Call your helper function or perform any desired task
@@ -55,34 +49,35 @@ public class FocusController : MonoBehaviour
             timer = interval + Random.Range(-varianceRange, varianceRange);
         }
 
-        if (TelephoneDistraction.isActive) {
-            MoveObjectTo(TelephoneDistraction.distractionPosition);
+        // 
+        if (distractions.activeDistractions.Count > 0 && distractions.frenzyActive) {
+            catGoCrazyMode();
         }
 
-        // Check if the player has clicked the mouse
-        if (laserPointer.isOnDesk && !TelephoneDistraction.isActive)
-        {
-            // Cast a ray from the camera to the mouse position
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // Check if the ray hits any colliders
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Debug.Log("hit");
-                lastPoint = hit.point;
-                // Move the referenced object towards the click position
-                MoveObjectTo(laserPointer.laserDeskLocation);
-
-                pointerSpeed = wasOnTable ? Mathf.Clamp((laserPointer.laserDeskLocation - previousPointerLocation).magnitude/Time.deltaTime, 0.0f, 16.0f) : 1;
-                wasOnTable = true;
-                
-                previousPointerLocation = laserPointer.laserDeskLocation;
+        // set focus level to object with highest attention level
+        else if (distractions.activeDistractions.Count > 0) {
+            // if no laser, or if distraction attention level is higher than laser, move attention point to distraction
+            if ((laserPointer.isOnDesk && (distractions.activeDistractions[distractions.activeDistractions.Count - 1].attentionLevel > laserPointer.attentionLevel)) || !laserPointer.isOnDesk) {
+                MoveObjectTo(distractions.activeDistractions[distractions.activeDistractions.Count - 1].distractionPosition);
             }
-            else { wasOnTable = false; pointerSpeed = 0; }
+            // otherwise, if laser and laser attention level is higher than distraction, move attention point to laser
+            else if (laserPointer.isOnDesk && (distractions.activeDistractions[distractions.activeDistractions.Count - 1].attentionLevel < laserPointer.attentionLevel)) {
+                MoveObjectTo(laserPointer.laserDeskLocation);
+            }
         }
-        else { wasOnTable = false; pointerSpeed = 0; }
-        focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(pointerSpeed/16.0f * 5f, 1f, 20f),Time.deltaTime*1.2f), 1f, 5f);
+
+        else if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f)) {
+            MoveObjectTo(laserPointer.laserDeskLocation);
+        }
+
+        // cat is focused on laser pointer, no distractions
+        // if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f) && distractions.activeDistractions.Count == 0)
+        // {
+        //     MoveObjectTo(laserPointer.laserDeskLocation);
+        // }
+
+        // update focus level 
+        focusLevel = Mathf.Clamp(Mathf.Lerp(focusLevel, Mathf.Clamp(laserPointer.pointerSpeed/16.0f * 5f, 1f, 20f),Time.deltaTime*1.2f), 1f, 5f);
     }
 
     void MoveObjectTo(Vector3 targetPosition)
@@ -92,10 +87,6 @@ public class FocusController : MonoBehaviour
         {
             objectToMove.transform.position = targetPosition;
         }
-        /*else
-        {
-            Debug.LogWarning("Object to move not assigned. Please assign an object in the Inspector.");
-        }*/
     }
 
     Vector3 GenerateRandomVector()
@@ -107,4 +98,10 @@ public class FocusController : MonoBehaviour
 
         return new Vector3(x, y, z);
     }
+
+    void catGoCrazyMode() {
+        focusLevel = 3f;
+        interval = 1f;
+    }
+
 }

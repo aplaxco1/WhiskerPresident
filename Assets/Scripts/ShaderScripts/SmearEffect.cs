@@ -36,7 +36,8 @@ public class SmearEffect : MonoBehaviour
 		_recentPositions.Enqueue(transform.position);
 		smearMat.SetVector("_Position", transform.position);
 		Vector3 rot = transform.parent.eulerAngles;
-		rot = new Vector3(-fix(rot.y),fix(rot.x),-fix(rot.z));
+		//rot = new Vector3(-fix(rot.y),fix(rot.x),-fix(rot.z));
+		rot = new Vector3(0,fix(rot.x),0);
 		smearMat.SetVector("_Rotation", rot);
 		//Debug.Log(rot);
 		_recentRotations.Enqueue(rot);
