@@ -63,3 +63,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 .vsconfig
+Assets/Shaders/Halftone/guh.shader
+Assets/Shaders/Halftone/guh.shader.meta
