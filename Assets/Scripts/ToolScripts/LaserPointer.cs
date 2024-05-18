@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 //using System.Diagnostics;
 using UnityEngine;
+using WiimoteApi;
 
 public class LaserPointer : ToolClass
 {
@@ -30,6 +31,9 @@ public class LaserPointer : ToolClass
     private GameObject lineObj;
     private LineRenderer lineRender;
 
+    // WII REMOTE STUFF AHHHH
+    Wiimote mote;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +52,11 @@ public class LaserPointer : ToolClass
         isActive = false;
         // set cursor
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+
+        // WII REMOTE STUFF AHHHH
+        WiimoteManager.FindWiimotes();
+        mote = WiimoteManager.Wiimotes[0];
+        mote.SendPlayerLED(true, false, false, false);
     }
 
     // Update is called once per frame
