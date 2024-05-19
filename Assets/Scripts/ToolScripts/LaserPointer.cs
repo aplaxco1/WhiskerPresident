@@ -196,11 +196,6 @@ public class LaserPointer : ToolClass
         if (lineObj) { lineObj.SetActive(false); }
     }
 
-    IEnumerator ActivateMote() {
-        yield return new WaitUntil(()=> WiimoteManager.HasWiimote());
-        mote = WiimoteManager.Wiimotes[0];
-    }
-
     // IEnumerator toggleLaser() {
     //     AudioManager.Instance.Play(SoundName.laser_click, 0.5f);
     //     isActive = !isActive;
