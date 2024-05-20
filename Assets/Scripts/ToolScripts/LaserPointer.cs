@@ -151,11 +151,14 @@ public class LaserPointer : ToolClass
     public void toggleOn() {
         if (attentionLevel == 0f) {
             // give some immediate attention when laser toggled on
-            attentionLevel += 0.5f;
+            attentionLevel += 0.3f;
         } 
         else {
             // small attention boost
+            attentionLevel += 0.005f;
         }
+
+        attentionLevel = Mathf.Clamp(attentionLevel, 0f, 1f);
     }
 
     // remove laser when its not the currently selected tool
