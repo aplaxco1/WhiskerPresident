@@ -133,9 +133,15 @@ public class LaserPointer : ToolClass
         // handle attention level decrease/increase here
         if (pointerSpeed == 0f) {
             // decrease attention is laser held still
+            attentionLevel -= 0.001f;
+        }
+        else if (pointerSpeed <= 3f) {
             attentionLevel -= 0.0005f;
         }
-        else {
+        else if (pointerSpeed >= 3f) {
+            attentionLevel += 0.005f;
+        }
+        else if (pointerSpeed >= 14f) {
             attentionLevel += 0.01f;
         }
 
