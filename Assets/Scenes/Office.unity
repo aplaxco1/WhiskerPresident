@@ -5395,6 +5395,8 @@ MonoBehaviour:
   laserPointer: {fileID: 515096773}
   focusLevel: 0.1
   distractions: {fileID: 384477972}
+  offsetXRange: 0.2
+  offsetZRange: 0.2
 --- !u!1 &1432634562
 GameObject:
   m_ObjectHideFlags: 0
@@ -6570,6 +6572,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8004213579795958213, guid: f5123e42d1b32e1468be7c86d2668fb3, type: 3}
   m_PrefabInstance: {fileID: 768686457249912241}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1678977056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678977051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3da797031979d4daec2537ba53818e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  catAim: {fileID: 0}
+  catFocus: {fileID: 1678977051}
 --- !u!1 &1723025553
 GameObject:
   m_ObjectHideFlags: 0
@@ -13268,9 +13284,13 @@ PrefabInstance:
       value: CatFocus
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4049726259283020254, guid: f5123e42d1b32e1468be7c86d2668fb3, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8004213579795958213, guid: f5123e42d1b32e1468be7c86d2668fb3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1678977056}
   m_SourcePrefab: {fileID: 100100000, guid: f5123e42d1b32e1468be7c86d2668fb3, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

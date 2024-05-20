@@ -34,6 +34,12 @@ public class FocusController : MonoBehaviour
     [Header("Distraction Reference")]
     public DistractionManager distractions;
 
+
+    [Header("attetion offsets")]
+    public float offsetXRange = .2f; // Range for random offset in X direction
+    //public float offsetYRange = 1f; // Range for random offset in Y direction
+    public float offsetZRange = .2f; // Range for random offset in Z direction
+
     void Update()
     {
         timer -= Time.deltaTime;
@@ -82,10 +88,22 @@ public class FocusController : MonoBehaviour
 
     void MoveObjectTo(Vector3 targetPosition)
     {
+        Vector3 smackPos = targetPosition;
         // Check if the referenced object is assigned
         if (objectToMove != null)
         {
-            objectToMove.transform.position = targetPosition;
+            float randomOffsetX = Random.Range(-offsetXRange, offsetXRange);
+            //float randomOffsetX = 0;
+            float randomOffsetY = 0;
+            //float randomOffsetZ = 0;
+            float randomOffsetZ = Random.Range(-offsetZRange, offsetZRange);
+            Vector3 offset = new Vector3(randomOffsetX, randomOffsetY, randomOffsetZ);
+
+            //Vector3 newPosition = laserPointer.laserDeskLocation + offset;
+
+            
+            //objectToMove.transform.position = smackPos + offset;
+            objectToMove.transform.position = Vector3.Lerp(objectToMove.transform.position, smackPos + offset, interval);
         }
     }
 
@@ -102,6 +120,8 @@ public class FocusController : MonoBehaviour
     void catGoCrazyMode() {
         focusLevel = 3f;
         interval = 1f;
+        offsetXRange = 1f;
+        offsetZRange = 1f;
     }
 
 }
