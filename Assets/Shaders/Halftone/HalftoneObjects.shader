@@ -1,6 +1,6 @@
 // 2 of the components to the outlines are based on https://roystan.net/articles/outline-shader/
 // smear effect is based off of https://github.com/cjacobwade/HelpfulScripts/tree/master/SmearEffect
-Shader "Unlit/HalftoneObjects"
+Shader "Halftone/Objects"
 {
     Properties
     {
@@ -8,7 +8,7 @@ Shader "Unlit/HalftoneObjects"
         _HalftonePattern ("Halftone Pattern", 2D) = "white" {}
         _Color ("Color", Color) = (0.5,0.5,0.5,1)
         [IntRange] _Textured("Textured", Range(0,1)) = 1
-        //[IntRange] _AmbientZ("Textured", Range(0,1)) = 1
+        _OutlineWidth("Outline Width", Float) = 0.001
 		[HDR]
 		_AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
         _RemapInputMin ("Remap input min value", Range(0, 1)) = 0
@@ -88,6 +88,8 @@ Shader "Unlit/HalftoneObjects"
             sampler2D _CameraDepthTexture;
             sampler2D _CameraNormalsTexture;
 
+            float _OutlineWidth;
+
             v2f vert (appdata v) // vertex shader
             {
                 v2f o;
@@ -151,7 +153,6 @@ Shader "Unlit/HalftoneObjects"
 
                 // calculate rim
                 float4 rimDot = 1-dot(viewDir, normal);
-                //return rimDot;
                 float rimIntensity = smoothstep(0.79, 0.80, rimDot * pow(NdotL, 0.1));
                 // sample the texture
                 float4 col = _Color;
@@ -160,14 +161,11 @@ Shader "Unlit/HalftoneObjects"
                 }
 
                 float2 screenSpaceUV = i.screenSpace.xy / i.screenSpace.w;
-                float rimIntensity2 = 0;
-                
-
                 // depth based outlines
-				float2 bottomLeftUV = screenSpaceUV-0.001;
-				float2 topRightUV = screenSpaceUV+0.001;  
-				float2 bottomRightUV = screenSpaceUV + float2(0.001, -0.001);
-				float2 topLeftUV = screenSpaceUV + float2(-0.001, 0.001);
+				float2 bottomLeftUV = screenSpaceUV-_OutlineWidth;
+				float2 topRightUV = screenSpaceUV+_OutlineWidth;  
+				float2 bottomRightUV = screenSpaceUV + float2(_OutlineWidth, -_OutlineWidth);
+				float2 topLeftUV = screenSpaceUV + float2(-_OutlineWidth, _OutlineWidth);
 
                 float depth0 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, bottomLeftUV).r;
                 float depth1 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, topRightUV).r;
@@ -180,6 +178,8 @@ Shader "Unlit/HalftoneObjects"
                 float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 50;
                 float DepthThreshold = 1.5 * depth0;
                 edgeDepth = edgeDepth > DepthThreshold ? 1 : 0;
+                float rimIntensity2 = 0;
+                rimIntensity2 = smoothstep(DepthThreshold-0.01, DepthThreshold, edgeDepth);
                 
                 // camera normals based outlines
                 // anti alias edgenormal through supersampling
@@ -190,18 +190,10 @@ Shader "Unlit/HalftoneObjects"
                             + findEdgeNormal(screenSpaceUV+ float2(-0.0005, 0), _CameraNormalsTexture)
                             + findEdgeNormal(screenSpaceUV+ float2(0, -0.0005), _CameraNormalsTexture))/5;
                 
-                rimIntensity2 = smoothstep(DepthThreshold-0.01, DepthThreshold, edgeDepth);
+                // combine outlines
                 rimIntensity2 += edgeNormal;
                 rimIntensity2 += smoothstep(0.79, 0.80, rimDot);
                 rimIntensity2 = smoothstep(0, 0.5, rimIntensity2);
-                
-                float4 col2;
-                if (smoothstep(0, 0.01, (NdotL * shadow)-0.2f) > 0) {
-                    col2 = 1.8 * col;
-                } else {
-                    col2 = 0.2 * col;
-                }
-                //return rimIntensity2;
 
                 // apply the halftone mask to the lighting
                 screenSpaceUV = TRANSFORM_TEX(screenSpaceUV, _HalftonePattern);
@@ -211,13 +203,26 @@ Shader "Unlit/HalftoneObjects"
                 // anti-aliasing
                 float halftoneChange = fwidth(halftoneValue) * 0.5;
                 light = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light);
-                float4 light2 = smoothstep(0, 0.7, normal.y + normal.x);
-                light2 = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, light2);
-                //return halftoneValue;
                 float lightIntensity3 = smoothstep(0, 0.07, (NdotL * shadow)-0.8f);
                 float highlight = smoothstep(halftoneValue - halftoneChange, halftoneValue + halftoneChange, lightIntensity3);
 
-                light = (light + (1-light)*_AmbientColor + rimIntensity + highlight*0.2 /*+ specular*/);
+                
+                float3 specularReflection;
+                if (dot(normal, lightDirection) < 0.0) 
+                    // light source on the wrong side?
+                {
+                    specularReflection = float3(0.0, 0.0, 0.0); 
+                    // no specular reflection
+                }
+                else // light source on the right side
+                {
+                    specularReflection = attenuation * _LightColor0.rgb 
+                    * _SpecColor.rgb * pow(max(0.0, dot(
+                    reflect(-lightDirection, normal), 
+                    viewDir)), 0.5);//_Shininess);
+                }
+                light = (light + (1-light)*_AmbientColor + rimIntensity + highlight*0.2 + float4(specularReflection, 1.0));
+                light = light * _LightColor0;
                 return (1-rimIntensity2) * (light+0.4) * col + rimIntensity2 * float4(0.05,0.05,0.05,1);
             }
             ENDCG
@@ -274,6 +279,8 @@ Shader "Unlit/HalftoneObjects"
             sampler2D _CameraDepthTexture;
             sampler2D _CameraNormalsTexture;
 
+            float _OutlineWidth;
+
             v2f vert (appdata v) // vertex shader
             {
                 v2f o;
@@ -318,9 +325,29 @@ Shader "Unlit/HalftoneObjects"
                 float shadow = SHADOW_ATTENUATION(i);
                 float4 light = smoothstep(0, 0.8,NdotL * shadow);
 
+                float2 screenSpaceUV = i.screenSpace.xy / i.screenSpace.w;
+                // depth based outlines
+				float2 bottomLeftUV = screenSpaceUV-_OutlineWidth;
+				float2 topRightUV = screenSpaceUV+_OutlineWidth;  
+				float2 bottomRightUV = screenSpaceUV + float2(_OutlineWidth, -_OutlineWidth);
+				float2 topLeftUV = screenSpaceUV + float2(-_OutlineWidth, _OutlineWidth);
+
+                float depth0 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, bottomLeftUV).r;
+                float depth1 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, topRightUV).r;
+                float depth2 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, bottomRightUV).r;
+                float depth3 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, topLeftUV).r;
+                
+                
+                float depthFiniteDifference0 = depth1 - depth0;
+                float depthFiniteDifference1 = depth3 - depth2;
+                float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 50;
+                float DepthThreshold = 1.5 * depth0;
+                edgeDepth = edgeDepth > DepthThreshold ? 1 : 0;
+                float rimIntensity2 = 0;
+                rimIntensity2 = smoothstep(DepthThreshold-0.01, DepthThreshold, edgeDepth);
+
 
                 // apply the halftone mask to the lighting
-                float2 screenSpaceUV = i.screenSpace.xy / i.screenSpace.w;
                 screenSpaceUV = TRANSFORM_TEX(screenSpaceUV, _HalftonePattern);
                 float halftoneValue = tex2D(_HalftonePattern, screenSpaceUV).r;
                 halftoneValue = map(halftoneValue, _RemapInputMin, _RemapInputMax, _RemapOutputMin, _RemapOutputMax);
@@ -336,7 +363,25 @@ Shader "Unlit/HalftoneObjects"
                     col = tex2D(_MainTex, i.uv);
                 }
 
-                return (light) * col;
+
+                float3 specularReflection;
+                if (dot(normal, lightDirection) < 0.0) 
+                    // light source on the wrong side?
+                {
+                    specularReflection = float3(0.0, 0.0, 0.0); 
+                    // no specular reflection
+                }
+                else // light source on the right side
+                {
+                    specularReflection = attenuation * _LightColor0.rgb 
+                    * _SpecColor.rgb * pow(max(0.0, dot(
+                    reflect(-lightDirection, normal), 
+                    viewDir)), 0.5);//_Shininess);
+                }
+
+                //return (light) * col;
+                light = light * _LightColor0;
+                return (1-rimIntensity2) * (light) * col + rimIntensity2 * float4(0.05,0.05,0.05,1) +float4(specularReflection, 1.0);
             }
             ENDCG
         }

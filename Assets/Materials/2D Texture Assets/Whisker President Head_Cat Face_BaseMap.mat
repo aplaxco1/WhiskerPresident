@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Whisker President Head_Cat Face_BaseMap
-  m_Shader: {fileID: 4800000, guid: 56733661538b2974097395bc864e3aae, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2cfd83c4b78885c42a02382fca5e24e2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -78,6 +78,7 @@ Material:
     - _NoiseHeight: 2
     - _NoiseScale: 15
     - _OcclusionStrength: 1
+    - _OutlineWidth: 0.001
     - _Parallax: 0.02
     - _RemapInputMax: 1
     - _RemapInputMin: 0
@@ -88,6 +89,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _StencilID: 2
+    - _Textured: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
