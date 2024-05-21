@@ -6,6 +6,8 @@ public class InstructionManual : MonoBehaviour
 {
     public GameObject[] imageArray;
     public int currentImage;
+    public GameObject nextButton;
+    public GameObject prevButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,9 +26,8 @@ public class InstructionManual : MonoBehaviour
             imageArray[currentImage].SetActive(false);
             currentImage++;
             imageArray[currentImage].SetActive(true);
-
-
         }
+        
     }
 
     public void PrevImage ()
@@ -37,10 +38,27 @@ public class InstructionManual : MonoBehaviour
             currentImage--;
             imageArray[currentImage].SetActive(true);
         }
+        
     }
     // Update is called once per frame
     void Update()
     {
-        
+        if (currentImage == 0)
+        {
+            prevButton.SetActive(false);
+        }
+        else
+        {
+            prevButton.SetActive(true);
+        }
+
+        if (currentImage == imageArray.Length - 1)
+        {
+            nextButton.SetActive(false);
+        }
+        else
+        {
+            nextButton.SetActive(true);
+        }
     }
 }
