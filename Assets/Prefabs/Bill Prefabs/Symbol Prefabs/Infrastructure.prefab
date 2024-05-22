@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7425044466831218900}
   - component: {fileID: 6097521523528156867}
   - component: {fileID: 4283317977949907523}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Infrastructure
   m_TagString: Untagged
   m_Icon: {fileID: 0}

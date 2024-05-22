@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5130780023291655197}
   - component: {fileID: 6346505936904324442}
   - component: {fileID: 6362590589955991974}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Print (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5759730164089449588}
   - component: {fileID: 3763399587615181193}
   - component: {fileID: 8436133016502021202}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Print (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3986618840171398644}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 3481363937482902886}
   - component: {fileID: 5783538265836611086}
   - component: {fileID: 4189435312342370855}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Print (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 7992891045657854088}
   - component: {fileID: 8592345357764957197}
   - component: {fileID: 3885847530625510587}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Print
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8693070453150269459}
   - component: {fileID: 4249469173363872606}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PawPrint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,6 +415,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisappearanceRate: 0.1
   color: {r: 1, g: 0, b: 0, a: 1}
+  StencilID: 1
+  renderQueue: 0
 --- !u!1 &8158935094083609297
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +428,7 @@ GameObject:
   - component: {fileID: 396346803775418143}
   - component: {fileID: 5592711293060971202}
   - component: {fileID: 2875890614601476467}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Print (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
