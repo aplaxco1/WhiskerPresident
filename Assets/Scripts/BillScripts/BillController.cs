@@ -11,6 +11,9 @@ using Random = UnityEngine.Random;
 public class BillController : MonoBehaviour
 {
 
+    [Tooltip("R = Generate Resource, \n M = Generate Modifier, \n I = Generate Immediacy")]
+    [SerializeField] private string templateSequence;
+
     [SerializeField] private GameObject foodSymbolPrefab;
     [SerializeField] private GameObject moneySymbolPrefab;
     [SerializeField] private GameObject boneSymbolPrefab;
@@ -31,7 +34,7 @@ public class BillController : MonoBehaviour
         // New Symbol Types
         // Symbols for representing randomized categories
         RandomResource = 'R',
-        RandomPositivity = 'P',
+        RandomModifier = 'M',
         RandomImmediacy = 'I',
         // specific food symbols
         Food = '1',
@@ -61,7 +64,7 @@ public class BillController : MonoBehaviour
 
     // Designer input string (What sequence type to generate)
     // Grabbed from BillContentsManager
-    private string templateSequence;
+    //private string templateSequence;
     
     // Script output string (What has been generated exactly)
     public string generatedSequence;
@@ -74,7 +77,7 @@ public class BillController : MonoBehaviour
 
     public void InitializeBill()
     {
-        templateSequence = BillContentsManager.Instance.templateSequence;   // Take our set symbol pattern generation
+        //templateSequence = BillContentsManager.Instance.templateSequence;   // Take our set symbol pattern generation
         symbols = new List<SymbolType>();   // initialize empty list "symbols"
         GenerateSymbolList();   // fill out "symbols" list
         GenerateSymbolPrefabs();    // generate the actual visual prefabs
@@ -99,7 +102,7 @@ public class BillController : MonoBehaviour
                 case SymbolType.RandomResource:
                     RandomizeResourceSymbol();
                     break;
-                case SymbolType.RandomPositivity:
+                case SymbolType.RandomModifier:
                     RandomizePositivitySymbol();
                     break;
                 case SymbolType.RandomImmediacy:
@@ -248,10 +251,10 @@ public class BillController : MonoBehaviour
             }
             xCoord -= symbolHorizontalDist;
             Vector3 pos = new Vector3(xCoord, yCoord, zCoord);
-            // changing the scale of the symbols, subject to change
-            Vector3 scale = new Vector3(0.16f * initialSymbolScale, 0.03f, 0.1f *initialSymbolScale);
             
             GameObject instantiatedSymbol = Instantiate(symbolToInstantiate, symbolParent, false);
+            // changing the scale of the symbols, subject to change
+            Vector3 scale = new Vector3(symbolToInstantiate.transform.localScale.x * initialSymbolScale, symbolToInstantiate.transform.localScale.y, symbolToInstantiate.transform.localScale.z * initialSymbolScale) ;
             instantiatedSymbol.transform.position += pos;
             instantiatedSymbol.transform.localScale = scale;
 
