@@ -15,11 +15,11 @@ public class BillController : MonoBehaviour
     [SerializeField] private string templateSequence;
 
     [SerializeField] private GameObject foodSymbolPrefab;
-    [SerializeField] private GameObject moneySymbolPrefab;
-    [SerializeField] private GameObject boneSymbolPrefab;
+    [SerializeField] private GameObject technologySymbolPrefab;
+    [SerializeField] private GameObject infrastructureSymbolPrefab;
 
-    [SerializeField] private GameObject negatorSymbolPrefab;
-    [SerializeField] private GameObject doublerSymbolPrefab;
+    [SerializeField] private GameObject negativeSymbolPrefab;
+    [SerializeField] private GameObject positiveSymbolPrefab;
 
     // THESE SYMBOLS ARE TEMPORARY
     // DELETE THEM ONCE WE HAVE A PROPER IMPLEMENTATION
@@ -216,17 +216,17 @@ public class BillController : MonoBehaviour
                     symbolToInstantiate = foodSymbolPrefab;
                     break;
                 case SymbolType.Industry:
-                    symbolToInstantiate = boneSymbolPrefab;
+                    symbolToInstantiate = infrastructureSymbolPrefab;
                     break;
                 case SymbolType.Technology:
-                    symbolToInstantiate = moneySymbolPrefab;
+                    symbolToInstantiate = technologySymbolPrefab;
                     break;
 
                 case SymbolType.Positive:
-                    symbolToInstantiate = negatorSymbolPrefab;
+                    symbolToInstantiate = negativeSymbolPrefab;
                     break;
                 case SymbolType.Negative:
-                    symbolToInstantiate = doublerSymbolPrefab;
+                    symbolToInstantiate = positiveSymbolPrefab;
                     break;
 
                 case SymbolType.Immediate:

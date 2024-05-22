@@ -216,10 +216,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   templateSequence: RMRM
   foodSymbolPrefab: {fileID: 3045581801333019849, guid: f74a388b2940efc4784347f2ffe297b1, type: 3}
-  moneySymbolPrefab: {fileID: 3045581801333019849, guid: 7f43924baf88ffd4fb0e72654515d0cf, type: 3}
-  boneSymbolPrefab: {fileID: 3045581801333019849, guid: 85fa5d9c23ebeb0479cbbe426786b4e3, type: 3}
-  negatorSymbolPrefab: {fileID: 3045581801333019849, guid: 864093d8fc0476742a2338914653831c, type: 3}
-  doublerSymbolPrefab: {fileID: 3045581801333019849, guid: b03bc79baf4810443850d31182a2dab6, type: 3}
+  technologySymbolPrefab: {fileID: 3045581801333019849, guid: 7f43924baf88ffd4fb0e72654515d0cf, type: 3}
+  infrastructureSymbolPrefab: {fileID: 3045581801333019849, guid: 85fa5d9c23ebeb0479cbbe426786b4e3, type: 3}
+  negativeSymbolPrefab: {fileID: 3045581801333019849, guid: 864093d8fc0476742a2338914653831c, type: 3}
+  positiveSymbolPrefab: {fileID: 3045581801333019849, guid: b03bc79baf4810443850d31182a2dab6, type: 3}
   nowSymbolPrefab: {fileID: 6667765636587843044, guid: 9eecd8e147e462f4995510a884eba642, type: 3}
   laterSymbolPrefab: {fileID: 1410196989226856403, guid: 58f314df67f0997428bbebf1bac31c80, type: 3}
   symbols: 
