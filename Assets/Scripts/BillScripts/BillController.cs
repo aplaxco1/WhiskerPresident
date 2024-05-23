@@ -53,8 +53,8 @@ public class BillController : MonoBehaviour
     public List<SymbolType> symbols;
     
     public int symbolsPerLine;
-    public float symbolHorizontalDist;
-    public float symbolVerticalDist;
+    public float symbolHorizontalSpacing;
+    public float symbolVerticalSpacing;
 
     public float initialSymbolXCoord;
     public float initialSymbolYCoord;
@@ -275,15 +275,15 @@ public class BillController : MonoBehaviour
             if (symbolCount >= symbolsPerLine)
             {
                 symbolCount = 0;
-                zCoord += symbolVerticalDist; // CHANGE THIS BACK TO -= IF AUTUMN WAS STUPID
+                zCoord += symbolVerticalSpacing; // CHANGE THIS BACK TO -= IF AUTUMN WAS STUPID
                 xCoord = initialSymbolXCoord;
             }
-            xCoord -= symbolHorizontalDist;
+            xCoord -= symbolHorizontalSpacing;
             Vector3 pos = new Vector3(xCoord, yCoord, zCoord);
             
             GameObject instantiatedSymbol = Instantiate(symbolToInstantiate, symbolParent, false);
             // changing the scale of the symbols, subject to change
-            Vector3 scale = new Vector3(symbolToInstantiate.transform.localScale.x * initialSymbolScale, symbolToInstantiate.transform.localScale.y, symbolToInstantiate.transform.localScale.z * initialSymbolScale) ;
+            Vector3 scale = new Vector3(symbolToInstantiate.transform.localScale.x * initialSymbolScale, symbolToInstantiate.transform.localScale.y * initialSymbolScale, symbolToInstantiate.transform.localScale.z * initialSymbolScale) ;
             instantiatedSymbol.transform.position += pos;
             instantiatedSymbol.transform.localScale = scale;
 
