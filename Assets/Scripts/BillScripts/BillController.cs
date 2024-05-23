@@ -26,6 +26,8 @@ public class BillController : MonoBehaviour
     [SerializeField] private GameObject nowSymbolPrefab;
     [SerializeField] private GameObject laterSymbolPrefab;
 
+    [SerializeField] private bool uniqueResourcesOnly;
+    private int lastSymbol = -1;
     //private [SerializeField] GameObject immediateSymbolPrefab;
 
     // One bill is classified as: One Resource, Positive or Negative, Immediate or Delayed
@@ -85,11 +87,11 @@ public class BillController : MonoBehaviour
 
     public void UninitializeBill()
     {
-        Debug.Log("ok inside uninitializebill");
+        //Debug.Log("ok inside uninitializebill");
         BillContentsManager.Instance.SaveBill(gameObject);
-        Debug.Log("bill saved");
+        //Debug.Log("bill saved");
         Destroy(gameObject);
-        Debug.Log("bill destroyed");
+        //Debug.Log("bill destroyed");
     }
 
     // Use partial random system to generate symbol list
@@ -127,7 +129,7 @@ public class BillController : MonoBehaviour
                     break;
                 
                 default:
-                    print("WARNING: INVALID SEQUENCE TEMPLATE LETTER");
+                    Debug.LogWarning("WARNING: INVALID SEQUENCE TEMPLATE LETTER");
                     break;
             }
         }
@@ -136,8 +138,35 @@ public class BillController : MonoBehaviour
     //THESE ARE HELPER FUNCITONS TO DECIDE RANDOMIZED SYMBOLS
     private void RandomizeResourceSymbol()
     {
-        int rand = Random.Range(0, 3);
-        //print("Random Resource: " + rand);
+        int rand;
+        if (uniqueResourcesOnly && (lastSymbol >= 0))
+        {
+            if (lastSymbol == 0)
+            {
+                rand = Random.Range(1, 3);
+            }
+            else if (lastSymbol == 1)
+            {
+                rand = Random.Range(0, 2) * 2;
+            }
+            else if (lastSymbol == 2)
+            {
+                rand = Random.Range(0, 2);
+            }
+            else
+            {
+                // LAST SYMBOL IS INVALID
+                Debug.LogWarning("INVALID LASTSYMBOL! Last Symbol is: " + lastSymbol + ". Defaulting to Random Symbol Generation");
+                rand = Random.Range(0, 3);
+            }
+            lastSymbol = rand;
+        }
+        else
+        {
+            rand = Random.Range(0, 3);
+            lastSymbol = rand;
+        }
+
         if (rand == 0)
         {
             symbols.Add(SymbolType.Food);
@@ -291,7 +320,7 @@ public class BillController : MonoBehaviour
                     multiplier *= -1;
                     break;
                 default:
-                    print("WARNING: INVALID SYMBOL FOR BILL CALCULATION");
+                    Debug.LogWarning("WARNING: INVALID SYMBOL FOR BILL CALCULATION");
                     break;
             }
         }
