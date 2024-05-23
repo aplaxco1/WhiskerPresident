@@ -22,8 +22,8 @@ public class MouseDistraction : DistractionClass
     // Start is called before the first frame update
     void Start()
     {
-        minTime = 2;
-        maxTime = 9;
+        minTime = 20;
+        maxTime = 90;
         nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = mouseObj.transform.position;
         attentionLevel = 0.98f;
