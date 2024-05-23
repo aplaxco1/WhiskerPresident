@@ -8311,9 +8311,11 @@ MonoBehaviour:
   enAssets:
   - {fileID: 1361341141}
   - {fileID: 1210471022}
+  - {fileID: 1894058190}
   zhAssets:
   - {fileID: 1886266547}
   - {fileID: 1953619056}
+  - {fileID: 1894058189}
 --- !u!64 &1776976244
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9025,6 +9027,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891150229}
   m_CullTransparentMesh: 1
+--- !u!1 &1894058189 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1438132089078978071, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1894058190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6447546527220449589, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1929627727
 GameObject:
   m_ObjectHideFlags: 0
