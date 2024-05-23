@@ -656,7 +656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1812777558669969648
 Transform:
   m_ObjectHideFlags: 0
@@ -9354,13 +9354,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5178765553175272974}
+  - component: {fileID: 4731857462006075425}
   m_Layer: 7
   m_Name: Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5178765553175272974
 Transform:
   m_ObjectHideFlags: 0
@@ -9377,6 +9378,34 @@ Transform:
   - {fileID: 1812777558669969648}
   m_Father: {fileID: 8436984453025914001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4731857462006075425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6908505671497856247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36216ac656008b748a475047cc8655b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 0
+  distractionPosition: {x: 0, y: 0, z: 0}
+  attentionLevel: 0
+  frenzyDistraction: 0
+  timer: 0
+  minTime: 0
+  maxTime: 0
+  nextEvent: 0
+  distractionDuration: 0
+  distractionTimer: 0
+  mouseObj: {fileID: 6908505671497856247}
+  mouse: {fileID: 1325068987853345354}
+  squeakSource: {fileID: 0}
+  positions: []
+  moveSpeed: 1.3
+  rotateSpeed: 8
 --- !u!1 &6921505804217940995
 GameObject:
   m_ObjectHideFlags: 0
