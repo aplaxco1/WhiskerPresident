@@ -149,6 +149,16 @@ MonoBehaviour:
     m_Localized: No
     m_Metadata:
       m_Items: []
+  - m_Id: 29245437989588992
+    m_Localized: '"We want approval!" voiced by the sponsors. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29245480465305600
+    m_Localized: ' "Stamp!" meowed the president.
+
+'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
