@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3839978751792197549}
   - component: {fileID: 1114267552362768486}
   - component: {fileID: 881814510502044109}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TechnologySymbol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
