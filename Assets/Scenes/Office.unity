@@ -155,6 +155,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1448497699203555951, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: laser
+      value: 
+      objectReference: {fileID: 515096773}
     - target: {fileID: 2231218259048859884, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: pawCollisionDetection
       value: 
