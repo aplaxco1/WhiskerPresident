@@ -135,10 +135,10 @@ public class LaserPointer : ToolClass
             // decrease attention is laser held still
             attentionLevel -= 0.001f;
         }
-        else if (pointerSpeed <= 3f) {
+        else if (pointerSpeed <= 4f) {
             attentionLevel -= 0.0005f;
         }
-        else if (pointerSpeed >= 3f) {
+        else if (pointerSpeed > 4f) {
             attentionLevel += 0.005f;
         }
         else if (pointerSpeed >= 14f) {
@@ -155,7 +155,7 @@ public class LaserPointer : ToolClass
         } 
         else {
             // small attention boost
-            attentionLevel += 0.005f;
+            attentionLevel += 0.05f;
         }
 
         attentionLevel = Mathf.Clamp(attentionLevel, 0f, 1f);
