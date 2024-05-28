@@ -9197,9 +9197,9 @@ MonoBehaviour:
   - {fileID: 597781307}
   nextButton: {fileID: 1705303956}
   prevButton: {fileID: 612701518}
-  exitButton: {fileID: 1548121731}
+  exitButton: {fileID: 0}
   currentImage: 0
-  laserPointer: {fileID: 515096772}
+  laserPointer: {fileID: 0}
 --- !u!1 &1825837525
 GameObject:
   m_ObjectHideFlags: 0
@@ -9529,9 +9529,9 @@ MonoBehaviour:
   - {fileID: 852509306}
   nextButton: {fileID: 1257872850}
   prevButton: {fileID: 1825837525}
-  exitButton: {fileID: 935735858}
+  exitButton: {fileID: 0}
   currentImage: 0
-  laserPointer: {fileID: 515096772}
+  laserPointer: {fileID: 0}
 --- !u!1 &1857601331
 GameObject:
   m_ObjectHideFlags: 0
@@ -15290,13 +15290,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundtrack: []
-  masterVolumeSlider: {fileID: 1556400257}
-  musicVolumeSlider: {fileID: 788081601}
-  soundsVolumeSlider: {fileID: 163922083}
-  currentMasterVolume: 1
-  currentMusicVolume: 1
-  currentSoundsVolume: 1
-  audioMixer: {fileID: 24100000, guid: 16986c2a1e54b9240930d902a47a997c, type: 2}
+  masterVolumeSlider: {fileID: 0}
+  musicVolumeSlider: {fileID: 0}
+  soundsVolumeSlider: {fileID: 0}
+  currentMasterVolume: 0
+  currentMusicVolume: 0
+  currentSoundsVolume: 0
+  audioMixer: {fileID: 0}
 --- !u!1 &2096210281
 GameObject:
   m_ObjectHideFlags: 0
