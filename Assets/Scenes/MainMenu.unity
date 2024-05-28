@@ -1776,9 +1776,9 @@ MonoBehaviour:
   masterVolumeSlider: {fileID: 1397151427}
   musicVolumeSlider: {fileID: 1276122216}
   soundsVolumeSlider: {fileID: 849257705}
-  currentMasterVolume: 0
-  currentMusicVolume: 0
-  currentSoundsVolume: 0
+  currentMasterVolume: 1
+  currentMusicVolume: 1
+  currentSoundsVolume: 1
   audioMixer: {fileID: 24100000, guid: 16986c2a1e54b9240930d902a47a997c, type: 2}
 --- !u!1 &351984905
 GameObject:
