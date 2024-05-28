@@ -81,44 +81,15 @@ public class VolumeManager : MonoBehaviour
     //Called when Slider is moved
     float ChangeVolume(MixerGroups mixerGroupName, float sliderValue)
     {
-        // TESTING AUDIO MIXER
         audioMixer.SetFloat(mixerGroupName.ToString(), Mathf.Log10(sliderValue) * 20); // log operation is to compensate for how audio mixing works to allow for a smoother volume change
-
-        //audioSource.volume = sliderValue;
-        // What happens if the volume slider was not used to change the volume (i'm looking at you save manager)
-
-        //if(!Mathf.Approximately(audioSource.volume, newValue))
-        //{
-        float newValue;
-        audioMixer.GetFloat(mixerGroupName.ToString(), out newValue);
-        //switch (mixerGroupName)
-        //{
-        //    case MixerGroups.MasterVolume: 
-        //        audioMixer.GetFloat(mixerGroupName.ToString(), out newValue);
-        //        masterVolumeSlider.value = newValue;
-        //        break;
-        //    case MixerGroups.MusicVolume:
-        //        audioMixer.GetFloat(mixerGroupName.ToString(), out newValue);
-        //        musicVolumeSlider.value = newValue;
-        //        break;
-        //    case MixerGroups:
-        //        audioMixer.GetFloat(mixerGroupName.ToString(), out newValue);
-        //        soundsVolumeSlider.value = newValue;
-        //        break;
-        //}
-        //}
-
-        return newValue;
+        return sliderValue;
     }
 
     public void UpdateSliders()
     {
-        audioMixer.GetFloat(MixerGroups.MasterVolume.ToString(), out float master);
-        audioMixer.GetFloat(MixerGroups.MusicVolume.ToString(), out float music);
-        audioMixer.GetFloat(MixerGroups.SoundsVolume.ToString(), out float sound);
-        masterVolumeSlider.value = master;
-        musicVolumeSlider.value = music;
-        soundsVolumeSlider.value = sound;
+        masterVolumeSlider.value = currentMasterVolume;
+        musicVolumeSlider.value = currentMusicVolume;
+        soundsVolumeSlider.value = currentSoundsVolume;
     }
 
     //void OnDisable()
