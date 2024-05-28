@@ -7,7 +7,6 @@ public class ClockDistraction : DistractionClass
 
     public AudioSource tickSource;
     public Animator birdAnim;
-    public Animator springAnim;
     public LaserPointer laser;
 
     // Start is called before the first frame update
@@ -41,13 +40,13 @@ public class ClockDistraction : DistractionClass
         tickSource.loop = true;
 
         birdAnim.Play("Cuckoo");
-        springAnim.Play("Spring");
+        //springAnim.Play("Spring");
 
         if (checkStop()) {
             AudioManager.Instance.Play(SoundName.button, 0.5f);
             tickSource.Stop();
             birdAnim.Play("Stop");
-            springAnim.Play("Stop");
+            //springAnim.Play("Stop");
             isActive = false;
             timer = 0;
             nextEvent = Random.Range(minTime, maxTime);

@@ -13,7 +13,6 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseMenu.SetActive(true);
-        volumeSliders.SetActive(true);
         laserPointer.SetActive(false);
         Time.timeScale = 0;
     }
@@ -43,6 +42,7 @@ public class PauseMenu : MonoBehaviour
     public void Settings()
     {
         pauseMenu.SetActive(false);
+        volumeSliders.SetActive(true);
         settingsMenu.SetActive(true);
         Time.timeScale = 0;
     }
