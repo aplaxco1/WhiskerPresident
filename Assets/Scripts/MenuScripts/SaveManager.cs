@@ -153,7 +153,7 @@ public class SaveManager : MonoBehaviour
         catch (SerializationException e)
         {
             Debug.LogError(e);
-            Debug.LogError("SAVEMANAGER - LOADSETTINGS: Something is wrong with the settings file, ignoring it.");
+            Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Something is wrong with the settings file, ignoring it.");
             LoadDefaultSettings();
             return;
         }
@@ -246,7 +246,7 @@ public class SaveManager : MonoBehaviour
         catch (SerializationException e)
         {
             Debug.LogError(e);
-            Debug.LogError(
+            Debug.LogWarning(
                 "SAVEMANAGER - LOADFROMFILE: Serialization Error: Something is wrong with the read save file, using default data."
             );
             LoadDefaultSave();

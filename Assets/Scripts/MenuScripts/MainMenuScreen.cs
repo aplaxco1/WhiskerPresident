@@ -32,11 +32,11 @@ public class MainMenuScreen : MonoBehaviour
     }
 
     public void ContinueGame() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneTransitionManager.TransitionNextScene();
     }
 
     public void StartNewGame() {
         File.Delete(Application.persistentDataPath + "/save1.sav");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneTransitionManager.TransitionNextScene();
     } 
 }
