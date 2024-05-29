@@ -516,6 +516,10 @@ PrefabInstance:
       propertyPath: laser
       value: 
       objectReference: {fileID: 515096773}
+    - target: {fileID: 1851207585882695950, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: pawCollisionDetection
+      value: 
+      objectReference: {fileID: 2065851087}
     - target: {fileID: 2231218259048859884, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: pawCollisionDetection
       value: 
@@ -2118,7 +2122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distractionObjects:
-  - {fileID: 900930951}
+  - {fileID: 1738931423}
   - {fileID: 1813624949}
   - {fileID: 655715766}
   activeDistractions: []
@@ -4542,17 +4546,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 892499622}
   m_CullTransparentMesh: 1
---- !u!114 &900930951 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2231218259048859884, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
-  m_PrefabInstance: {fileID: 93602766}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000574682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a65af66dcacf54d809bdd44c0c1a0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &924747412 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3447854285082642574, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
@@ -7945,7 +7938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distractions:
-  - {fileID: 2000574682}
+  - {fileID: 1738931422}
   - {fileID: 1813624947}
   - {fileID: 520878860}
 --- !u!1 &1588051451
@@ -8841,6 +8834,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733227073}
   m_CullTransparentMesh: 1
+--- !u!1 &1738931422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8450668681491056488, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1738931423 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1851207585882695950, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738931422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a65af66dcacf54d809bdd44c0c1a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1743576494
 GameObject:
   m_ObjectHideFlags: 0
@@ -15312,11 +15321,6 @@ MonoBehaviour:
   billPrefab: {fileID: 7222744191218044594, guid: 5557a0c335527c44aa5d5336fd291d91, type: 3}
   stack: {fileID: 753079169}
   bills: []
---- !u!1 &2000574682 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7228194179595025343, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
-  m_PrefabInstance: {fileID: 93602766}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2065851087 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5963948396019120412, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
