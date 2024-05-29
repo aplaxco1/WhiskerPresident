@@ -9,10 +9,17 @@ public class MainMenuScreen : MonoBehaviour
 
     public GameObject langScreen;
     public GameObject continueScreen;
+    public AudioSource bgm;
 
     void Start() {
         if (langScreen && LangChanger.langScreenSeen) {
             langScreen.SetActive(false);
+        }
+    }
+
+    void Update() {
+        if (!langScreen.activeSelf) {
+            if (!bgm.isPlaying) { bgm.Play(); }
         }
     }
 
