@@ -22,6 +22,7 @@ public class CatMovement : MonoBehaviour
     public FocusController focusController; // reference to the script that manages the cat's focus
     public PawCollision pawCollisionDetection;
     public GameObject PawPrintPrefab;             // reference to pawprint prefab
+    public GameObject deskPhone;                     // reference to phone on desk
 
     // VARIABLES
     public float timer = 0;                 // timer to keep track of how long since last smack
@@ -209,6 +210,7 @@ public class CatMovement : MonoBehaviour
             if (holdingPhone)
             { // release the handset
                 holdingPhone = false;
+                deskPhone.SetActive(true);
                 Renderer[] held = pawCollider.gameObject.GetComponentsInChildren<Renderer>();
                 foreach (Renderer item in held) {
                     Debug.Log(item.gameObject);
@@ -219,6 +221,7 @@ public class CatMovement : MonoBehaviour
             } else
             { // pick up the handset
                 holdingPhone = true;
+                deskPhone.SetActive(false);
                 Renderer[] held = pawCollider.gameObject.GetComponentsInChildren<Renderer>(true);
                 foreach (Renderer item in held) {
                     if (item.gameObject.CompareTag("Phone")) {
