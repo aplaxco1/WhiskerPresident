@@ -474,7 +474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5970987177880977029}
   - component: {fileID: 7693463654249324257}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BoxCollider
   m_TagString: Phone
   m_Icon: {fileID: 0}
@@ -7496,7 +7496,7 @@ GameObject:
   - component: {fileID: 6167700070965257460}
   - component: {fileID: 6448651941417949988}
   - component: {fileID: 3296858113193571636}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Phone
   m_TagString: Phone
   m_Icon: {fileID: 0}
@@ -10357,7 +10357,7 @@ GameObject:
   - component: {fileID: 7784439768988546187}
   - component: {fileID: 1851207585882695950}
   - component: {fileID: 1282058991065939778}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PhoneDialer
   m_TagString: Phone
   m_Icon: {fileID: 0}
