@@ -7012,6 +7012,7 @@ MonoBehaviour:
   focusController: {fileID: 1414787481}
   pawCollisionDetection: {fileID: 2065851087}
   PawPrintPrefab: {fileID: 7127054691324280760, guid: 46fadd2293d508c4eb8174d100e89c8e, type: 3}
+  deskPhone: {fileID: 1688488811}
   timer: 0
   indicator: {fileID: 1929627729}
   Checkmark: {fileID: 2100000, guid: d022ce54a2f87a94cb2d8d5882e09edf, type: 2}
@@ -8425,6 +8426,11 @@ CanvasRenderer:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8004213579795958213, guid: f5123e42d1b32e1468be7c86d2668fb3, type: 3}
   m_PrefabInstance: {fileID: 768686457249912241}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1688488811 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3469766239503332181, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1705303956
 GameObject:
