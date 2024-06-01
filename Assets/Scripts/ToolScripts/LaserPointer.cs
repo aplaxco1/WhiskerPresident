@@ -25,8 +25,6 @@ public class LaserPointer : ToolClass
     public float pointerSpeed = 0;
     public float attentionLevel = 0f; // float between 0 and 1
 
-    public BillMovement billScript;
-
     private GameObject lineObj;
     private LineRenderer lineRender;
 
@@ -91,16 +89,18 @@ public class LaserPointer : ToolClass
                 }
                 // check if on desk
                 if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk")) {
-                    if (mouseHit.collider.gameObject.CompareTag("Bill") && billScript.inspectingBill) {
-                        isOnDesk = false;
-                        laserDot.SetActive(true);
-                    }
-                    else {
-                        isOnDesk = true;
-                    }
+                    isOnDesk = true;
                     laserDeskLocation = mouseHit.point;
                     laserDot.transform.position = mouseHit.point;
                     laserDot.transform.rotation = Quaternion.FromToRotation(laserDot.transform.up, mouseHit.normal) * laserDot.transform.rotation;
+                }
+                else if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Clock")) {
+                    laserDot.SetActive(true);
+                    laserDot.transform.position = mouseHit.point;
+                    laserDot.transform.rotation = Quaternion.FromToRotation(laserDot.transform.up, mouseHit.normal) * laserDot.transform.rotation;
+                    isOnDesk = false;
+                    wasOnTable = false; 
+                    pointerSpeed = 0;   
                 }
                 else {
                     isOnDesk = false;
@@ -151,11 +151,11 @@ public class LaserPointer : ToolClass
     public void toggleOn() {
         if (attentionLevel == 0f) {
             // give some immediate attention when laser toggled on
-            attentionLevel += 0.3f;
+            attentionLevel += 0.5f;
         } 
         else {
             // small attention boost
-            attentionLevel += 0.05f;
+            attentionLevel += 0.08f;
         }
 
         attentionLevel = Mathf.Clamp(attentionLevel, 0f, 1f);
