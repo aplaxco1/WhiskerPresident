@@ -28,7 +28,9 @@ public class SaveManager : MonoBehaviour
     public class SettingsData
     {
         [DataMember]
-        public float volume;
+        public float masterVolume;
+        public float musicVolume;
+        public float soundsVolume;
         
         [DataMember]
         public global::SettingsData.Resolution resolution;
@@ -75,16 +77,20 @@ public class SaveManager : MonoBehaviour
 
     public void SaveSettings()
     {
-        float volumeToSave = 0.5f;
+        float masterVolumeToSave = 0.5f;
+        float musicVolumeToSave = 0.5f;
+        float soundsVolumeToSave = 0.5f;
         global::SettingsData.Resolution resToSave = global::SettingsData.Resolution1;
 
-        if (VolumeSlider.Instance != null)
+        if (VolumeManager.Instance != null)
         {
-            volumeToSave = VolumeSlider.Instance.currentVolume;
+            masterVolumeToSave = VolumeManager.Instance.currentMasterVolume;
+            musicVolumeToSave = VolumeManager.Instance.currentMusicVolume;
+            soundsVolumeToSave = VolumeManager.Instance.currentSoundsVolume;
         }
         else
         {
-            Debug.LogWarning("SAVEMANAGER - SAVESETTINGS: Cannot access VolumeSlider instance.");
+            Debug.LogWarning("SAVEMANAGER - SAVESETTINGS: Cannot access VolumeManager instance.");
         }
         
         if (SettingsResolution.Instance != null)
@@ -99,7 +105,9 @@ public class SaveManager : MonoBehaviour
         settingsDataInstance = new SettingsData
         {
             // update stuff here, then save to object file
-            volume = volumeToSave,
+            masterVolume = masterVolumeToSave,
+            musicVolume = musicVolumeToSave,
+            soundsVolume = soundsVolumeToSave,
             resolution = resToSave,
         };
 
@@ -145,23 +153,23 @@ public class SaveManager : MonoBehaviour
         catch (SerializationException e)
         {
             Debug.LogError(e);
-            Debug.LogError("SAVEMANAGER - LOADSETTINGS: Something is wrong with the settings file, ignoring it.");
+            Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Something is wrong with the settings file, ignoring it.");
             LoadDefaultSettings();
             return;
         }
 
         currentSettingsData = settingsDataInstance;
 
-        if (VolumeSlider.Instance != null)
+        if (VolumeManager.Instance != null)
         {
-            VolumeSlider.Instance.currentVolume = settingsDataInstance.volume;
-            VolumeSlider.Instance.changeVolume(settingsDataInstance.volume);
-            VolumeSlider.Instance.updateVolume();
-            VolumeSlider.Instance.volumeSlider.value = settingsDataInstance.volume;
+            VolumeManager.Instance.ChangeMasterVolume(settingsDataInstance.masterVolume);
+            VolumeManager.Instance.ChangeMusicVolume(settingsDataInstance.musicVolume);
+            VolumeManager.Instance.ChangeSoundsVolume(settingsDataInstance.soundsVolume);
+            VolumeManager.Instance.UpdateSliders();
         }
         else
         {
-            Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Cannot access VolumeSlider instance. (This is probably fine)");
+            Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Cannot access VolumeManager instance. (This is probably fine)");
         }
         
         if (SettingsResolution.Instance != null)
@@ -238,7 +246,7 @@ public class SaveManager : MonoBehaviour
         catch (SerializationException e)
         {
             Debug.LogError(e);
-            Debug.LogError(
+            Debug.LogWarning(
                 "SAVEMANAGER - LOADFROMFILE: Serialization Error: Something is wrong with the read save file, using default data."
             );
             LoadDefaultSave();
@@ -284,7 +292,9 @@ public class SaveManager : MonoBehaviour
     {
         settingsDataInstance = new SettingsData
         {
-            volume = 0.5f,
+            masterVolume = 0.5f,
+            musicVolume = 1.0f,
+            soundsVolume = 1.0f,
             resolution = global::SettingsData.Resolution1
         };
     }

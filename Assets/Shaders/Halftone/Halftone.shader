@@ -1,6 +1,6 @@
 // 2 of the components to the outlines are based on https://roystan.net/articles/outline-shader/
 // smear effect is based off of https://github.com/cjacobwade/HelpfulScripts/tree/master/SmearEffect
-Shader "Unlit/Halftone"
+Shader "Halftone/Base"
 {
     Properties
     {

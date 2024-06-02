@@ -59,6 +59,28 @@ MonoBehaviour:
     m_Key: credits-text-2
     m_Metadata:
       m_Items: []
+  - m_Id: 28124288861835264
+    m_Key: 'continue-from-save
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28133967956512768
+    m_Key: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28133983102144512
+    m_Key: no
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29245437989588992
+    m_Key: news-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29245480465305600
+    m_Key: news-2
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

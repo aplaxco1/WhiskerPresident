@@ -22,6 +22,9 @@ public class Tiling : MonoBehaviour
         //Debug.Log(Screen.width);
         Vector2 tiling = new Vector2(tileCount2*ratio, tileCount2);
         // set the tiling value of halftonepattern
-        mat.SetTextureScale("_HalftonePattern", tiling);
+        if (mat.HasProperty("_HalftonePattern")) {mat.SetTextureScale("_HalftonePattern", tiling);}
+        
+        mat.SetFloat("_OutlineWidth",0.0015f);
+        mat.SetColor("_AmbientColor", new Color(0.8f,0.8f,0.8f,1.0f));
     }
 }

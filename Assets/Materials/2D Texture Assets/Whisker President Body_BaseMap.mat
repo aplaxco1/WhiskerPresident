@@ -78,6 +78,7 @@ Material:
     - _NoiseHeight: 2
     - _NoiseScale: 15
     - _OcclusionStrength: 1
+    - _OutlineWidth: 0.001
     - _Parallax: 0.02
     - _RemapInputMax: 1
     - _RemapInputMin: 0
@@ -88,6 +89,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _StencilID: 0
+    - _Textured: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:

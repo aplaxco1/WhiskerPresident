@@ -26,8 +26,6 @@ public class LaserPointer : ToolClass
     public float pointerSpeed = 0;
     public float attentionLevel = 0f; // float between 0 and 1
 
-    public BillMovement billScript;
-
     private GameObject lineObj;
     private LineRenderer lineRender;
 
@@ -128,16 +126,18 @@ public class LaserPointer : ToolClass
                 }
                 // check if on desk
                 if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Desk")) {
-                    if (mouseHit.collider.gameObject.CompareTag("Bill") && billScript.inspectingBill) {
-                        isOnDesk = false;
-                        laserDot.SetActive(true);
-                    }
-                    else {
-                        isOnDesk = true;
-                    }
+                    isOnDesk = true;
                     laserDeskLocation = mouseHit.point;
                     laserDot.transform.position = mouseHit.point;
                     laserDot.transform.rotation = Quaternion.FromToRotation(laserDot.transform.up, mouseHit.normal) * laserDot.transform.rotation;
+                }
+                else if (mouseHit.collider.gameObject.layer == LayerMask.NameToLayer("Clock")) {
+                    laserDot.SetActive(true);
+                    laserDot.transform.position = mouseHit.point;
+                    laserDot.transform.rotation = Quaternion.FromToRotation(laserDot.transform.up, mouseHit.normal) * laserDot.transform.rotation;
+                    isOnDesk = false;
+                    wasOnTable = false; 
+                    pointerSpeed = 0;   
                 }
                 else {
                     isOnDesk = false;
@@ -170,9 +170,15 @@ public class LaserPointer : ToolClass
         // handle attention level decrease/increase here
         if (pointerSpeed == 0f) {
             // decrease attention is laser held still
+            attentionLevel -= 0.001f;
+        }
+        else if (pointerSpeed <= 4f) {
             attentionLevel -= 0.0005f;
         }
-        else {
+        else if (pointerSpeed > 4f) {
+            attentionLevel += 0.005f;
+        }
+        else if (pointerSpeed >= 14f) {
             attentionLevel += 0.01f;
         }
 
@@ -186,7 +192,10 @@ public class LaserPointer : ToolClass
         } 
         else {
             // small attention boost
+            attentionLevel += 0.08f;
         }
+
+        attentionLevel = Mathf.Clamp(attentionLevel, 0f, 1f);
     }
 
     // remove laser when its not the currently selected tool

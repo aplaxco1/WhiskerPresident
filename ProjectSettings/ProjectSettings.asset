@@ -658,7 +658,7 @@ PlayerSettings:
     PS5: 1
     QNX: 1
     Stadia: 1
-    Standalone: 3
+    Standalone: 0
     VisionOS: 1
     WebGL: 1
     Windows Store Apps: 1
@@ -752,11 +752,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: b8f40639-4441-4bc0-8dd8-972af6c39175
+  cloudProjectId: 7d0df216-8406-4db0-b9e2-4d82c2afcb83
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: WhiskerPresident
-  organizationId: dexterxn
+  organizationId: oolongtea5
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

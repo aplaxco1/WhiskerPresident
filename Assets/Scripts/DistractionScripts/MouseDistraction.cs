@@ -8,14 +8,15 @@ public class MouseDistraction : DistractionClass
     public float distractionDuration;
     public float distractionTimer;
     public GameObject mouseObj;
+    public GameObject mouse;
     public AudioSource squeakSource;
 
     [Header("Mouse Movement")]
-    public Vector3 startPos;
-    public Vector3 endPos;
-    private Vector3 currTarget;
+    public List<Vector3> positions;
+    private int currTarget;
     public float moveSpeed = 1.3f;
-    public float rotateSpeed = 800f;
+    public float rotateSpeed = 8f;
+    private Quaternion rotation;
     private Vector3 direction;
     
     // Start is called before the first frame update
@@ -30,10 +31,12 @@ public class MouseDistraction : DistractionClass
         distractionDuration = Random.Range(8, 16);
         distractionTimer = 0;
         // movement stuff
-        startPos = mouseObj.transform.position;
-        endPos = new Vector3(mouseObj.transform.position.x - 1.3f, mouseObj.transform.position.y, mouseObj.transform.position.z);
-        currTarget = endPos;
-        direction = new Vector3(270,180,0);
+        positions.Add(mouseObj.transform.position);
+        positions.Add(new Vector3(mouseObj.transform.position.x - 1.3f, mouseObj.transform.position.y, mouseObj.transform.position.z));
+        positions.Add(new Vector3(mouseObj.transform.position.x - 0.65f, mouseObj.transform.position.y, mouseObj.transform.position.z + 0.5f));
+        currTarget = Random.Range(0, 3);
+        direction = (mouseObj.transform.position - positions[currTarget]).normalized;
+        rotation = Quaternion.LookRotation(direction);
     }
 
     // Update is called once per frame
@@ -42,7 +45,8 @@ public class MouseDistraction : DistractionClass
         timer += Time.deltaTime;
         if (timer >= nextEvent && !isActive) {
             isActive = true;
-            mouseObj.transform.position = startPos;
+            currTarget = Random.Range(0, 3);
+            mouseObj.transform.position = positions[Random.Range(0, 3)];
         }
 
         if (isActive) {
@@ -52,30 +56,30 @@ public class MouseDistraction : DistractionClass
     }
 
     public override void distractionEvent() {
-        mouseObj.SetActive(true);
+        mouse.SetActive(true);
 
         // makes mouse swap directions
-        if (mouseObj.transform.position == startPos) {
-            currTarget = endPos;
-            direction = new Vector3(270,180,0);
-        }
-        if (mouseObj.transform.position == endPos) {
-            currTarget = startPos;
-            direction = new Vector3(270,0,0);
+        if (mouseObj.transform.position == positions[currTarget]) {
+            currTarget = Random.Range(0, 3);
+            // update look vector
+            direction = (mouseObj.transform.position - positions[currTarget]).normalized;
+            rotation = Quaternion.LookRotation(direction);
         }
 
-        // rotate
-        mouseObj.transform.rotation = Quaternion.RotateTowards(mouseObj.transform.rotation, Quaternion.Euler(direction), rotateSpeed * Time.deltaTime);
+        // rotate mouse towards target position
+        mouseObj.transform.localRotation = Quaternion.Slerp(mouseObj.transform.rotation, rotation, rotateSpeed*Time.deltaTime);
 
         // move mouse towards current target position
-        mouseObj.transform.position = Vector3.MoveTowards(mouseObj.transform.position, currTarget, Time.deltaTime * moveSpeed);
+        mouseObj.transform.position = Vector3.MoveTowards(mouseObj.transform.position, positions[currTarget], Time.deltaTime * moveSpeed);
+
+        // update distraction position for cat focus
         distractionPosition = mouseObj.transform.position;
 
         if (checkStop()) {
             isActive = false;
             timer = 0;
             nextEvent = Random.Range(minTime, maxTime);
-            mouseObj.SetActive(false);
+            mouse.SetActive(false);
             distractionDuration = Random.Range(5, 10);
             distractionTimer = 0;
         }

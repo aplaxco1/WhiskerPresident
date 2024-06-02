@@ -11,18 +11,23 @@ using Random = UnityEngine.Random;
 public class BillController : MonoBehaviour
 {
 
-    [SerializeField] private GameObject foodSymbolPrefab;
-    [SerializeField] private GameObject moneySymbolPrefab;
-    [SerializeField] private GameObject boneSymbolPrefab;
+    [Tooltip("R = Generate Resource, \n M = Generate Modifier, \n I = Generate Immediacy")]
+    [SerializeField] private string templateSequence;
 
-    [SerializeField] private GameObject negatorSymbolPrefab;
-    [SerializeField] private GameObject doublerSymbolPrefab;
+    [SerializeField] private GameObject foodSymbolPrefab;
+    [SerializeField] private GameObject technologySymbolPrefab;
+    [SerializeField] private GameObject infrastructureSymbolPrefab;
+
+    [SerializeField] private GameObject negativeSymbolPrefab;
+    [SerializeField] private GameObject positiveSymbolPrefab;
 
     // THESE SYMBOLS ARE TEMPORARY
     // DELETE THEM ONCE WE HAVE A PROPER IMPLEMENTATION
     [SerializeField] private GameObject nowSymbolPrefab;
     [SerializeField] private GameObject laterSymbolPrefab;
 
+    [SerializeField] private bool uniqueResourcesOnly;
+    private int lastSymbol = -1;
     //private [SerializeField] GameObject immediateSymbolPrefab;
 
     // One bill is classified as: One Resource, Positive or Negative, Immediate or Delayed
@@ -31,7 +36,7 @@ public class BillController : MonoBehaviour
         // New Symbol Types
         // Symbols for representing randomized categories
         RandomResource = 'R',
-        RandomPositivity = 'P',
+        RandomModifier = 'M',
         RandomImmediacy = 'I',
         // specific food symbols
         Food = '1',
@@ -48,8 +53,8 @@ public class BillController : MonoBehaviour
     public List<SymbolType> symbols;
     
     public int symbolsPerLine;
-    public float symbolHorizontalDist;
-    public float symbolVerticalDist;
+    public float symbolHorizontalSpacing;
+    public float symbolVerticalSpacing;
 
     public float initialSymbolXCoord;
     public float initialSymbolYCoord;
@@ -61,7 +66,7 @@ public class BillController : MonoBehaviour
 
     // Designer input string (What sequence type to generate)
     // Grabbed from BillContentsManager
-    private string templateSequence;
+    //private string templateSequence;
     
     // Script output string (What has been generated exactly)
     public string generatedSequence;
@@ -74,7 +79,7 @@ public class BillController : MonoBehaviour
 
     public void InitializeBill()
     {
-        templateSequence = BillContentsManager.Instance.templateSequence;   // Take our set symbol pattern generation
+        //templateSequence = BillContentsManager.Instance.templateSequence;   // Take our set symbol pattern generation
         symbols = new List<SymbolType>();   // initialize empty list "symbols"
         GenerateSymbolList();   // fill out "symbols" list
         GenerateSymbolPrefabs();    // generate the actual visual prefabs
@@ -82,11 +87,11 @@ public class BillController : MonoBehaviour
 
     public void UninitializeBill()
     {
-        Debug.Log("ok inside uninitializebill");
+        //Debug.Log("ok inside uninitializebill");
         BillContentsManager.Instance.SaveBill(gameObject);
-        Debug.Log("bill saved");
+        //Debug.Log("bill saved");
         Destroy(gameObject);
-        Debug.Log("bill destroyed");
+        //Debug.Log("bill destroyed");
     }
 
     // Use partial random system to generate symbol list
@@ -99,7 +104,7 @@ public class BillController : MonoBehaviour
                 case SymbolType.RandomResource:
                     RandomizeResourceSymbol();
                     break;
-                case SymbolType.RandomPositivity:
+                case SymbolType.RandomModifier:
                     RandomizePositivitySymbol();
                     break;
                 case SymbolType.RandomImmediacy:
@@ -124,7 +129,7 @@ public class BillController : MonoBehaviour
                     break;
                 
                 default:
-                    print("WARNING: INVALID SEQUENCE TEMPLATE LETTER");
+                    Debug.LogWarning("WARNING: INVALID SEQUENCE TEMPLATE LETTER");
                     break;
             }
         }
@@ -133,8 +138,35 @@ public class BillController : MonoBehaviour
     //THESE ARE HELPER FUNCITONS TO DECIDE RANDOMIZED SYMBOLS
     private void RandomizeResourceSymbol()
     {
-        int rand = Random.Range(0, 3);
-        //print("Random Resource: " + rand);
+        int rand;
+        if (uniqueResourcesOnly && (lastSymbol >= 0))
+        {
+            if (lastSymbol == 0)
+            {
+                rand = Random.Range(1, 3);
+            }
+            else if (lastSymbol == 1)
+            {
+                rand = Random.Range(0, 2) * 2;
+            }
+            else if (lastSymbol == 2)
+            {
+                rand = Random.Range(0, 2);
+            }
+            else
+            {
+                // LAST SYMBOL IS INVALID
+                Debug.LogWarning("INVALID LASTSYMBOL! Last Symbol is: " + lastSymbol + ". Defaulting to Random Symbol Generation");
+                rand = Random.Range(0, 3);
+            }
+            lastSymbol = rand;
+        }
+        else
+        {
+            rand = Random.Range(0, 3);
+            lastSymbol = rand;
+        }
+
         if (rand == 0)
         {
             symbols.Add(SymbolType.Food);
@@ -213,17 +245,17 @@ public class BillController : MonoBehaviour
                     symbolToInstantiate = foodSymbolPrefab;
                     break;
                 case SymbolType.Industry:
-                    symbolToInstantiate = boneSymbolPrefab;
+                    symbolToInstantiate = infrastructureSymbolPrefab;
                     break;
                 case SymbolType.Technology:
-                    symbolToInstantiate = moneySymbolPrefab;
+                    symbolToInstantiate = technologySymbolPrefab;
                     break;
 
                 case SymbolType.Positive:
-                    symbolToInstantiate = negatorSymbolPrefab;
+                    symbolToInstantiate = negativeSymbolPrefab;
                     break;
                 case SymbolType.Negative:
-                    symbolToInstantiate = doublerSymbolPrefab;
+                    symbolToInstantiate = positiveSymbolPrefab;
                     break;
 
                 case SymbolType.Immediate:
@@ -243,15 +275,15 @@ public class BillController : MonoBehaviour
             if (symbolCount >= symbolsPerLine)
             {
                 symbolCount = 0;
-                zCoord += symbolVerticalDist; // CHANGE THIS BACK TO -= IF AUTUMN WAS STUPID
+                zCoord += symbolVerticalSpacing; // CHANGE THIS BACK TO -= IF AUTUMN WAS STUPID
                 xCoord = initialSymbolXCoord;
             }
-            xCoord -= symbolHorizontalDist;
+            xCoord -= symbolHorizontalSpacing;
             Vector3 pos = new Vector3(xCoord, yCoord, zCoord);
-            // changing the scale of the symbols, subject to change
-            Vector3 scale = new Vector3(0.16f * initialSymbolScale, 0.03f, 0.1f *initialSymbolScale);
             
             GameObject instantiatedSymbol = Instantiate(symbolToInstantiate, symbolParent, false);
+            // changing the scale of the symbols, subject to change
+            Vector3 scale = new Vector3(symbolToInstantiate.transform.localScale.x * initialSymbolScale, symbolToInstantiate.transform.localScale.y * initialSymbolScale, symbolToInstantiate.transform.localScale.z * initialSymbolScale) ;
             instantiatedSymbol.transform.position += pos;
             instantiatedSymbol.transform.localScale = scale;
 
@@ -288,7 +320,7 @@ public class BillController : MonoBehaviour
                     multiplier *= -1;
                     break;
                 default:
-                    print("WARNING: INVALID SYMBOL FOR BILL CALCULATION");
+                    Debug.LogWarning("WARNING: INVALID SYMBOL FOR BILL CALCULATION");
                     break;
             }
         }

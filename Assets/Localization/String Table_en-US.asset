@@ -137,6 +137,28 @@ MonoBehaviour:
       Oliveras: Composer and SFX Designer'
     m_Metadata:
       m_Items: []
+  - m_Id: 28124288861835264
+    m_Localized: Continue From Last Save?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28133967956512768
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28133983102144512
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29245437989588992
+    m_Localized: '"We want approval!" voiced by the sponsors. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29245480465305600
+    m_Localized: ' "Stamp!" meowed the president.
+
+'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
