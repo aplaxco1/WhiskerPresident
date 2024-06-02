@@ -74,8 +74,8 @@ public class LaserPointer : ToolClass
             // float[] acell = mote.Accel.GetCalibratedAccelData();
             float[] pointer = mote.Ir.GetPointingPosition();
 
-            mouseX = pointer[0] * 800f;
-            mouseY = pointer[1] * 500f;
+            mouseX = pointer[0] * Screen.width;
+            mouseY = pointer[1] * Screen.height;
         }
 
         if (mote.Button.a) {
