@@ -2861,7 +2861,6 @@ MonoBehaviour:
   laserDeskLocation: {x: 0, y: 0, z: 0}
   pointerSpeed: 0
   attentionLevel: 0
-  billScript: {fileID: 1994736605}
 --- !u!4 &515096774
 Transform:
   m_ObjectHideFlags: 0
@@ -7910,7 +7909,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1583928466
 Transform:
   m_ObjectHideFlags: 0
@@ -15263,7 +15262,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1994736604}
-  - component: {fileID: 1994736605}
   - component: {fileID: 1994736606}
   m_Layer: 0
   m_Name: Bill Movement
@@ -15287,31 +15285,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 628032205}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1994736605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1994736603}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf5aecfe8b8226e4f94236a163f61fdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: adbce35c4e2f17745bded200594b269f, type: 3}
-  isActive: 1
-  billPrefab: {fileID: 7222744191218044594, guid: 5557a0c335527c44aa5d5336fd291d91, type: 3}
-  speed: 7
-  rotateSpeed: 1200
-  billPosition: {x: 0, y: 0.83, z: 0.08}
-  stackPosition: {x: -0.57, y: 0.91, z: -0.16}
-  organizerPosition: {x: 0.57, y: 0.87, z: -0.16}
-  inspectingPosition: {x: 0, y: 1.4, z: -1}
-  flatRotation: {x: 0, y: 0, z: 0}
-  inspectRotation: {x: 80, y: 180, z: 0}
-  inspectingBill: 0
-  draggingCursorTexture: {fileID: 2800000, guid: c55d17adfcc4b1447a367beeb41ceddf, type: 3}
 --- !u!114 &1994736606
 MonoBehaviour:
   m_ObjectHideFlags: 0

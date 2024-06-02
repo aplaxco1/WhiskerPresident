@@ -145,7 +145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3087264023227646047}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bone.BottomBeak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 2911296067965272776}
   - component: {fileID: 4964255153542065403}
   - component: {fileID: 4393887263477532200}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hour Clock Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 4969035258362700322}
   - component: {fileID: 3270583755160048921}
   - component: {fileID: 8757243748649900002}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pendent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -813,7 +813,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4109589248436171997}
   - component: {fileID: 8346704952042645083}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chicken.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7696,7 +7696,7 @@ GameObject:
   - component: {fileID: 4209721466387672737}
   - component: {fileID: 3298745440918028718}
   - component: {fileID: 1545624254347401730}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GrandFatherCuckoo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7885,8 +7885,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.75, z: 1}
-  m_Center: {x: 0, y: 3.8771, z: 0}
+  m_Size: {x: 0.9999998, y: 2.6141741, z: 0.84242594}
+  m_Center: {x: 0.0000000040781876, y: 3.8092113, z: -0.07878685}
 --- !u!1 &3971806361559648444
 GameObject:
   m_ObjectHideFlags: 0
@@ -7985,7 +7985,7 @@ GameObject:
   - component: {fileID: 4849392523597423129}
   - component: {fileID: 4422827007683973630}
   - component: {fileID: 9187648834914267855}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GrandFather Clock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8397,7 +8397,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9046246369116295003}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cuckoo Armature.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8930,7 +8930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6365352572346103504}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bone.RightDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8961,7 +8961,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3369827660588820640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bone.LeftDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9781,7 +9781,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3480260400462634703}
   - component: {fileID: 8568918647112666594}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bone.Chicken
   m_TagString: Clock
   m_Icon: {fileID: 0}
@@ -10646,7 +10646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1640476704066363897}
   - component: {fileID: 1991952121805809467}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Doors.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10737,7 +10737,7 @@ GameObject:
   - component: {fileID: 3270002678915563313}
   - component: {fileID: 1843308246428018357}
   - component: {fileID: 5258641397055342384}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Minute Clock Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10932,7 +10932,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 285452840306357734}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bone.TopBeak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10999,7 +10999,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7425369293736803188}
   - component: {fileID: 2404433327521730155}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spring1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
