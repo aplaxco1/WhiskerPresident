@@ -101,10 +101,12 @@ public partial class SaveManager
                 "SAVEMANAGER - LOADFROMFILE: Serialization Error: Something is wrong with the read save file, using default data."
             );
             LoadDefaultSave();
+            fileStream.Close();
             return;
         }
         
         SetCurrentSaveData(saveDataInstance);
+        fileStream.Close();
     }
 
     private void SetCurrentSaveData(SaveData saveDataInstance)

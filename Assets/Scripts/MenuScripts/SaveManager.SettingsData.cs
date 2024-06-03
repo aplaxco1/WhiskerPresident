@@ -99,12 +99,13 @@ public partial class SaveManager
             Debug.LogError(e);
             Debug.LogWarning("SAVEMANAGER - LOADSETTINGS: Something is wrong with the settings file, ignoring it.");
             LoadDefaultSettings();
+            fileStream.Close();
             return;
         }
 
         currentSettingsData = settingsDataInstance;
         SetSettings(settingsDataInstance);
-
+        fileStream.Close();
     }
 
     public void SetSettings(SettingsData settingsData)
