@@ -44,10 +44,10 @@ public class MainMenuScreen : MonoBehaviour
         //SceneTransitionManager.TransitionNextScene();
     }
 
-    public void StartNewGame() {
-        //File.Delete(Application.persistentDataPath + "/save1.sav");
-        SaveManager.ResetSaveData();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        //SceneTransitionManager.TransitionNextScene();
-    } 
+//     public void StartNewGame() {
+//         //File.Delete(Application.persistentDataPath + "/save1.sav");
+//         SaveManager.ResetSaveData();
+//         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+//         //SceneTransitionManager.TransitionNextScene();
+//     } 
 }
