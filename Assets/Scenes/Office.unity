@@ -2486,6 +2486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 442987137}
   - component: {fileID: 442987136}
+  - component: {fileID: 442987138}
   m_Layer: 0
   m_Name: SaveManager
   m_TagString: Untagged
@@ -2524,6 +2525,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 628032205}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &442987138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442987135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79629999519ae644da6a2056ec88dfef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &443047529
 GameObject:
   m_ObjectHideFlags: 0
@@ -9567,7 +9580,7 @@ MonoBehaviour:
   - {fileID: 597781307}
   nextButton: {fileID: 1705303956}
   prevButton: {fileID: 612701518}
-  exitButton: {fileID: 0}
+  exitButton: {fileID: 1548121731}
   currentImage: 0
   laserPointer: {fileID: 515096772}
 --- !u!1 &1826310843

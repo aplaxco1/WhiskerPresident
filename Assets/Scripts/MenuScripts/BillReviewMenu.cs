@@ -8,7 +8,8 @@ public class BillReviewMenu : MonoBehaviour
 
     public void BacktoOffice()
     {
-        SceneTransitionManager.TransitionPreviousScene();
+        //SceneTransitionManager.TransitionPreviousScene();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
     // Start is called before the first frame update
     void Start()
