@@ -21,6 +21,11 @@ public partial class SaveManager
         [DataMember]
         public global::SettingsData.Resolution resolution;
     }
+
+    // added this so that buttons could call this function - Autumn
+    public void SaveSettingsAlt() {
+        SaveSettings(null);
+    }
     
     public void SaveSettings(SettingsData settingsDataOverride = null)
     {
