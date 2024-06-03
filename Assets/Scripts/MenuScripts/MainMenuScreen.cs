@@ -9,6 +9,7 @@ public class MainMenuScreen : MonoBehaviour
 
     public GameObject langScreen;
     public GameObject continueScreen;
+    public SaveManager SaveManager;
     public AudioSource bgm;
 
     void Start() {
@@ -28,7 +29,7 @@ public class MainMenuScreen : MonoBehaviour
         LangChanger.langScreenSeen = true;
         Timer.timeValue = 120;
         // if no save data just transition to next screen without popup
-        if (SaveManager.Instance.currentSaveData.dayInfo.day == 0) { ContinueGame(); }
+        if (SaveManager.Instance.currentSaveData.dayInfo.day <= 1) { ContinueGame(); }
         else { continueScreen.SetActive(true); }
     }
 
@@ -44,7 +45,8 @@ public class MainMenuScreen : MonoBehaviour
     }
 
     public void StartNewGame() {
-        File.Delete(Application.persistentDataPath + "/save1.sav");
+        //File.Delete(Application.persistentDataPath + "/save1.sav");
+        SaveManager.ResetSaveData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //SceneTransitionManager.TransitionNextScene();
     } 
