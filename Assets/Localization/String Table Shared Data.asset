@@ -15,40 +15,10 @@ MonoBehaviour:
   m_TableCollectionName: String Table
   m_TableCollectionNameGuidString: 1aa3b4d8a65943c4ea7974a82872e11e
   m_Entries:
-  - m_Id: 8257880064
-    m_Key: controls-text
-    m_Metadata:
-      m_Items: []
-  - m_Id: 36095475712
-    m_Key: controls-return-button
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3249940016218112
-    m_Key: cat-stat
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3249960287289344
-    m_Key: dog-stat
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3271002418397184
-    m_Key: ignored
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3271025797447680
-    m_Key: passed
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3271043098951680
-    m_Key: vetoed
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3272257496760320
-    m_Key: credits-button
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3272296277295104
-    m_Key: next-morning
+  - m_Id: 28124288861835264
+    m_Key: 'continue-from-save
+
+'
     m_Metadata:
       m_Items: []
   - m_Id: 3272364514426880
@@ -59,26 +29,24 @@ MonoBehaviour:
     m_Key: credits-text-2
     m_Metadata:
       m_Items: []
-  - m_Id: 28124288861835264
-    m_Key: 'continue-from-save
-
-'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28133967956512768
-    m_Key: yes
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28133983102144512
-    m_Key: no
-    m_Metadata:
-      m_Items: []
   - m_Id: 29245437989588992
     m_Key: news-1
     m_Metadata:
       m_Items: []
   - m_Id: 29245480465305600
     m_Key: news-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28133983102144512
+    m_Key: no
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28133967956512768
+    m_Key: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33205040733458432
+    m_Key: day
     m_Metadata:
       m_Items: []
   m_Metadata:

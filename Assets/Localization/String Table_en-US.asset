@@ -18,47 +18,6 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 8257880064
-    m_Localized: "In the Office\n\n<b>CONTROLS</b>\n<i>Switch Tools</i> - Scrollwheel
-      (two fingers on trackpad) or \u2190\u2192\n- Blue Cursor: empty hand\n- Red
-      Cursor: laser pointer\n\n<i>Interact with Highlighted Objects</i> - Left Click\n\n<b>TIPS</b>\nEmpty
-      Hand:\n- left click on stack of papers to set a bill on the desk\n- left click
-      the paper organizer to move bill to completion\n\nLaser Pointer:\n- move mouse
-      to guide the cat\n- move mouse quickly to make cat react faster"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 36095475712
-    m_Localized: Return
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3249940016218112
-    m_Localized: 'Cat Approval:'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3249960287289344
-    m_Localized: 'Dog Approval:'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3271002418397184
-    m_Localized: Ignored!
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3271025797447680
-    m_Localized: Passed!
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3271043098951680
-    m_Localized: Vetoed!
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3272257496760320
-    m_Localized: Credits
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3272296277295104
-    m_Localized: Next morning...
-    m_Metadata:
-      m_Items: []
   - m_Id: 3272364514426880
     m_Localized: 'Whisker President Dev Team
 
@@ -157,6 +116,10 @@ MonoBehaviour:
     m_Localized: ' "Stamp!" meowed the president.
 
 '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33205040733458432
+    m_Localized: Day
     m_Metadata:
       m_Items: []
   references:
