@@ -45,6 +45,10 @@ MonoBehaviour:
     m_Key: yes
     m_Metadata:
       m_Items: []
+  - m_Id: 33205040733458432
+    m_Key: day
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

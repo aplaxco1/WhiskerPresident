@@ -118,6 +118,10 @@ MonoBehaviour:
 '
     m_Metadata:
       m_Items: []
+  - m_Id: 33205040733458432
+    m_Localized: Day
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
