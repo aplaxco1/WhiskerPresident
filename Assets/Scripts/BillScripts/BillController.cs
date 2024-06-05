@@ -18,8 +18,8 @@ public class BillController : MonoBehaviour
     [SerializeField] private GameObject technologySymbolPrefab;
     [SerializeField] private GameObject infrastructureSymbolPrefab;
 
-    [SerializeField] private GameObject negativeSymbolPrefab;
     [SerializeField] private GameObject positiveSymbolPrefab;
+    [SerializeField] private GameObject negativeSymbolPrefab;
 
     // THESE SYMBOLS ARE TEMPORARY
     // DELETE THEM ONCE WE HAVE A PROPER IMPLEMENTATION
@@ -40,8 +40,8 @@ public class BillController : MonoBehaviour
         RandomImmediacy = 'I',
         // specific food symbols
         Food = '1',
-        Industry = '2',
-        Technology = '3',
+        Technology = '2',
+        Infrastructure = '3',
         // specific positivity symbols
         Positive = 'p',
         Negative = 'n',
@@ -71,6 +71,7 @@ public class BillController : MonoBehaviour
     // Script output string (What has been generated exactly)
     public string generatedSequence;
     
+    public bool hasBeenPlacedDown = false;
     
     void Awake()
     {
@@ -114,11 +115,11 @@ public class BillController : MonoBehaviour
                 case SymbolType.Food:
                     symbols.Add(SymbolType.Food);
                     break;
-                case SymbolType.Industry:
-                    symbols.Add(SymbolType.Industry);
-                    break;
                 case SymbolType.Technology:
                     symbols.Add(SymbolType.Technology);
+                    break;
+                case SymbolType.Infrastructure:
+                    symbols.Add(SymbolType.Infrastructure);
                     break;
 
                 case SymbolType.Positive:
@@ -173,11 +174,11 @@ public class BillController : MonoBehaviour
         }
         else if (rand == 1)
         {
-            symbols.Add(SymbolType.Industry);
+            symbols.Add(SymbolType.Technology);
         }
         else if(rand == 2)
         {
-            symbols.Add(SymbolType.Technology);
+            symbols.Add(SymbolType.Infrastructure);
         }
     }
 
@@ -244,18 +245,18 @@ public class BillController : MonoBehaviour
                 case SymbolType.Food:
                     symbolToInstantiate = foodSymbolPrefab;
                     break;
-                case SymbolType.Industry:
-                    symbolToInstantiate = infrastructureSymbolPrefab;
-                    break;
                 case SymbolType.Technology:
                     symbolToInstantiate = technologySymbolPrefab;
                     break;
+                case SymbolType.Infrastructure:
+                    symbolToInstantiate = infrastructureSymbolPrefab;
+                    break;
 
                 case SymbolType.Positive:
-                    symbolToInstantiate = negativeSymbolPrefab;
+                    symbolToInstantiate = positiveSymbolPrefab;
                     break;
                 case SymbolType.Negative:
-                    symbolToInstantiate = positiveSymbolPrefab;
+                    symbolToInstantiate = negativeSymbolPrefab;
                     break;
 
                 case SymbolType.Immediate:
@@ -305,19 +306,19 @@ public class BillController : MonoBehaviour
                     returnVector.StatA += scoreInterval * multiplier;
                     multiplier = 1;
                     break;
-                case SymbolType.Industry:
+                case SymbolType.Technology:
                     returnVector.StatB += scoreInterval * multiplier;
                     multiplier = 1;
                     break;
-                case SymbolType.Technology:
+                case SymbolType.Infrastructure:
                     returnVector.StatC += scoreInterval * multiplier;
                     multiplier = 1;
                     break;
                 case SymbolType.Positive:
-                    multiplier *= 1;
+                    multiplier = 1;
                     break;
                 case SymbolType.Negative:
-                    multiplier *= -1;
+                    multiplier = -1;
                     break;
                 default:
                     Debug.LogWarning("WARNING: INVALID SYMBOL FOR BILL CALCULATION");
