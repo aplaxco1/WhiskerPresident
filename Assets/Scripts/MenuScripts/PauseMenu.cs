@@ -14,12 +14,14 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         laserPointer.SetActive(false);
+        AudioListener.pause = true;
         Time.timeScale = 0;
     }
 
     public void Pause_ControlsMenu()
     {
         laserPointer.SetActive(false);
+        AudioListener.pause = true;
         Time.timeScale = 0;
     }
 
@@ -29,6 +31,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         volumeSliders.SetActive(false);
         settingsMenu.SetActive(false);
+        AudioListener.pause = false;
         Time.timeScale = 1;
     }
 
