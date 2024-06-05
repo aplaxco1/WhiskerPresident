@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class DayManager
 {
@@ -8,17 +9,28 @@ public partial class DayManager
         
     public void DayEnd()
     {
+        Debug.Log(dayInfo.sinkB);
         dayInfo.statA += dayInfo.sinkA;
         dayInfo.statB += dayInfo.sinkB;
         dayInfo.statC += dayInfo.sinkC;
-        dayInfo.day++;
-        
+
+        // check lose
         if (CheckLowStats())
         {
             StatLow();
         }
-        
-        SceneTransitionManager.TransitionNextScene();
+
+        // check end of game
+        if (dayInfo.day >= 5) {
+            TriggerEnd();
+        }
+
+        if (!dayInfo.lose && dayInfo.day < 5) {
+            // else just continue normally
+            dayInfo.day++;
+            
+            SceneTransitionManager.TransitionNextScene();
+        }
     }
 
     public bool CheckLowStats()
@@ -48,6 +60,14 @@ public partial class DayManager
     {
         dayInfo.lose = true;
         print("YOU LOSE");
+        EndOfGame.looseGame = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+    }
+
+    public void TriggerEnd() 
+    {
+        EndOfGame.winGame = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }
 
     public void AdjustSinks(SinkVector sinkVector)
