@@ -126,6 +126,23 @@ MonoBehaviour:
     m_Localized: Final Day
     m_Metadata:
       m_Items: []
+  - m_Id: 33584464536506368
+    m_Localized: "You Win! \nWr. President Stays in Office!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33584502436237312
+    m_Localized: 'Game Over!
+
+      You crashed the Economy!
+
+      Wr. President
+      was Impeached!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33584581633085440
+    m_Localized: Back to Main Menu
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
