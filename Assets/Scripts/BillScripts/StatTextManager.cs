@@ -39,6 +39,7 @@ public class StatTextManager : MonoBehaviour
         statAText.text = DayManager.Instance.dayInfo.statA.ToString();
         statBText.text = DayManager.Instance.dayInfo.statB.ToString();
         statCText.text = DayManager.Instance.dayInfo.statC.ToString();
-        if (dayInfoText) { dayInfoText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "day") + " " + DayManager.Instance.dayInfo.day; }
+        if (DayManager.Instance.dayInfo.day >= 5) { dayInfoText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "final-day"); }
+        else { dayInfoText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "day") + " " + DayManager.Instance.dayInfo.day; }
     }
 }
