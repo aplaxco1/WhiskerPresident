@@ -122,6 +122,10 @@ MonoBehaviour:
     m_Localized: Day
     m_Metadata:
       m_Items: []
+  - m_Id: 33580613821501440
+    m_Localized: Final Day
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
