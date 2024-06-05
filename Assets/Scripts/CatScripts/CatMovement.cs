@@ -243,6 +243,12 @@ public class CatMovement : MonoBehaviour
             float billYPos = attached.position.y+ 0.08f > 0.82f? attached.position.y+ 0.08f: 0.82f;
             attached.position = new Vector3(attached.position.x, billYPos, attached.position.z);
             attached.rotation = Quaternion.Euler(0, attached.rotation.eulerAngles.y + Random.Range(-45f, 45f), 0);
+            //calculate bill outcome
+            BillController billRef = attached.GetComponent<BillController>();
+            if (billRef.hasBeenPlacedDown == false) {
+                billRef.PassBill();
+                billRef.hasBeenPlacedDown = true;
+            }
             attached.GetComponentInChildren<Collider>().enabled = true;
             attached = null;
             return;
