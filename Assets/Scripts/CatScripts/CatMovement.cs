@@ -246,7 +246,10 @@ public class CatMovement : MonoBehaviour
             //calculate bill outcome
             BillController billRef = attached.GetComponent<BillController>();
             if (billRef.hasBeenPlacedDown == false) {
-                billRef.PassBill();
+                // only pass bill if it hasnt already been stamped
+                if (attached.GetChild(0).GetChild(0).childCount <= 0) {
+                    billRef.PassBill();
+                }
                 billRef.hasBeenPlacedDown = true;
             }
             attached.GetComponentInChildren<Collider>().enabled = true;
@@ -262,6 +265,12 @@ public class CatMovement : MonoBehaviour
                 pawCollisionDetection.surface.GetComponent<Collider>().enabled = false;
             }
             return;
+        }
+        if (pawCollisionDetection.surface.CompareTag("Bill")) {
+            // only veto bill if it hasnt yet been vetoed, and has already been placed down on the desk
+            if (pawCollisionDetection.surface.transform.childCount <= 0 && pawCollisionDetection.surface.transform.parent.parent.GetComponent<BillController>().hasBeenPlacedDown) {
+                pawCollisionDetection.surface.transform.parent.parent.GetComponent<BillController>().VetoBill();
+            }
         }
         GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.018f, pos.z), Quaternion.Euler(0,yRotation,0));
         newPrint.transform.SetParent(pawCollisionDetection.surface.transform, true);

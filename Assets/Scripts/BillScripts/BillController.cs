@@ -339,6 +339,15 @@ public class BillController : MonoBehaviour
         //GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = statOutput;
     }
 
+    public void VetoBill() {
+        StatVector returnedStatVector = CalculateOutcome();
+        returnedStatVector.StatA *= -1;
+        returnedStatVector.StatB *= -1;
+        returnedStatVector.StatC *= -1;
+        DayManager.Instance.AdjustStats(returnedStatVector);
+        string statOutput = returnedStatVector.StringConversion();
+    }
+
     //// Bill is denied, does not effect stats
     //public void VetoBill()
     //{
