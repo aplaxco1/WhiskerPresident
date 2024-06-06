@@ -28,6 +28,7 @@ public class InstructionManual : MonoBehaviour
 
             // pause game
             Time.timeScale = 0;
+            AudioListener.pause = true;
             laserPointer.SetActive(false);
             gameStarted = false;
 
@@ -115,6 +116,7 @@ public class InstructionManual : MonoBehaviour
     public void StartGame() {
         if (!gameStarted) {
             gameStarted = true;
+            AudioListener.pause = false;
             if (SaveManager.Instance.currentSaveData.dayInfo.day <= 1) {
                 currMinPage = 0;
                 currMaxPage = 2;
