@@ -9,12 +9,12 @@ public class StatTextManager : MonoBehaviour
 
     public static StatTextManager Instance;
 
-    [FormerlySerializedAs("redStatText")] public TMP_Text statAText;
-    [FormerlySerializedAs("greenStatText")] public TMP_Text statBText;
-    [FormerlySerializedAs("blueStatText")] public TMP_Text statCText;
+    public TMP_Text statAText;
+    public TMP_Text statBText;
+    public TMP_Text statCText;
     
     // temporary day info UI
-    [FormerlySerializedAs("blueStatText")] public TMP_Text dayInfoText;
+    public TMP_Text dayInfoText;
 
     void Awake()
     {
@@ -27,16 +27,19 @@ public class StatTextManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        statAText = transform.Find("RedStatText").GetComponent<TMP_Text>();
-        statBText = transform.Find("GreenStatText").GetComponent<TMP_Text>();
-        statCText = transform.Find("BlueStatText").GetComponent<TMP_Text>();
-        dayInfoText = transform.Find("DayInfoText").GetComponent<TMP_Text>();
+        statAText = transform.Find("food").GetComponent<TMP_Text>();
+        statBText = transform.Find("technology").GetComponent<TMP_Text>();
+        statCText = transform.Find("infrastructure").GetComponent<TMP_Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // TODO: TEMPORARY!!
-        dayInfoText.text = DayManager.Instance.dayInfo.ConvertToString();
+        statAText.text = DayManager.Instance.dayInfo.statA.ToString();
+        statBText.text = DayManager.Instance.dayInfo.statB.ToString();
+        statCText.text = DayManager.Instance.dayInfo.statC.ToString();
+        if (DayManager.Instance.dayInfo.day >= 5) { dayInfoText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "final-day"); }
+        else { dayInfoText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "day") + " " + DayManager.Instance.dayInfo.day; }
     }
 }

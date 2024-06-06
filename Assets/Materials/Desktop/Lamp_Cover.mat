@@ -27,5 +27,5 @@ Material:
     m_Floats:
     - _OutlineWidth: 0.003
     m_Colors:
-    - _Color: {r: 0.50879544, g: 0.735849, b: 0.2950338, a: 1}
+    - _Color: {r: 0.5686275, g: 0.8509804, b: 0.21960784, a: 1}
   m_BuildTextureStacks: []

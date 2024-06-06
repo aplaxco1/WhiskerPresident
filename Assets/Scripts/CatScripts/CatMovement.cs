@@ -22,6 +22,7 @@ public class CatMovement : MonoBehaviour
     public FocusController focusController; // reference to the script that manages the cat's focus
     public PawCollision pawCollisionDetection;
     public GameObject PawPrintPrefab;             // reference to pawprint prefab
+    public GameObject deskPhone;                     // reference to phone on desk
 
     // VARIABLES
     public float timer = 0;                 // timer to keep track of how long since last smack
@@ -209,6 +210,7 @@ public class CatMovement : MonoBehaviour
             if (holdingPhone)
             { // release the handset
                 holdingPhone = false;
+                deskPhone.SetActive(true);
                 Renderer[] held = pawCollider.gameObject.GetComponentsInChildren<Renderer>();
                 foreach (Renderer item in held) {
                     Debug.Log(item.gameObject);
@@ -219,6 +221,7 @@ public class CatMovement : MonoBehaviour
             } else
             { // pick up the handset
                 holdingPhone = true;
+                deskPhone.SetActive(false);
                 Renderer[] held = pawCollider.gameObject.GetComponentsInChildren<Renderer>(true);
                 foreach (Renderer item in held) {
                     if (item.gameObject.CompareTag("Phone")) {
@@ -240,6 +243,15 @@ public class CatMovement : MonoBehaviour
             float billYPos = attached.position.y+ 0.08f > 0.82f? attached.position.y+ 0.08f: 0.82f;
             attached.position = new Vector3(attached.position.x, billYPos, attached.position.z);
             attached.rotation = Quaternion.Euler(0, attached.rotation.eulerAngles.y + Random.Range(-45f, 45f), 0);
+            //calculate bill outcome
+            BillController billRef = attached.GetComponent<BillController>();
+            if (billRef.hasBeenPlacedDown == false) {
+                // only pass bill if it hasnt already been stamped
+                if (attached.GetChild(0).GetChild(0).childCount <= 0) {
+                    billRef.PassBill();
+                }
+                billRef.hasBeenPlacedDown = true;
+            }
             attached.GetComponentInChildren<Collider>().enabled = true;
             attached = null;
             return;
@@ -253,6 +265,12 @@ public class CatMovement : MonoBehaviour
                 pawCollisionDetection.surface.GetComponent<Collider>().enabled = false;
             }
             return;
+        }
+        if (pawCollisionDetection.surface.CompareTag("Bill")) {
+            // only veto bill if it hasnt yet been vetoed, and has already been placed down on the desk
+            if (pawCollisionDetection.surface.transform.childCount <= 0 && pawCollisionDetection.surface.transform.parent.parent.GetComponent<BillController>().hasBeenPlacedDown) {
+                pawCollisionDetection.surface.transform.parent.parent.GetComponent<BillController>().VetoBill();
+            }
         }
         GameObject newPrint = Instantiate(PawPrintPrefab, new Vector3(pos.x, pos.y + 0.018f, pos.z), Quaternion.Euler(0,yRotation,0));
         newPrint.transform.SetParent(pawCollisionDetection.surface.transform, true);

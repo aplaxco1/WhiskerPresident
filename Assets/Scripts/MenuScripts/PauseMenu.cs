@@ -7,18 +7,21 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
+    [SerializeField] GameObject volumeSliders;
     [SerializeField] GameObject laserPointer;
 
     public void Pause()
     {
         pauseMenu.SetActive(true);
         laserPointer.SetActive(false);
+        AudioListener.pause = true;
         Time.timeScale = 0;
     }
 
     public void Pause_ControlsMenu()
     {
         laserPointer.SetActive(false);
+        AudioListener.pause = true;
         Time.timeScale = 0;
     }
 
@@ -26,7 +29,9 @@ public class PauseMenu : MonoBehaviour
     {
         laserPointer.SetActive(true);
         pauseMenu.SetActive(false);
+        volumeSliders.SetActive(false);
         settingsMenu.SetActive(false);
+        AudioListener.pause = false;
         Time.timeScale = 1;
     }
 
@@ -40,6 +45,7 @@ public class PauseMenu : MonoBehaviour
     public void Settings()
     {
         pauseMenu.SetActive(false);
+        volumeSliders.SetActive(true);
         settingsMenu.SetActive(true);
         Time.timeScale = 0;
     }

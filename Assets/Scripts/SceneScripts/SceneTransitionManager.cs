@@ -20,9 +20,15 @@ public class SceneTransitionManager : MonoBehaviour
         }
     }
     
-    public static void TransitionNextScene(bool save = true, bool reload = false)
+    public static void TransitionNextScene(bool save = true, bool reload = true)
     {
         int index = SceneManager.GetActiveScene().buildIndex + 1;
+        TransitionScene(index, save, reload);
+    }
+    
+    public static void TransitionPreviousScene(bool save = true, bool reload = true)
+    {
+        int index = SceneManager.GetActiveScene().buildIndex - 1;
         TransitionScene(index, save, reload);
     }
     

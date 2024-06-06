@@ -10,8 +10,6 @@ public class BillContentsManager : MonoBehaviour
 {
     public static BillContentsManager Instance;
     
-    [Tooltip("A = Generate value 1 or 2, \n B = Generate value 1 or 2 or 3, \n M = Generate modifier")]
-    public string templateSequence;
     public Transform savedBills;
 
     private void Awake()

@@ -32,6 +32,7 @@ public class NewBillMovement : MonoBehaviour
     void createBill() {
         currBill = Instantiate(billPrefab, stackPosition, Quaternion.identity);
         currBill.GetComponent<BillController>().InitializeBill();
+        //currBill.GetComponent<BillController>().PassBill(); // calculate stat change
         Material material = currBill.GetComponentInChildren<Renderer>().material;
         material.SetFloat(Shader.PropertyToID("_StencilID"), stencilID);
         material.renderQueue = material.renderQueue + stencilID;

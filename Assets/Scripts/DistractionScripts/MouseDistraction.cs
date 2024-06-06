@@ -8,6 +8,7 @@ public class MouseDistraction : DistractionClass
     public float distractionDuration;
     public float distractionTimer;
     public GameObject mouseObj;
+    public GameObject mouse;
     public AudioSource squeakSource;
 
     [Header("Mouse Movement")]
@@ -44,6 +45,7 @@ public class MouseDistraction : DistractionClass
         timer += Time.deltaTime;
         if (timer >= nextEvent && !isActive) {
             isActive = true;
+            currTarget = Random.Range(0, 3);
             mouseObj.transform.position = positions[Random.Range(0, 3)];
         }
 
@@ -54,7 +56,7 @@ public class MouseDistraction : DistractionClass
     }
 
     public override void distractionEvent() {
-        mouseObj.SetActive(true);
+        mouse.SetActive(true);
 
         // makes mouse swap directions
         if (mouseObj.transform.position == positions[currTarget]) {
@@ -77,7 +79,7 @@ public class MouseDistraction : DistractionClass
             isActive = false;
             timer = 0;
             nextEvent = Random.Range(minTime, maxTime);
-            mouseObj.SetActive(false);
+            mouse.SetActive(false);
             distractionDuration = Random.Range(5, 10);
             distractionTimer = 0;
         }

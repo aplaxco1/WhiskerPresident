@@ -17,21 +17,18 @@ public partial class DayManager
     {
         dayInfo.statA += factor;
         dayInfo.statA = Mathf.Clamp(dayInfo.statA, -100, 100);
-        StatTextManager.Instance.statAText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "dog-stat") + " " + dayInfo.statA;
     }
     
     private void AddToStatB(int factor)
     {
         dayInfo.statB += factor;
         dayInfo.statB = Mathf.Clamp(dayInfo.statB, -100, 100);
-        StatTextManager.Instance.statBText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "cat-stat") + " " + dayInfo.statB; // translate this
     }
     
     private void AddToStatC(int factor)
     {
         dayInfo.statC += factor;
         dayInfo.statC = Mathf.Clamp(dayInfo.statC, -100, 100);
-        StatTextManager.Instance.statCText.text = "StatC: " + dayInfo.statC;
     }
 
     public int GetStatA()
