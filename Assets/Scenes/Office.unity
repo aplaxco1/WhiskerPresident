@@ -517,6 +517,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 515096773}
     - target: {fileID: 1851207585882695950, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: distractionManager
+      value: 
+      objectReference: {fileID: 384477972}
+    - target: {fileID: 1851207585882695950, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: pawCollisionDetection
       value: 
       objectReference: {fileID: 2065851087}
@@ -544,6 +548,10 @@ PrefabInstance:
       propertyPath: laser
       value: 
       objectReference: {fileID: 515096773}
+    - target: {fileID: 4209721466387672737, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: distractionManager
+      value: 
+      objectReference: {fileID: 384477972}
     - target: {fileID: 4302667638643576727, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Name
       value: Environment
@@ -552,6 +560,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4731857462006075425, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+      propertyPath: distractionManager
+      value: 
+      objectReference: {fileID: 384477972}
     - target: {fileID: 4737559221851627120, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

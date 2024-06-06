@@ -24,8 +24,9 @@ public class ClockDistraction : DistractionClass
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= nextEvent) {
+        if (timer >= nextEvent && !isActive) {
             isActive = true;
+            distractionManager.checkActiveDistractions();
         }
 
         if (isActive) {
@@ -47,7 +48,6 @@ public class ClockDistraction : DistractionClass
             tickSource.Stop();
             birdAnim.Play("Stop");
             //springAnim.Play("Stop");
-            isActive = false;
             timer = 0;
             nextEvent = Random.Range(minTime, maxTime);
         }
@@ -60,6 +60,8 @@ public class ClockDistraction : DistractionClass
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
                 if (hit.collider.gameObject.CompareTag("Clock")) {
+                    isActive = false;
+                    distractionManager.checkActiveDistractions();
                     return true;
                 }
             }

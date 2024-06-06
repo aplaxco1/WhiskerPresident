@@ -15,13 +15,7 @@ public class DistractionManager : MonoBehaviour
     {   
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        checkActiveDistractions();
-    }
-
-    void checkActiveDistractions() {
+    public void checkActiveDistractions() {
         foreach (DistractionClass distraction in distractionObjects) {
             if (distraction.isActive && !activeDistractions.Contains(distraction)) {
                 activeDistractions.Add(distraction);
@@ -40,7 +34,7 @@ public class DistractionManager : MonoBehaviour
         checkFrenzy();
     }
 
-    void checkFrenzy() {
+    public void checkFrenzy() {
         float frenzyDistractions = 0;
         for (int i = 0; i < activeDistractions.Count; i += 1) {
             if (activeDistractions[i].frenzyDistraction) {

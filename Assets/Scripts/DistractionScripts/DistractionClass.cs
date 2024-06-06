@@ -5,6 +5,8 @@ using UnityEngine;
 public class DistractionClass : MonoBehaviour
 {
 
+    public DistractionManager distractionManager;
+
     [Header("Distraction Variables")]
     public bool isActive = false;
     public Vector3 distractionPosition;
