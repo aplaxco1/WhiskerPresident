@@ -45,8 +45,7 @@ public class MouseDistraction : DistractionClass
         timer += Time.deltaTime;
         if (timer >= nextEvent && !isActive) {
             isActive = true;
-            currTarget = Random.Range(0, 3);
-            mouseObj.transform.position = positions[Random.Range(0, 3)];
+            distractionManager.checkActiveDistractions();
         }
 
         if (isActive) {
@@ -76,7 +75,6 @@ public class MouseDistraction : DistractionClass
         distractionPosition = mouseObj.transform.position;
 
         if (checkStop()) {
-            isActive = false;
             timer = 0;
             nextEvent = Random.Range(minTime, maxTime);
             mouse.SetActive(false);
@@ -88,6 +86,10 @@ public class MouseDistraction : DistractionClass
     public override bool checkStop() {
         distractionTimer += Time.deltaTime;
         if (distractionTimer >= distractionDuration) {
+            isActive = false;
+            distractionManager.checkActiveDistractions();
+            currTarget = Random.Range(0, 3);
+            mouseObj.transform.position = positions[Random.Range(0, 3)];
             return true;
         }
         return false;

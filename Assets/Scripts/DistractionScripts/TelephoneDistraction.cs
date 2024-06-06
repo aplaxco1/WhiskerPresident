@@ -38,8 +38,9 @@ public class TelephoneDistraction : DistractionClass
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= nextEvent) {
+        if (timer >= nextEvent && !isActive) {
             isActive = true;
+            distractionManager.checkActiveDistractions();
         }
 
         if (isActive) {
@@ -51,7 +52,7 @@ public class TelephoneDistraction : DistractionClass
     }
     private IEnumerator Shake()
     {
-        Debug.Log("TRYNA SHAKE: " + phone_vibrate_distance);
+        //Debug.Log("TRYNA SHAKE: " + phone_vibrate_distance);
         while (isActive)
         {
             randomPosition = startPosition + (Random.insideUnitSphere * phone_vibrate_distance);
@@ -82,7 +83,6 @@ public class TelephoneDistraction : DistractionClass
         if (checkStop()) {
             AudioManager.Instance.Play(SoundName.phone_hangup, 0.5f);
             ringSource.Stop();
-            isActive = false;
             transform.position = startPosition; // set the phone back to the position it was before it started shaking
             timer = 0;
             nextEvent = Random.Range(minTime, maxTime);
@@ -92,6 +92,8 @@ public class TelephoneDistraction : DistractionClass
     // temporary way to stop distraction (right click phone)
     public override bool checkStop() {
         if (pawCollisionDetection && pawCollisionDetection.surface.CompareTag("Phone")) {
+            isActive = false;
+            distractionManager.checkActiveDistractions();
             return true;
         }
         return false;
