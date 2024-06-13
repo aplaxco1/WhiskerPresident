@@ -9,7 +9,6 @@ public partial class DayManager
         
     public void DayEnd()
     {
-        Debug.Log(dayInfo.sinkB);
         dayInfo.statA += dayInfo.sinkA;
         dayInfo.statB += dayInfo.sinkB;
         dayInfo.statC += dayInfo.sinkC;

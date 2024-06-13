@@ -12,8 +12,8 @@ public class Timer : MonoBehaviour
     static public float timesUpTime = 5;
     public TMP_Text timerText;
     public GameObject timesUpPopup;
-    public GameObject catMovement; // to pause
     public GameObject laserPointer; // to pause
+    public VolumeManager volumeManager;
     public NewBillMovement billMovementScript;
 
     private float flashTimer;
@@ -55,22 +55,7 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            timesUpTime -= Time.deltaTime;
-            timesUpPopup.SetActive(true);
-            catMovement.SetActive(false);
-            laserPointer.SetActive(false);
-            if (timesUpTime <= 0f) {
-                Flash();
-                timeValue = 0;
-                if (billMovementScript) {
-                    foreach(GameObject bill in billMovementScript.bills) {
-                        bill.GetComponentInChildren<BillController>().UninitializeBill();
-                    }
-                }
-                DayManager.Instance.DayEnd();
-                ResetTimer();
-                //AnalyticsEvents.tutorialCompleted(); // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
-            }
+            StartCoroutine(TimesUp());
         }
 
         //AnalyticsEvents.checkFramerate(); // CHECKS FRAMERATE DURING GAMEPLAY FOR ANALYTICS
@@ -99,6 +84,7 @@ public class Timer : MonoBehaviour
     {
         timeValue = 120;
         timesUpTime = 5;
+        Time.timeScale = 1;
     }
 
     private void Flash()
@@ -128,6 +114,25 @@ public class Timer : MonoBehaviour
     private void SetTextDisplay(bool enabled)
     {
         timerText.enabled = enabled;
+    }
+
+    IEnumerator TimesUp() {
+        Time.timeScale = 0;
+        timesUpPopup.SetActive(true);
+        laserPointer.SetActive(false);
+        volumeManager.ChangeSoundsVolume(-100);
+
+        yield return new WaitForSecondsRealtime(5);
+
+        timeValue = 0;
+        if (billMovementScript) {
+            foreach(GameObject bill in billMovementScript.bills) {
+                bill.GetComponentInChildren<BillController>().UninitializeBill();
+            }
+        }
+        DayManager.Instance.DayEnd();
+        ResetTimer();
+        //if (DayManager.Instance.day == 1) { AnalyticsEvents.tutorialCompleted(); } // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
     }
 
     /*void FlashLabel()
