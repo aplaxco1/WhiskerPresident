@@ -9,7 +9,11 @@ public class Timer : MonoBehaviour
 {
     public static Timer Instance;
     static public float timeValue = 120;
+    static public float timesUpTime = 5;
     public TMP_Text timerText;
+    public GameObject timesUpPopup;
+    public GameObject catMovement; // to pause
+    public GameObject laserPointer; // to pause
     public NewBillMovement billMovementScript;
 
     private float flashTimer;
@@ -51,16 +55,22 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            Flash();
-            timeValue = 0;
-            if (billMovementScript) {
-                foreach(GameObject bill in billMovementScript.bills) {
-                    bill.GetComponentInChildren<BillController>().UninitializeBill();
+            timesUpTime -= Time.deltaTime;
+            timesUpPopup.SetActive(true);
+            catMovement.SetActive(false);
+            laserPointer.SetActive(false);
+            if (timesUpTime <= 0f) {
+                Flash();
+                timeValue = 0;
+                if (billMovementScript) {
+                    foreach(GameObject bill in billMovementScript.bills) {
+                        bill.GetComponentInChildren<BillController>().UninitializeBill();
+                    }
                 }
+                DayManager.Instance.DayEnd();
+                ResetTimer();
+                //AnalyticsEvents.tutorialCompleted(); // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
             }
-            DayManager.Instance.DayEnd();
-            ResetTimer();
-            //AnalyticsEvents.tutorialCompleted(); // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
         }
 
         //AnalyticsEvents.checkFramerate(); // CHECKS FRAMERATE DURING GAMEPLAY FOR ANALYTICS
@@ -88,6 +98,7 @@ public class Timer : MonoBehaviour
     public static void ResetTimer()
     {
         timeValue = 120;
+        timesUpTime = 5;
     }
 
     private void Flash()
