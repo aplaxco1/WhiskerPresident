@@ -15,6 +15,7 @@ public class FocusController : MonoBehaviour
 
     [Header("Random Attention Point Generation")]
     public float interval = 5f;       // Desired interval between calls
+    public float lingerTimer = 1f;
     public float varianceRange = 2f;  // Variance range
     private float timer = 0f;
 
@@ -37,9 +38,10 @@ public class FocusController : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
+        lingerTimer -= Time.deltaTime;
 
         // generate new random attention point
-        if (timer <= 0f)
+        if (timer <= 0f && lingerTimer <= 0f)
         {
             // Call your helper function or perform any desired task
             randomPoint = GenerateRandomVector();
@@ -67,6 +69,7 @@ public class FocusController : MonoBehaviour
         }
 
         else if ((laserPointer.isOnDesk && laserPointer.attentionLevel > 0f)) {
+            lingerTimer = 1f;
             MoveObjectTo(laserPointer.laserDeskLocation);
         }
 
