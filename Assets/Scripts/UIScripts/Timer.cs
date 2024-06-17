@@ -130,9 +130,10 @@ public class Timer : MonoBehaviour
                 bill.GetComponentInChildren<BillController>().UninitializeBill();
             }
         }
-        DayManager.Instance.DayEnd();
         ResetTimer();
-        //if (DayManager.Instance.day == 1) { AnalyticsEvents.tutorialCompleted(); } // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
+        Debug.Log(SaveManager.Instance.currentSaveData.dayInfo.day);
+        DayManager.Instance.DayEnd();
+        //if (SaveManager.Instance.currentSaveData.dayInfo.day == 1) { AnalyticsEvents.tutorialCompleted(); } // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
     }
 
     /*void FlashLabel()

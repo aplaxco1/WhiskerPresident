@@ -26,7 +26,11 @@ public class TelephoneDistraction : DistractionClass
     void Start()
     {
         minTime = 10;
-        maxTime = 20;
+        maxTime = 25;
+        if (SaveManager.Instance.currentSaveData.dayInfo.day == 2) {
+            minTime = 8;
+            maxTime = 15;
+        }
         nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
         startPosition = transform.position; // the og spot of the phone before it starts shaking.

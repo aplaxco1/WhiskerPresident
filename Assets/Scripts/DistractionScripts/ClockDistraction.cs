@@ -12,8 +12,12 @@ public class ClockDistraction : DistractionClass
     // Start is called before the first frame update
     void Start()
     {
-        minTime = 50;
-        maxTime = 60;
+        minTime = 40;
+        maxTime = 50;
+        if (SaveManager.Instance.currentSaveData.dayInfo.day == 3) {
+            minTime = 30;
+            maxTime = 40;
+        }
         nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
         attentionLevel = 0f;

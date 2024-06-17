@@ -23,12 +23,16 @@ public class MouseDistraction : DistractionClass
     void Start()
     {
         minTime = 20;
-        maxTime = 90;
+        maxTime = 40;
+        if (SaveManager.Instance.currentSaveData.dayInfo.day >= 4) {
+            minTime = 10;
+            maxTime = 30;
+        }
         nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = mouseObj.transform.position;
-        attentionLevel = 0.98f;
+        attentionLevel = 0.75f;
         frenzyDistraction = false;
-        distractionDuration = Random.Range(8, 16);
+        distractionDuration = Random.Range(10, 20);
         distractionTimer = 0;
         // movement stuff
         positions.Add(mouseObj.transform.position);
@@ -45,6 +49,8 @@ public class MouseDistraction : DistractionClass
         timer += Time.deltaTime;
         if (timer >= nextEvent && !isActive) {
             isActive = true;
+            direction = (mouseObj.transform.position - positions[currTarget]).normalized;
+            rotation = Quaternion.LookRotation(direction);
             distractionManager.checkActiveDistractions();
         }
 
