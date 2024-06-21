@@ -7107,6 +7107,9 @@ MonoBehaviour:
   Checkmark: {fileID: 2100000, guid: d022ce54a2f87a94cb2d8d5882e09edf, type: 2}
   X: {fileID: 2100000, guid: e2b675f332f39a94fa803839b1d3c00e, type: 2}
   holdingPhone: 0
+  pawEmpty: {fileID: 2100000, guid: ad951a895168c4e4bbfa4c6bc17fcd68, type: 2}
+  pawGlue: {fileID: 2100000, guid: c76ac0a07e50a344981d07932b4fbc25, type: 2}
+  pawVetoInk: {fileID: 2100000, guid: 12cdae68d66983a4c88954790ad16d30, type: 2}
 --- !u!114 &1414787481
 MonoBehaviour:
   m_ObjectHideFlags: 0

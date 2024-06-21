@@ -52,6 +52,11 @@ public class CatMovement : MonoBehaviour
     
 	private Material _smearMat = null;
 
+    // PAW MATERIALS
+    public Material pawEmpty;
+    public Material pawGlue;
+    public Material pawVetoInk;
+
     // FUNCTIONS
     // Start is called before the first frame update
     void Start()
@@ -91,6 +96,21 @@ public class CatMovement : MonoBehaviour
 
         // turn the head to face the lookTarget
         MoveHead();
+
+        // Autumn's Notes for figuring out how the paw prints are working right now, remove when better solution added
+        // when glue, aplha is 1 and red is above below 0.5
+        // when red, aplha is above 0 and red is above 0.5
+        // when none, both zero OR red is above 0.5, but alpa is 0
+        // Debug.Log("Aplpha " + printColor.a + ", Red: "  + printColor.r);
+        if ((printColor.r == 0 && printColor.a == 0) || (printColor.r > 0.6f && printColor.a == 0)) {
+            ArmMesh.GetComponent<MeshRenderer>().material = pawEmpty;
+        }
+        else if (printColor.r < 0.6 && printColor.a > 0) {
+            ArmMesh.GetComponent<MeshRenderer>().material = pawGlue;
+        }
+        else if (printColor.r > 0.6 && printColor.a > 0) {
+            ArmMesh.GetComponent<MeshRenderer>().material = pawVetoInk;
+        }
     }
     void Smack()
     {
