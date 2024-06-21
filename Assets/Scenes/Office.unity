@@ -5804,6 +5804,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 962271763012445335, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: catMovement
+      value: 
+      objectReference: {fileID: 1414787480}
+    - target: {fileID: 962271763012445335, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
       propertyPath: distractions
       value: 
       objectReference: {fileID: 384477972}

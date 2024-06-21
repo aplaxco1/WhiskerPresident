@@ -277,8 +277,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   catHead: {fileID: 3447854285082642574}
   idleFace: {fileID: 2100000, guid: 77e68fc9e57a2564d82b196126f510ea, type: 2}
+  idleFaceBlink: {fileID: 2100000, guid: 884c7d894de46f346b1617a8032b9c59, type: 2}
+  happyFace: {fileID: 2100000, guid: 24e3bf58ab0ca014ebf6e60525d8ffc1, type: 2}
   frenzyFace: {fileID: 2100000, guid: 8ddca00e68c1a7546ae812d7b679a34d, type: 2}
   distractions: {fileID: 0}
+  catMovement: {fileID: 0}
 --- !u!1 &4917030964976592492
 GameObject:
   m_ObjectHideFlags: 0
