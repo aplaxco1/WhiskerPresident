@@ -9,7 +9,6 @@ public class MouseDistraction : DistractionClass
     public float distractionTimer;
     public GameObject mouseObj;
     public GameObject mouse;
-    public AudioSource squeakSource;
 
     [Header("Mouse Movement")]
     public List<Vector3> positions;
@@ -22,8 +21,8 @@ public class MouseDistraction : DistractionClass
     // Start is called before the first frame update
     void Start()
     {
-        minTime = 20;
-        maxTime = 40;
+        minTime = 2;
+        maxTime = 4;
         if (SaveManager.Instance.currentSaveData.dayInfo.day >= 4) {
             minTime = 10;
             maxTime = 30;
