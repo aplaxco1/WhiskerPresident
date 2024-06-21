@@ -5803,6 +5803,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 962271763012445335, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
+      propertyPath: distractions
+      value: 
+      objectReference: {fileID: 384477972}
     - target: {fileID: 2540747282453950865, guid: 71e347af313db7246aaed824d9b86fc1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
