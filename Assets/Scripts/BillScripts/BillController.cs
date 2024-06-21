@@ -318,7 +318,7 @@ public class BillController : MonoBehaviour
                     multiplier = 1;
                     break;
                 case SymbolType.Negative:
-                    multiplier = -1;
+                    multiplier = -2;
                     break;
                 default:
                     Debug.LogWarning("WARNING: INVALID SYMBOL FOR BILL CALCULATION");

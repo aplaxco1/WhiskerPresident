@@ -16,7 +16,7 @@ public partial class DayManager
         // check lose
         if (CheckLowStats())
         {
-            StatLow();
+            TriggerLoss();
         }
 
         // check end of game
@@ -43,17 +43,17 @@ public partial class DayManager
         
     }
     
-    public void StatLow()
-    {
-        if (dayInfo.impeached)
-        {
-            TriggerLoss();
-        }
-        else
-        {
-            dayInfo.impeached = true;
-        }
-    }
+    // public void StatLow()
+    // {
+    //     if (dayInfo.impeached)
+    //     {
+    //         TriggerLoss();
+    //     }
+    //     else
+    //     {
+    //         dayInfo.impeached = true;
+    //     }
+    // }
 
     public void TriggerLoss()
     {

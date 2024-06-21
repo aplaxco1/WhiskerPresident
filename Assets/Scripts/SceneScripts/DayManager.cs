@@ -33,16 +33,17 @@ public partial class DayManager : MonoBehaviour
         DayStart();
     }
 
+    // NOTE: I don't think this is ever actually used.
     public void InitializeDefaultStats()
     { 
         print("init default stats");
-        dayInfo.statA = 50;
-        dayInfo.statB = 50;
-        dayInfo.statC = 50;
+        dayInfo.statA = 30;
+        dayInfo.statB = 30;
+        dayInfo.statC = 30;
 
-        dayInfo.sinkA = -10;
-        dayInfo.sinkB = -10;
-        dayInfo.sinkC = -10;
+        dayInfo.sinkA = -15;
+        dayInfo.sinkB = -15;
+        dayInfo.sinkC = -15;
 
         dayInfo.day = 1;
         dayInfo.impeached = false;
