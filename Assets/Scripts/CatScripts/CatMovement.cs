@@ -218,6 +218,7 @@ public class CatMovement : MonoBehaviour
                         item.gameObject.SetActive(false);
                     }
                 }
+                AudioManager.Instance.Play(SoundName.phone_slam, 0.5f);
             } else
             { // pick up the handset
                 holdingPhone = true;
@@ -228,6 +229,7 @@ public class CatMovement : MonoBehaviour
                         item.gameObject.SetActive(true);
                     }
                 }
+                AudioManager.Instance.Play(SoundName.phone_pickup, 0.5f);
             }
             return;
         }
