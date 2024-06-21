@@ -34,6 +34,9 @@ public class FacialExpresions : MonoBehaviour
         if (distractions.frenzyActive) {
             catHead.GetComponent<MeshRenderer>().material = frenzyFace;
         }
+        else if (catMovement.holdingPhone) {
+            catHead.GetComponent<MeshRenderer>().material = happyFace;
+        }
         else {
             // change back to idle
             if (timeTillBlink > 0f) {
