@@ -143,6 +143,18 @@ MonoBehaviour:
     m_Localized: Back to Main Menu
     m_Metadata:
       m_Items: []
+  - m_Id: 40464091812958208
+    m_Localized: Master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40464153347592192
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40464183127150592
+    m_Localized: Sounds
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
