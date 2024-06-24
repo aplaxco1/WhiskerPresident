@@ -26,7 +26,11 @@ public class TelephoneDistraction : DistractionClass
     void Start()
     {
         minTime = 10;
-        maxTime = 20;
+        maxTime = 25;
+        if (SaveManager.Instance.currentSaveData.dayInfo.day == 2) {
+            minTime = 8;
+            maxTime = 15;
+        }
         nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = transform.position;
         startPosition = transform.position; // the og spot of the phone before it starts shaking.
@@ -81,7 +85,6 @@ public class TelephoneDistraction : DistractionClass
         ringSource.loop = true;
 
         if (checkStop()) {
-            AudioManager.Instance.Play(SoundName.phone_hangup, 0.5f);
             ringSource.Stop();
             transform.position = startPosition; // set the phone back to the position it was before it started shaking
             timer = 0;

@@ -9,6 +9,8 @@ public class BillReviewController : MonoBehaviour
     public static BillReviewController Instance;
 
     public GameObject reviewTextPrefab;
+    public GameObject nextArrow;
+    public GameObject prevArrow;
     
     public float billStartX;
     public float billStartY;
@@ -41,18 +43,30 @@ public class BillReviewController : MonoBehaviour
         {
             activateBill(0);
         }
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            prevBill();
+
+        if (numBills <= 1) {
+            prevArrow.SetActive(false);
+            nextArrow.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            nextBill();
+
+    }
+
+    void Update() {
+        if (index == 0) {
+            prevArrow.SetActive(false);
+        }
+        else {
+            if (numBills > 1) { prevArrow.SetActive(true); }
+        }
+
+        if (index == numBills - 1) {
+            nextArrow.SetActive(false);
+        }
+        else {
+            if (numBills > 1) { nextArrow.SetActive(true); }
         }
     }
+
     public void prevBill()
     {
         if (index > 0) {

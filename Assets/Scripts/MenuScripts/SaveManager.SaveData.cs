@@ -143,13 +143,13 @@ public partial class SaveManager
             dayInfo = new DayInfo()
         };
         
-        saveDataInstance.dayInfo.statA = 50;
-        saveDataInstance.dayInfo.statB = 50;
-        saveDataInstance.dayInfo.statC = 50;
+        saveDataInstance.dayInfo.statA = 30;
+        saveDataInstance.dayInfo.statB = 30;
+        saveDataInstance.dayInfo.statC = 30;
 
-        saveDataInstance.dayInfo.sinkA = -10;
-        saveDataInstance.dayInfo.sinkB = -10;
-        saveDataInstance.dayInfo.sinkC = -10;
+        saveDataInstance.dayInfo.sinkA = -15;
+        saveDataInstance.dayInfo.sinkB = -15;
+        saveDataInstance.dayInfo.sinkC = -15;
 
         saveDataInstance.dayInfo.day = 1;
         saveDataInstance.dayInfo.impeached = false;

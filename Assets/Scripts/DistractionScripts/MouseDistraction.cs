@@ -9,7 +9,6 @@ public class MouseDistraction : DistractionClass
     public float distractionTimer;
     public GameObject mouseObj;
     public GameObject mouse;
-    public AudioSource squeakSource;
 
     [Header("Mouse Movement")]
     public List<Vector3> positions;
@@ -22,13 +21,17 @@ public class MouseDistraction : DistractionClass
     // Start is called before the first frame update
     void Start()
     {
-        minTime = 20;
-        maxTime = 90;
+        minTime = 2;
+        maxTime = 4;
+        if (SaveManager.Instance.currentSaveData.dayInfo.day >= 4) {
+            minTime = 10;
+            maxTime = 30;
+        }
         nextEvent = Random.Range(minTime, maxTime);
         distractionPosition = mouseObj.transform.position;
-        attentionLevel = 0.98f;
+        attentionLevel = 0.75f;
         frenzyDistraction = false;
-        distractionDuration = Random.Range(8, 16);
+        distractionDuration = Random.Range(10, 20);
         distractionTimer = 0;
         // movement stuff
         positions.Add(mouseObj.transform.position);
@@ -45,6 +48,8 @@ public class MouseDistraction : DistractionClass
         timer += Time.deltaTime;
         if (timer >= nextEvent && !isActive) {
             isActive = true;
+            direction = (mouseObj.transform.position - positions[currTarget]).normalized;
+            rotation = Quaternion.LookRotation(direction);
             distractionManager.checkActiveDistractions();
         }
 

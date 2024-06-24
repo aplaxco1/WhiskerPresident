@@ -9,7 +9,6 @@ public partial class DayManager
         
     public void DayEnd()
     {
-        Debug.Log(dayInfo.sinkB);
         dayInfo.statA += dayInfo.sinkA;
         dayInfo.statB += dayInfo.sinkB;
         dayInfo.statC += dayInfo.sinkC;
@@ -17,7 +16,7 @@ public partial class DayManager
         // check lose
         if (CheckLowStats())
         {
-            StatLow();
+            TriggerLoss();
         }
 
         // check end of game
@@ -44,17 +43,17 @@ public partial class DayManager
         
     }
     
-    public void StatLow()
-    {
-        if (dayInfo.impeached)
-        {
-            TriggerLoss();
-        }
-        else
-        {
-            dayInfo.impeached = true;
-        }
-    }
+    // public void StatLow()
+    // {
+    //     if (dayInfo.impeached)
+    //     {
+    //         TriggerLoss();
+    //     }
+    //     else
+    //     {
+    //         dayInfo.impeached = true;
+    //     }
+    // }
 
     public void TriggerLoss()
     {

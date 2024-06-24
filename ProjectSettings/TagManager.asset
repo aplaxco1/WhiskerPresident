@@ -13,6 +13,7 @@ TagManager:
   - tray
   - Phone
   - Clock
+  - Mouse
   layers:
   - Default
   - TransparentFX
