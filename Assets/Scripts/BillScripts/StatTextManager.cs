@@ -16,8 +16,7 @@ public class StatTextManager : MonoBehaviour
     static public bool statChangePopup = false;
     static public int statAChange, statBChange, statCChange;
     static public float popupTime = 3f;
-    public List<GameObject> negativePopups = new List<GameObject>();
-    public List<GameObject> positivePopups = new List<GameObject>();
+    public List<GameObject> popups = new List<GameObject>();
     
     // temporary day info UI
     public TMP_Text dayInfoText;
@@ -49,7 +48,7 @@ public class StatTextManager : MonoBehaviour
         else { dayInfoText.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "day") + " " + DayManager.Instance.dayInfo.day; }
 
         // displayPopups
-        if (negativePopups.Count > 0 && positivePopups.Count > 0) {
+        if (popups.Count > 0) {
             if (statChangePopup) {
                 displayPopups();
                 Debug.Log("displaying popups");
@@ -68,23 +67,40 @@ public class StatTextManager : MonoBehaviour
     void displayPopups() {
         popupTime -= Time.deltaTime;
 
-        if (statAChange < 0) {
-            negativePopups[0].SetActive(true);
+        if (statAChange != 0) {
+            popups[0].SetActive(true);
+            if (statAChange < 0) {
+                popups[0].GetComponent<TMP_Text>().text = statAChange.ToString();
+                popups[0].GetComponent<TMP_Text>().color = new Color(255f, 0f, 0f);
+            }
+            else {
+                popups[0].GetComponent<TMP_Text>().text = "+" + statAChange.ToString();
+                popups[0].GetComponent<TMP_Text>().color = new Color(0f, 255f, 0f);
+            }
         }
-        if (statAChange > 0) {
-            positivePopups[0].SetActive(true);
+
+        if (statBChange != 0) {
+            popups[1].SetActive(true);
+            if (statBChange < 0) {
+                popups[1].GetComponent<TMP_Text>().text = statBChange.ToString();
+                popups[1].GetComponent<TMP_Text>().color = new Color(255f, 0f, 0f);
+            }
+            else {
+                popups[1].GetComponent<TMP_Text>().text = "+" + statBChange.ToString();
+                popups[1].GetComponent<TMP_Text>().color = new Color(0f, 255f, 0f);
+            }
         }
-        if (statBChange < 0) {
-            negativePopups[1].SetActive(true);
-        }
-        if (statBChange > 0) {
-            positivePopups[1].SetActive(true);
-        }
-        if (statCChange < 0) {
-            negativePopups[2].SetActive(true);
-        }
-        if (statCChange > 0) {
-            positivePopups[2].SetActive(true);
+
+        if (statCChange != 0) {
+            popups[2].SetActive(true);
+            if (statCChange < 0) {
+                popups[2].GetComponent<TMP_Text>().text = statCChange.ToString();
+                popups[2].GetComponent<TMP_Text>().color = new Color(255f, 0f, 0f);
+            }
+            else {
+                popups[2].GetComponent<TMP_Text>().text = "+" + statCChange.ToString();
+                popups[2].GetComponent<TMP_Text>().color = new Color(0f, 255f, 0f);
+            }
         }
 
         if (popupTime < 0f) {
@@ -95,11 +111,7 @@ public class StatTextManager : MonoBehaviour
     }
 
     void removePopups() {
-        foreach (GameObject popup in negativePopups) {
-            popup.SetActive(false);
-        }
-
-        foreach (GameObject popup in positivePopups) {
+        foreach (GameObject popup in popups) {
             popup.SetActive(false);
         }
     }

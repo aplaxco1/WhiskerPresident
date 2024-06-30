@@ -122,6 +122,12 @@ public class Timer : MonoBehaviour
         laserPointer.SetActive(false);
         volumeManager.ChangeSoundsVolume(-100);
 
+        StatVector sinkValues = new StatVector();
+        sinkValues.StatA = SaveManager.Instance.currentSaveData.dayInfo.sinkA;
+        sinkValues.StatB = SaveManager.Instance.currentSaveData.dayInfo.sinkB;
+        sinkValues.StatC = SaveManager.Instance.currentSaveData.dayInfo.sinkC;
+        StatTextManager.initializePopups(sinkValues);
+
         yield return new WaitForSecondsRealtime(5);
 
         timeValue = 0;
