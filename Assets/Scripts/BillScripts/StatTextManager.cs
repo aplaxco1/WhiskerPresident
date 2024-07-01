@@ -35,6 +35,7 @@ public class StatTextManager : MonoBehaviour
         statAText = transform.Find("food").GetComponent<TMP_Text>();
         statBText = transform.Find("technology").GetComponent<TMP_Text>();
         statCText = transform.Find("infrastructure").GetComponent<TMP_Text>();
+        statChangePopup = false;
     }
 
     // Update is called once per frame
@@ -51,7 +52,6 @@ public class StatTextManager : MonoBehaviour
         if (popups.Count > 0) {
             if (statChangePopup) {
                 displayPopups();
-                Debug.Log("displaying popups");
             }
         }
     }
