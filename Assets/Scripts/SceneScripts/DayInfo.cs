@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DayInfo {
     public int day;
-    public bool impeached;
-    public bool lose;
 
     public int sinkA;
     public int sinkB;
@@ -23,7 +21,6 @@ public class DayInfo {
     {
         string ret = "";
         ret += "Day: " + day + "\n";
-        ret += "Impeached: " + impeached + "\n";
         ret += "sinkA: " + sinkA + "\n";
         ret += "sinkB: " + sinkB + "\n";
         ret += "sinkC: " + sinkC + "\n";

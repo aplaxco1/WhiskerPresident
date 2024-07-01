@@ -46,8 +46,6 @@ public partial class DayManager : MonoBehaviour
         dayInfo.sinkC = -15;
 
         dayInfo.day = 1;
-        dayInfo.impeached = false;
-        dayInfo.lose = false;
     }
 
 }
