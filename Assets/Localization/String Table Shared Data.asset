@@ -15,34 +15,12 @@ MonoBehaviour:
   m_TableCollectionName: String Table
   m_TableCollectionNameGuidString: 1aa3b4d8a65943c4ea7974a82872e11e
   m_Entries:
-  - m_Id: 28124288861835264
-    m_Key: 'continue-from-save
-
-'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3272364514426880
-    m_Key: credits-text-1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3275277123010560
-    m_Key: credits-text-2
-    m_Metadata:
-      m_Items: []
   - m_Id: 29245437989588992
     m_Key: news-1
     m_Metadata:
       m_Items: []
   - m_Id: 29245480465305600
     m_Key: news-2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28133983102144512
-    m_Key: no
-    m_Metadata:
-      m_Items: []
-  - m_Id: 28133967956512768
-    m_Key: yes
     m_Metadata:
       m_Items: []
   - m_Id: 33205040733458432
@@ -75,6 +53,30 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 40464183127150592
     m_Key: sound-vol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45172816549470208
+    m_Key: news-mid-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45172907893022720
+    m_Key: news-mid-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45172933885124608
+    m_Key: news-high-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45172958006566912
+    m_Key: news-high-2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45172980492230656
+    m_Key: news-low-1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45173004907274240
+    m_Key: news-low-2
     m_Metadata:
       m_Items: []
   m_Metadata:
