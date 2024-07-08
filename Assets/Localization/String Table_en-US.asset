@@ -65,6 +65,31 @@ MonoBehaviour:
     m_Localized: Sounds
     m_Metadata:
       m_Items: []
+  - m_Id: 45172816549470208
+    m_Localized: 'The economy appears to be stable. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45172907893022720
+    m_Localized: Wr. President continues to keep the economy running smoothly.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45172933885124608
+    m_Localized: The economy is on the rise!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45172958006566912
+    m_Localized: Wr. President's tactical legislative actions revive the economy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45172980492230656
+    m_Localized: 'The economy is plummeting. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 45173004907274240
+    m_Localized: Wr. President's questionable legislative actions leave the economy
+      in shambles.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
