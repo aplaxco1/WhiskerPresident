@@ -9,17 +9,14 @@ public class Timer : MonoBehaviour
 {
     public static Timer Instance;
     static public float timeValue = 120;
-    static public float timesUpTime = 5;
     public TMP_Text timerText;
     public GameObject timesUpPopup;
     public GameObject laserPointer; // to pause
     public VolumeManager volumeManager;
     public NewBillMovement billMovementScript;
 
-    private float flashTimer;
-    private float flashDuration = 1f;
-    //public GameObject flashing_Label;
-    //public float interval;
+    private float flashTimer = 0.75f;
+    private float flashDuration = 0.25f;
 
     private bool timesUpOver = false;
 
@@ -47,17 +44,13 @@ public class Timer : MonoBehaviour
         {
             timeValue -= Time.deltaTime;
         }
-        else if (timeValue == 60)
-        {
-            Flash();
-        }
-        else if (timeValue == 30)
-        {
-            Flash();
-        }
         else
         {
             StartCoroutine(TimesUp());
+        }
+
+        if (timeValue <= 30) {
+            Flash();
         }
 
         if (timesUpOver) {
@@ -97,31 +90,20 @@ public class Timer : MonoBehaviour
     public static void ResetTimer()
     {
         timeValue = 120;
-        timesUpTime = 5;
         Time.timeScale = 1;
     }
 
     private void Flash()
     {
-        if (timeValue != 0)
-        {
-            timeValue = 0;
-            DisplayTime(timeValue);
-        }
-
-        if (flashTimer >= 0 && flashTimer <= 30)
-        {
-            flashTimer = flashDuration;
-        }
-        else if (flashTimer >= flashDuration / 2)
-        {
-            flashTimer -= Time.deltaTime;
+        flashTimer -= Time.deltaTime;
+        if (flashTimer < 0) {
             SetTextDisplay(false);
-        }
-        else
-        {
-            flashTimer -= Time.deltaTime;
-            SetTextDisplay(true);
+            flashDuration -= Time.deltaTime;
+            if (flashDuration < 0) {
+                SetTextDisplay(true);
+                flashTimer = 0.75f;
+                flashDuration = 0.25f;
+            }
         }
     }
 
