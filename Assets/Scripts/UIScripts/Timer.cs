@@ -95,12 +95,13 @@ public class Timer : MonoBehaviour
 
     private void Flash()
     {
+        timerText.color = Color.Lerp(Color.white, Color.red, flashTimer * 5f);
         flashTimer -= Time.deltaTime;
         if (flashTimer < 0) {
-            SetTextDisplay(false);
+            //SetTextDisplay(false);
             flashDuration -= Time.deltaTime;
             if (flashDuration < 0) {
-                SetTextDisplay(true);
+                //SetTextDisplay(true);
                 flashTimer = 0.75f;
                 flashDuration = 0.25f;
             }
