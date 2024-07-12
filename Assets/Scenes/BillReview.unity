@@ -2019,7 +2019,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 277239704}
         m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
         m_MethodName: SaveSettingsAlt
         m_Mode: 1
@@ -5233,7 +5233,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 277239704}
         m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
         m_MethodName: SaveSettingsAlt
         m_Mode: 1
@@ -5448,9 +5448,9 @@ RectTransform:
   - {fileID: 411787622}
   - {fileID: 1891072036}
   - {fileID: 626875026}
-  - {fileID: 859065058}
   - {fileID: 1386042830}
   - {fileID: 1531106621}
+  - {fileID: 859065058}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
