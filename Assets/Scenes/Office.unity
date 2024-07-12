@@ -8049,6 +8049,8 @@ MonoBehaviour:
   laserPointer: {fileID: 515096773}
   focusLevel: 0.1
   distractions: {fileID: 384477972}
+  offsetXRange: 0.2
+  offsetZRange: 0.2
 --- !u!1 &1414920910
 GameObject:
   m_ObjectHideFlags: 0
@@ -9440,7 +9442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e0c4ddc3c8c0f40b98ee1cbb38d17983, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4f9c70c19a394b645b2978f4221e6430, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
