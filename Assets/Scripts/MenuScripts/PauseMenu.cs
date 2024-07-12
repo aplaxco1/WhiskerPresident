@@ -13,21 +13,30 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseMenu.SetActive(true);
-        laserPointer.SetActive(false);
+        if(laserPointer != null)
+        {
+            laserPointer.SetActive(false);
+        }
         AudioListener.pause = true;
         Time.timeScale = 0;
     }
 
     public void Pause_ControlsMenu()
     {
-        laserPointer.SetActive(false);
+        if (laserPointer != null)
+        {
+            laserPointer.SetActive(false);
+        }
         AudioListener.pause = true;
         Time.timeScale = 0;
     }
 
     public void Continue()
     {
-        laserPointer.SetActive(true);
+        if (laserPointer != null)
+        {
+            laserPointer.SetActive(true);
+        }
         pauseMenu.SetActive(false);
         volumeSliders.SetActive(false);
         settingsMenu.SetActive(false);
