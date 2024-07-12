@@ -1777,7 +1777,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2085053814}
         m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
         m_MethodName: ChangeMasterVolume
         m_Mode: 0
@@ -7226,7 +7226,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2085053814}
         m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
         m_MethodName: ChangeSoundsVolume
         m_Mode: 0
@@ -7328,7 +7328,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2085053814}
         m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
         m_MethodName: ChangeMusicVolume
         m_Mode: 0

@@ -505,7 +505,6 @@ GameObject:
   - component: {fileID: 56558225}
   - component: {fileID: 56558224}
   - component: {fileID: 56558223}
-  - component: {fileID: 56558226}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -636,13 +635,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &56558226
+--- !u!1 &63908765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 63908767}
+  - component: {fileID: 63908766}
+  m_Layer: 0
+  m_Name: VolumeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &63908766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56558222}
+  m_GameObject: {fileID: 63908765}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c738be39124548708c21e3e5905e45a, type: 3}
@@ -656,6 +672,21 @@ MonoBehaviour:
   currentMusicVolume: 0
   currentSoundsVolume: 0
   audioMixer: {fileID: 24100000, guid: 16986c2a1e54b9240930d902a47a997c, type: 2}
+--- !u!4 &63908767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63908765}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1720617, y: 0.9548886, z: 0.19171183}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &140839114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,7 +1581,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 63908766}
         m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
         m_MethodName: ChangeMusicVolume
         m_Mode: 0
@@ -4760,7 +4791,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 63908766}
         m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
         m_MethodName: ChangeSoundsVolume
         m_Mode: 0
@@ -6470,7 +6501,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 63908766}
         m_TargetAssemblyTypeName: VolumeManager, Assembly-CSharp
         m_MethodName: ChangeMasterVolume
         m_Mode: 0
@@ -9400,3 +9431,4 @@ SceneRoots:
   - {fileID: 2021236906}
   - {fileID: 1372600973}
   - {fileID: 56558225}
+  - {fileID: 63908767}
