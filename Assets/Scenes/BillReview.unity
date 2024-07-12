@@ -505,6 +505,7 @@ GameObject:
   - component: {fileID: 56558225}
   - component: {fileID: 56558224}
   - component: {fileID: 56558223}
+  - component: {fileID: 56558226}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -635,6 +636,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &56558226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56558222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c738be39124548708c21e3e5905e45a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundtrack: []
+  masterVolumeSlider: {fileID: 1498806008}
+  musicVolumeSlider: {fileID: 350822947}
+  soundsVolumeSlider: {fileID: 1224290290}
+  currentMasterVolume: 0
+  currentMusicVolume: 0
+  currentSoundsVolume: 0
+  audioMixer: {fileID: 24100000, guid: 16986c2a1e54b9240930d902a47a997c, type: 2}
 --- !u!1 &140839114
 GameObject:
   m_ObjectHideFlags: 0
@@ -6584,10 +6605,12 @@ MonoBehaviour:
   - {fileID: 1437584184}
   - {fileID: 736582378}
   - {fileID: 915747186}
+  - {fileID: 1135167264}
   zhAssets:
   - {fileID: 2006246304}
   - {fileID: 2080724075}
   - {fileID: 1810942838}
+  - {fileID: 641220427}
 --- !u!1 &1531106620
 GameObject:
   m_ObjectHideFlags: 0
