@@ -335,6 +335,7 @@ public class BillController : MonoBehaviour
         StatVector returnedStatVector = CalculateOutcome();
         DayManager.Instance.AdjustStats(returnedStatVector);
         string statOutput = returnedStatVector.StringConversion();
+        StatTextManager.initializePopups(returnedStatVector); // display popups
         //print("BILL PASSED WITH STATS: " + statOutput);
         //GameObject.Find("Main Camera/Result Text").GetComponent<TMP_Text>().text = statOutput;
     }
@@ -346,6 +347,7 @@ public class BillController : MonoBehaviour
         returnedStatVector.StatC *= -1;
         DayManager.Instance.AdjustStats(returnedStatVector);
         string statOutput = returnedStatVector.StringConversion();
+        StatTextManager.initializePopups(returnedStatVector); // display popups
     }
 
     //// Bill is denied, does not effect stats

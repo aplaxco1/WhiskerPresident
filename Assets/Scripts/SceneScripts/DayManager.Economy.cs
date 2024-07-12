@@ -24,7 +24,7 @@ public partial class DayManager
             TriggerEnd();
         }
 
-        if (!dayInfo.lose && dayInfo.day < 5) {
+        if (dayInfo.day < 5 && !CheckLowStats()) {
             // else just continue normally
             dayInfo.day++;
             
@@ -57,8 +57,6 @@ public partial class DayManager
 
     public void TriggerLoss()
     {
-        dayInfo.lose = true;
-        print("YOU LOSE");
         EndOfGame.looseGame = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Whisker President Head_Cat Face_BaseMap
+  m_Name: Whisker President Head_IDLE
   m_Shader: {fileID: 4800000, guid: 2cfd83c4b78885c42a02382fca5e24e2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 89, y: 50}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c6a6fcab19bab9c4ab2cf2c4f9adaf32, type: 3}
+        m_Texture: {fileID: 2800000, guid: 647743d7dd417d440981473f230ef7c4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

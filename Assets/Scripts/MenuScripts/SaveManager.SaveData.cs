@@ -152,8 +152,6 @@ public partial class SaveManager
         saveDataInstance.dayInfo.sinkC = -15;
 
         saveDataInstance.dayInfo.day = 1;
-        saveDataInstance.dayInfo.impeached = false;
-        saveDataInstance.dayInfo.lose = false;
 
         return saveDataInstance;
     }

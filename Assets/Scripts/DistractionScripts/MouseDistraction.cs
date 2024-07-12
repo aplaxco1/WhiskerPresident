@@ -21,8 +21,8 @@ public class MouseDistraction : DistractionClass
     // Start is called before the first frame update
     void Start()
     {
-        minTime = 2;
-        maxTime = 4;
+        minTime = 20;
+        maxTime = 40;
         if (SaveManager.Instance.currentSaveData.dayInfo.day >= 4) {
             minTime = 10;
             maxTime = 30;

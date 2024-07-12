@@ -65,6 +65,18 @@ MonoBehaviour:
     m_Key: back-to-main-menu
     m_Metadata:
       m_Items: []
+  - m_Id: 40464091812958208
+    m_Key: master-vol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40464153347592192
+    m_Key: music-vol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40464183127150592
+    m_Key: sound-vol
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

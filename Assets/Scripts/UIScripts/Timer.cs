@@ -21,6 +21,8 @@ public class Timer : MonoBehaviour
     //public GameObject flashing_Label;
     //public float interval;
 
+    private bool timesUpOver = false;
+
     private void Awake()
     {
         Instance = this;
@@ -56,6 +58,18 @@ public class Timer : MonoBehaviour
         else
         {
             StartCoroutine(TimesUp());
+        }
+
+        if (timesUpOver) {
+            timesUpOver = false;
+            timeValue = 0;
+            if (billMovementScript) {
+                foreach(GameObject bill in billMovementScript.bills) {
+                    bill.GetComponentInChildren<BillController>().UninitializeBill();
+                }
+            }
+            ResetTimer();
+            DayManager.Instance.DayEnd();
         }
 
         //AnalyticsEvents.checkFramerate(); // CHECKS FRAMERATE DURING GAMEPLAY FOR ANALYTICS
@@ -122,17 +136,15 @@ public class Timer : MonoBehaviour
         laserPointer.SetActive(false);
         volumeManager.ChangeSoundsVolume(-100);
 
+        StatVector sinkValues = new StatVector();
+        sinkValues.StatA = SaveManager.Instance.currentSaveData.dayInfo.sinkA;
+        sinkValues.StatB = SaveManager.Instance.currentSaveData.dayInfo.sinkB;
+        sinkValues.StatC = SaveManager.Instance.currentSaveData.dayInfo.sinkC;
+        StatTextManager.initializePopups(sinkValues);
+
         yield return new WaitForSecondsRealtime(5);
 
-        timeValue = 0;
-        if (billMovementScript) {
-            foreach(GameObject bill in billMovementScript.bills) {
-                bill.GetComponentInChildren<BillController>().UninitializeBill();
-            }
-        }
-        ResetTimer();
-        Debug.Log(SaveManager.Instance.currentSaveData.dayInfo.day);
-        DayManager.Instance.DayEnd();
+        timesUpOver = true;
         //if (SaveManager.Instance.currentSaveData.dayInfo.day == 1) { AnalyticsEvents.tutorialCompleted(); } // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
     }
 
