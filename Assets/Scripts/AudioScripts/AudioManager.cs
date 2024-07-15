@@ -35,4 +35,14 @@ public class AudioManager : MonoBehaviour
         audioSource.PlayOneShot(clip, volume);
     }
 
+
+    // for buttons calling specific sfx
+    public void PlayMeowButton() {
+        Play(SoundName.kitty_meow, 0.5f);
+    }
+
+    public void PlayButton() {
+        Play(SoundName.button, 0.5f);
+    }
+
 }

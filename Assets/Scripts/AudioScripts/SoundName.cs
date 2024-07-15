@@ -7,6 +7,7 @@ public enum SoundName
     laser_click,
     meows,
     paper_smack,
+    pause,
     phone_pickup,
     phone_slam,
     squeak,
