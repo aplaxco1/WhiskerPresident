@@ -95,18 +95,13 @@ public class FocusController : MonoBehaviour
         // Check if the referenced object is assigned
         if (objectToMove != null)
         {
-            float randomOffsetX = Random.Range(-offsetXRange, offsetXRange);
-            //float randomOffsetX = 0;
-            float randomOffsetY = 0;
-            //float randomOffsetZ = 0;
-            float randomOffsetZ = Random.Range(-offsetZRange, offsetZRange);
-            Vector3 offset = new Vector3(randomOffsetX, randomOffsetY, randomOffsetZ);
+            // float randomOffsetX = Random.Range(-offsetXRange, offsetXRange);
+            // float randomOffsetY = 0;
+            // float randomOffsetZ = Random.Range(-offsetZRange, offsetZRange);
+            // Vector3 offset = new Vector3(randomOffsetX, randomOffsetY, randomOffsetZ);
 
-            //Vector3 newPosition = laserPointer.laserDeskLocation + offset;
-
-            
-            //objectToMove.transform.position = smackPos + offset;
-            objectToMove.transform.position = Vector3.Lerp(objectToMove.transform.position, smackPos + offset, interval);
+            //objectToMove.transform.position = Vector3.Lerp(objectToMove.transform.position, smackPos + offset, interval);
+            objectToMove.transform.position = Vector3.Lerp(objectToMove.transform.position, smackPos, interval);
         }
     }
 
