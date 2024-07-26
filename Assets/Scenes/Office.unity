@@ -7483,6 +7483,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42afe3c84608148fe98500ac408e5ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1293849871 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3298745440918028718, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1338561298
 GameObject:
   m_ObjectHideFlags: 0
@@ -9094,6 +9099,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70635872d9411ba45bf78a2c5cdf96dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grandFatherCuckooSource: {fileID: 1293849871}
+  phoneAudioSource: {fileID: 1738931425}
 --- !u!4 &1577289829
 Transform:
   m_ObjectHideFlags: 0
@@ -10038,6 +10045,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a65af66dcacf54d809bdd44c0c1a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1738931425 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1282058991065939778, guid: b8c29cbd40878034aa55ea46a48f0c0c, type: 3}
+  m_PrefabInstance: {fileID: 93602766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1743576494
 GameObject:
   m_ObjectHideFlags: 0

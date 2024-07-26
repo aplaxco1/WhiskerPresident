@@ -9,6 +9,7 @@ public class MouseDistraction : DistractionClass
     public float distractionTimer;
     public GameObject mouseObj;
     public GameObject mouse;
+    //public AudioSource mouseSqueak;
 
     [Header("Mouse Movement")]
     public List<Vector3> positions;
