@@ -13,6 +13,10 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
     private AudioSource audioSource;
 
+    public AudioSource grandFatherCuckooSource;
+    public AudioSource phoneAudioSource;
+    public AudioSource bgmSource;
+
     private void Awake()
     {
         if (Instance != null)
@@ -43,6 +47,13 @@ public class AudioManager : MonoBehaviour
 
     public void PlayButton() {
         Play(SoundName.button, 0.5f);
+    }
+
+    public void stopAllSounds(){
+        grandFatherCuckooSource.Stop();
+        phoneAudioSource.Stop();
+        bgmSource.Stop();
+        
     }
 
 }
