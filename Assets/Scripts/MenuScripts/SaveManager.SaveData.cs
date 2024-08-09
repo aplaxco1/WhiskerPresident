@@ -147,9 +147,9 @@ public partial class SaveManager
         saveDataInstance.dayInfo.statB = 30;
         saveDataInstance.dayInfo.statC = 30;
 
-        saveDataInstance.dayInfo.sinkA = -15;
-        saveDataInstance.dayInfo.sinkB = -15;
-        saveDataInstance.dayInfo.sinkC = -15;
+        saveDataInstance.dayInfo.sinkA = -10;
+        saveDataInstance.dayInfo.sinkB = -10;
+        saveDataInstance.dayInfo.sinkC = -10;
 
         saveDataInstance.dayInfo.day = 1;
 

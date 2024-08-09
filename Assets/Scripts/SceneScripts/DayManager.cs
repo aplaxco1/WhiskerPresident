@@ -41,9 +41,9 @@ public partial class DayManager : MonoBehaviour
         dayInfo.statB = 30;
         dayInfo.statC = 30;
 
-        dayInfo.sinkA = -15;
-        dayInfo.sinkB = -15;
-        dayInfo.sinkC = -15;
+        dayInfo.sinkA = -10;
+        dayInfo.sinkB = -10;
+        dayInfo.sinkC = -10;
 
         dayInfo.day = 1;
     }

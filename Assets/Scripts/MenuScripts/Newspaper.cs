@@ -13,11 +13,11 @@ public class Newspaper : MonoBehaviour
     void Start()
     {  
         float avg = calulateEconomyAverage();
-        if (avg > 40f) {
+        if (avg >= 35f) {
             newsText1.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "news-high-1");
             newsText2.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "news-high-2");
         }
-        else if (avg < 10f) {
+        else if (avg <= 10f) {
             newsText1.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "news-low-1");
             newsText2.text = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString("String Table", "news-low-2");
         }
