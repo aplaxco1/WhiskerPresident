@@ -9101,6 +9101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grandFatherCuckooSource: {fileID: 1293849871}
   phoneAudioSource: {fileID: 1738931425}
+  bgmSource: {fileID: 0}
 --- !u!4 &1577289829
 Transform:
   m_ObjectHideFlags: 0
@@ -16539,7 +16540,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 799c1332fd01b1242bf9d17dbf9d2c62, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0dd0e91f71dabee4f87a867291443a06, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
