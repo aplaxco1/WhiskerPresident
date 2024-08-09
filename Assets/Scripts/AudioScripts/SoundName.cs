@@ -12,6 +12,7 @@ public enum SoundName
     phone_slam,
     squeak,
     stack_paper_smack,
+    stamp_slap,
     telephone_1,
     wood_cut,
 }

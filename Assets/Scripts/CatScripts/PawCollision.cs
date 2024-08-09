@@ -54,6 +54,9 @@ public class PawCollision : MonoBehaviour
         if (ob.CompareTag("Bill") || ob.CompareTag("Stack")) {
             AudioManager.Instance.Play(SoundName.paper_smack, 0.5f);
         }
+        else if (ob.CompareTag("Inkpad")) {
+            AudioManager.Instance.Play(SoundName.stamp_slap, 0.5f);
+        }
         else{
             AudioManager.Instance.Play(SoundName.wood_cut, 0.5f);
         }
