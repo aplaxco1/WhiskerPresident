@@ -14,6 +14,7 @@ public class Timer : MonoBehaviour
     public GameObject laserPointer; // to pause
     public VolumeManager volumeManager;
     public NewBillMovement billMovementScript;
+    public SceneTransition SceneTransition;
 
     private float flashTimer = 0.75f;
     private float flashDuration = 0.25f;
@@ -32,7 +33,6 @@ public class Timer : MonoBehaviour
         //AnalyticsEvents.playerScreenSettings(); // CHECKS IF PLAYER PLAYING GAME FULLSCREEN OR WINDOWED
         //InvokeRepeating("FlashLabel", 0, interval);
     }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -55,19 +55,34 @@ public class Timer : MonoBehaviour
 
         if (timesUpOver) {
             timesUpOver = false;
-            timeValue = 0;
-            if (billMovementScript) {
-                foreach(GameObject bill in billMovementScript.bills) {
-                    bill.GetComponentInChildren<BillController>().UninitializeBill();
-                }
-            }
-            ResetTimer();
-            DayManager.Instance.DayEnd();
+            //if (hatred) {
+            StartCoroutine(TimesUpOver());
+            //}
+            //timeValue = 0;
+            //if (billMovementScript) {
+            //    foreach(GameObject bill in billMovementScript.bills) {
+            //        bill.GetComponentInChildren<BillController>().UninitializeBill();
+            //    }
+            //}
+            //ResetTimer();
+            //DayManager.Instance.DayEnd(SceneTransition);
+            //DayManager.Instance.DayEnd();
         }
 
         //AnalyticsEvents.checkFramerate(); // CHECKS FRAMERATE DURING GAMEPLAY FOR ANALYTICS
 
         DisplayTime(timeValue);
+    }
+
+    IEnumerator TimesUpOver() {
+        if (billMovementScript) {
+            foreach(GameObject bill in billMovementScript.bills) {
+                bill.GetComponentInChildren<BillController>().UninitializeBill();
+            }
+        }
+        ResetTimer();
+        DayManager.Instance.DayEnd();
+        yield return null;
     }
 
     void DisplayTime(float timeToDisplay)
@@ -125,8 +140,11 @@ public class Timer : MonoBehaviour
         sinkValues.StatC = SaveManager.Instance.currentSaveData.dayInfo.sinkC;
         StatTextManager.initializePopups(sinkValues);
 
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(4);
 
+        SceneTransition.transitionAnimator.SetTrigger("Exit");
+
+        yield return new WaitForSecondsRealtime(1);
         timesUpOver = true;
         //if (SaveManager.Instance.currentSaveData.dayInfo.day == 1) { AnalyticsEvents.tutorialCompleted(); } // TEMP WAY TO SEND ANALYTICS EVENT IF FIRST ROUND COMPLETE
     }

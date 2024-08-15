@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class BillReviewMenu : MonoBehaviour
 {
+    public SceneTransition SceneTransition;
 
     public void BacktoOffice()
     {
         //SceneTransitionManager.TransitionPreviousScene();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        StartCoroutine(SceneTransition.ExitTransition(SceneManager.GetActiveScene().buildIndex - 1));
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
     // Start is called before the first frame update
     void Start()

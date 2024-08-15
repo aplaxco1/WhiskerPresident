@@ -10,6 +10,7 @@ public class MainMenuScreen : MonoBehaviour
     public GameObject langScreen;
     public GameObject continueScreen;
     public SaveManager SaveManager;
+    public SceneTransition SceneTransition;
     public AudioSource bgm;
 
     void Start() {
@@ -40,14 +41,16 @@ public class MainMenuScreen : MonoBehaviour
     }
 
     public void ContinueGame() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(SceneTransition.ExitTransition(SceneManager.GetActiveScene().buildIndex + 1));
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //SceneTransitionManager.TransitionNextScene();
     }
 
     public void StartNewGame() {
         //File.Delete(Application.persistentDataPath + "/save1.sav");
         SaveManager.ResetSaveData();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(SceneTransition.ExitTransition(SceneManager.GetActiveScene().buildIndex + 1));
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         //SceneTransitionManager.TransitionNextScene();
     } 
 }

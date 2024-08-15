@@ -12,6 +12,8 @@ public class EndOfGame : MonoBehaviour
     public GameObject loseText;
     public GameObject winText;
 
+    public SceneTransition SceneTransition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,8 @@ public class EndOfGame : MonoBehaviour
     public void BackToMainMenu() {
         looseGame = false;
         winGame = false;
-        SceneManager.LoadScene(0);
+        StartCoroutine(SceneTransition.ExitTransition(0));
+        //SceneManager.LoadScene(0);
     }
 
     
