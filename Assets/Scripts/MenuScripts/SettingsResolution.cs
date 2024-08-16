@@ -17,7 +17,7 @@ public class SettingsResolution : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ResolutionDefault();
+        //ResolutionDefault();
     }
 
     public void ResolutionDefault()
