@@ -36,6 +36,7 @@ public class RenderReplacementShaderToTexture : MonoBehaviour
         Camera thisCamera = GetComponent<Camera>();
 
         // Create a render texture matching the main camera's current dimensions.
+        //renderTexture = new RenderTexture(Screen.width, Screen.height, renderTextureDepth, renderTextureFormat);
         renderTexture = new RenderTexture(thisCamera.pixelWidth, thisCamera.pixelHeight, renderTextureDepth, renderTextureFormat);
         renderTexture.filterMode = filterMode;
         // Surface the render texture as a global variable, available to all shaders.

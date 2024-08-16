@@ -7,6 +7,10 @@ public class Tiling : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        TileChildren();
+    }
+    public void TileChildren()
+    {
         Renderer[] renderers = this.gameObject.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers) {
             foreach (Material material in renderer.materials) {
@@ -14,6 +18,7 @@ public class Tiling : MonoBehaviour
             }
         }
         //setTiling(this.gameObject.GetComponent<Renderer>().material, 50.0f);
+
     }
     void setTiling(Material mat, float tileCount) {
         // calculate tiling dimensions so stays square

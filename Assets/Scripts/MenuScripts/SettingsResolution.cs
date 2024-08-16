@@ -8,6 +8,8 @@ public class SettingsResolution : MonoBehaviour
 
     public static SettingsResolution Instance;
     public SettingsData.Resolution currentResolution;
+    public Tiling environmentHalftoneTiler;
+    public Tiling presHalftoneTiler;
 
     private void Awake()
     {
@@ -53,6 +55,14 @@ public class SettingsResolution : MonoBehaviour
     public void SetRes(SettingsData.Resolution res)
     {
         currentResolution = res;
-        Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);    
+        Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);
+        if (environmentHalftoneTiler)
+        {
+            environmentHalftoneTiler.TileChildren();
+        }
+        if (presHalftoneTiler)
+        {
+            presHalftoneTiler.TileChildren();
+        }
     }
 }
