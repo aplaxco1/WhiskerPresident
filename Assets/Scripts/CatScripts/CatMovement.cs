@@ -226,7 +226,8 @@ public class CatMovement : MonoBehaviour
         smacking = false;
         if (pawCollisionDetection.surface == null) { Debug.Log("gone :("); return; }
         if (pawCollisionDetection.surface.CompareTag("Mouse")) {
-            AudioManager.Instance.Play(SoundName.squeak, 0.5f);   
+            AudioManager.Instance.Play(SoundName.squeak, 0.5f);  
+            return; 
         }
         if (pawCollisionDetection.surface.CompareTag("Phone"))
         {
