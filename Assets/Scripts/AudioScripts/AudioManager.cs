@@ -52,7 +52,6 @@ public class AudioManager : MonoBehaviour
     public void stopAllSounds(){
         grandFatherCuckooSource.Stop();
         phoneAudioSource.Stop();
-        bgmSource.Stop();
         
     }
 
