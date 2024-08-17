@@ -28,6 +28,10 @@ public class RenderReplacementShaderToTexture : MonoBehaviour
 
     private void Start()
     {
+        renderOutlines();
+    }
+
+    public void renderOutlines() {
         foreach (Transform t in transform)
         {
             DestroyImmediate(t.gameObject);
