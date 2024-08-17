@@ -8647,6 +8647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3181afa4cb4415c84dbb5b938166f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outlines: {fileID: 0}
 --- !u!4 &1466021056
 Transform:
   m_ObjectHideFlags: 0
@@ -17132,6 +17133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3181afa4cb4415c84dbb5b938166f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outlines: {fileID: 1773983172}
 --- !u!1 &2110097925
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,10 @@ public class RenderReplacementShaderToTexture : MonoBehaviour
 
     private void Start()
     {
+        renderOutlines();
+    }
+
+    public void renderOutlines() {
         foreach (Transform t in transform)
         {
             DestroyImmediate(t.gameObject);
@@ -51,5 +55,6 @@ public class RenderReplacementShaderToTexture : MonoBehaviour
         camera.depth = thisCamera.depth - 1;
         camera.clearFlags = cameraClearFlags;
         camera.backgroundColor = background;
+        Debug.Log("AHHHHHHHHHHHHHHHHHHHHHHHHH");
     }
 }

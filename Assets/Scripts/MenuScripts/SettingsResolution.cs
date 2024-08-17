@@ -9,6 +9,8 @@ public class SettingsResolution : MonoBehaviour
     public static SettingsResolution Instance;
     public SettingsData.Resolution currentResolution;
 
+    public RenderReplacementShaderToTexture outlines;
+
     private void Awake()
     {
         Instance = this;
@@ -52,6 +54,7 @@ public class SettingsResolution : MonoBehaviour
 
     public void SetRes(SettingsData.Resolution res)
     {
+        if (outlines) { outlines.renderOutlines(); }
         currentResolution = res;
         Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);    
     }
