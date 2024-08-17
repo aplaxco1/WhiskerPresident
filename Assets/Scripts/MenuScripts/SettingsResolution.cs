@@ -54,8 +54,13 @@ public class SettingsResolution : MonoBehaviour
 
     public void SetRes(SettingsData.Resolution res)
     {
-        if (outlines) { outlines.renderOutlines(); }
         currentResolution = res;
-        Screen.SetResolution(res.width, res.height, FullScreenMode.FullScreenWindow);    
+        StartCoroutine(updateRes());    
+    }
+
+    private IEnumerator updateRes() {
+        Screen.SetResolution(currentResolution.width, currentResolution.height, FullScreenMode.FullScreenWindow);
+        yield return null;
+        if (outlines) { outlines.renderOutlines(); }
     }
 }

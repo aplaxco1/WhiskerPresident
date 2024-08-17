@@ -55,6 +55,5 @@ public class RenderReplacementShaderToTexture : MonoBehaviour
         camera.depth = thisCamera.depth - 1;
         camera.clearFlags = cameraClearFlags;
         camera.backgroundColor = background;
-        Debug.Log("AHHHHHHHHHHHHHHHHHHHHHHHHH");
     }
 }
