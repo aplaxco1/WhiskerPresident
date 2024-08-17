@@ -10,6 +10,8 @@ public class SettingsResolution : MonoBehaviour
     public SettingsData.Resolution currentResolution;
 
     public RenderReplacementShaderToTexture outlines;
+    public Tiling environmentHalftoneTiler;
+    public Tiling presHalftoneTiler;
 
     private void Awake()
     {
@@ -61,6 +63,9 @@ public class SettingsResolution : MonoBehaviour
     private IEnumerator updateRes() {
         Screen.SetResolution(currentResolution.width, currentResolution.height, FullScreenMode.FullScreenWindow);
         yield return null;
+
+        if (environmentHalftoneTiler){ environmentHalftoneTiler.TileChildren(); }
+        if (presHalftoneTiler) { presHalftoneTiler.TileChildren();}
         if (outlines) { outlines.renderOutlines(); }
     }
 }
